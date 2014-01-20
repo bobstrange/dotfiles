@@ -1,5 +1,3 @@
-set notitle
-set nocompatible
 
 " モードラインを有効にして、5行目までをモードラインとして検索{{{1
 " set modeline
@@ -188,9 +186,9 @@ filetype off
 
 if has('vim_starting')
     " NeoBundleをインストールしたディレクトリを指定
-    set runtimepath+=~/.vim/bundle/neobundle.vim
+    set runtimepath+=~/.vim/neobundle.vim
     " プラグインをインストールするディレクトリを指定
-    call neobundle#rc(expand('~/.vim/.bundle'))
+    call neobundle#rc(expand('~/.bundle'))
 endif
 
 NeoBundle 'altercation/vim-colors-solarized'
