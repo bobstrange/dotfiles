@@ -186,7 +186,7 @@ filetype off
 
 if has('vim_starting')
     " NeoBundleをインストールしたディレクトリを指定
-    set runtimepath+=~/.vim/neobundle.vim
+    set runtimepath+=~/.vim/bundle/neobundle.vim
     " プラグインをインストールするディレクトリを指定
     call neobundle#rc(expand('~/.bundle'))
 endif
