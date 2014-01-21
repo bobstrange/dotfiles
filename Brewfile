@@ -10,3 +10,8 @@ install brew-cask
 
 # パッケージのインストール
 install zsh
+
+
+# dmgのインストール
+cask install xquartz
+cask install google-chrome
