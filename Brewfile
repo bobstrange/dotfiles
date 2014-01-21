@@ -11,6 +11,7 @@ install brew-cask
 # パッケージのインストール
 install zsh
 install git
+install git-flow
 
 # dmgのインストール
 cask install xquartz
