@@ -1,0 +1,8 @@
+[user]
+  name = bob1983
+  email = bob.1983.g@gmail.com
+[core]
+  excludesfile = $HOME/.gitignore
+  editor = vim
+[color]
+  ui = auto
