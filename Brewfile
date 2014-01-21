@@ -10,7 +10,7 @@ install brew-cask
 
 # パッケージのインストール
 install zsh
-
+install git
 
 # dmgのインストール
 cask install xquartz
