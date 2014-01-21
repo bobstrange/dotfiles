@@ -21,3 +21,6 @@ cask install evernote
 cask install sequel-pro
 cask install skype
 cask install keyremap4macbook
+
+# 不要ファイルの削除
+cleanup
