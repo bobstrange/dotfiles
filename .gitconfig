@@ -1,8 +1,18 @@
-[user]
-  name = bob1983
-  email = bob.1983.g@gmail.com
+
+[credential]
+
 [core]
-  excludesfile = $HOME/.gitignore
-  editor = vim
-[color]
-  ui = auto
+	excludesfile = $HOME/.gitignore_global
+	editor = vim
+
+[hub]
+protocol = https
+[user]
+	name = bob1983
+	email = bob.1983.g@gmail.com
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.8.0.3/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
