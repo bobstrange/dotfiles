@@ -10,7 +10,3 @@ install brew-cask
 
 # パッケージのインストール
 install zsh
-
-
-# 不要ファイルを削除
-clean
