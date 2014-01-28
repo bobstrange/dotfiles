@@ -12,6 +12,8 @@ install brew-cask
 install zsh
 install git
 install git-flow
+install openssl
+install readline
 
 # dmgのインストール
 cask install xquartz
