@@ -14,6 +14,9 @@ install git
 install git-flow
 install openssl
 install readline
+install ruby-build
+install rbenv
+install rbenv-gemset
 
 # dmgのインストール
 cask install xquartz
