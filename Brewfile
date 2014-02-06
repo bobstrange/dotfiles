@@ -17,6 +17,7 @@ install readline
 install ruby-build
 install rbenv
 install rbenv-gemset
+install fontforge
 
 # dmgのインストール
 cask install xquartz
@@ -27,6 +28,7 @@ cask install evernote
 cask install sequel-pro
 cask install skype
 cask install keyremap4macbook
+cask install iterm2
 
 # 不要ファイルの削除
 cleanup
