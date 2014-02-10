@@ -18,6 +18,7 @@ install ruby-build
 install rbenv
 install rbenv-gemset
 install fontforge
+install mysql
 
 # dmgのインストール
 cask install xquartz
