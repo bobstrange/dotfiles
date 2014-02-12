@@ -2,7 +2,7 @@
 [credential]
 
 [core]
-	excludesfile = $HOME/.gitignore_global
+	excludesfile = $HOME/.gitignore 
 	editor = vim
 
 [hub]
