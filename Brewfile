@@ -30,6 +30,7 @@ cask install sequel-pro
 cask install skype
 cask install keyremap4macbook
 cask install iterm2
+cask install sublime-text
 
 # 不要ファイルの削除
 cleanup
