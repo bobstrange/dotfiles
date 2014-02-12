@@ -1,1 +1,8 @@
 .DS_Store
+
+# xcode関連
+project.xcworkspace
+
+# ruby関連
+.ruby-gemset
+.rbenv-gemsets
