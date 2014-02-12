@@ -70,3 +70,14 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+function gem(){
+  $HOME/.rbenv/shims/gem
+  if ["$1" ="install" ] || ["$1" = "i" ] || ["$1" = "uninstall"] || ["$1" = "uni" ]
+  then
+    rbenv rehash
+    rehash
+  fi
+}
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
