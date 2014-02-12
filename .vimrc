@@ -211,7 +211,8 @@ NeoBundle 'git://github.com/Shougo/neosnippet.vim.git'
 NeoBundle 'git://github.com/bbatsov/rubocop.git'
 "vim-rails vimからrailsコマンドを実行
 NeoBundle 'git://github.com/tpope/vim-rails.git'
-"unite
+"unite vim用の統合ユーザ・インターフェース
+NeoBundle 'Shougo/unite.vim'
 
 
 " カラースキーマを設定 {{{1
