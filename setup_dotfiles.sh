@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # make alias to $home
-DOT_FILES=(.zshrc .vimrc .vim .gitignore_global .hgignore_global .gitconfig Brewfile)
+DOT_FILES=(.zshrc .vimrc .vim .hgignore_global .gitconfig .gitignore Brewfile)
 
 for file in ${DOT_FILES[@]}
 do
