@@ -1,7 +1,13 @@
 .DS_Store
 
 # xcode関連
-project.xcworkspace
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
 
 # ruby関連
 .ruby-gemset

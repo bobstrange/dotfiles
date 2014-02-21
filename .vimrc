@@ -213,7 +213,8 @@ NeoBundle 'git://github.com/bbatsov/rubocop.git'
 NeoBundle 'git://github.com/tpope/vim-rails.git'
 "unite vim用の統合ユーザ・インターフェース
 NeoBundle 'Shougo/unite.vim'
-
+" tcomment コメントアウト
+NeoBundle 'tomtom/tcomment_vim'
 
 " カラースキーマを設定 {{{1
 set background=dark

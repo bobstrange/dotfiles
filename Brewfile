@@ -32,6 +32,8 @@ cask install keyremap4macbook
 cask install iterm2
 cask install sublime-text
 cask install clashlytics        # clash log framework
+cask install toggldesktop
+cask install calibre			# pdf to mobi
 
 # 不要ファイルの削除
 cleanup
