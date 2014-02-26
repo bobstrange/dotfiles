@@ -81,3 +81,6 @@ function gem(){
 }
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# node
+source $(brew --prefix nvm)/nvm.sh
