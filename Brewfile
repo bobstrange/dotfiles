@@ -20,6 +20,7 @@ install rbenv-gemset
 install fontforge
 install mysql
 install nvm
+install ctags
 
 # dmgのインストール
 cask install xquartz
