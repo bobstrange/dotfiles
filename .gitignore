@@ -12,3 +12,7 @@ xcuserdata/
 # ruby関連
 .ruby-gemset
 .rbenv-gemsets
+
+# ctags
+.gemtags
+.tags
