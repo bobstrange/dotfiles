@@ -35,7 +35,8 @@ cask install iterm2
 cask install sublime-text
 cask install clashlytics        # clash log framework
 cask install toggldesktop
-cask install calibre			# pdf to mobi
+cask install calibre            # pdf to mobi
+cask install virtualbox
 
 # 不要ファイルの削除
 cleanup
