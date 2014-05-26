@@ -21,6 +21,7 @@ install fontforge
 install mysql
 install nvm
 install ctags
+install redis
 
 # dmgのインストール
 cask install xquartz
@@ -37,6 +38,10 @@ cask install clashlytics        # clash log framework
 cask install toggldesktop
 cask install calibre            # pdf to mobi
 cask install virtualbox
+cask install vagrant
+cask install filezilla
+cask install genymotion
+cask install firefox
 
 # 不要ファイルの削除
 cleanup
