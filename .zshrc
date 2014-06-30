@@ -82,5 +82,18 @@ function gem(){
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# node
-source $(brew --prefix nvm)/nvm.sh
+# AWS
+source /usr/local/share/zsh/site-functions/_aws
+
+# AWS Cloudsearch
+export CS_HOME="$HOME/tools/cloud-search-tools-v2-2.0.0.1-2014.03.14"
+export PATH=$PATH:$CS_HOME/bin
+export AWS_CREDENTIAL_FILE="$HOME/aws-stulio-bob-account-key"
+export CS_ENDPOINT=cloudsearch.ap-northeast-1.amazonaws.com
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+PATH=${JAVA_HOME}/bin:${PATH}
+
+# nodejs
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+

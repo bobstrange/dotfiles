@@ -6,6 +6,7 @@ upgrade
 
 # homebrew-caskのインストール
 tap phinze/homebrew-cask || true
+tap caskroom/homebrew-versions || true
 install brew-cask
 
 # パッケージのインストール
@@ -19,9 +20,10 @@ install rbenv
 install rbenv-gemset
 install fontforge
 install mysql
-install nvm
 install ctags
 install redis
+install nodebrew
+install pyenv
 
 # dmgのインストール
 cask install xquartz
