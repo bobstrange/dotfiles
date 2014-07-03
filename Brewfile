@@ -45,5 +45,7 @@ cask install filezilla
 cask install genymotion
 cask install firefox
 cask install google-drive
+cask install screenhero 
+
 # 不要ファイルの削除
 cleanup
