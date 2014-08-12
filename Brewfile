@@ -24,6 +24,8 @@ install ctags
 install redis
 install nodebrew
 install pyenv
+install tmux
+install reattach-to-user-namespace
 
 # dmgのインストール
 cask install xquartz

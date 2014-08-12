@@ -96,3 +96,7 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # pyenv
 eval "$(pyenv init -)"
+
+# vim
+alias vi='env LANG=ja_JP.UTF-8 $HOME/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env LANG=ja_JP.UTF-8 $HOME/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
