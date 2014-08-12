@@ -8,6 +8,7 @@ upgrade
 tap phinze/homebrew-cask || true
 tap caskroom/homebrew-versions || true
 install brew-cask
+tap sanemat/font
 
 # パッケージのインストール
 install zsh
@@ -26,6 +27,7 @@ install nodebrew
 install pyenv
 install tmux
 install reattach-to-user-namespace
+install --vim-powerline ricty
 
 # dmgのインストール
 cask install xquartz
