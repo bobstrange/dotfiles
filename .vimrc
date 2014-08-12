@@ -73,6 +73,9 @@ set clipboard=unnamed,autoselect
 " コピーした文字で、繰り返し上書きペースト
 vnoremap <silent> <C-p> "0p<CR>
 
+" コピペ時にコメントアウトされてしまう問題の対応
+autocmd FileType * setlocal formatoptions-=ro
+
 " cmigemoの設定
  let g:ctrlp_use_migemo = 1
 
