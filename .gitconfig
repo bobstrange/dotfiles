@@ -16,3 +16,5 @@ protocol = https
 	trustExitCode = true
 [credential]
 	helper = osxkeychain
+[push]
+	default = simple
