@@ -28,6 +28,7 @@ install pyenv
 install tmux
 install reattach-to-user-namespace
 install --vim-powerline ricty
+install pngquant
 
 # dmgのインストール
 cask install xquartz
