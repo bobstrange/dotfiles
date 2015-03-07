@@ -71,14 +71,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-function gem(){
-  $HOME/.rbenv/shims/gem $*
-  if [ "$1" = "install" ] || [ "$1" = "i" ] || [ "$1" = "uninstall" ] || [ "$1" = "uni" ]
-  then
-    rbenv rehash
-    rehash
-  fi
-}
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
@@ -100,3 +92,6 @@ eval "$(pyenv init -)"
 # vim
 alias vi='env LANG=ja_JP.UTF-8 $HOME/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 $HOME/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+
+# brew cask
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
