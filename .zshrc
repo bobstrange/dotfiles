@@ -55,11 +55,11 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+else
+   export EDITOR='atom'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -85,6 +85,7 @@ PATH=${JAVA_HOME}/bin:${PATH}
 
 # nodejs
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+export PATH=$HOME/.nodebrew/current/bin/npm:$PATH
 
 # pyenv
 eval "$(pyenv init -)"
@@ -95,3 +96,9 @@ alias vim='env LANG=ja_JP.UTF-8 $HOME/Applications/MacVim.app/Contents/MacOS/Vim
 
 # brew cask
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# kiex
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"

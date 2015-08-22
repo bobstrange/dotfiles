@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/bob/.vim'
 let g:netrw_dirhist_2='/Users/teradam/works/rails_projects/sample_app'
 let g:netrw_dirhist_3='/Users/teradam/works/Stulio'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/Users/teradam/Dropbox/勉強'
 let g:netrw_dirhist_6='/Users/teradam/.ssh'
 let g:netrw_dirhist_7='/Users/teradam/works/Stulio/stulio-ios-phybbit/stulio_trunk/Pods'
 let g:netrw_dirhist_8='/Users/teradam/works/Stulio/stulio-server-phybbit/script/aws/output/register'
+let g:netrw_dirhist_9='/Users/teradam/works/manga-anime-here/node_modules/mongoose'
