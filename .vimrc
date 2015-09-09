@@ -33,8 +33,8 @@ set showmatch
 set autoindent
 " タブ文字の代わりにスペース2個を使う場合の設定。
 " この場合、'tabstop'はデフォルトの8から変えない。
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 " タブの代わりにスペースを使用する
 set expandtab
 " 新しい行を作った時に高度な自動なインデントを行う
@@ -75,10 +75,6 @@ vnoremap <silent> <C-p> "0p<CR>
 
 " コピペ時にコメントアウトされてしまう問題の対応
 autocmd FileType * setlocal formatoptions-=ro
-
-" cmigemoの設定
- let g:ctrlp_use_migemo = 1
-
 
 
 " 検索関連 {{{1
@@ -183,7 +179,7 @@ endif
 
 
 
-" NeoBundleの設定{{{1 
+" NeoBundleの設定{{{1
 
 filetype off
 
@@ -221,36 +217,6 @@ NeoBundle 'tomtom/tcomment_vim'
 
 " カラースキーマを設定 {{{1
 set background=dark
-colorscheme solarized
-let g:solarized_termcolors=256
-
-
 
 filetype plugin on
 filetype indent on
-
-
-""""""""""""""""""""
-" Python周りの設定 {{{1
-""""""""""""""""""""
-
-" インデントの設定
-autocmd FileType python setl autoindent
-autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd FileType python setl expandtab tabstop=4 shiftwidth=4 softtabstop=4
-
-" スクリプトの実行
-"  Execute python script C-P 
-function! s:ExecPy()
-    exe "!" . &ft . " %"
-:endfunction
-command! Exec call <SID>ExecPy()
-autocmd FileType python map <silent> <C-P> :call <SID>ExecPy()<CR>
-
-" pydiction
-autocmd FileType python let g:pydiction_location = '~/.vim/pydiction/complete-dict'
-
-" foldmethod {{{1
-" vim: foldmethod=marker
-" vim: foldcolumn=3
-" vim: foldlevel=0
