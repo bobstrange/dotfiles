@@ -85,6 +85,7 @@ brew 'watchman'
 brew 'zsh'
 brew 'homebrew/dupes/grep'
 brew 'sanemat/font/ricty', args: ['vim-powerline']
+brew 'wget'
 cask 'alfred'
 cask 'atom'
 cask 'balsamiq-mockups'
