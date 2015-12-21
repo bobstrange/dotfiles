@@ -1,3 +1,4 @@
+# taps
 tap 'caskroom/cask'
 tap 'caskroom/versions'
 tap 'homebrew/apache'
@@ -7,16 +8,21 @@ tap 'homebrew/dupes'
 tap 'homebrew/php'
 tap 'homebrew/versions'
 tap 'sanemat/font'
+
+# install cask
 brew 'caskroom/cask/brew-cask'
+
+# essential
 cask 'xquartz'
+brew 'xz'
+brew 'automake'
+
 brew 'libyaml'
 brew 'openssl'
 brew 'ansible'
 brew 'apr'
 brew 'apr-util'
 brew 'autoconf'
-brew 'xz'
-brew 'automake'
 brew 'icu4c'
 brew 'pkg-config'
 brew 'libpng'
@@ -88,6 +94,10 @@ brew 'sanemat/font/ricty', args: ['vim-powerline']
 brew 'wget'
 brew 'postgresql'
 brew 'awscli'
+brew 'jq'
+brew 'antigen'
+
+# casks
 cask 'alfred'
 cask 'atom'
 cask 'balsamiq-mockups'
@@ -120,6 +130,4 @@ cask 'virtualbox'
 cask 'vlc'
 cask 'google-japanese-ime'
 brew 'ghq'
-brew 'antigen'
 cask 'visual-studio-code'
-brew 'jq'
