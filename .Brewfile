@@ -96,6 +96,7 @@ brew 'postgresql'
 brew 'awscli'
 brew 'jq'
 brew 'antigen'
+brew 'otto'
 
 # casks
 cask 'alfred'
