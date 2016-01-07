@@ -27,3 +27,6 @@ Pods/
 # ctags
 .gemtags
 .tags
+
+# vim
+*.un~
