@@ -21,3 +21,9 @@ protocol = https
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
+[alias]
+  st = status 
+  cm = commit
+  fe = fetch --all --prune
+  br = branch
+  co = checkout
