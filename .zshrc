@@ -102,3 +102,17 @@ eval "$(direnv hook zsh)"
 
 # kiex
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+
+if [ -f ~/.brew_github_api_token ]; then
+  source ~/.brew_github_api_token
+fi
+
+# go
+export GOROOT=/usr/local/Cellar/go
+export GOPATH="$HOME/.go"
+export PATH="$GOPATH:$PATH"
+
+source ~/.aws_config
+
+# vs code
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}

@@ -97,7 +97,6 @@ brew 'awscli'
 brew 'jq'
 brew 'antigen'
 brew 'otto'
-brew 'git-extras'
 
 # casks
 cask 'alfred'

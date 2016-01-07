@@ -1,5 +1,5 @@
 [core]
-  excludesfile = /Users/teradam/.gitignore
+  excludesfile = /Users/bob/.gitignore
   editor = vim
 
 [hub]
