@@ -8,11 +8,11 @@ protocol = https
   name = 'bob1983'
   email = 'bob.1983.g@gmail.com'
 [difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
 [mergetool "sourcetree"]
-  cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.5.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 [credential]
   helper = osxkeychain
 [push]
@@ -24,6 +24,6 @@ protocol = https
 [alias]
   st = status 
   cm = commit
-  fe = fetch --all --prune
+  fap = fetch --all --prune
   br = branch
   co = checkout

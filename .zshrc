@@ -103,8 +103,8 @@ eval "$(direnv hook zsh)"
 # kiex
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
-if [ -f ~/.brew_github_api_token ]; then
-  source ~/.brew_github_api_token
+if [ -f ~/.github_api_token]; then
+  source ~/.github_api_token
 fi
 
 # go
