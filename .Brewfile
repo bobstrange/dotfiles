@@ -97,6 +97,7 @@ brew 'awscli'
 brew 'jq'
 brew 'antigen'
 brew 'otto'
+brew 'peco'
 
 # casks
 cask 'alfred'
