@@ -20,13 +20,13 @@ DerivedData
 # CocoaPods
 Pods/
 
-# ruby関連
-.ruby-gemset
-.rbenv-gemsets
-
 # ctags
 .gemtags
 .tags
 
 # vim
 *.un~
+
+# npm
+.npmrc
+
