@@ -10,6 +10,11 @@ insert_final_newline = true
 
 # Matches multiple files with brace expansion notation
 # Set default charset
+[*.sh]
+charset = utf-8
+indent_style = space
+indent_size = 4
+
 [*.{js,es6}]
 charset = utf-8
 indent_style = space
