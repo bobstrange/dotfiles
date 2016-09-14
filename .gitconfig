@@ -27,6 +27,7 @@ protocol = https
   fap = fetch --all --prune
   br = branch
   co = checkout
+  fp = push --force-with-lease
 
   unstage = reset -q HEAD --
   discard = checkout --
