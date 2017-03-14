@@ -67,9 +67,6 @@ set nobackup
 set hidden
 " コマンドライン補完を便利に
 set wildmenu
-" 他のアプリでコピーした文字をVimで貼り付け、逆
-set clipboard=unnamed,autoselect
-
 " コピーした文字で、繰り返し上書きペースト
 vnoremap <silent> <C-p> "0p<CR>
 
@@ -176,47 +173,40 @@ if has('iconv')
 endif
 
 
+"dein Scripts-----------------------------
 
-
-
-" NeoBundleの設定{{{1
-
-filetype off
-
-if has('vim_starting')
-    " NeoBundleをインストールしたディレクトリを指定
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-    " プラグインをインストールするディレクトリを指定
-    call neobundle#rc(expand('~/.bundle'))
+if &compatible
+  set nocompatible
 endif
 
-NeoBundle 'altercation/vim-colors-solarized'
-" ctrlp ファイルの選択
-NeoBundle 'git://github.com/kien/ctrlp.vim.git'
-" neobundle vimのプラグインの管理
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-" nerdtree ツリー型エクスプローラ
-NeoBundle 'git://github.com/scrooloose/nerdtree.git'
-" syntastic 構文チェック
-NeoBundle 'git://github.com/scrooloose/syntastic.git'
-" neocomplcache コード補完
-NeoBundle 'git://github.com/Shougo/neocomplcache.vim.git'
-" for Rails
-" alpaca_tags c_tagsの非同期生成
-NeoBundle 'git://github.com/alpaca-tc/alpaca_tags.git'
-" neosnippet Rails/sinatra/rspecの補完
-NeoBundle 'git://github.com/Shougo/neosnippet.vim.git'
-" robocop コーディング規約に準拠しているかチェック
-NeoBundle 'git://github.com/bbatsov/rubocop.git'
-"vim-rails vimからrailsコマンドを実行
-NeoBundle 'git://github.com/tpope/vim-rails.git'
-"unite vim用の統合ユーザ・インターフェース
-NeoBundle 'Shougo/unite.vim'
-" tcomment コメントアウト
-NeoBundle 'tomtom/tcomment_vim'
+" Required:
+set runtimepath+=~/.vim/./dein/repos/github.com/Shougo/dein.vim
 
-" カラースキーマを設定 {{{1
-set background=dark
+" Required:
+call dein#begin('~/.vim/./dein')
 
-filetype plugin on
-filetype indent on
+" Let dein manage dein
+" Required:
+call dein#add('Shougo/dein.vim')
+
+" Add or remove your plugins here:
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/deoplete.nvim')
+
+" You can specify revision/branch/tag.
+call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" Required:
+call dein#end()
+
+" Required:
+filetype plugin indent on
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"Use deoplete
+let g:deoplete#enable_at_startup = 1
