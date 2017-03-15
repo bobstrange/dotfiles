@@ -33,8 +33,8 @@ set showmatch
 set autoindent
 " タブ文字の代わりにスペース2個を使う場合の設定。
 " この場合、'tabstop'はデフォルトの8から変えない。
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 " タブの代わりにスペースを使用する
 set expandtab
 " 新しい行を作った時に高度な自動なインデントを行う
