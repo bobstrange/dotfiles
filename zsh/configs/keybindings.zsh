@@ -1,17 +1,13 @@
- # give us access to ^Q
- stty -ixon
+# handy keybindings
 
- # vi mode
- bindkey -v
- bindkey "^V" vi-cmd-mode
-
- # handy keybindings
- bindkey "^A" beginning-of-line
- bindkey "^E" end-of-line
- bindkey "^K" kill-line
- bindkey "^R" history-incremental-search-backward
- bindkey "^P" history-search-backward
- bindkey "^Y" accept-and-hold
- bindkey "^N" insert-last-word
- bindkey "^Q" push-line-or-edit
- bindkey -s "^T" "^[Isudo ^[A" # "t" for "toughguy"
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+bindkey "^f" forward-char
+bindkey "^b" backward-char
+bindkey "^k" kill-line
+bindkey "^d" delete-char
+bindkey "^p" history-search-backward
+bindkey "^n" history-search-forward
+bindkey "^y" accept-and-hold
+bindkey "^w" backward-kill-word
+bindkey "^u" backward-kill-line

@@ -1,2 +1,2 @@
-export VISUAL=vim
-export EDITOR=$VISUAL
+export EDITOR="vim"
+sz() { source ~/.zshrc }
