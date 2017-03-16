@@ -28,6 +28,7 @@ protocol = https
   br = branch
   co = checkout
   fp = push --force-with-lease
+  cb = rev-parse --abbrev-ref HEAD
 
   unstage = reset -q HEAD --
   discard = checkout --
