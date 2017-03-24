@@ -33,7 +33,8 @@ protocol = https
   unstage = reset -q HEAD --
   discard = checkout --
   uncommit = reset --mixed HEAD~
-  amend = commit --amend
+  amend = commit --amend --no-edit
+  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
 
 [commit]
 	template = /Users/bob/.stCommitMsg
