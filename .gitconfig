@@ -35,6 +35,7 @@ protocol = https
   uncommit = reset --mixed HEAD~
   amend = commit --amend --no-edit
   merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
+  delete = branch --delete
 
 [commit]
 	template = /Users/bob/.stCommitMsg
