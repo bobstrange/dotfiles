@@ -30,3 +30,9 @@ Pods/
 # npm
 .npmrc
 
+
+# vagrant
+.vagrant
+
+# ruby
+.byebug_history
