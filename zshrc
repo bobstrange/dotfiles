@@ -5,6 +5,13 @@ for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
 done
 
+if [ "$(uname)"=='Darwin' ]; then
+
+  for zsh_source in $HOME/.zsh/configs/darwin/*.zsh; do
+    source $zsh_source
+  done
+fi
+
 # load aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
 
@@ -44,4 +51,3 @@ fi
 export GOROOT=/usr/local/Cellar/go
 export GOPATH="$HOME/.go"
 export PATH="$GOPATH:$PATH"
-
