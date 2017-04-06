@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/bob/dotfiles/.gitignore
+	excludesfile = /Users/bob/.gitignore_global
   editor = vim
 
 [hub]
@@ -40,3 +40,5 @@ protocol = https
 [commit]
 	template = /Users/bob/.stCommitMsg
 
+[ghq]
+  root = ~/src
