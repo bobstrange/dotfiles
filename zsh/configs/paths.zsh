@@ -20,3 +20,7 @@ export PATH="$GOPATH:$PATH"
 # yarn
 export PATH="$PATH:`yarn global bin`"
 
+# github token
+if ls ~/.github_token; then
+  source ~/.github_token
+fi
