@@ -16,7 +16,6 @@ brew 'caskroom/cask/brew-cask'
 cask 'xquartz'
 brew 'xz'
 brew 'automake'
-
 brew 'libyaml'
 brew 'openssl'
 brew 'ansible'
@@ -94,6 +93,7 @@ brew 'postgresql'
 brew 'awscli'
 brew 'jq'
 brew 'peco'
+brew 'yarn'
 
 # casks
 cask 'alfred'
