@@ -36,6 +36,8 @@ protocol = https
   amend = commit --amend --no-edit
   merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
   delete = branch --delete
+  delete-merged = !git merged | xargs git delete 
+  update-all = !git stash && git fap && git co development && git pull --rebase && git co master && git pull --rebase
 
 [commit]
 	template = /Users/bob/.stCommitMsg
