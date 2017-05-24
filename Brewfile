@@ -94,6 +94,7 @@ brew 'awscli'
 brew 'jq'
 brew 'peco'
 brew 'yarn'
+brew 'coreutils'
 
 # casks
 cask 'alfred'
