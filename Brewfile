@@ -95,6 +95,7 @@ brew 'jq'
 brew 'peco'
 brew 'yarn'
 brew 'coreutils'
+brew 'the_silver_searcher'
 
 # casks
 cask 'alfred'
