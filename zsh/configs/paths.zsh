@@ -24,3 +24,6 @@ export PATH="$PATH:`yarn global bin`"
 if ls ~/.github_token; then
   source ~/.github_token
 fi
+
+# kiex
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
