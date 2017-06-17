@@ -5,14 +5,8 @@
 [hub]
 protocol = https
 [user]
-	name = bob1983
-	email = bob.1983.g@gmail.com
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  name = bob1983
+  email = bob.1983.g@gmail.com
 [credential]
   helper = osxkeychain
 [push]
@@ -42,7 +36,13 @@ protocol = https
   update-all = !git stash && git fap && git co development && git pull --rebase && git co master && git pull --rebase
 
 [commit]
-	template = /Users/bob/.stCommitMsg
+  template = /Users/bob/.stCommitMsg
 
 [ghq]
   root = ~/src
+[diff]
+  tool = vimdiff
+[mergetool]
+  prompt = false
+[difftool]
+  prompt = false
