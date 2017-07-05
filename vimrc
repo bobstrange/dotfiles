@@ -166,4 +166,16 @@ if has('iconv')
 endif
 
 
+
+packadd minpac
+call minpac#init()
+
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-unimpaired')
+
+" minpac commands:
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
+
 set clipboard+=unnamed,autoselect
