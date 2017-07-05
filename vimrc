@@ -165,3 +165,5 @@ if has('iconv')
   unlet s:enc_jis
 endif
 
+
+set clipboard+=unnamed,autoselect
