@@ -74,6 +74,7 @@ brew "lua"
 brew "mackup"
 brew "mongodb"
 brew "monit"
+brew "moreutils", args: ["without-parallel"]
 brew "mysql", restart_service: true
 brew "neovim"
 brew "nginx"
@@ -106,6 +107,7 @@ brew "sanemat/font/ricty", args: ["vim-powerline", "with-powerline"]
 brew "thoughtbot/formulae/rcm"
 cask "alfred"
 cask "atom"
+cask "chefdk"
 cask "clamxav"
 cask "coteditor"
 cask "cyberduck"
