@@ -175,11 +175,17 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('kien/ctrlp.vim')
 call minpac#add('mileszs/ack.vim')
+call minpac#add('scrooloose/nerdtree')
+call minpac#add('Xuyuanp/nerdtree-git-plugin')
 
+" ack.vim
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " minpac commands:
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
