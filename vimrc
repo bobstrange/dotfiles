@@ -173,6 +173,12 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-unimpaired')
+call minpac#add('kien/ctrlp.vim')
+call minpac#add('mileszs/ack.vim')
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " minpac commands:
 command! PackUpdate call minpac#update()
