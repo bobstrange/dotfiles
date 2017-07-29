@@ -153,6 +153,7 @@ call minpac#add('kien/ctrlp.vim')
 call minpac#add('mileszs/ack.vim')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('Xuyuanp/nerdtree-git-plugin')
+call minpac#add('editorconfig/editorconfig-vim')
 
 " ack.vim
 if executable('ag')
