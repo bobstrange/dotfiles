@@ -107,6 +107,7 @@ brew "zsh"
 brew "sanemat/font/ricty", args: ["vim-powerline", "with-powerline"]
 brew "thoughtbot/formulae/rcm"
 brew "awless"
+brew "googler"
 cask "alfred"
 cask "atom"
 cask "chefdk"
