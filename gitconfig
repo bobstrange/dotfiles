@@ -26,6 +26,8 @@ protocol = https
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   l = !git lo
 
+  modified = ! git diff --name-only --diff-filter=M
+  add-modified = !git modified|xargs git add
   unstage = reset -q HEAD --
   discard = checkout --
   uncommit = reset --mixed HEAD~
