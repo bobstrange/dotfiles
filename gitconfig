@@ -27,7 +27,7 @@ protocol = https
   l = !git lo
 
   modified = ! git diff --name-only --diff-filter=M
-  add-modified = !git modified|xargs git add
+  add-modified = add -u
   unstage = reset -q HEAD --
   discard = checkout --
   uncommit = reset --mixed HEAD~
