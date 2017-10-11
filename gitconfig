@@ -37,6 +37,8 @@ protocol = https
   delete-merged = !git merged | xargs git delete
   update-all = !git stash && git fap && git co development && git pull --rebase && git co master && git pull --rebase
   push-upstream = !git push -u origin $(git cb)
+  delete-tag = tag --delete
+  delete-remote-tag = push --delete origin
 
 [commit]
   template = /Users/bob/.stCommitMsg
