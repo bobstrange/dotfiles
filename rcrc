@@ -1,2 +1,2 @@
-EXCLUDES="README.md setup_vscode.sh"
+EXCLUDES="README.md setup_vscode.sh setup"
 DOTFILES_DIRS="$HOME/dotfiles"
