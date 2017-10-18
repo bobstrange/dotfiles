@@ -1,6 +1,7 @@
 #!/bin/sh
 
-. ./conf
+script_dir=$(cd $(dirname $0); pwd)
+. "${script_dir}/conf"
 
 for version in ${RUBY_VERSIONS}; do
   rbenv install ${version}
