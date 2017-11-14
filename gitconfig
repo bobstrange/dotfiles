@@ -40,6 +40,8 @@ protocol = https
   delete-tag = tag --delete
   delete-remote-tag = push --delete origin
 
+  change = "!f() { git stash; git checkout $1; git pull --rebase; }; f"
+
 [commit]
   template = /Users/bob/.stCommitMsg
 
