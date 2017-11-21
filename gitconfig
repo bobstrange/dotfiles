@@ -31,6 +31,7 @@ protocol = https
   unstage = reset -q HEAD --
   discard = checkout --
   uncommit = reset --mixed HEAD~
+  hard-reset = !git reset --hard "origin/$(git cb)"
   amend = commit --amend --no-edit
   merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
   delete = branch --delete
