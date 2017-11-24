@@ -169,3 +169,9 @@ command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
 set clipboard+=unnamed,autoselect
+
+" Edit crontab with vim
+if $VIM_CRONTAB == 'true'
+  set nobackup
+  set nowritebackup
+endif

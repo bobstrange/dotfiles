@@ -7,6 +7,9 @@ alias tig="tig --all"
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
+# Crontab editin
+alias crontab="VIM_CRONTAB=true crontab"
+
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
