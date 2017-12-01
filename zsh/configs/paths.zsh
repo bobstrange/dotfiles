@@ -1,5 +1,6 @@
 # openssl
 export PATH="/usr/local/opt/openssl/bin:$PATH"
+
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
@@ -29,3 +30,6 @@ fi
 
 # kiex
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+
+# For evm
+source "${HOME}/.evm/scripts/evm"
