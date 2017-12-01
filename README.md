@@ -1,5 +1,4 @@
 # dotfiles
-
 # Usage
 
 Need to install [rcm](https://github.com/thoughtbot/rcm)
