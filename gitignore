@@ -36,3 +36,4 @@ Pods/
 
 # ruby
 .byebug_history
+.env
