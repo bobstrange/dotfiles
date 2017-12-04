@@ -37,3 +37,6 @@ Pods/
 # ruby
 .byebug_history
 .env
+
+# direnv
+.envrc
