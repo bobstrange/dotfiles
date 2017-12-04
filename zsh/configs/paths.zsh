@@ -28,8 +28,12 @@ if ls ~/.github_token; then
   source ~/.github_token
 fi
 
+## Elixir
+# kerl
+export KERL_BASE_DIR=$HOME/.kerl
+export KERL_DEFAULT_INSTALL_DIR=$KERL_BASE_DIR/installs
+export KERL_BUILD_BACKEND=git
+
 # kiex
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
-# For evm
-source "${HOME}/.evm/scripts/evm"

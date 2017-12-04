@@ -1,0 +1,29 @@
+activate_erlang () {
+  ERLANG_VERSION=$1
+
+  if has kerl; then
+    ERLANG_INSTALLATION=$(kerl list installations | grep "^$ERLANG_VERSION " | cut -d' ' -f2)
+    if [ -x "${ERLANG_INSTALLATION}/activate" ] ; then
+        $ERLANG_INSTALLATION/activate
+    else
+        echo "Erlang $ERLANG_VERSION not available; using default."
+    fi
+  else
+    echo "kerl isn't available; Use default Erlang"
+    . $KERL_DEFAULT_INSTALL_DIR/$1/activate
+  fi
+}
+
+activate_elixir () {
+  ELIXIR_VERSION=$1
+
+  if has kiex; then
+    if kiex list|grep -q ${ELIXIR_VERSION} ; then
+      kiex use ${ELIXIR_VERSION}
+    else
+      echo "Elixir ${ELIXIR_VERSION} not available; using default."
+    fi
+  else
+    echo "kiex is not available; Use default Elixir"
+  fi
+}
