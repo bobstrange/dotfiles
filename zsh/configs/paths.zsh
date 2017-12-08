@@ -37,3 +37,5 @@ export KERL_BUILD_BACKEND=git
 # kiex
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
+# hub
+eval "$(hub alias -s)"

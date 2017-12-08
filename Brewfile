@@ -108,6 +108,7 @@ brew "sanemat/font/ricty", args: ["vim-powerline", "with-powerline"]
 brew "thoughtbot/formulae/rcm"
 brew "awless"
 brew "googler"
+brew "hub"
 cask "alfred"
 cask "atom"
 cask "chefdk"
