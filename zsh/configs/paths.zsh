@@ -5,9 +5,9 @@ export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-# nodejs
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-export PATH=$HOME/.nodebrew/current/bin/npm:$PATH
+# ndenv
+export PATH=$HOME/.ndenv/bin:$PATH
+eval "$(ndenv init -)"
 
 # pyenv
 eval "$(pyenv init -)"
