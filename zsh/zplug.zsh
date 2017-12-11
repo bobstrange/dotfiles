@@ -6,7 +6,6 @@ setup_zplug() {
 }
 
 setup_zplug
-zplug 'zsh-users/zsh-completions', defer:3
+zplug "zsh-users/zsh-completions", defer:3
 
 zplug load --verbose
-
