@@ -8,7 +8,7 @@ protocol = https
   name = bob1983
   email = bob.1983.g@gmail.com
 [credential]
-  helper = osxkeychain
+  helper = gnomekeyring
 [push]
   default = simple
 [filter "lfs"]
