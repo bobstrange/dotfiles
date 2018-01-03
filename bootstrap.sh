@@ -73,3 +73,8 @@ echo "Setup rc files"
 env RCRC=$HOME/dotfiles/rcrc rcup
 echo "Done."
 
+# Install go for ghq installation
+sudo apt-get install golang-go
+
+# Install ghq
+go get github.com/motemen/ghq

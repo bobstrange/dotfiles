@@ -12,13 +12,12 @@ eval "$(ndenv init -)"
 # pyenv
 eval "$(pyenv init -)"
 
+# go
+export GOPATH="$HOME/.go"
+export PATH="$GOPATH/bin:$PATH"
+
 # direnv
 eval "$(direnv hook zsh)"
-
-# go
-export GOROOT=/usr/local/Cellar/go
-export GOPATH="$HOME/.go"
-export PATH="$GOPATH:$PATH"
 
 # yarn
 export PATH="$PATH:`yarn global bin`"
