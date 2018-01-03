@@ -45,16 +45,20 @@
 #git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 #echo "Finished to install rbenv and ruby-build"
 
-echo "Starting to install"
+echo "Starting to install ndenv"
+git clone https://github.com/riywo/ndenv ~/.ndenv
+echo "Starting to install node-build"
+git clone https://github.com/riywo/node-build.git ~/plugins/node-build
+echo "Finished to install ndenv"
 
-# Install atom
-echo "Starting to install atom"
-curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - 
-sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-sudo apt-get update 1>/dev/null
-sudo apt-get install atom 1>/dev/null
-echo "Finished install atom"
-
+## Install atom
+#echo "Starting to install atom"
+#curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - 
+#sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+#sudo apt-get update 1>/dev/null
+#sudo apt-get install atom 1>/dev/null
+#echo "Finished install atom"
+#
 # Setup rc files
 #echo "Setup rc files"
 #env RCRC=$HOME/dotfiles/rcrc rcup
