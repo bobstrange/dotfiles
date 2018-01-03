@@ -9,6 +9,7 @@ git clone https://github.com/bob1983/dotfiles ~/dotfiles
 cd dotfiles
 ./bootstrap.sh
 ./setup/dev_langs.sh
+./setup/symlink.sh
 ```
 
 ### Bootstrap for osx
