@@ -49,10 +49,10 @@ echo "Starting to install"
 
 # Install atom
 echo "Starting to install atom"
-curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - 1>/dev/null
-sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' 1>/dev/null
+curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - 
+sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
 sudo apt-get update 1>/dev/null
-sudo apt-get install atom
+sudo apt-get install atom 1>/dev/null
 echo "Finished install atom"
 
 # Setup rc files
