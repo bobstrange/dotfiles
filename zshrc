@@ -9,6 +9,18 @@ if [ "$(uname)" = 'Darwin' ]; then
   done
 fi
 
+# Load ubuntu related configurations
+
+uname -v | grep -q "Ubuntu"
+ubuntu=$?
+echo "Ubuntu ${ubuntu}"
+if [ ${ubuntu} = 0 ]; then
+  echo "Loading"
+  for zsh_source in $HOME/.zsh/configs/ubuntu/*.zsh; do
+    source $zsh_source
+  done
+fi
+
 # load custom configurations
 for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
