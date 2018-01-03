@@ -1,7 +1,5 @@
 setup_zplug() {
-  if [ `uname`=='Darwin' ]; then
-    export ZPLUG_HOME=/usr/local/opt/zplug
-  fi
+  export ZPLUG_HOME=~/.zplug
   source $ZPLUG_HOME/init.zsh
 }
 
