@@ -20,6 +20,10 @@ libgdbm-dev 1> /dev/null
 
 echo "Done."
 
+## gnome keychain
+sudo apt-get install libgnome-keyring-dev -y 1> /dev/null
+sudo make --directory=/usr/share/doc/git/contrib/credential/gnome-keyring 1>/dev/null
+
 # Install zsh
 echo "Starting to install zsh"
 sudo apt-get install -y zsh 1>/dev/null
