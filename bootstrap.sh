@@ -37,7 +37,25 @@
 #cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 #echo "Finished to install dropbox"
 #
+## Install xxxenv
+#echo "Starting to install rbenv"
+#git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+#echo "Starting to install ruby-build"
+#mkdir -p ~/.rbenv/plugins
+#git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+#echo "Finished to install rbenv and ruby-build"
+
+echo "Starting to install"
+
+# Install atom
+echo "Starting to install atom"
+curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - 1>/dev/null
+sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' 1>/dev/null
+sudo apt-get update 1>/dev/null
+sudo apt-get install atom
+echo "Finished install atom"
+
 # Setup rc files
-echo "Setup rc files"
-env RCRC=$HOME/dotfiles/rcrc rcup
-echo "Done."
+#echo "Setup rc files"
+#env RCRC=$HOME/dotfiles/rcrc rcup
+#echo "Done."
