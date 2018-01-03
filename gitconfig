@@ -8,7 +8,7 @@ protocol = https
   name = bob1983
   email = bob.1983.g@gmail.com
 [credential]
-  helper = gnomekeyring
+	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 [push]
   default = simple
 [filter "lfs"]
@@ -48,7 +48,7 @@ protocol = https
   rebase-onto = "!f() { git rebase --onto $1 $2 $(git cb); }; f"
 
 [commit]
-  template = /Users/bob/.stCommitMsg
+  template = ~/.stCommitMsg
 
 [ghq]
   root = ~/src
