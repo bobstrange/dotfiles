@@ -15,7 +15,7 @@ done
 rbenv global 2.5.0
 
 # Install node
-for version in v6.12.3; do
+for version in v6.9.2 v6.12.3; do
   echo "Installing node ${version}"
   ndenv install ${version}
   echo "Finished install node ${version}"
