@@ -8,7 +8,7 @@ sudo apt-get upgrade -y 1>/dev/null
 # Install essential softwares
 echo "Installing essential softwares"
 sudo apt-get install -y \
-curl gcc direnv jq vim tig tmux git 1>/dev/null
+curl gcc direnv jq vim tig tmux git xclip 1>/dev/null
 
 ## These are needed to build ruby
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -82,3 +82,7 @@ sudo apt-get install golang-go
 
 # Install ghq
 go get github.com/motemen/ghq
+
+# Install mysql
+sudo apt-get install mysql-server libmysqlclient-dev -y
+mysql_secure_installation
