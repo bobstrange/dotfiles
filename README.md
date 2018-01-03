@@ -1,20 +1,23 @@
 # dotfiles
-# Usage
+## Usage
 
-Need to install [rcm](https://github.com/thoughtbot/rcm)
+### Bootstrap for ubuntu
+Install essential softwares and setup your rcfiles.
 
-## Bootstrap
-Need to symlink dotfiles/rcrc to $HOME/.rcrc
+```
+git clone https://github.com/bob1983/dotfiles ~/dotfiles
+cd dotfiles
+./bootstrap.sh
+./setup/dev_langs.sh
+```
+
+### Bootstrap for osx
+Setup your rcfiles.
+
+**Prerequisite**
+[rcm](https://github.com/thoughtbot/rcm) installed
 
 ```
 env RCRC=$HOME/dotfiles/rcrc rcup
 ```
 
-## Install programming languages
-
-```
-# Install ruby with rbenv
-setup/ruby.sh
-# Install python with rbenv
-setup/python.sh
-```
