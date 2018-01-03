@@ -84,5 +84,8 @@ sudo apt-get install golang-go
 go get github.com/motemen/ghq
 
 # Install mysql
-sudo apt-get install mysql-server libmysqlclient-dev -y
+sudo apt-get install mysql-server libmysqlclient-dev
 mysql_secure_installation
+
+# Install postgres
+sudo apt-get install postgresql postgresql-contrib libpq-dev
