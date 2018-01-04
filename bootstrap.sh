@@ -11,7 +11,7 @@
  # Install essential softwares
  echo "Installing essential softwares"
  sudo apt-get install -y \
- curl gcc direnv jq vim tig tmux git xclip 1>/dev/null
+ curl gcc direnv jq vim tig tmux git xclip rxvt-unicode-256color 1>/dev/null
 
  ## These are needed to build ruby
  sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -117,3 +117,6 @@
 
  # Install apm packages
  apm-bundle
+
+ # Install gnome extensions
+ sudo apt install -y chrome-gnome-shell
