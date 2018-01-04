@@ -89,3 +89,11 @@ mysql_secure_installation
 
 # Install postgres
 sudo apt-get install postgresql postgresql-contrib libpq-dev
+
+# Install franz
+wget -P /tmp https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.14/franz_5.0.0-beta.14_amd64.deb 
+sudo dpkg -i /tmp/franz_5.0.0-beta.14_amd64.deb
+sudo apt-get install -f -y
+sudo apt-get update
+sudo dpkg -i /tmp/franz_5.0.0-beta.14_amd64.deb
+
