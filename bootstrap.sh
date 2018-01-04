@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Change dir name to English
+LANG=C xdg-user-dirs-gtk-update
+:
 # Upgrade dependencies
 echo "Updating dependencies"
 sudo apt-get update 1>/dev/null
