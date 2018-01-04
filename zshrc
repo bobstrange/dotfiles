@@ -13,9 +13,8 @@ fi
 
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
-echo "Ubuntu ${ubuntu}"
+
 if [ ${ubuntu} = 0 ]; then
-  echo "Loading"
   for zsh_source in $HOME/.zsh/configs/ubuntu/*.zsh; do
     source $zsh_source
   done
@@ -29,6 +28,9 @@ done
 
 # load aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
+for zsh_source in $HOME/.zsh/aliases/*.zsh; do
+  source $zsh_source
+done
 
 autoload -U compinit
 compinit
