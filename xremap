@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+window class_not: 'gnome-terminal-server' do
+  # emacs-like bindings
+  remap 'C-b', to: 'Left'
+  remap 'C-f', to: 'Right'
+  remap 'C-p', to: 'Up'
+  remap 'C-n', to: 'Down'
+
+  remap 'M-b', to: 'Ctrl-Left'
+  remap 'M-f', to: 'Ctrl-Right'
+
+  remap 'C-a', to: 'Alt-C-a'
+  remap 'C-e', to: 'Alt-C-e'
+
+  remap 'C-k', to: 'Alt-C-k'
+
+  remap 'C-d', to: 'Delete'
+  remap 'M-d', to: 'Ctrl-Delete'
+
+  # actually these are vim insert mode bindings, but compatible with shell
+  remap 'C-w', to: ['Ctrl-Shift-Left', 'Ctrl-x']
+
+  %w[a z x c v w t l].each do |key|
+    remap "Alt-#{key}", to: "C-#{key}"
+  end
+end
+
+window class: 'atom' do
+  remap 'Alt-p', to: 'C-p'
+end

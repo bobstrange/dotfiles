@@ -1,4 +1,5 @@
 ! Zenkaku_Hankaku -> Control
-keycode 49 = Control_L
-add Control = Control_L
+! Make sure your desktop environment is not unity
 
+keycode 49 = Control_L Control_L
+add control = Control_L
