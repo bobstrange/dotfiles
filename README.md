@@ -21,4 +21,3 @@ Setup your rcfiles.
 ```
 env RCRC=$HOME/dotfiles/rcrc rcup
 ```
-

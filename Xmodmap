@@ -1,0 +1,4 @@
+! Zenkaku_Hankaku -> Control
+keycode 49 = Control_L
+add Control = Control_L
+
