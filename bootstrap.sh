@@ -191,7 +191,22 @@ sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt-get update
 sudo apt-get install neovim
 sudo update-alternatives --set vi $(which nvim)
+sudo update-alternatives --set vim $(which nvim)
 sudo apt-get install python-dev python-pip python3-dev python3-pip
 sudo pip2 install --upgrade neovim
 sudo pip3 install --upgrade neovim
 
+# install ssh-server
+sudo apt-get install openssh-server
+
+## Need to change /etc/ssh/sshd_config
+# Port 22 -> xx
+# LoginGraceTime 120 -> 10
+# PermitRootLogin -> no
+# MaxAuthTries -> 3
+# MaxSessions  -> 3
+# AuthorizedKeysFile -> .ssh/authorized_keys
+# PasswordAuthentication -> no
+
+## After you update the sshd_config, you need to restart the daemon
+## sudo systemctl restart sshd
