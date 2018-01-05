@@ -131,6 +131,13 @@ sudo apt-key add - < Release.key
 sudo apt-get update
 
 echo "Installed albert but make sure you need to configure auto-restart"
+
+# Font
+
+ghq get https://github.com/edihbrandon/RictyDiminished
+cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
+fc-cache -fv
+
 # Vim
 ## Basically followed with https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
