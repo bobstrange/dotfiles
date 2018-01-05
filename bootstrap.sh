@@ -13,6 +13,10 @@ echo "Installing essential softwares"
 sudo apt-get install -y \
 curl gcc direnv jq tig tmux git xclip rxvt-unicode-256color 1>/dev/null
 
+## redis
+sudo apt-get install redis-server
+sudo systemctl enable redis-server
+
 ## These are needed to build ruby
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update 1> /dev/null
