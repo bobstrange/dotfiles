@@ -8,6 +8,10 @@ for version in 2.3.1 2.3.3 2.5.0; do
   echo "Installing bundler for ruby ${version}"
   rbenv global ${version}
   gem install bundler
+  gem install neovim
+  gem install fastri
+  gem install rcodetools
+  gem install rubocop
   echo "Finished to install bundler for ruby ${version}"
 done
 
@@ -23,6 +27,7 @@ done
 
 ## Set node global version as 6.12.3 for now
 ndenv global v6.12.3
+npm install -g neovim
 
 ## Setup yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -

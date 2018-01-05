@@ -11,7 +11,12 @@ sudo apt-get upgrade -y 1>/dev/null
 # Install essential softwares
 echo "Installing essential softwares"
 sudo apt-get install -y \
-curl gcc direnv jq tig tmux git xclip rxvt-unicode-256color 1>/dev/null
+curl gcc direnv jq tig tmux git silversearcher-ag xclip rxvt-unicode-256color 1>/dev/null
+
+# Install fzf
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 ## redis
 sudo apt-get install redis-server
@@ -138,6 +143,14 @@ ghq get https://github.com/edihbrandon/RictyDiminished
 cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
 fc-cache -fv
 
+# Ctags
+ghq get https://github.com/universal-ctags/ctags
+ghq look ctags
+./autogen.sh
+./configure --prefix=/usr/local
+make
+sudo make install
+
 # Vim
 ## Basically followed with https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
@@ -172,4 +185,13 @@ sudo checkinstall
 sudo update-alternatives --install /usr/bin/editor editor $(which vim) 1
 sudo update-alternatives --set editor $(which vim)
 sudo update-alternatives --install /usr/bin/vi vi $(which vim) 1
-sudo update-alternatives --set vi $(which vim)
+
+# install neovim
+sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt-get update
+sudo apt-get install neovim
+sudo update-alternatives --set vi $(which nvim)
+sudo apt-get install python-dev python-pip python3-dev python3-pip
+sudo pip2 install --upgrade neovim
+sudo pip3 install --upgrade neovim
+
