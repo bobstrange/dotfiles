@@ -1,0 +1,13 @@
+--exclude=.git
+--exclude=log
+--exclude=tmp
+--exclude=vendor
+--exclude=build
+--exclude=node_modules
+--exclude=dist
+--exclude=.session.vim
+--exclude=package.json
+--exclude=yarn.lock
+--exclude=webpack.config.babel.js
+--exclude=postcss.config.js
+

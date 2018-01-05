@@ -1,0 +1,5 @@
+--append=yes
+--recurse=yes
+--extras=f
+-f tags
+--languages=Ruby,Javascript

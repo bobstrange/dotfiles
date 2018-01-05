@@ -10,14 +10,17 @@ for version in 2.3.1 2.3.3 2.5.0; do
   gem install bundler
   gem install neovim
   gem install fastri
-  gem install rcodetools
+#   gem install rcodetools
   gem install rubocop
+  gem install reek
+  gem install ripper-tags
+
+
   echo "Finished to install bundler for ruby ${version}"
 done
 
 ## Set ruby global version as 2.5.0 for now
 rbenv global 2.5.0
-
 # Install node
 for version in v6.9.2 v6.12.3; do
   echo "Installing node ${version}"
