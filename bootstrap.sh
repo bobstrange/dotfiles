@@ -11,7 +11,7 @@ sudo apt-get upgrade -y 1>/dev/null
 # Install essential softwares
 echo "Installing essential softwares"
 sudo apt-get install -y \
-curl gcc direnv jq vim tig tmux git xclip rxvt-unicode-256color 1>/dev/null
+curl gcc direnv jq tig tmux git xclip rxvt-unicode-256color 1>/dev/null
 
 ## These are needed to build ruby
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -127,3 +127,38 @@ sudo apt-key add - < Release.key
 sudo apt-get update
 
 echo "Installed albert but make sure you need to configure auto-restart"
+# Vim
+## Basically followed with https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
+    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+    python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git
+
+sudo apt remove vim vim-runtime gvim
+ghq get https://github.com/vim/vim.git
+ghq look vim
+
+## Note:
+## Use rbenv installed ruby
+## Remove python2.7 since https://stackoverflow.com/questions/23023783/vim-compiled-with-python-support-but-cant-see-sys-version
+
+./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp=dynamic \
+            --with-ruby-command=~/.rbenv/shims/ruby \
+            --enable-python3interp=yes \
+            --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
+            --enable-perlinterp=yes \
+            --enable-luainterp=yes \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix=/usr/local
+make VIMRUNTIMEDIR=/usr/local/share/vim/vim80
+sudo apt install checkinstall
+sudo checkinstall
+
+## Make vim as default editor
+sudo update-alternatives --install /usr/bin/editor editor $(which vim) 1
+sudo update-alternatives --set editor $(which vim)
+sudo update-alternatives --install /usr/bin/vi vi $(which vim) 1
+sudo update-alternatives --set vi $(which vim)
