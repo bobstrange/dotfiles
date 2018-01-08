@@ -17,6 +17,13 @@ install_zsh() {
   chsh -s /bin/zsh
 }
 
+install_font() {
+  brew tap sanemat/font
+  brew reinstall ricty --with-powerline --with-patch-in-place
+  cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+  fc-cache -vf
+}
+
 change_host() {
   sudo scutil --set ComputerName bob-mbp
   sudo scutil --set LocalHostName bob-mbp
@@ -32,6 +39,7 @@ if [ $(uname) == 'Darwin' ]; then
   install_dependencies
   install_casks
   install_zsh
+  install_font
   change_host
 else
   echo "This script doesn't support $(uname)"
