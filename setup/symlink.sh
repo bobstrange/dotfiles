@@ -12,3 +12,5 @@ update_ssh_permission() {
 }
 
 update_ssh_permission
+
+ln -s ~/dotfiles/config/git/gitconfig.$(uname) ~/.gitconfig.local

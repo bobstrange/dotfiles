@@ -1,14 +1,15 @@
 [core]
-  excludesfile = /Users/bob/.gitignore
-  editor = vim
-
+  excludesfile = ~/.gitignore
+  editor = nvim
+[include]
+  path = ~/.gitconfig.local
 [hub]
-protocol = https
+  protocol = https
 [user]
   name = bob1983
   email = bob.1983.g@gmail.com
 [credential]
-	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+  helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 [push]
   default = simple
 [filter "lfs"]
@@ -50,7 +51,6 @@ protocol = https
 
 [commit]
   template = ~/.stCommitMsg
-
 [ghq]
   root = ~/src
 [diff]
@@ -59,9 +59,4 @@ protocol = https
   prompt = false
 [difftool]
   prompt = false
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+
