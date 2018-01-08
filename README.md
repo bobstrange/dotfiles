@@ -15,9 +15,6 @@ cd dotfiles
 ### Bootstrap for osx
 Setup your rcfiles.
 
-**Prerequisite**
-[rcm](https://github.com/thoughtbot/rcm) installed
-
 ```
-env RCRC=$HOME/dotfiles/rcrc rcup
+./bootstrap.Darwin.sh
 ```

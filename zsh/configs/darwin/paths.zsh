@@ -6,3 +6,6 @@ export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}
 
 # For go
 export GOROOT=/usr/local/Cellar/go
+
+# For openssl
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
