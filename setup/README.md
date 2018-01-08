@@ -39,3 +39,8 @@
 ## dropbox
 - Launch dropbox
   - Choose folders to sync
+
+## iterm2
+- Launch iterm2
+  - Cmd-, to show preferences
+  - Load preferences from `~/dotfiles/config/iterms`
