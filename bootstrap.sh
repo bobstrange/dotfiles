@@ -90,10 +90,17 @@ env RCRC=$HOME/dotfiles/rcrc rcup
 echo "Done."
 
 # Install go for ghq installation
+sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt-get update
 sudo apt-get install golang-go
 
 # Install ghq
 go get github.com/motemen/ghq
+
+# Install hub
+ghq get https://github.com/github/hub.git
+ghq look hub
+sudo make install prefix=/usr/local
 
 # Install mysql
 sudo apt-get install mysql-server libmysqlclient-dev
