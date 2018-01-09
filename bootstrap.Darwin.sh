@@ -30,7 +30,7 @@ change_host() {
 }
 
 install_casks() {
-  brew cask install alfred google-chrome google-japanese-ime skype iterm2 karabiner shiftit macs-fan-control dropbox
+  brew cask install alfred google-chrome google-japanese-ime skype iterm2 karabiner shiftit macs-fan-control dropbox coteditor
 }
 
 if [ $(uname) == 'Darwin' ]; then

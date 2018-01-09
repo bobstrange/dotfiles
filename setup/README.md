@@ -44,3 +44,21 @@
 - Launch iterm2
   - Cmd-, to show preferences
   - Load preferences from `~/dotfiles/config/iterms`
+
+## Coteditor
+- Launch coteditor
+  - General tab
+    - Remove trailing space on saving
+    - Spell check
+    - Automatically check update
+  - Window tab
+    - check page guide
+    - check encoding
+  - Appearance tab
+    - choose Ricty 13
+    - change line height 1.0
+    - change current line background color
+    - show invisible char
+      - check Zenkaku space
+    - choose solarized light theme
+
