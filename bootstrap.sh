@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 # Change dir name to English
 LANG=C xdg-user-dirs-gtk-update
@@ -19,7 +20,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 ## redis
-sudo apt-get install redis-server
+sudo apt-get install redis-server -y
 sudo systemctl enable redis-server
 
 ## These are needed to build ruby
@@ -65,9 +66,10 @@ echo "Finished to install dropbox"
 # Install xxxenv
 echo "Starting to install rbenv"
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
 echo "Starting to install ruby-build"
 mkdir -p ~/.rbenv/plugins
-git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 echo "Finished to install rbenv and ruby-build"
 
 echo "Starting to install ndenv"
