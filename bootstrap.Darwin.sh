@@ -72,6 +72,11 @@ install_mysql() {
   brew services start mysql
 }
 
+install_postgresql() {
+  brew install postgresql@9.6
+  brew services start postgresql@9.6
+}
+
 install_redis() {
   brew install redis
   brew services start redis

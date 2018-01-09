@@ -9,3 +9,6 @@ export GOROOT=/usr/local/Cellar/go
 
 # For openssl
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+# For postgres
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
