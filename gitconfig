@@ -8,8 +8,6 @@
 [user]
   name = bob1983
   email = bob.1983.g@gmail.com
-[credential]
-  helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
 [push]
   default = simple
 [filter "lfs"]
