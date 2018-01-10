@@ -61,6 +61,7 @@ echo "Finished to install zplug"
 # Install dropbox
 echo "Starting to install dropbox"
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+~/.dropbox-dist/dropboxd
 echo "Finished to install dropbox"
 
 # Install xxxenv
@@ -82,8 +83,8 @@ echo "Finished to install ndenv"
 echo "Starting to install atom"
 curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-sudo apt-get update 1>/dev/null
-sudo apt-get install atom 1>/dev/null
+sudo apt-get update
+sudo apt-get install atom
 echo "Finished install atom"
 
 # Setup rc files
@@ -92,13 +93,14 @@ env RCRC=$HOME/dotfiles/rcrc rcup
 echo "Done."
 
 # Install go for ghq installation
-sudo add-apt-repository ppa:longsleep/golang-backports
-sudo apt-get update
+# version 1.8 will be installed for Ubuntu 17.10
 sudo apt-get install golang-go
 
+# Need to restart to update login shell
 # Install ghq
 go get github.com/motemen/ghq
 
+# Need to install ruby
 # Install hub
 ghq get https://github.com/github/hub.git
 ghq look hub
@@ -194,6 +196,7 @@ sudo checkinstall
 sudo update-alternatives --install /usr/bin/editor editor $(which vim) 1
 sudo update-alternatives --set editor $(which vim)
 sudo update-alternatives --install /usr/bin/vi vi $(which vim) 1
+export PATH=/usr/lib/go-1.9/bin:${PATH}
 
 # install neovim
 sudo add-apt-repository ppa:neovim-ppa/stable
