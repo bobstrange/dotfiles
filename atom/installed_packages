@@ -2,8 +2,11 @@ advanced-open-file@0.16.7
 busy-signal@1.4.3
 git-plus@7.10.0
 intentions@1.1.5
+language-terraform@0.8.1
 linter@2.2.0
 linter-ruby@1.2.6
+linter-terraform-syntax@1.2.2
 linter-ui-default@1.6.10
-vim-mode-plus@1.25.0
+project-manager@3.3.5
+vim-mode-plus@1.25.1
 
