@@ -85,6 +85,10 @@ install_redis() {
   brew services start redis
 }
 
+install_ctags() {
+  brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+}
+
 if [ $(uname) == 'Darwin' ]; then
   . setup/install_homebrew.sh
   setup_dotfile
@@ -97,6 +101,7 @@ if [ $(uname) == 'Darwin' ]; then
   install_atom
   install_mysql
   install_redis
+  install_ctags
 else
   echo "This script doesn't support $(uname)"
   exit 1
