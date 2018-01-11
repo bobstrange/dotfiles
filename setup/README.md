@@ -1,7 +1,7 @@
-# OSXConfiguraton
 
+## OSXConfiguraton
 
-## Alfred
+### Alfred
 - Remove keybind
   - Show spotlight preference
     - Unassign shortcuts
@@ -12,40 +12,40 @@
   - Where are you
     - Japan
 
-## Start google japanese-ime
+### Start google japanese-ime
 - You need to reboot before configuring google japanese ime
 - Use backslash instead of
 - Show keyboard settings
   - Add 英数(Google) and ひらがな(Google)
   - Remove 日本語
 
-## Configure google chrome
+### Configure google chrome
 - Launch google chrome
   - Login with some accounts
   - Sync
 
-## Shiftit
+### Shiftit
 - Launch shiftit
 - Allow shiftit to access accessibility
   - On security and privacy
 
-## macs fan control
+### macs fan control
 - Custom
   - Cpu core1
     - 55 - 65 degree
   - Cpu core2
     - 55 - 65 degree
 
-## dropbox
+### dropbox
 - Launch dropbox
   - Choose folders to sync
 
-## iterm2
+### iterm2
 - Launch iterm2
   - Cmd-, to show preferences
   - Load preferences from `~/dotfiles/config/iterms`
 
-## Coteditor
+### Coteditor
 - Launch coteditor
   - General tab
     - Remove trailing space on saving
@@ -62,3 +62,10 @@
       - check Zenkaku space
     - choose solarized light theme
 
+### Lastpass
+It seems osx's lastpass app just confiure web browser :thinking_face:
+So I might not need to the follwoing...
+
+```
+open /usr/local/Caskroom/lastpass/latest/LastPass\ Installer/LastPass\ Installer.app
+```
