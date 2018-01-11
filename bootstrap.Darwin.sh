@@ -30,7 +30,10 @@ change_host() {
 }
 
 install_casks() {
-  brew cask install alfred google-chrome google-japanese-ime skype iterm2 karabiner shiftit macs-fan-control dropbox coteditor
+  brew cask install \
+    alfred google-chrome google-japanese-ime skype \
+    iterm2 karabiner shiftit macs-fan-control dropbox \
+    coteditor franz
 }
 
 install_xxenv() {
