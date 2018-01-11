@@ -16,9 +16,13 @@ profile
 DerivedData
 *.hmap
 *.ipa
+bin/
 
 # CocoaPods
 Pods/
+
+# ruby
+.byebug_history
 
 # ctags
 .gemtags
