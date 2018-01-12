@@ -11,6 +11,7 @@ Plug 'qpkorr/vim-bufkill'
 
 Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
+Plug 'chrisbra/vim-diff-enhanced'
 
 "" For ruby
 Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
@@ -52,6 +53,11 @@ let g:syntastic_ruby_checkers = ['rubocop']
 "" ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.png
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+"" vim-diff-enhanced
+if &diff
+  let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
+endif
 
 " Base settings
 " refs: https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375
