@@ -13,3 +13,5 @@ alias crontab="VIM_CRONTAB=true crontab"
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
+# Use nvim as vim
+alias vim="nvim"
