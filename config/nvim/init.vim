@@ -12,6 +12,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
+Plug 'tomasr/molokai'
 
 "" For ruby
 Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
@@ -66,6 +67,11 @@ set encoding=utf-8
 set fileencoding=utf-8
 
 syntax enable
+
+" color
+colorscheme molokai
+let g:rehash256 = 1
+highlight Normal ctermbg=none
 
 " tabs indents
 set expandtab

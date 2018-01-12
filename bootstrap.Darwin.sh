@@ -15,6 +15,7 @@ install_dependencies() {
 install_zsh() {
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
   chsh -s /bin/zsh
+  exec $SHELL -s
 }
 
 install_font() {
@@ -22,6 +23,10 @@ install_font() {
   brew reinstall ricty --with-powerline --with-patch-in-place
   cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
   fc-cache -vf
+}
+
+install_colorscheme() {
+  ghq get https://github.com/mbadolato/iTerm2-Color-Schemes
 }
 
 change_host() {
@@ -102,6 +107,7 @@ if [ $(uname) == 'Darwin' ]; then
   install_mysql
   install_redis
   install_ctags
+  install_colorschemes
 else
   echo "This script doesn't support $(uname)"
   exit 1

@@ -44,6 +44,7 @@
 - Launch iterm2
   - Cmd-, to show preferences
   - Load preferences from `~/dotfiles/config/iterms`
+  - choose colorscheme from `ghq look iTerm2-Color-Schemes;schemes`
 
 ### Coteditor
 - Launch coteditor
@@ -69,3 +70,8 @@ So I might not need to the follwoing...
 ```
 open /usr/local/Caskroom/lastpass/latest/LastPass\ Installer/LastPass\ Installer.app
 ```
+### Finder
+- Open preference
+  - Edit sidebar
+    - check home
+
