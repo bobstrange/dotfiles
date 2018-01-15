@@ -1,0 +1,19 @@
+"*":
+  "atom-ctags": {}
+  core:
+    telemetryConsent: "limited"
+    themes: [
+      "one-dark-ui"
+      "monokai"
+    ]
+  editor:
+    fontFamily: "Ricty"
+    invisibles: {}
+    showIndentGuide: true
+    showInvisibles: true
+  "exception-reporting":
+    userId: "88043415-d92b-4d56-a792-3a8c3ec94105"
+  "project-manager":
+    alwaysOpenInSameWindow: true
+  welcome:
+    showOnStartup: false
