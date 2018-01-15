@@ -18,6 +18,11 @@ install_zsh() {
   exec $SHELL -s
 }
 
+install_fzf() {
+  brew install fzf
+  (brew --prefix)/opt/fzf/install
+}
+
 install_font() {
   brew tap sanemat/font
   brew reinstall ricty --with-powerline --with-patch-in-place
@@ -108,6 +113,7 @@ if [ $(uname) == 'Darwin' ]; then
   install_redis
   install_ctags
   install_colorschemes
+  install_fzf
 else
   echo "This script doesn't support $(uname)"
   exit 1

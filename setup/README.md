@@ -75,3 +75,7 @@ open /usr/local/Caskroom/lastpass/latest/LastPass\ Installer/LastPass\ Installer
   - Edit sidebar
     - check home
 
+### Karabiner
+- Open karabiner
+  - Allow karabiner to access accessibility
+    - On security and privacy
