@@ -1,5 +1,6 @@
 advanced-open-file@0.16.7
 busy-signal@1.4.3
+file-icons@2.1.15
 git-plus@7.10.0
 intentions@1.1.5
 language-elixir@0.20.3
@@ -12,5 +13,7 @@ linter-terraform-syntax@1.2.2
 linter-ui-default@1.6.10
 monokai@0.24.0
 project-manager@3.3.5
+react@0.17.0
+trailing-spaces@0.4.0
 vim-mode-plus@1.25.1
 
