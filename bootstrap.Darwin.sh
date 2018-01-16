@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu
 
 setup_dotfile() {
   brew tap "thoughtbot/formulae"

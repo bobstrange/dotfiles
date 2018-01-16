@@ -1,224 +1,261 @@
 #!/bin/bash
 set -eu
 
-# Change dir name to English
-LANG=C xdg-user-dirs-gtk-update
+change_default_directory_name_from_japanease_to_engilish() {
+  LANG=C xdg-user-dirs-gtk-update
+}
 
-# Upgrade dependencies
-echo "Updating dependencies"
-sudo apt-get update 1>/dev/null
-sudo apt-get upgrade -y 1>/dev/null
+update() {
+  sudo apt-get update
+  sudo apt-get upgrade -y
+}
 
-# Install essential softwares
-echo "Installing essential softwares"
-sudo apt-get install -y \
-curl gcc direnv jq tig tmux git silversearcher-ag xclip rxvt-unicode-256color 1>/dev/null
+install_essential() {
+  sudo apt-get install -y
+  curl gcc direnv jq tig tmux git silversearcher-ag xclip rxvt-unicode-256color
+}
 
-# Install fzf
+install_zsh() {
+  sudo apt-get install -y zsh
+  chsh -s $(which zsh)
+}
 
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+setup_dotfile() {
+  wget -qO - https://apt.thoughtbot.com/thoughtbot.gpg.key | sudo apt-key add -
+  echo "deb http://apt.thoughtbot.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/thoughtbot.list 1>/dev/null
+  sudo apt-get update
+  sudo apt-get install -y rcm
+  env RCRC=$HOME/dotfiles/rcrc rcup
+}
 
-## redis
-sudo apt-get install redis-server -y
-sudo systemctl enable redis-server
+install_dropbox() {
+  cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+  ~/.dropbox-dist/dropboxd
+}
 
-## These are needed to build ruby
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update 1> /dev/null
-sudo apt-get install -y \
-gcc-6 autoconf bison build-essential libssl-dev libyaml-dev \
-libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 \
-libgdbm-dev 1> /dev/null
+install_fzf() {
+  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+}
 
-echo "Done."
+install_zplug() {
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+}
 
-## gnome keychain
-sudo apt-get install libgnome-keyring-dev -y 1> /dev/null
-sudo make --directory=/usr/share/doc/git/contrib/credential/gnome-keyring 1>/dev/null
+install_redis() {
+  sudo apt-get install redis-server -y
+  sudo systemctl enable redis-server
+}
 
-# Install zsh
-echo "Starting to install zsh"
-sudo apt-get install -y zsh 1>/dev/null
-echo "Change your login shell to zsh"
-chsh -s $(which zsh)
-echo "Finished to install zsh"
+install_gnome_keychain() {
+  sudo apt-get install libgnome-keyring-dev -y
+  sudo make --directory=/usr/share/doc/git/contrib/credential/gnome-keyring
+}
 
-# Install rcm
-echo "Starting to install rcm"
-wget -qO - https://apt.thoughtbot.com/thoughtbot.gpg.key | sudo apt-key add -
-echo "deb http://apt.thoughtbot.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/thoughtbot.list 1>/dev/null
-sudo apt-get update 1>/dev/null
-sudo apt-get install -y rcm 1>/dev/null
-echo "Finished to install rcm"
+install_dependencies_for_ruby() {
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+  sudo apt-get update
+  sudo apt-get install -y
+  gcc-6 autoconf bison build-essential libssl-dev libyaml-dev \
+  libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 \
+  libgdbm-dev
+}
 
-# Install zplug
-echo "Starting to install zplug"
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
+setup_ruby_dev_env() {
+  install_dependencies_for_ruby
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  mkdir -p ~/.rbenv/plugins
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+}
 
-echo "Finished to install zplug"
+setup_ndenv() {
+  git clone https://github.com/riywo/ndenv ~/.ndenv
+  mkdir -p ~/.ndenv/plugins
+  git clone https://github.com/riywo/node-build.git ~/.ndenv/plugins/node-build
+}
 
-# Install dropbox
-echo "Starting to install dropbox"
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-~/.dropbox-dist/dropboxd
-echo "Finished to install dropbox"
+install_vim() {
+  ## Basically followed with https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+  sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
+      libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+      libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+      python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git
 
-# Install xxxenv
-echo "Starting to install rbenv"
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  sudo apt remove vim vim-runtime gvim
+  ghq get https://github.com/vim/vim.git
+  ghq look vim
 
-echo "Starting to install ruby-build"
-mkdir -p ~/.rbenv/plugins
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-echo "Finished to install rbenv and ruby-build"
+  ## Note:
+  ## Use rbenv installed ruby
+  ## Remove python2.7 since https://stackoverflow.com/questions/23023783/vim-compiled-with-python-support-but-cant-see-sys-version
 
-echo "Starting to install ndenv"
-git clone https://github.com/riywo/ndenv ~/.ndenv
-echo "Starting to install node-build"
-git clone https://github.com/riywo/node-build.git ~/.ndenv/plugins/node-build
-echo "Finished to install ndenv"
+  ./configure --with-features=huge \
+              --enable-multibyte \
+              --enable-rubyinterp=dynamic \
+              --with-ruby-command=~/.rbenv/shims/ruby \
+              --enable-python3interp=yes \
+              --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
+              --enable-perlinterp=yes \
+              --enable-luainterp=yes \
+              --enable-gui=gtk2 \
+              --enable-cscope \
+              --prefix=/usr/local
+  make VIMRUNTIMEDIR=/usr/local/share/vim/vim80
+  sudo apt install checkinstall -y
+  sudo checkinstall
 
-# Install atom
-echo "Starting to install atom"
-curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-sudo apt-get update
-sudo apt-get install atom
-echo "Finished install atom"
+  sudo update-alternatives --install /usr/bin/editor editor $(which vim) 20
+  sudo update-alternatives --install /usr/bin/vi vi $(which vim) 20
+}
 
-# Setup rc files
-echo "Setup rc files"
-env RCRC=$HOME/dotfiles/rcrc rcup
-echo "Done."
+install_neovim() {
+  sudo add-apt-repository ppa:neovim-ppa/stable
+  sudo apt-get update
+  sudo apt-get install neovim
 
-# Install go for ghq installation
-# version 1.8 will be installed for Ubuntu 17.10
-sudo apt-get install golang-go
+  # Make nvim as default editor
+  sudo update-alternatives --set editor $(which nvim)
+  sudo update-alternatives --set vi $(which nvim)
+  sudo update-alternatives --set vim $(which nvim)
 
+  sudo apt-get install python-dev python-pip python3-dev python3-pip
+  sudo pip2 install --upgrade neovim
+  sudo pip3 install --upgrade neovim
+}
+
+install_atom() {
+  curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+  sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+  sudo apt-get update
+  sudo apt-get install atom -y
+  apm install --packages-file ~/dotfile/atom/installed_packages
+}
+
+install_go() {
+  # version 1.8 will be installed for Ubuntu 17.10
+  sudo apt-get install golang-go -y
 # Need to restart to update login shell
-# Install ghq
-go get github.com/motemen/ghq
+}
 
-# Need to install ruby
-# Install hub
-ghq get https://github.com/github/hub.git
-ghq look hub
-sudo make install prefix=/usr/local
+install_ghq() {
+  go get github.com/motemen/ghq
+}
 
-# Install mysql
-sudo apt-get install mysql-server libmysqlclient-dev
-mysql_secure_installation
+install_hub() {
+  # Install hub
+  # Need to install ruby
+  ghq get https://github.com/github/hub.git
+  ghq look hub
+  sudo make install prefix=/usr/local
+}
 
-# Install postgres
-sudo apt-get install postgresql postgresql-contrib libpq-dev
+setup_mysql() {
+  sudo apt-get install mysql-server libmysqlclient-dev -y
+  mysql_secure_installation
+}
 
-# Install franz
-# Franz brakes windows system when it's crashed on my environment
-# So I'll comment out
-# wget -P /tmp https://github.com/meetfranz/franz/releases/download/v5.0.0-beta.14/franz_5.0.0-beta.14_amd64.deb
-# sudo dpkg -i /tmp/franz_5.0.0-beta.14_amd64.deb
-# sudo apt-get install -f -y
-# sudo apt-get update
+setup_postgres() {
+  sudo apt-get install postgresql postgresql-contrib libpq-dev -y
+}
 
-# Install ibus-mozc
-sudo apt-get install ibus-mozc -y
-echo "You need to do configure some manually."
-echo "see: https://mlny.info/2016/05/ibus-skk-on-ubuntu-xenial/"
+install_ibus_mozc() {
+  # Need to configure some manually
+  # see:  https://mlny.info/2016/05/ibus-skk-on-ubuntu-xenial/
+  sudo apt-get install ibus-mozc -y
+}
 
-# Install xremap
-sudo apt-get install libx11-dev -y
-git clone https://github.com/k0kubun/xremap /tmp/xremap
-cd /tmp/xremap
-make
-sudo make install
-mkdir -p ~/.config/systemd/user/
-cp -p ~/dotfiles/config/systemd/user/xremap.service ~/.config/systemd/user/xremap.service
+install_xremap() {
+  sudo apt-get install libx11-dev -y
+  git clone https://github.com/k0kubun/xremap /tmp/xremap
+  cd /tmp/xremap
+  make
+  sudo make install
+  # TODO: Need to be fixed
+  mkdir -p ~/.config/systemd/user/
+  cp -p ~/dotfiles/config/systemd/user/xremap.service ~/.config/systemd/user/xremap.service
+}
 
-# Install apm packages
-apm-bundle
 
 # Install gnome extensions
-sudo apt install -y chrome-gnome-shell
+install_gnome_extensions() {
+  sudo apt install -y chrome-gnome-shell
+}
 
 # install albert
-wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_16.04/Release.key -O Release.key
-sudo apt-key add - < Release.key
-sudo apt-get update
-
-echo "Installed albert but make sure you need to configure auto-restart"
+install_albert() {
+  # Need to configure startup
+  cd
+  wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_16.04/Release.key -O Release.key
+  sudo apt-key add - < Release.key
+  sudo apt-get update
+  sudo apt-get install albert -y
+}
 
 # Font
-
-ghq get https://github.com/edihbrandon/RictyDiminished
-cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
-fc-cache -fv
+install_font() {
+  ghq get https://github.com/edihbrandon/RictyDiminished
+  cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
+  fc-cache -fv
+}
 
 # Ctags
-ghq get https://github.com/universal-ctags/ctags
-ghq look ctags
-./autogen.sh
-./configure --prefix=/usr/local
-make
-sudo make install
+install_ctags() {
+  ghq get https://github.com/universal-ctags/ctags
+  ghq look ctags
+  ./autogen.sh
+  ./configure --prefix=/usr/local
+  make
+  sudo make install
+}
 
-# Vim
-## Basically followed with https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
-sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
-    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-    python3-dev ruby-dev lua5.1 lua5.1-dev libperl-dev git
+install_ssh_server() {
 
-sudo apt remove vim vim-runtime gvim
-ghq get https://github.com/vim/vim.git
-ghq look vim
+  ## Need to change /etc/ssh/sshd_config
+  # Port 22 -> xx
+  # LoginGraceTime 120 -> 10
+  # PermitRootLogin -> no
+  # MaxAuthTries -> 3
+  # MaxSessions  -> 3
+  # AuthorizedKeysFile -> .ssh/authorized_keys
+  # PasswordAuthentication -> no
 
-## Note:
-## Use rbenv installed ruby
-## Remove python2.7 since https://stackoverflow.com/questions/23023783/vim-compiled-with-python-support-but-cant-see-sys-version
 
-./configure --with-features=huge \
-            --enable-multibyte \
-            --enable-rubyinterp=dynamic \
-            --with-ruby-command=~/.rbenv/shims/ruby \
-            --enable-python3interp=yes \
-            --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
-            --enable-perlinterp=yes \
-            --enable-luainterp=yes \
-            --enable-gui=gtk2 \
-            --enable-cscope \
-            --prefix=/usr/local
-make VIMRUNTIMEDIR=/usr/local/share/vim/vim80
-sudo apt install checkinstall
-sudo checkinstall
+  ## After you update the sshd_config, you need to restart the daemon
+  ## sudo systemctl restart sshd
 
-## Make vim as default editor
-sudo update-alternatives --install /usr/bin/editor editor $(which vim) 1
-sudo update-alternatives --set editor $(which vim)
-sudo update-alternatives --install /usr/bin/vi vi $(which vim) 1
-export PATH=/usr/lib/go-1.9/bin:${PATH}
+  sudo apt-get install openssh-server -y
+}
 
-# install neovim
-sudo add-apt-repository ppa:neovim-ppa/stable
-sudo apt-get update
-sudo apt-get install neovim
-sudo update-alternatives --set vi $(which nvim)
-sudo update-alternatives --set vim $(which nvim)
-sudo apt-get install python-dev python-pip python3-dev python3-pip
-sudo pip2 install --upgrade neovim
-sudo pip3 install --upgrade neovim
+uname -v | grep -q "Ubuntu"
+ubuntu=$?
 
-# install ssh-server
-sudo apt-get install openssh-server
-
-## Need to change /etc/ssh/sshd_config
-# Port 22 -> xx
-# LoginGraceTime 120 -> 10
-# PermitRootLogin -> no
-# MaxAuthTries -> 3
-# MaxSessions  -> 3
-# AuthorizedKeysFile -> .ssh/authorized_keys
-# PasswordAuthentication -> no
-
-## After you update the sshd_config, you need to restart the daemon
-## sudo systemctl restart sshd
+if [ ${ubuntu} = 0 ];then
+  change_default_directory_name_from_japanease_to_engilish
+  update
+  install_essential
+  install_zsh
+  setup_dotfile
+  install_dropbox
+  install_fzf
+  install_zplug
+  install_redis
+  install_gnome_keychain
+  install_dependencies_for_ruby
+  setup_ruby_dev_env
+  setup_ndenv
+  install_vim
+  install_neovim
+  install_atom
+  install_go
+  install_ghq
+  install_hub
+  setup_mysql
+  setup_postgres
+  install_ibus_mozc
+  install_xremap
+  install_gnome_extensions
+  install_albert
+  install_font
+  install_ctags
+  install_ssh_server
+fi
