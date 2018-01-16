@@ -65,11 +65,12 @@
 
 ### Lastpass
 It seems osx's lastpass app just confiure web browser :thinking_face:
-So I might not need to the follwoing...
+So I might not need to the following...
 
 ```
 open /usr/local/Caskroom/lastpass/latest/LastPass\ Installer/LastPass\ Installer.app
 ```
+
 ### Finder
 - Open preference
   - Edit sidebar
@@ -79,3 +80,7 @@ open /usr/local/Caskroom/lastpass/latest/LastPass\ Installer/LastPass\ Installer
 - Open karabiner
   - Allow karabiner to access accessibility
     - On security and privacy
+
+### Kindle
+- Open Kindle
+  - Configure device name

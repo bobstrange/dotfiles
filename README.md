@@ -16,5 +16,6 @@ cd dotfiles
 Setup your rcfiles.
 
 ```
-./bootstrap.Darwin.sh
+./bootstrap.sh
+./setup/symlink.sh
 ```
