@@ -37,7 +37,9 @@ install_dropbox() {
 }
 
 install_fzf() {
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  if [[ ! -d ~/.fzf/ ]];then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  fi
   ~/.fzf/install
 }
 
@@ -66,13 +68,17 @@ install_dependencies_for_ruby() {
 
 setup_ruby_dev_env() {
   install_dependencies_for_ruby
-  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  if [[ ! -d ~/.rbenv ]]; then
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  fi
   mkdir -p ~/.rbenv/plugins
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 }
 
 setup_ndenv() {
-  git clone https://github.com/riywo/ndenv ~/.ndenv
+  if [[ ! -d ~/.ndenv ]]; then
+    git clone https://github.com/riywo/ndenv ~/.ndenv
+  fi
   mkdir -p ~/.ndenv/plugins
   git clone https://github.com/riywo/node-build.git ~/.ndenv/plugins/node-build
 }

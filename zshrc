@@ -18,6 +18,9 @@ for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
 done
 
+# laod fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # Load osx related configurations
 
 if [ "$(uname)" = 'Darwin' ]; then
@@ -35,4 +38,3 @@ done
 autoload -U compinit
 compinit
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

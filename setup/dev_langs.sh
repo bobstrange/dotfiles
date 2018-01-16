@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Install ruby
-for version in 2.3.1 2.3.3 2.5.0; do
+for version in 2.3.5 2.5.0; do
+  ## Failed to install 2.3.1 and 2.3.3 on Ubuntu 17.10
   echo "Installing ruby ${version}"
   rbenv install ${version}
   echo "Finished install ruby ${version}"
