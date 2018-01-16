@@ -1,8 +1,11 @@
 #!/bin/bash
-set -eu
 
 change_default_directory_name_from_japanease_to_engilish() {
   LANG=C xdg-user-dirs-gtk-update
+}
+
+cleanup() {
+  sudo apt autoremove
 }
 
 update() {
@@ -11,7 +14,7 @@ update() {
 }
 
 install_essential() {
-  sudo apt-get install -y
+  sudo apt-get install -y \
   curl gcc direnv jq tig tmux git silversearcher-ag xclip rxvt-unicode-256color
 }
 
@@ -30,7 +33,7 @@ setup_dotfile() {
 
 install_dropbox() {
   cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-  ~/.dropbox-dist/dropboxd
+  ~/.dropbox-dist/dropboxd&
 }
 
 install_fzf() {
@@ -55,7 +58,7 @@ install_gnome_keychain() {
 install_dependencies_for_ruby() {
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test
   sudo apt-get update
-  sudo apt-get install -y
+  sudo apt-get install -y \
   gcc-6 autoconf bison build-essential libssl-dev libyaml-dev \
   libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 \
   libgdbm-dev
@@ -83,7 +86,7 @@ install_vim() {
 
   sudo apt remove vim vim-runtime gvim
   ghq get https://github.com/vim/vim.git
-  ghq look vim
+  cd ~/src/github.com/vim/vim
 
   ## Note:
   ## Use rbenv installed ruby
@@ -101,9 +104,6 @@ install_vim() {
               --enable-cscope \
               --prefix=/usr/local
   make VIMRUNTIMEDIR=/usr/local/share/vim/vim80
-  sudo apt install checkinstall -y
-  sudo checkinstall
-
   sudo update-alternatives --install /usr/bin/editor editor $(which vim) 20
   sudo update-alternatives --install /usr/bin/vi vi $(which vim) 20
 }
@@ -128,7 +128,7 @@ install_atom() {
   sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
   sudo apt-get update
   sudo apt-get install atom -y
-  apm install --packages-file ~/dotfile/atom/installed_packages
+  apm install --packages-file ~/dotfiles/atom/installed_packages
 }
 
 install_go() {
@@ -145,7 +145,7 @@ install_hub() {
   # Install hub
   # Need to install ruby
   ghq get https://github.com/github/hub.git
-  ghq look hub
+  cd ~/src/github.com/github/hub
   sudo make install prefix=/usr/local
 }
 
@@ -201,7 +201,7 @@ install_font() {
 # Ctags
 install_ctags() {
   ghq get https://github.com/universal-ctags/ctags
-  ghq look ctags
+  cd ~/src/github.com/universal-ctags/ctags
   ./autogen.sh
   ./configure --prefix=/usr/local
   make
@@ -230,18 +230,6 @@ uname -v | grep -q "Ubuntu"
 ubuntu=$?
 
 if [[ ${ubuntu} = 0 ]];then
-  change_default_directory_name_from_japanease_to_engilish
-  update
-  install_essential
-  install_zsh
-  setup_dotfile
-  install_dropbox
-  install_fzf
-  install_zplug
-  install_redis
-  install_gnome_keychain
-  install_dependencies_for_ruby
-  setup_ruby_dev_env
   setup_ndenv
   install_vim
   install_neovim
@@ -258,4 +246,5 @@ if [[ ${ubuntu} = 0 ]];then
   install_font
   install_ctags
   install_ssh_server
+  cleanup
 fi
