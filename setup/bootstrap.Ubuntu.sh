@@ -149,9 +149,10 @@ install_ghq() {
 
 install_hub() {
   # Install hub
-  # Need to install ruby
   ghq get https://github.com/github/hub.git
   cd ~/src/github.com/github/hub
+  # Install bundler to system ruby
+  sudo gem install bundler
   sudo make install prefix=/usr/local
 }
 
