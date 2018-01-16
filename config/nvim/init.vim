@@ -118,7 +118,7 @@ set ignorecase
 set smartcase
 
 " edit
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set hidden
 set switchbuf=useopen
 set mouse=a
