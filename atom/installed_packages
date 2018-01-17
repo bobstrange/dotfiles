@@ -8,6 +8,7 @@ language-pug@0.0.21
 language-vue@0.23.1
 linter@2.2.0
 linter-elixirc@1.7.0
+linter-rubocop@2.2.0
 linter-ruby@1.2.6
 linter-terraform-syntax@1.2.2
 linter-ui-default@1.6.10

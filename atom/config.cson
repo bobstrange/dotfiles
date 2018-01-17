@@ -16,3 +16,9 @@
   "project-manager": {}
   welcome:
     showOnStartup: false
+darwin:
+  "linter-rubocop":
+    command: "/Users/bob/.rbenv/shims/rubocop"
+linux:
+  "linter-rubocopy":
+    command: "/home/bob/.rbenv/shims/rubocop"
