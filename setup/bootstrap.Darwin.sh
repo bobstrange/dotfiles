@@ -20,7 +20,7 @@ install_zsh() {
 
 install_fzf() {
   brew install fzf
-  (brew --prefix)/opt/fzf/install
+  $(brew --prefix)/opt/fzf/install
 }
 
 install_font() {
@@ -43,7 +43,7 @@ install_casks() {
   brew cask install \
     alfred google-chrome google-japanese-ime skype \
     iterm2 karabiner shiftit macs-fan-control dropbox \
-    coteditor franz lastpass kindle
+    coteditor franz lastpass kindle slack
 }
 
 install_xxenv() {

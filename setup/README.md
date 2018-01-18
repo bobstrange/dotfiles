@@ -35,6 +35,7 @@
     - 55 - 65 degree
   - Cpu core2
     - 55 - 65 degree
+- Check run macs fan control on startup
 
 ### dropbox
 - Launch dropbox
