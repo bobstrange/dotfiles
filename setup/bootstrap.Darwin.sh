@@ -10,6 +10,7 @@ install_dependencies() {
   brew install git gcc direnv tig ghq tmux wget zplug terraform jq peco neovim
   brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
   brew tap homebrew/dupes; brew install grep
+  brew install diff-so-fancy
 }
 
 install_zsh() {

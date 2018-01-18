@@ -253,5 +253,6 @@ if [[ ${ubuntu} = 0 ]];then
   install_font
   install_ctags
   install_ssh_server
+  # TODO: Installation diff-so-fancy
   cleanup
 fi

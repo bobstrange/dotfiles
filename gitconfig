@@ -1,10 +1,6 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-[include]
-  path = ~/.gitconfig.local
-[hub]
-  protocol = https
 [user]
   name = bob1983
   email = bob.1983.g@gmail.com
@@ -14,6 +10,11 @@
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
+
+# Platform specific git config
+[include]
+  path = ~/.gitconfig.local
+
 [alias]
   st = status
   cm = commit
@@ -23,7 +24,6 @@
   fp = push --force-with-lease
   cb = rev-parse --abbrev-ref HEAD
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-  l = !git lo
 
   modified = ! git diff --name-only --diff-filter=M
   add-modified = add -u
@@ -43,7 +43,7 @@
   delete-remote-tag = push --delete origin
   sync-tag = !git tag -l | xargs git delete-tag && git fetch origin --tags
 
-  change = "!f() { git stash; git checkout $1; git pull --rebase; }; f"
+  change = "!f() { git stash; git checkout $1; git pull --rebase; git stash pop }; f"
   # git rebase-onto <to> <from>
   rebase-onto = "!f() { git rebase --onto $1 $2 $(git cb); }; f"
 
@@ -51,7 +51,10 @@
   template = ~/.stCommitMsg
 [ghq]
   root = ~/src
+[hub]
+  protocol = https
 
+# diff and merge
 [merge]
   tool = vimdiff
 [mergetool]
@@ -63,3 +66,22 @@
 [diff]
   tool = vimdiff
 
+# diff-so-fancy setting
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  meta = yellow
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+# Make gitconfig space 2
+[filter "spacify"]
+  clean = expand --tabs=2 --initial
