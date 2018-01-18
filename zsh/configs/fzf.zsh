@@ -11,6 +11,13 @@ export FZF_DEFAULT_COMMAND='ag -g "" --hidden --smart-case'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# File
+edit() {
+  local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
 # Git
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
