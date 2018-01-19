@@ -82,6 +82,11 @@ set fileencoding=utf-8
 
 syntax enable
 
+" Python
+
+let g:python_host_prog = $HOME . '/.pyenv/versions/2.7.14/bin/python2'
+let g:python3_host_prog = $HOME .'/.pyenv/versions/3.6.4/bin/python3'
+
 " color
 colorscheme molokai
 let g:rehash256 = 1
@@ -123,6 +128,7 @@ set hidden
 set switchbuf=useopen
 set mouse=a
 set sh=zsh
+set formatoptions-=ro " Avoid to insert a comment on newline
 
 " map keys
 "" Off IME on pushing esc

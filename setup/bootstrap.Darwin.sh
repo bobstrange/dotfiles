@@ -7,6 +7,9 @@ setup_dotfile() {
 }
 
 install_dependencies() {
+  # For neovim https://github.com/pyenv/pyenv/wiki/Common-build-problems
+  brew install readline xz
+
   brew install git gcc direnv tig ghq tmux wget zplug terraform jq peco neovim
   brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
   brew tap homebrew/dupes; brew install grep
@@ -47,34 +50,47 @@ install_casks() {
     coteditor franz lastpass kindle slack
 }
 
-install_xxenv() {
+
+install_rbenv() {
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   mkdir -p ~/.rbenv/plugins
   eval "$(rbenv init -)"
-
   git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+}
 
+install_pyenv() {
+  curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+}
+
+install_ndenv() {
   git clone https://github.com/riywo/ndenv ~/.ndenv
   eval "$(ndenv init -)"
   git clone https://github.com/riywo/node-build.git ~/.ndenv/plugins/node-build
 }
 
-setup_ruby() {
-  for version in 2.3.1 2.3.3 2.5.0; do
-    rbenv install ${version}
-    rbenv global ${version}
-    gem install bundler
-  done
-  rbenv global 2.5.0
+install_xxenv() {
+  install_rbenv
+  install_pyenv
+  install_ndenv
 }
 
-setup_node() {
-  for version in 8.9.4 6.9.2; do
-    ndenv install ${version}
-  done
-  ndenv global 8.9.4
-  brew install yarn --without-node
-}
+# They should have beend done on dev_langs.sh
+# setup_ruby() {
+#   for version in 2.3.1 2.3.3 2.5.0; do
+#     rbenv install ${version}
+#     rbenv global ${version}
+#     gem install bundler
+#   done
+#   rbenv global 2.5.0
+# }
+#
+# setup_node() {
+#   for version in 8.9.4 6.9.2; do
+#     ndenv install ${version}
+#   done
+#   ndenv global 8.9.4
+#   brew install yarn --without-node
+# }
 
 install_atom() {
   brew cask install atom

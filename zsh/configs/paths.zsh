@@ -10,7 +10,10 @@ export PATH=$HOME/.ndenv/bin:$PATH
 eval "$(ndenv init -)"
 
 # pyenv
+export PATH=$HOME/.pyenv/bin:$PATH
+export PYENV_ROOT=$HOME/.pyenv
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # go
 export GOPATH="$HOME/.go"
