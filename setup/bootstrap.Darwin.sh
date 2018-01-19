@@ -6,6 +6,11 @@ setup_dotfile() {
   env RCRC=$HOME/dotfiles/rcrc rcup
 }
 
+show_hidden_files() {
+  defaults write com.apple.finder AppleShowAllFiles TRUE
+  killall Finder
+}
+
 install_dependencies() {
   # For neovim https://github.com/pyenv/pyenv/wiki/Common-build-problems
   brew install readline xz
@@ -119,6 +124,7 @@ install_ctags() {
 if [ $(uname) == 'Darwin' ]; then
   . setup/install_homebrew.sh
   setup_dotfile
+  show_hidden_files
   install_dependencies
   install_casks
   install_zsh

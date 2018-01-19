@@ -44,7 +44,8 @@
 ### iterm2
 - Launch iterm2
   - Cmd-, to show preferences
-  - Load preferences from `~/dotfiles/config/iterms`
+  - Load preferences from `~/.config/iterm2
+    - The way to show hidden files is cmd-shift-.
   - choose colorscheme from `ghq look iTerm2-Color-Schemes;schemes`
 
 ### Coteditor
