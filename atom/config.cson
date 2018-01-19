@@ -9,8 +9,11 @@
   editor:
     fontFamily: "Ricty"
     invisibles: {}
+    preferredLineLength: 120
+    scrollSensitivity: 60
     showIndentGuide: true
     showInvisibles: true
+    tabType: "soft"
   "exception-reporting":
     userId: "88043415-d92b-4d56-a792-3a8c3ec94105"
   "project-manager": {}

@@ -1,2 +1,4 @@
 '.platform-darwin':
   'cmd-¥': 'tree-view:toggle'
+  # I tried to map ctrl-@ but it doesn't work if I use that shortcut twice
+  'ctrl-cmd-o': 'platformio-ide-terminal:toggle'

@@ -13,6 +13,7 @@ linter-ruby@1.2.6
 linter-terraform-syntax@1.2.2
 linter-ui-default@1.6.10
 monokai@0.24.0
+platformio-ide-terminal@2.8.0
 project-manager@3.3.5
 react@0.17.0
 trailing-spaces@0.4.0
