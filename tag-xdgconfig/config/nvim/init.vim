@@ -32,6 +32,8 @@ Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
 Plug 'craigemery/vim-autotag'
 Plug 'scrooloose/syntastic'
 
+Plug 'tmux-plugins/vim-tmux'
+
 call plug#end()
 
 "   Plug settings
