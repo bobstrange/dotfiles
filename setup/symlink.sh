@@ -13,4 +13,4 @@ update_ssh_permission() {
 
 update_ssh_permission
 
-ln -s ~/dotfiles/config/git/gitconfig.$(uname) ~/.gitconfig.local
+ln -s ~/dotfiles/tag-git/gitconfig.$(uname) ~/.gitconfig.local

@@ -1,2 +1,19 @@
-EXCLUDES="README.md setup_vscode.sh setup config/systemd docs atom/installed_packages"
+EXCLUDES="
+  README.md
+  setup
+  setup_vscode.sh
+  config/systemd
+  docs
+  _config\.yml
+  atom/installed_packages
+  bootstrap*\.sh
+  gitconfig\.*
+"
 DOTFILES_DIRS="$HOME/dotfiles"
+TAGS="
+  git
+  vim
+  zsh
+  ruby
+  xdgconfig
+"
