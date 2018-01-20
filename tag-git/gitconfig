@@ -43,7 +43,7 @@
   delete-remote-tag = push --delete origin
   sync-tag = !git tag -l | xargs git delete-tag && git fetch origin --tags
 
-  change = "!f() { git stash; git checkout $1; git pull --rebase; git stash pop; }; f"
+  change = "!f() { git stash; git checkout $1; git pull --rebase; }; f"
   # git rebase-onto <to> <from>
   rebase-onto = "!f() { git rebase --onto $1 $2 $(git cb); }; f"
 

@@ -8,6 +8,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'qpkorr/vim-bufkill'
+Plug 'fntlnz/atags.vim'
 
 Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
@@ -29,10 +30,11 @@ Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'haml', 'coffee', 'javascript'] }
 Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
-Plug 'craigemery/vim-autotag'
 Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-endwise'
 
 Plug 'tmux-plugins/vim-tmux'
+Plug 'juliosueiras/vim-terraform-completion'
 
 call plug#end()
 
@@ -51,7 +53,7 @@ let g:jsx_ext_required = 0
 
 "" deoplete
 
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 2
 let g:monster#completion#rcodetools#backend = "async_rct_complete"
 let g:deoplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
@@ -59,7 +61,7 @@ let g:deoplete#sources#omni#input_patterns = {
 
 "" ctags
 
-let g:autotagTagsFile=".tags"
+autocmd BufWritePost * call atags#generate()
 nnoremap <C-]> g<C-]>
 
 "" syntastic
