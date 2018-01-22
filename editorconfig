@@ -22,8 +22,9 @@ indent_size = 2
 [{package.json,.travis.yml}]
 indent_size = 2
 
-[*.{tf|tfvars}]
+[*.{tf,tfvars}]
 indent_size = 4
 
-[*.md]
+[*.{md,markdown}]
 trim_trailing_whitespace = false
+indent_size = 4
