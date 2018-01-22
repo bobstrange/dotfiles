@@ -14,6 +14,8 @@ Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tomasr/molokai'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " For javasctipt
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -43,6 +45,9 @@ call plug#end()
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+"" markdown
+let g:vim_markdown_folding_disabled = 1
 
 " javascript
 let g:javascript_plugin_jsdoc = 1
