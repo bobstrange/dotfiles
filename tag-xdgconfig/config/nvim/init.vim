@@ -47,7 +47,13 @@ if executable('ag')
 endif
 
 "" markdown
+let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_folding_disabled = 1
+
+map ]] <Plug>Markdown_MoveToNextHeader
+map [[ <Plug>Markdown_MoveToPreviousHeader
+map ]c <Plug>Markdown_MoveToCurHeader
+map ]u <Plug>Markdown_MoveToParentHeader
 
 " javascript
 let g:javascript_plugin_jsdoc = 1

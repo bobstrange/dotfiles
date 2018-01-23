@@ -11,6 +11,8 @@
   - Assign ctrl-space to show alfred
   - Where are you
     - Japan
+  - WebBookmarks
+    - Check Google Chrome Bookmarks
 
 ### Start google japanese-ime
 - You need to reboot before configuring google japanese ime
@@ -44,9 +46,9 @@
 ### iterm2
 - Launch iterm2
   - Cmd-, to show preferences
-  - Load preferences from `~/.config/iterm2
+  - Load preferences from `~/.config/iterm2`
     - The way to show hidden files is cmd-shift-.
-  - choose colorscheme from `ghq look iTerm2-Color-Schemes;schemes`
+  - choose colorscheme from ghq look `iTerm2-Color-Schemes;schemes`
 
 ### Coteditor
 - Launch coteditor
