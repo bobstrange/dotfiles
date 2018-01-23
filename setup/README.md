@@ -66,6 +66,8 @@
     - show invisible char
       - check Zenkaku space
     - choose solarized light theme
+  - Edit tab
+    - disable auto correct
 
 ### Lastpass
 It seems osx's lastpass app just confiure web browser :thinking_face:
