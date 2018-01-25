@@ -121,6 +121,10 @@ install_ctags() {
   brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 }
 
+install_aws_cli() {
+  pip3 install aws-cli
+}
+
 if [ $(uname) == 'Darwin' ]; then
   . setup/install_homebrew.sh
   setup_dotfile
@@ -137,6 +141,7 @@ if [ $(uname) == 'Darwin' ]; then
   install_ctags
   install_colorschemes
   install_fzf
+  install_aws_cli
 else
   echo "This script doesn't support $(uname)"
   exit 1
