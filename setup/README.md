@@ -21,6 +21,12 @@
   - Add 英数(Google) and ひらがな(Google)
   - Remove 日本語
 
+### Turn off auto correct
+- Show keyboard settings
+  - Choose the 'ユーザ辞書' tab
+    - Remove check from '英字入力中にスペルを自動変換' and '文頭を自動的に大文字にする'
+    - They are annoying :sob:
+
 ### Configure google chrome
 - Launch google chrome
   - Login with some accounts
