@@ -16,9 +16,17 @@
     tabType: "soft"
   "exception-reporting":
     userId: "88043415-d92b-4d56-a792-3a8c3ec94105"
+  "git-plus":
+    commits:
+      verboseCommits: true
+    general:
+      splitPane: "Right"
   "project-manager": {}
   welcome:
     showOnStartup: false
+".diff.source":
+  editor:
+    scrollPastEnd: true
 darwin:
   "linter-rubocop":
     command: "/Users/bob/.rbenv/shims/rubocop"
