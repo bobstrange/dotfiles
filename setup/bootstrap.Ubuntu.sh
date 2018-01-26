@@ -230,6 +230,10 @@ install_ssh_server() {
   sudo apt-get install openssh-server -y
 }
 
+install_pyenv() {
+  curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+}
+
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
 
