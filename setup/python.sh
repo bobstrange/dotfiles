@@ -5,14 +5,14 @@ install_python2() {
   pyenv install ${PYTHON_2_VERSION}
   pyenv global ${PYTHON_2_VERSION}
   pyenv rehash
-  pip2 intall neovim
+  pip2 install neovim
 }
 
 install_python3() {
   pyenv install ${PYTHON_3_VERSION}
   pyenv global ${PYTHON_3_VERSION}
   pyenv rehash
-  pip3 intall neovim
+  pip3 install neovim
 }
 
 install_python() {
