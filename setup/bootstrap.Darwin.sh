@@ -11,6 +11,16 @@ show_hidden_files() {
   killall Finder
 }
 
+change_screenshot_filename() {
+  defaults write com.apple.screencapture name "ScreenShot"
+  # You can switch the screenshot location
+  # defaults write com.apple.screencapture location ~/ScreenShot/<Paste>
+
+  # You can remove timestamp
+  # defaults write com.apple.screencapture include-date -bool false
+  killall SystemUIServer
+}
+
 install_dependencies() {
   # For neovim https://github.com/pyenv/pyenv/wiki/Common-build-problems
   brew install readline xz
@@ -129,6 +139,7 @@ if [ $(uname) == 'Darwin' ]; then
   . setup/install_homebrew.sh
   setup_dotfile
   show_hidden_files
+  change_screenshot_filename
   install_dependencies
   install_casks
   install_zsh
