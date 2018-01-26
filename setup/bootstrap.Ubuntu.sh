@@ -190,10 +190,7 @@ install_gnome_extensions() {
 
 # install albert
 install_albert() {
-  # Need to configure startup
-  cd
-  wget -nv https://download.opensuse.org/repositories/home:manuelschneid3r/xUbuntu_16.04/Release.key -O Release.key
-  sudo apt-key add - < Release.key
+  sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_17.10/ /' > /etc/apt/sources.list.d/albert.list"
   sudo apt-get update
   sudo apt-get install albert -y
 }
