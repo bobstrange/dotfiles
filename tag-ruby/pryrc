@@ -1,4 +1,35 @@
+# vim:set ft=ruby
+#
 Pry.config.editor = 'vim --noplugin'
+
+require 'rbconfig'
+def os
+  @os ||= case RbConfig::CONFIG['host_os']
+    when /darwin|mac\sos/
+      :darwin
+    when /linux/
+      :linux
+    end
+end
+
+def pbcopy(str)
+  command = case os
+    when :darwin
+      'pbcopy'
+    when :linux
+      'xclip'
+    end
+
+  IO.popen(command, 'r+') { |io| io.puts str }
+end
+
+Pry.config.commands.command 'copy', 'Copy a text to clipboard' do |str|
+  pbcopy(str)
+end
+
+Pry.config.commands.command 'lastcopy', 'Copy the last result to clipboard' do
+  pbcopy(_pry_.last_result.chomp)
+end
 
 if defined?(PryByebug)
   Pry.commands.alias_command 'c', 'continue'
