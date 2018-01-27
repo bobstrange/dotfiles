@@ -12,6 +12,7 @@ source ~/.vim/ctags.vim
 source ~/.vim/ag.vim
 source ~/.vim/airline.vim
 source ~/.vim/completion.vim
+source ~/.vim/vimdiff.vim
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
@@ -30,9 +31,6 @@ call plug#end()
 "   Plug settings
 
 "" vim-diff-enhanced
-if &diff
-  let &diffexpr='EnhancedDiff#Diff("git diff", "--diff-algorithm=patience")'
-endif
 
 " Base settings
 " refs: https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375
