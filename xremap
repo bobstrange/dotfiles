@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 
 # Key definition is placed at https://github.com/k0kubun/xremap/blob/6e8e1f21285ecedfa7ac88d703ad80d25a2699dd/src/x11_constants.c#L16
-window class: 'gnome-terminal-server' do
-
-end
 window class_not: 'gnome-terminal-server' do
   # emacs-like bindings
   remap 'C-b', to: 'Left'
@@ -35,9 +32,9 @@ window class_only: %w[google-chrome chromium-browser] do
   # I remmapped keycode 49 to Alt_R but the above keybinding
   # didn't work so I remap this keybinding for now
   remap 'Alt-bracketright', to: 'C-Tab'
-  remap 'Alt-bracketright', to: 'C-Shift-Tab'
+  remap 'Alt-bracketleft', to: 'C-Shift-Tab'
 end
 
-window class: 'atom' do
+window class_only: %w[atom] do
   remap 'Alt-p', to: 'C-p'
 end
