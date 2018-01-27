@@ -199,7 +199,7 @@ function install_albert() {
 # Font
 install_font() {
   ghq get https://github.com/edihbrandon/RictyDiminished
-  cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
+  sudo cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
   fc-cache -fv
 }
 
