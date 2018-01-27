@@ -2,35 +2,15 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'qpkorr/vim-bufkill'
-
 source ~/.vim/ctrlp.vim
 source ~/.vim/ctags.vim
 source ~/.vim/ag.vim
 source ~/.vim/airline.vim
 source ~/.vim/completion.vim
 source ~/.vim/vimdiff.vim
-
-Plug 'editorconfig/editorconfig-vim'
-Plug 'chrisbra/vim-diff-enhanced'
-Plug 'tomasr/molokai'
-Plug 'godlygeek/tabular'
-
-Plug 'tpope/vim-surround'
-
-Plug 'tpope/vim-endwise'
-
-Plug 'tmux-plugins/vim-tmux'
-Plug 'juliosueiras/vim-terraform-completion'
+source ~/.vim/plugins.vim
 
 call plug#end()
-
-"   Plug settings
-
-"" vim-diff-enhanced
 
 " Base settings
 " refs: https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375
