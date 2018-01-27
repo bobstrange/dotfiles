@@ -35,6 +35,8 @@ window class_only: %w[google-chrome chromium-browser] do
   remap 'Alt-bracketleft', to: 'C-Shift-Tab'
 end
 
+# TODO: It might beteer to be done on atom keymapping
 window class_only: %w[atom] do
+  # Go to anything
   remap 'Alt-p', to: 'C-p'
 end
