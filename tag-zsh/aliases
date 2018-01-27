@@ -15,3 +15,6 @@ alias crontab="VIM_CRONTAB=true crontab"
 
 # Use nvim as vim
 alias vim="nvim"
+
+# Restart xremap daemon because it sometimes fails
+alias restart-xremap="systemctl --user restart xremap"

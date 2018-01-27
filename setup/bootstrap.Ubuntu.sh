@@ -243,6 +243,12 @@ function install_ansible() {
   sudo apt-get install ansible -y
 }
 
+function install_powerline() {
+  ghq get powerline/fonts
+  cd ~/src/github.com/powerline/fonts
+  ./install.sh
+}
+
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
 

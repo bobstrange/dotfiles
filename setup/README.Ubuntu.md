@@ -20,7 +20,9 @@
     - 120 列
     - 80  行
   - フォントを指定する
-    - Ricty Diminished Regular 12
+    - ~~Ricty Diminished Regular 12~~
+    - Ricty Diminished Powerline Regular
+      - Powerlineを使うため
   - システムのテーマ色を使用するのチェックを外す
     - 組み込みのスキーム Solarized Dark
 
