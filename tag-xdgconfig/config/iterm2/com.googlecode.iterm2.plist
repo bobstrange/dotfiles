@@ -238,7 +238,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/src/github.com/mbadolato/iTerm2-Color-Schemes/schemes</string>
+	<string>~/.config/iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{878, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -278,13 +278,13 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>929 113 445 77 0 0 1440 877 </string>
+	<string>929 33 445 77 0 0 1440 877 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>65 637 918 381 0 0 1920 1057 </string>
+	<string>37 387 918 452 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1920 0 955 1057 1920 0 1920 1057 </string>
+	<string>0 0 1438 877 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>2167 0 710 1057 1920 0 1920 1057 </string>
+	<string>247 0 710 1057 0 0 1920 1057 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -864,7 +864,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Ricty-Regular 13</string>
+			<string>Ricty-Bold 14</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -983,7 +983,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/bob/dotfiles/config/iterm2</string>
+	<string>/Users/bob/.config/iterm2</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>SUEnableAutomaticChecks</key>
@@ -995,11 +995,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-01-17T13:51:30Z</date>
+	<date>2018-01-26T07:08:22Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.38834885817307696</real>
 	<key>StretchTabsToFillBar</key>
