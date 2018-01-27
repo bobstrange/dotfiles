@@ -12,6 +12,8 @@ source ~/.vim/plugins.vim
 
 call plug#end()
 
+
+source ~/.vim/theme.vim
 " Base settings
 " refs: https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375
 
@@ -26,10 +28,6 @@ let g:python_host_prog = $HOME . '/.pyenv/versions/2.7.14/bin/python2'
 let g:python3_host_prog = $HOME .'/.pyenv/versions/3.6.4/bin/python3'
 
 " color
-colorscheme molokai
-let g:rehash256 = 1
-highlight Normal ctermbg=none
-
 " tabs indents
 set expandtab
 set tabstop=2
