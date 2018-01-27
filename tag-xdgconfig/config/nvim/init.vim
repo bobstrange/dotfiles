@@ -16,7 +16,6 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tomasr/molokai'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 
 " For javasctipt
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -42,11 +41,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
 "   Plug settings
-
-map ]] <Plug>Markdown_MoveToNextHeader
-map [[ <Plug>Markdown_MoveToPreviousHeader
-map ]c <Plug>Markdown_MoveToCurHeader
-map ]u <Plug>Markdown_MoveToParentHeader
 
 " javascript
 let g:javascript_plugin_jsdoc = 1
