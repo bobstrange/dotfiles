@@ -20,7 +20,6 @@ Plug 'godlygeek/tabular'
 
 Plug 'tpope/vim-surround'
 
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
 
 Plug 'tmux-plugins/vim-tmux'
@@ -29,11 +28,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
 "   Plug settings
-
-"" syntastic
-
-let g:systastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
-let g:syntastic_ruby_checkers = ['rubocop']
 
 "" vim-diff-enhanced
 if &diff
