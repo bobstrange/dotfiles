@@ -5,9 +5,9 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'qpkorr/vim-bufkill'
 
+source ~/.vim/ctrlp.vim
 source ~/.vim/ctags.vim
 source ~/.vim/ag.vim
 source ~/.vim/airline.vim
@@ -34,10 +34,6 @@ call plug#end()
 
 let g:systastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers = ['rubocop']
-
-"" ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.png
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 "" vim-diff-enhanced
 if &diff
