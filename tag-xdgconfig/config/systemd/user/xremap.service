@@ -13,7 +13,8 @@ Type=simple
 Restart=always
 
 # Update DISPLAY to be the same as `echo $DISPLAY` on your graphical terminal.
-Environment=DISPLAY=:1
+# Othewise it fails to start
+Environment=DISPLAY=:0
 
 [Install]
 WantedBy=default.target
