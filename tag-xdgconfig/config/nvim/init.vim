@@ -17,13 +17,6 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tomasr/molokai'
 Plug 'godlygeek/tabular'
 
-" For javasctipt
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx'
-
 "" For ruby
 Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
 Plug 'osyo-manga/vim-monster'
@@ -41,13 +34,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
 "   Plug settings
-
-" javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-
-let g:jsx_ext_required = 0
-
 
 "" deoplete
 
