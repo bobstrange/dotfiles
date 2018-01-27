@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# Key definition is placed at https://github.com/k0kubun/xremap/blob/6e8e1f21285ecedfa7ac88d703ad80d25a2699dd/src/x11_constants.c#L16
+window class: 'gnome-terminal-server' do
+
+end
 window class_not: 'gnome-terminal-server' do
   # emacs-like bindings
   remap 'C-b', to: 'Left'
@@ -7,23 +11,31 @@ window class_not: 'gnome-terminal-server' do
   remap 'C-p', to: 'Up'
   remap 'C-n', to: 'Down'
 
-  remap 'M-b', to: 'Ctrl-Left'
-  remap 'M-f', to: 'Ctrl-Right'
+  # To show search window
+  remap 'M-f', to: 'Ctrl-f'
 
-  remap 'C-a', to: 'Alt-C-a'
-  remap 'C-e', to: 'Alt-C-e'
+  remap 'C-a', to: 'Home'
+  remap 'C-e', to: 'End'
 
-  remap 'C-k', to: 'Alt-C-k'
-
+  remap 'C-h', to: 'BackSpace'
   remap 'C-d', to: 'Delete'
+  remap 'M-h', to: 'Ctrl-BackSpace'
   remap 'M-d', to: 'Ctrl-Delete'
 
-  # actually these are vim insert mode bindings, but compatible with shell
-  remap 'C-w', to: ['Ctrl-Shift-Left', 'Ctrl-x']
-
+  remap 'Alt-n', to: 'Ctrl-n'
   %w[a z x c v w t l].each do |key|
     remap "Alt-#{key}", to: "C-#{key}"
   end
+end
+
+window class_only: %w[google-chrome chromium-browser] do
+  # remap 'Alt-Shift-bracketright', to: 'C-Tab'
+  # remap 'Alt-Shift-bracketleft', to: 'C-Shift-Tab'
+
+  # I remmapped keycode 49 to Alt_R but the above keybinding
+  # didn't work so I remap this keybinding for now
+  remap 'Alt-bracketright', to: 'C-Tab'
+  remap 'Alt-bracketright', to: 'C-Shift-Tab'
 end
 
 window class: 'atom' do
