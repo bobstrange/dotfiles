@@ -10,6 +10,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug 'fntlnz/atags.vim'
 source ~/.vim/airline.vim
+source ~/.vim/completion.vim
 
 Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
@@ -18,8 +19,6 @@ Plug 'tomasr/molokai'
 Plug 'godlygeek/tabular'
 
 "" For ruby
-Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby' }
-Plug 'osyo-manga/vim-monster'
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
 Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'tpope/vim-surround'
@@ -35,16 +34,7 @@ call plug#end()
 
 "   Plug settings
 
-"" deoplete
-
-let g:deoplete#enable_at_startup = 2
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
-let g:deoplete#sources#omni#input_patterns = {
-\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-\}
-
 "" ctags
-
 autocmd BufWritePost * call atags#generate()
 nnoremap <C-]> g<C-]>
 
