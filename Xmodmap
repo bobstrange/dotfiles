@@ -1,5 +1,5 @@
-! Zenkaku_Hankaku -> Control
+! Zenkaku_Hankaku -> Alt
 ! Make sure your desktop environment is not unity
 
-keycode 49 = Control_L Control_L
-add control = Control_L
+keycode 49 = Alt_R Alt_R
+add mod1 = Alt_R
