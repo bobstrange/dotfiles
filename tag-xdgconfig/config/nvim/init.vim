@@ -23,7 +23,6 @@ set fileencoding=utf-8
 syntax enable
 
 " Python
-
 let g:python_host_prog = $HOME . '/.pyenv/versions/2.7.14/bin/python2'
 let g:python3_host_prog = $HOME .'/.pyenv/versions/3.6.4/bin/python3'
 
@@ -66,32 +65,5 @@ set mouse=a
 set sh=zsh
 set formatoptions-=ro " Avoid to insert a comment on newline
 
-" map keys
-"" Off IME on pushing esc
-inoremap <silent> <Esc> <Esc>:set iminsert=0<CR>
+source ~/.vim/keybindings.vim
 
-"" Assign Ctrl-c to esc
-inoremap <C-c> <Esc>
-nnoremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
-
-"" tig
-nnoremap tig :<C-u>w<CR>:te tig<CR>
-
-"" Emacs like keybindings
-inoremap <C-p> <Up>
-inoremap <C-n> <Down>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-inoremap <C-d> <Delete>
-inoremap <C-h> <Backspace>
-
-"" Indentation
-nnoremap > >>
-nnoremap < <<
-vnoremap > >
-vnoremap < <
-
-"" Remove highlight with Escape
-nnoremap <Esc> :noh<return><Esc>
-nnoremap <C-c> :noh<return><Esc>
