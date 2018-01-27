@@ -5,25 +5,21 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-source ~/.vim/ag.vim
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'qpkorr/vim-bufkill'
-Plug 'fntlnz/atags.vim'
+
+source ~/.vim/ctags.vim
+source ~/.vim/ag.vim
 source ~/.vim/airline.vim
 source ~/.vim/completion.vim
 
-Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tomasr/molokai'
 Plug 'godlygeek/tabular'
 
-"" For ruby
-Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
-Plug 'tpope/vim-rake', { 'for': 'ruby' }
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'haml', 'coffee', 'javascript'] }
-Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
+
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-endwise'
 
@@ -33,10 +29,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
 "   Plug settings
-
-"" ctags
-autocmd BufWritePost * call atags#generate()
-nnoremap <C-]> g<C-]>
 
 "" syntastic
 
