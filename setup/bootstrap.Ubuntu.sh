@@ -184,27 +184,23 @@ function install_xremap() {
   systemctl --user start xremap
 }
 
-# Install gnome extensions
-function install_gnome_extensions() {
+function function install_gnome_extensions() {
   sudo apt install -y chrome-gnome-shell
 }
 
-# install albert
-function install_albert() {
+function function install_albert() {
   sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_17.10/ /' > /etc/apt/sources.list.d/albert.list"
   sudo apt-get update
   sudo apt-get install albert -y
 }
 
-# Font
-install_font() {
+function install_font() {
   ghq get https://github.com/edihbrandon/RictyDiminished
   sudo cp -pr ~/src/github.com/edihbrandon/RictyDiminished /usr/local/share/fonts/
   fc-cache -fv
 }
 
-# Ctags
-install_ctags() {
+function install_ctags() {
   ghq get https://github.com/universal-ctags/ctags
   cd ~/src/github.com/universal-ctags/ctags
   ./autogen.sh
@@ -213,7 +209,7 @@ install_ctags() {
   sudo make install
 }
 
-install_ssh_server() {
+function install_ssh_server() {
 
   ## Need to change /etc/ssh/sshd_config
   # Port 22 -> xx
@@ -231,8 +227,12 @@ install_ssh_server() {
   sudo apt-get install openssh-server -y
 }
 
-install_pyenv() {
+function install_pyenv() {
   curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+}
+
+function install_diff_so_fancy() {
+  npm install -g diff-so-fancy
 }
 
 uname -v | grep -q "Ubuntu"
@@ -255,6 +255,6 @@ if [[ ${ubuntu} = 0 ]];then
   install_font
   install_ctags
   install_ssh_server
-  # TODO: Installation diff-so-fancy
+  install_diff_so_fancy
   cleanup
 fi
