@@ -5,7 +5,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'mileszs/ack.vim'
+source ~/.vim/ag.vim
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug 'fntlnz/atags.vim'
@@ -42,10 +42,6 @@ Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
 "   Plug settings
-""  ag
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
 
 map ]] <Plug>Markdown_MoveToNextHeader
 map [[ <Plug>Markdown_MoveToPreviousHeader
