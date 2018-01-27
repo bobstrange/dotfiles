@@ -184,7 +184,7 @@ function install_xremap() {
   systemctl --user start xremap
 }
 
-function function install_gnome_extensions() {
+function gnome_extensions() {
   sudo apt install -y chrome-gnome-shell
 }
 
@@ -233,6 +233,14 @@ function install_pyenv() {
 
 function install_diff_so_fancy() {
   npm install -g diff-so-fancy
+}
+
+function install_ansible() {
+  sudo apt-get update
+  sudo apt-get install software-prperties-common
+  sudo apt-add-repository ppa:ansible/ansible
+  sudo apt-get update
+  sudo apt-get install ansible -y
 }
 
 uname -v | grep -q "Ubuntu"
