@@ -1,29 +1,29 @@
 #!/bin/bash
 
-change_default_directory_name_from_japanease_to_engilish() {
+function change_default_directory_name_from_japanease_to_engilish() {
   LANG=C xdg-user-dirs-gtk-update
 }
 
-cleanup() {
+function cleanup() {
   sudo apt autoremove
 }
 
-update() {
+function update() {
   sudo apt-get update
   sudo apt-get upgrade -y
 }
 
-install_essential() {
+function install_essential() {
   sudo apt-get install -y \
   curl gcc direnv jq tig tmux git silversearcher-ag xclip rxvt-unicode-256color
 }
 
-install_zsh() {
+function install_zsh() {
   sudo apt-get install -y zsh
   chsh -s $(which zsh)
 }
 
-setup_dotfile() {
+function setup_dotfile() {
   wget -qO - https://apt.thoughtbot.com/thoughtbot.gpg.key | sudo apt-key add -
   echo "deb http://apt.thoughtbot.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/thoughtbot.list 1>/dev/null
   sudo apt-get update
@@ -31,33 +31,33 @@ setup_dotfile() {
   env RCRC=$HOME/dotfiles/rcrc rcup
 }
 
-install_dropbox() {
+function install_dropbox() {
   cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
   ~/.dropbox-dist/dropboxd&
 }
 
-install_fzf() {
+function install_fzf() {
   if [[ ! -d ~/.fzf/ ]];then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   fi
   ~/.fzf/install
 }
 
-install_zplug() {
+function install_zplug() {
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
 }
 
-install_redis() {
+function install_redis() {
   sudo apt-get install redis-server -y
   sudo systemctl enable redis-server
 }
 
-install_gnome_keychain() {
+function install_gnome_keychain() {
   sudo apt-get install libgnome-keyring-dev -y
   sudo make --directory=/usr/share/doc/git/contrib/credential/gnome-keyring
 }
 
-install_dependencies_for_ruby() {
+function install_dependencies_for_ruby() {
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test
   sudo apt-get update
   sudo apt-get install -y \
@@ -66,7 +66,7 @@ install_dependencies_for_ruby() {
   libgdbm-dev
 }
 
-setup_ruby_dev_env() {
+function setup_ruby_dev_env() {
   install_dependencies_for_ruby
   if [[ ! -d ~/.rbenv ]]; then
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -75,7 +75,7 @@ setup_ruby_dev_env() {
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 }
 
-setup_ndenv() {
+function setup_ndenv() {
   if [[ ! -d ~/.ndenv ]]; then
     git clone https://github.com/riywo/ndenv ~/.ndenv
   fi
@@ -83,7 +83,7 @@ setup_ndenv() {
   git clone https://github.com/riywo/node-build.git ~/.ndenv/plugins/node-build
 }
 
-install_vim() {
+function install_vim() {
   ## Basically followed with https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
   sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
       libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
@@ -114,7 +114,7 @@ install_vim() {
   sudo update-alternatives --install /usr/bin/vi vi $(which vim) 20
 }
 
-install_neovim() {
+function install_neovim() {
   sudo add-apt-repository ppa:neovim-ppa/stable
   sudo apt-get update
   sudo apt-get install neovim
@@ -129,7 +129,7 @@ install_neovim() {
   sudo pip3 install --upgrade neovim
 }
 
-install_atom() {
+function install_atom() {
   curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
   sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
   sudo apt-get update
@@ -137,17 +137,17 @@ install_atom() {
   apm install --packages-file ~/dotfiles/atom/installed_packages
 }
 
-install_go() {
+function install_go() {
   # version 1.8 will be installed for Ubuntu 17.10
   sudo apt-get install golang-go -y
 # Need to restart to update login shell
 }
 
-install_ghq() {
+function install_ghq() {
   go get github.com/motemen/ghq
 }
 
-install_hub() {
+function install_hub() {
   # Install hub
   ghq get https://github.com/github/hub.git
   cd ~/src/github.com/github/hub
@@ -156,40 +156,41 @@ install_hub() {
   sudo make install prefix=/usr/local
 }
 
-setup_mysql() {
+function setup_mysql() {
   sudo apt-get install mysql-server libmysqlclient-dev -y
   mysql_secure_installation
 }
 
-setup_postgres() {
+function setup_postgres() {
   sudo apt-get install postgresql postgresql-contrib libpq-dev -y
 }
 
-install_ibus_mozc() {
+function install_ibus_mozc() {
   # Need to configure some manually
   # see:  https://mlny.info/2016/05/ibus-skk-on-ubuntu-xenial/
   sudo apt-get install ibus-mozc -y
 }
 
-install_xremap() {
+function install_xremap() {
   sudo apt-get install libx11-dev -y
   git clone https://github.com/k0kubun/xremap /tmp/xremap
   cd /tmp/xremap
   make
   sudo make install
-  # TODO: Need to be fixed
+
   mkdir -p ~/.config/systemd/user/
   cp -p ~/dotfiles/config/systemd/user/xremap.service ~/.config/systemd/user/xremap.service
+  systemctl --user enable xremap
+  systemctl --user start xremap
 }
 
-
 # Install gnome extensions
-install_gnome_extensions() {
+function install_gnome_extensions() {
   sudo apt install -y chrome-gnome-shell
 }
 
 # install albert
-install_albert() {
+function install_albert() {
   sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_17.10/ /' > /etc/apt/sources.list.d/albert.list"
   sudo apt-get update
   sudo apt-get install albert -y
