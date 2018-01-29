@@ -18,3 +18,5 @@ alias vim="nvim"
 
 # Restart xremap daemon because it sometimes fails
 alias restart-xremap="systemctl --user restart xremap"
+
+alias dotfile="cd ~/dotfiles"
