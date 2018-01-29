@@ -1,2 +1,3 @@
 # Use different config for os
-alias ssh="ssh -F ~/.ssh/config.$(uname)"
+# I don't need this setting for now
+# alias ssh="ssh -F ~/.ssh/config.$(uname)"
