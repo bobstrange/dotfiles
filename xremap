@@ -33,6 +33,7 @@ window class_only: %w[google-chrome chromium-browser] do
   # didn't work so I remap this keybinding for now
   remap 'Alt-bracketright', to: 'C-Tab'
   remap 'Alt-bracketleft', to: 'C-Shift-Tab'
+  remap 'Alt-Shift-T', to: 'C-Shift-T'
 end
 
 # TODO: It might beteer to be done on atom keymapping
