@@ -249,6 +249,9 @@ function install_powerline() {
   ./install.sh
 }
 
+function install_vagrant() {
+  sudo apt-get install virtualbox vagrant -y
+}
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
 
