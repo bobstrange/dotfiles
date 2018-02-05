@@ -8,6 +8,7 @@ source ~/.vim/completion.vim
 source ~/.vim/vimdiff.vim
 source ~/.vim/plugins.vim
 source ~/.vim/ruby.vim
+source ~/.vim/javascript.vim
 
 call plug#end()
 
