@@ -7,6 +7,7 @@ source ~/.vim/airline.vim
 source ~/.vim/completion.vim
 source ~/.vim/vimdiff.vim
 source ~/.vim/plugins.vim
+source ~/.vim/ruby.vim
 
 call plug#end()
 
