@@ -35,4 +35,4 @@ nnoremap gk k
 
 "" window split
 nnoremap <Leader>sp :split<CR>
-nnoremap <Leader>vsp :split<CR>
+nnoremap <Leader>vs :vsplit<CR>
