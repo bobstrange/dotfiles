@@ -17,4 +17,4 @@ syntax enable
 source ~/.vim/base_config.vim
 source ~/.vim/theme.vim
 source ~/.vim/keybindings.vim
-
+source ~/.vim/buffer.vim
