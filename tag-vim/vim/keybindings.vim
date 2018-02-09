@@ -26,3 +26,9 @@ vnoremap < <
 "" Remove highlight with Escape
 nnoremap <Esc> :noh<return><Esc>
 nnoremap <C-c> :noh<return><Esc>
+
+"" Use display lines upward and downward
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
