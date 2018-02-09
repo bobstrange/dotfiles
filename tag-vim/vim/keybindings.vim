@@ -32,3 +32,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
+
+"" window split
+nnoremap <Leader>sp :split<CR>
+nnoremap <Leader>vsp :split<CR>
