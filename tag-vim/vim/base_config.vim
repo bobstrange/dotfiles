@@ -9,6 +9,9 @@ set fileencoding=utf-8
 let g:python_host_prog = $HOME . '/.pyenv/versions/2.7.14/bin/python2'
 let g:python3_host_prog = $HOME .'/.pyenv/versions/3.6.4/bin/python3'
 
+" Make space as a <Leader>
+let mapleader = "\<Space>"
+
 " tabs indents
 set expandtab
 set tabstop=2
