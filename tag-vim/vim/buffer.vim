@@ -3,7 +3,10 @@
 " \l       : list buffers
 " \b \f \g : go back/forward/last-used
 " \1 \2 \3 : go to buffer 1/2/3 etc
-nnoremap <Leader>l :ls<CR>
+
+" Depends bufexplorer plugin
+nnoremap <Leader>l :ToggleBufExplorer<CR>
+
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>

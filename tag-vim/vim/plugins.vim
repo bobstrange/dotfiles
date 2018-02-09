@@ -9,4 +9,4 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tmux-plugins/vim-tmux'
-
+Plug 'jlanzarotta/bufexplorer'
