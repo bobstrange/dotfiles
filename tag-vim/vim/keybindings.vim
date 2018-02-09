@@ -34,5 +34,11 @@ nnoremap gj j
 nnoremap gk k
 
 "" window split
-nnoremap <Leader>sp :split<CR>
-nnoremap <Leader>vs :vsplit<CR>
+nnoremap <Leader>s :split<CR>
+nnoremap <Leader>v :vsplit<CR>
+nnoremap <Leader>c :close<CR>
+
+""" Default behaviour
+nnoremap <C-w>s :split<CR>
+nnoremap <C-w>v :vsplit<CR>
+nnoremap <C-w>c :close<CR>
