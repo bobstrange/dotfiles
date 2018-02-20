@@ -124,6 +124,11 @@ install_postgresql() {
   brew services start postgresql@9.6
 }
 
+install_mongo() {
+  brew install mongo
+  brew services start mongodb
+}
+
 install_redis() {
   brew install redis
   brew services start redis
