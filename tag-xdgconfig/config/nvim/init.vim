@@ -9,6 +9,7 @@ source ~/.vim/vimdiff.vim
 source ~/.vim/plugins.vim
 source ~/.vim/ruby.vim
 source ~/.vim/javascript.vim
+source ~/.vim/typescript.vim
 
 call plug#end()
 
