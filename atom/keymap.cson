@@ -2,6 +2,9 @@
   'cmd-¥': 'tree-view:toggle'
   # I tried to map ctrl-@ but it doesn't work if I use that shortcut twice
   'ctrl-cmd-o': 'platformio-ide-terminal:toggle'
+'.platform-darwin atom-workspace':
+  # Re-assign since platformio-ide-terminal assign this keybinding
+  'shift-cmd-t': 'pane:reopen-closed-item'
 '.platform-linux body':
   'alt-s': 'core:save'
   'alt-c': 'core:copy'
@@ -10,3 +13,4 @@
   'ctrl-alt-p': 'command-palette:toggle'
 '.platform-linux atom-workspace':
   'alt-shift-o': 'advanced-open-file:toggle'
+
