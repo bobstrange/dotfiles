@@ -12,7 +12,7 @@ def os
     end
 end
 
-def pbcopy(str)
+def pbcopy(obj)
   command = case os
     when :darwin
       'pbcopy'
@@ -20,11 +20,12 @@ def pbcopy(str)
       'xclip'
     end
 
-  IO.popen(command, 'r+') { |io| io.puts str }
+  IO.popen(command, 'r+') { |io| io.puts obj }
+  obj
 end
 
-Pry.config.commands.command 'copy', 'Copy a text to clipboard' do |str|
-  pbcopy(str)
+Pry.config.commands.command 'copy', 'Copy a text to clipboard' do |obj|
+  pbcopy(obj)
 end
 
 Pry.config.commands.command 'lastcopy', 'Copy the last result to clipboard' do
