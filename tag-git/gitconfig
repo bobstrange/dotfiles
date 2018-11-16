@@ -1,6 +1,7 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
+	whitespace = trailing-space,space-before-tab
 [user]
   name = bob1983
   email = bob.1983.g@gmail.com
