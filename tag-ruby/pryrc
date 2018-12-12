@@ -41,6 +41,6 @@ if defined?(PryByebug)
   Pry.commands.alias_command 'bda', 'break --disable-all'
 end
 
-if defined?(Rails && Rails::Console)
+if defined?(Rails::Console) &&  defined?(ActiveRecord)
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
