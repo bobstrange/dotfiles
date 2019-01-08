@@ -78,6 +78,7 @@ brew "mysql@5.6", restart_service: true
 brew "neovim"
 brew "nginx"
 brew "nkf"
+brew "nss" # For mkcert
 brew "packer"
 brew "pngquant"
 brew "postgresql"
