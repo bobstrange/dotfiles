@@ -36,3 +36,5 @@ export KERL_BUILD_BACKEND=git
 # kiex
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
+# nss ( for mkcert )
+export PATH="/usr/local/opt/nss/bin:$PATH"
