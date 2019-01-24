@@ -35,6 +35,11 @@ for zsh_source in $HOME/.zsh/aliases/*.zsh; do
   source $zsh_source
 done
 
+# load functions
+for zsh_source in $HOME/.zsh/functions/*.zsh; do
+  source $zsh_source
+done
+
 autoload -U compinit
 compinit
 
