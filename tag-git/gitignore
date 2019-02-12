@@ -46,3 +46,6 @@ tags.tmp
 
 # direnv
 .envrc
+
+# IntelliJ
+.idea/
