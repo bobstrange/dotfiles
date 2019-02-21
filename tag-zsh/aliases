@@ -1,5 +1,5 @@
 # Unix
-alias ll="ls -al"
+alias ll="ls -al --time-style=long-iso"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
 alias tig="tig --all"
