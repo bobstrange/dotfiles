@@ -18,6 +18,9 @@
 
 [alias]
   st = status
+  # Show only filenames
+  # Replace first 3 characters as git statsus --short input is like "M  app/models/something.rb"
+  stfn = ! git status --short | sed s/^...//
   cm = commit
   fap = fetch --all --prune
   br = branch
