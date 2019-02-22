@@ -45,7 +45,8 @@ gbr() {
   branch=$(echo "$branches" |
            fzf-tmux \
            --reverse \
-           -d 30% +m) &&
+           -d 30% \
+           --no-multi) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -59,7 +60,25 @@ gco() {
          --no-multi --no-sort --tiebreak=index \
          --ansi --preview ${_gitDiff} \
          --preview-window="right:80%" \
-         +m) &&
+         ) &&
   echo "$file"
   git checkout -- $(echo "${file}" | sed "s/^\sM\s//")
+}
+
+# Run rspec
+fz-rspec() {
+  local files target_files
+  files=$(git status --short | grep "_spec\.rb$" | sed "s/^...//")
+  echo "You could multi select with 'tab' button"
+  target_files=$(echo "$files" |
+        fzf-tmux \
+        --reverse \
+        -d 30% \
+        --multi \
+        ) &&
+        echo "$target_files"
+  echo "Starting rspec:
+$target_files"
+
+  rspec $(echo $target_files | sed "s/\n//")
 }
