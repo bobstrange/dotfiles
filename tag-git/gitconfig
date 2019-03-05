@@ -17,34 +17,33 @@
   path = ~/.gitconfig.local
 
 [alias]
+  br = branch
+  cb = rev-parse --abbrev-ref HEAD
+  cm = commit
+  co = checkout
+  fap = fetch --all --prune
+  fp = push --force-with-lease
+  lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   st = status
   # Show only filenames
   # Replace first 3 characters as git statsus --short input is like "M  app/models/something.rb"
   stfn = ! git status --short | sed s/^...//
-  cm = commit
-  fap = fetch --all --prune
-  br = branch
-  co = checkout
-  fp = push --force-with-lease
-  cb = rev-parse --abbrev-ref HEAD
-  lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
-  modified = ! git diff --name-only --diff-filter=M
-  add-modified = add -u
-  unstage = reset -q HEAD --
-  discard = checkout --
-  uncommit = reset --mixed HEAD~
-  hard-reset = !git reset --hard "origin/$(git cb)"
   amend = commit --amend --no-edit
-  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
   delete = branch --delete
   delete-merged = !git merged | xargs git delete
+  delete-remote-branch = push --delete origin
+  delete-remote-tag = push --delete origin
+  delete-tag = tag --delete
+  discard = checkout --
+  hard-reset = !git reset --hard "origin/$(git cb)"
+  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
+  modified = ! git diff --name-only --diff-filter=M
+  unstage = reset -q HEAD --
+  uncommit = reset --mixed HEAD~
   update-all = !git stash && git fap && git co development && git pull --rebase && git co master && git pull --rebase
   update-branch = !git branch -m
   push-upstream = !git push -u origin $(git cb)
-  delete-tag = tag --delete
-  delete-remote-branch = push --delete origin
-  delete-remote-tag = push --delete origin
   sync-tag = !git tag -l | xargs git delete-tag && git fetch origin --tags
 
   change = "!f() { git stash; git checkout $1; git pull --rebase; }; f"
