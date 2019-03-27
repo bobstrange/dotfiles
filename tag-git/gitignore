@@ -23,6 +23,7 @@ Pods/
 
 # ruby
 .byebug_history
+vendor/bundle
 
 # ctags
 .gemtags
