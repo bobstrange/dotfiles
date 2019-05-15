@@ -44,3 +44,5 @@ end
 if defined?(Rails::Console) &&  defined?(ActiveRecord)
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
+
+require 'colorize'
