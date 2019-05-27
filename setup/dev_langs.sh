@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Install ruby
-for version in 2.3.5 2.5.0; do
-  ## Failed to install 2.3.1 and 2.3.3 on Ubuntu 17.10
+for version in 2.3.1 2.6.3; do
   echo "Installing ruby ${version}"
   rbenv install ${version}
   echo "Finished install ruby ${version}"
@@ -11,27 +10,26 @@ for version in 2.3.5 2.5.0; do
   gem install bundler
   gem install neovim
   gem install fastri
-#   gem install rcodetools
   gem install rubocop
   gem install reek
   gem install ripper-tags
-
+  gem install solargraph
 
   echo "Finished to install bundler for ruby ${version}"
 done
 
-## Set ruby global version as 2.5.0 for now
-rbenv global 2.5.0
+## Set ruby global version as 2.6.3 for now
+rbenv global 2.6.3
 
 # Install node
-for version in v6.9.2 v8.9.4; do
+for version in v6.9.2 v12.3.1; do
   echo "Installing node ${version}"
   ndenv install ${version}
   echo "Finished install node ${version}"
 done
 
-## Set node global version as 8.9.4 for now
-ndenv global v8.9.4
+## Set node global version as v12.3.1 for now
+ndenv global v12.3.1
 npm install -g neovim
 
 ## Setup yarn

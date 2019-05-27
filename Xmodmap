@@ -1,9 +1,0 @@
-! Zenkaku_Hankaku -> Alt
-! Make sure your desktop environment is not unity
-
-! TODO:
-! Commented out since gnome-terminal has still recognized
-! keycode 49 as Zenkaku_Hankaku
-
-! keycode 49 = Alt_R Alt_R
-! add mod1 = Alt_R

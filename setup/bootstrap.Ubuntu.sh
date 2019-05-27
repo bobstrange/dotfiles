@@ -188,7 +188,7 @@ function gnome_extensions() {
   sudo apt install -y chrome-gnome-shell
 }
 
-function function install_albert() {
+function install_albert() {
   sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_17.10/ /' > /etc/apt/sources.list.d/albert.list"
   sudo apt-get update
   sudo apt-get install albert -y
