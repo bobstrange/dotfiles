@@ -38,3 +38,7 @@ test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
 # nss ( for mkcert )
 export PATH="/usr/local/opt/nss/bin:$PATH"
+
+# asdf
+test -s "$HOME/.asdf/" && source "$HOME/.asdf/asdf.sh"
+test -s "$HOME/.asdf/" && source "$HOME/.asdf/completions/asdf.bash"
