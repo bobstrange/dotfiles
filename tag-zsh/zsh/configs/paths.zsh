@@ -22,6 +22,9 @@ export PATH="$GOPATH/bin:$PATH"
 # direnv
 eval "$(direnv hook zsh)"
 
+# tfenv
+export PATH="$HOME/.tfenv/bin:$PATH"
+
 # github token
 if ls ~/.github_token; then
   source ~/.github_token
