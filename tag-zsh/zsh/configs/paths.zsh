@@ -43,5 +43,5 @@ test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 export PATH="/usr/local/opt/nss/bin:$PATH"
 
 # asdf
-test -s "$HOME/.asdf/" && source "$HOME/.asdf/asdf.sh"
-test -s "$HOME/.asdf/" && source "$HOME/.asdf/completions/asdf.bash"
+test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
+test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.bash"
