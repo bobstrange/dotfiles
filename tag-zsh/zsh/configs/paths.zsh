@@ -44,4 +44,3 @@ export PATH="/usr/local/opt/nss/bin:$PATH"
 
 # asdf
 test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
-test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.bash"
