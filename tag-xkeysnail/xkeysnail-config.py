@@ -40,10 +40,12 @@ define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
 
 define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
     # Re-open closed tab
-    K("M-Shift-t"): K("C-Shift-t"),
+    K("LM-Shift-t"): K("C-Shift-t"),
 
     # Previous-tab/Next-tab
-    K("M-tab"): K("C-tab"),
-    K("M-Shift-tab"): K("C-Shift-tab"),
+    K("LM-tab"): K("C-tab"),
+    K("LM-Shift-tab"): K("C-Shift-tab"),
+    K("LM-Shift-BACKSLASH"): K("C-tab"),
+    K("LM-Shift-RIGHT_BRACE"): K("C-Shift-tab")
 
 }, "Chrome keys")
