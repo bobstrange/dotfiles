@@ -1,85 +1,52 @@
 import re
 from xkeysnail.transform import *
 
+# [Global modemap] Change modifier keys as in xmodmap
 define_modmap({
-    Key.CAPSLOCK: Key.LEFT_CTRL
-})
-
-define_multipurpose_modmap({
-    Key.LEFT_META: [Key.MUHENKAN, Key.LEFT_META],
-})
-
-define_keymap(None, {
-    K("C-LEFT_BRACE"): [K("C-LEFT_BRACE"), K("MUHENKAN")],
-}, "Global keymap")
-
-define_keymap(lambda wm_class: wm_class in ("Google-chrome", "albert"), {
-    # Cursor
-    K("C-b"): with_mark(K("left")),
-    K("C-f"): with_mark(K("right")),
-    K("C-p"): with_mark(K("up")),
-    K("C-n"): with_mark(K("down")),
-    K("C-h"): with_mark(K("backspace")),
-    # Beginning/End of line
-    K("C-a"): with_mark(K("home")),
-    K("C-e"): with_mark(K("end")),
-    # Copy
-    K("C-w"): [K("C-x"), set_mark(False)],
-    K("M-w"): [K("C-c"), set_mark(False)],
-    K("C-y"): [K("C-v"), set_mark(False)],
-    # Delete
-    K("C-d"): [K("delete"), set_mark(False)],
-    # Kill line
-    K("C-k"): [K("Shift-end"), K("C-x"), set_mark(False)],
-
-    K("M-w"): K("C-w"),
-    K("M-r"): K("C-r"),
-    K("M-t"): K("C-t"),
-    K("M-Shift-t"): K("C-Shift-t"),
-    K("M-o"): K("C-o"),
-    K("M-p"): K("C-p"),
-    K("M-a"): K("C-a"),
-    K("M-s"): K("C-s"),
-    K("M-f"): K("C-f"),
-    K("M-g"): K("C-g"),
-    K("M-z"): K("C-z"),
-    K("M-x"): K("C-x"),
-    K("M-c"): K("C-c"),
-    K("M-v"): K("C-v"),
-    K("M-n"): K("C-n"),
-}, "Default keymap")
-
-define_keymap(lambda wm_class: wm_class in ("Boostnote"), {
-    K("M-w"): K("C-w"),
-    K("M-r"): K("C-r"),
-    K("M-t"): K("C-t"),
-    K("M-o"): K("C-o"),
-    K("M-p"): K("C-p"),
-    K("M-a"): K("C-a"),
-    K("M-s"): K("C-s"),
-    K("M-f"): K("C-f"),
-    K("M-g"): K("C-g"),
-    K("M-z"): K("C-z"),
-    K("M-x"): K("C-x"),
-    K("M-c"): K("C-c"),
-    K("M-v"): K("C-v"),
-    K("M-n"): K("C-n"),
-}, "Boostnote keymap")
-
-define_keymap(lambda wm_class: wm_class in ("Gnome-terminal"), {
-    K("C-TAB"): K("C-PAGE_DOWN"),
-    K("C-Shift-TAB"): K("C-PAGE_UP"),
-})
-
-define_conditional_modmap(lambda wm_class: wm_class in ("FocusProxy"), {
+    # Capslock -> Left ctrl
     Key.CAPSLOCK: Key.LEFT_CTRL,
-    Key.LEFT_CTRL: Key.CAPSLOCK,
-
-    Key.LEFT_ALT: Key.LEFT_META,
-    # Key.RIGHT_ALT: Key.RIGHT_META,
-    Key.LEFT_META: Key.LEFT_ALT,
 })
 
-define_keymap(lambda wm_class: wm_class in ("FocusProxy"), {
-    K("Super-q"): K("M-q"),
-})
+define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
+    # Emacs like 
+    ## Cursor
+    K("C-b"): K("left"),
+    K("C-f"): K("right"),
+    K("C-p"): K("up"),
+    K("C-n"): K("down"),
+
+    K("M-b"): K("C-left"),
+    K("M-f"): K("C-right"),
+
+    K("C-a"): K("home"),
+    K("C-e"): K("end"),
+    K("C-k"): [K("Shift-end"), K("backspace")],
+    K("C-d"): K("delete"),
+    K("C-h"): K("backspace"),
+
+    # LeftAlt -> Ctrl
+    K("LM-a"): K("C-a"),
+    K("LM-c"): K("C-c"),
+    K("LM-f"): K("C-f"),
+    K("LM-l"): K("C-l"),
+    K("LM-n"): K("C-n"),
+    K("LM-t"): K("C-t"),
+    K("LM-v"): K("C-v"),
+    K("LM-w"): K("C-w"),
+    K("LM-x"): K("C-x"),
+    K("LM-z"): K("C-z"),
+    K("LM-Shift-z"): K("C-Shift-z")
+}, "Default key mapping")
+
+define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
+    # Re-open closed tab
+    K("M-Shift-t"): K("C-Shift-t"),
+
+    # Previous-tab/Next-tab
+    K("M-tab"): K("C-tab"),
+    K("M-Shift-tab"): K("C-Shift-tab"),
+
+    # actually these are vim insert mode bindings, but compatible with shell
+    K("C-w"): [K("C-Shift-left"), K("delete")],
+
+}, "Chrome keys")
