@@ -10,19 +10,19 @@ define_modmap({
 define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
     # Emacs like 
     ## Cursor
-    K("C-b"): K("left"),
-    K("C-f"): K("right"),
-    K("C-p"): K("up"),
-    K("C-n"): K("down"),
+    K("LC-b"): K("left"),
+    K("LC-f"): K("right"),
+    K("LC-p"): K("up"),
+    K("LC-n"): K("down"),
 
-    K("M-b"): K("C-left"),
-    K("M-f"): K("C-right"),
+    K("LM-b"): K("C-left"),
+    K("LM-f"): K("C-right"),
 
-    K("C-a"): K("home"),
-    K("C-e"): K("end"),
-    K("C-k"): [K("Shift-end"), K("backspace")],
-    K("C-d"): K("delete"),
-    K("C-h"): K("backspace"),
+    K("LC-a"): K("home"),
+    K("LC-e"): K("end"),
+    K("LC-k"): [K("Shift-end"), K("backspace")],
+    K("LC-d"): K("delete"),
+    K("LC-h"): K("backspace"),
 
     # LeftAlt -> Ctrl
     K("LM-a"): K("C-a"),
@@ -45,8 +45,5 @@ define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
     # Previous-tab/Next-tab
     K("M-tab"): K("C-tab"),
     K("M-Shift-tab"): K("C-Shift-tab"),
-
-    # actually these are vim insert mode bindings, but compatible with shell
-    K("C-w"): [K("C-Shift-left"), K("delete")],
 
 }, "Chrome keys")
