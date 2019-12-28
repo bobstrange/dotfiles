@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+  - name: Install essential packages
+    become: true
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: true
+    loop:
+      - build-essential
+      - curl
+      - direnv
+      - jq
+      - tmux
+      - xclip
+
+
