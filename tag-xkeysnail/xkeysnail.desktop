@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Launch xkeysnail
+Type=Application
+Exec=/usr/local/bin/launch_xkeysnail.sh
+OnlyShowIn=GNOME;
+NoDisplay=true
