@@ -1,18 +1,30 @@
 ---
 - hosts: all
   tasks:
-  - name: Install essential packages
-    become: true
-    apt:
-      name: "{{ item }}"
-      state: present
-      update_cache: true
-    loop:
-      - build-essential
-      - curl
-      - direnv
-      - jq
-      - tmux
-      - xclip
+    - name: Install google chrome
+      become: true
+      apt: 
+        deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - name: Setup dotfiles
+      become: true
+      block:
+        - name: Install git
+          apt:
+            name: git
+            state: present
+            update_cache: true
+    - name: Install essential packages
+      become: true
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      loop:
+        - build-essential
+        - curl
+        - direnv
+        - jq
+        - tmux
+        - xclip
 
 
