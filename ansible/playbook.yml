@@ -2,23 +2,28 @@
 - hosts: all
   tasks:
     - name: Install google chrome
-      become: true
+      become: yes
       apt: 
         deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - name: Setup dotfiles
-      become: true
+      become: yes
       block:
         - name: Install git
           apt:
             name: git
             state: present
-            update_cache: true
+            update_cache: yes
+        - name: Clone dotfiles
+          git:
+            repo: 'https://github.com/bob1983/dotfiles.git'
+            dest: /home/bob/dotfiles
+            update: no
     - name: Install essential packages
-      become: true
+      become: yes
       apt:
         name: "{{ item }}"
         state: present
-        update_cache: true
+        update_cache: yes
       loop:
         - build-essential
         - curl
