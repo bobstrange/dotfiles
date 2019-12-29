@@ -31,5 +31,17 @@
         - jq
         - tmux
         - xclip
-
-
+    - name: Configure zsh
+      block:
+        - name: Install zsh
+          become: yes
+          apt:
+            name: zsh
+            state: latest
+            update_cache: yes
+        - name: Use zsh as a login shell
+          become: yes
+          user:
+            name: bob
+            shell: /bin/zsh
+ 
