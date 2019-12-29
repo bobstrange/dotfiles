@@ -11,7 +11,7 @@
         - name: Install git
           apt:
             name: git
-            state: present
+            state: latest
             update_cache: yes
         - name: Clone dotfiles
           git:
@@ -22,7 +22,7 @@
       become: yes
       apt:
         name: "{{ item }}"
-        state: present
+        state: latest
         update_cache: yes
       loop:
         - build-essential
