@@ -163,19 +163,6 @@ function install_ibus_mozc() {
   sudo apt-get install ibus-mozc -y
 }
 
-function install_xremap() {
-  sudo apt-get install libx11-dev -y
-  git clone https://github.com/k0kubun/xremap /tmp/xremap
-  cd /tmp/xremap
-  make
-  sudo make install
-
-  mkdir -p ~/.config/systemd/user/
-  cp -p ~/dotfiles/config/systemd/user/xremap.service ~/.config/systemd/user/xremap.service
-  systemctl --user enable xremap
-  systemctl --user start xremap
-}
-
 function gnome_extensions() {
   sudo apt install -y chrome-gnome-shell
 }
@@ -257,7 +244,6 @@ if [[ ${ubuntu} = 0 ]];then
   setup_mysql
   setup_postgres
   install_ibus_mozc
-  install_xremap
   install_gnome_extensions
   install_albert
   install_font
