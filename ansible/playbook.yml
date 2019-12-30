@@ -138,15 +138,14 @@
           git:
             repo: https://github.com/rbenv/ruby-build.git
             dest: /home/bob/.rbenv/plugins/ruby-build
-    - name: Install ndenv
+    - name: Install nodenv
       block:
-        - name: Install ndenv
+        - name: Install nodenv
           git:
-            repo: https://github.com/riywo/ndenv
-            dest: /home/bob/.ndenv
+            repo: https://github.com/nodenv/nodenv
+            dest: /home/bob/.nodenv
         - name: Install node-build
           git:
-            repo: https://github.com/riywo/node-build
-            dest: /home/bob/.ndenv/plugins/node-build
-           
+            repo: https://github.com/nodenv/node-build
+            dest: /home/bob/.nodenv/plugins/node-build
 
