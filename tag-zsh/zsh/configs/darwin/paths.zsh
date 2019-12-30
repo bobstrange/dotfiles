@@ -12,3 +12,7 @@ export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 
 # Vscode
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+
+# openssl
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+
