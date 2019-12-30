@@ -18,7 +18,7 @@ for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
 done
 
-# laod fzf
+# load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Load osx related configurations
@@ -29,8 +29,8 @@ if [ "$(uname)" = 'Darwin' ]; then
   done
 fi
 
-# load aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
+
 # load functions
 for zsh_source in $HOME/.zsh/functions/*.zsh; do
   source $zsh_source
