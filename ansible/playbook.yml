@@ -78,3 +78,44 @@
             name: bob
             shell: /bin/zsh
  
+    - name: Install vscode
+      become: yes
+      snap:
+        name: code
+        classic: yes
+    - name: Install setting sync
+      shell: code --install-extension Shan.code-settings-sync
+    - name: Setup ruby
+      block:
+        - name: Install dependencies
+          become: yes
+          apt:
+            name: "{{ item }}"
+            state: latest
+            update_cache: yes
+          loop:
+            - autoconf
+            - bison
+            - build-essential
+            - libssl-dev
+            - libyaml-dev
+            - libreadline6-dev
+            - zlib1g-dev
+            - libncurses5-dev
+            - libffi-dev
+            - libgdbm5
+            - libgdbm-dev
+    - name: Install rbenv
+      tags:
+        - test
+      block:
+        - name: Install rbenv
+          git:
+            repo: https://github.com/rbenv/rbenv.git
+            dest: /home/bob/.rbenv
+        - name: Install ruby-build
+          git:
+            repo: https://github.com/rbenv/ruby-build.git
+            dest: /home/bob/.rbenv/ruby-build
+           
+
