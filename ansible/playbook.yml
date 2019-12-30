@@ -77,7 +77,13 @@
           user:
             name: bob
             shell: /bin/zsh
- 
+        - name: Check .zplug dir
+          stat:
+            path: /home/bob/.zplug
+          register: zplug_dir
+        - name: Install zplug 
+          shell: "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
+          when: not zplug_dir.stat.exists
     - name: Install vscode
       become: yes
       snap:
@@ -106,8 +112,6 @@
             - libgdbm5
             - libgdbm-dev
     - name: Install rbenv
-      tags:
-        - test
       block:
         - name: Install rbenv
           git:
