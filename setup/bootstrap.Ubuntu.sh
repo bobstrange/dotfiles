@@ -129,14 +129,6 @@ function install_neovim() {
   sudo pip3 install --upgrade neovim
 }
 
-function install_atom() {
-  curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-  sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-  sudo apt-get update
-  sudo apt-get install atom -y
-  apm install --packages-file ~/dotfiles/atom/installed_packages
-}
-
 function install_go() {
   # version 1.8 will be installed for Ubuntu 17.10
   sudo apt-get install golang-go -y
@@ -259,7 +251,6 @@ if [[ ${ubuntu} = 0 ]];then
   setup_ndenv
   install_vim
   install_neovim
-  install_atom
   install_go
   install_ghq
   install_hub
