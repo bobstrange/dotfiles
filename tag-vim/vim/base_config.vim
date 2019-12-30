@@ -6,8 +6,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 
 " Python runtime
-let g:python_host_prog = $HOME . '/.pyenv/versions/2.7.14/bin/python2'
-let g:python3_host_prog = $HOME .'/.pyenv/versions/3.6.4/bin/python3'
+let g:python3_host_prog = $HOME .'/.pyenv/versions/3.8.1/bin/python3'
 
 " Make space as a <Leader>
 let mapleader = "\<Space>"
@@ -37,6 +36,21 @@ set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set virtualedit=onemore
 set ambiwidth=double
+
+" highlight Zenkaku space
+" https://gist.github.com/pgtwitter/cb31d497aa02f221164fc2dd846d24dc
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+if has('syntax')
+  augroup ZenkakuSpace
+    autocmd!
+    autocmd ColorScheme       * call ZenkakuSpace()
+    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+  augroup END
+  call ZenkakuSpace()
+endif
 
 " search
 set ignorecase
