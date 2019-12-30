@@ -3,7 +3,7 @@
   tasks:
     - name: Install google chrome
       become: yes
-      apt: 
+      apt:
         deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - name: Setup git
       become: yes
@@ -98,7 +98,7 @@
           stat:
             path: /home/bob/.zplug
           register: zplug_dir
-        - name: Install zplug 
+        - name: Install zplug
           shell: "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
           when: not zplug_dir.stat.exists
     - name: Install vscode
@@ -155,4 +155,31 @@
           git:
             repo: https://github.com/nodenv/node-build
             dest: /home/bob/.nodenv/plugins/node-build
-      tags: test
+    - name: Install pyenv
+      block:
+        - name: Install pyenv
+          git:
+            repo: https://github.com/pyenv/pyenv
+            dest: /home/bob/.pyenv
+        - name: Install python build dependencies
+          become: yes
+          apt:
+            name: "{{ item }}"
+          loop:
+            - make
+            - build-essential
+            - libssl-dev
+            - zlib1g-dev
+            - libbz2-dev
+            - libreadline-dev
+            - libsqlite3-dev
+            - wget
+            - curl
+            - llvm
+            - libncurses5-dev
+            - xz-utils
+            - tk-dev
+            - libxml2-dev
+            - libxmlsec1-dev
+            - libffi-dev
+            - liblzma-dev
