@@ -144,8 +144,15 @@
           git:
             repo: https://github.com/nodenv/nodenv
             dest: /home/bob/.nodenv
+        - name: Generate Makefile
+          shell:
+            chdir: /home/bob/.nodenv
+            cmd: src/configure
+        - name: Install nodenv bin
+          make:
+            chdir: /home/bob/.nodenv/src
         - name: Install node-build
           git:
             repo: https://github.com/nodenv/node-build
             dest: /home/bob/.nodenv/plugins/node-build
-
+      tags: test
