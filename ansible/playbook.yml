@@ -183,3 +183,11 @@
             - libxmlsec1-dev
             - libffi-dev
             - liblzma-dev
+        - name: Install pyenv-virtualenv
+          git:
+            repo: https://github.com/pyenv/pyenv-virtualenv
+            dest: /home/bob/.pyenv/plugins/pyenv-virtualenv
+        - name: Install pyenv-doctor
+          git:
+            repo: https://github.com/pyenv/pyenv-doctor
+            dest: /home/bob/.pyenv/plugins/pyenv-doctor
