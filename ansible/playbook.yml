@@ -5,7 +5,7 @@
       become: yes
       apt: 
         deb: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - name: Setup dotfiles
+    - name: Setup git
       become: yes
       block:
         - name: Install git
@@ -13,6 +13,25 @@
             name: git
             state: latest
             update_cache: yes
+        - name: Install libgnome-keyring-dev
+          apt:
+            name: libgnome-keyring-dev
+            state: latest
+            update_cache: yes
+        - name: build
+          make:
+            chdir: /usr/share/doc/git/contrib/credential/gnome-keyring
+        - name: Make symlink
+          file:
+            src: /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+            dest: /usr/lib/git-core/git-credential-gnome-keyring
+            owner: root
+            group: root
+            mode: '777'
+            state: link
+    - name: Setup dotfiles
+      become: yes
+      block:
         - name: Clone dotfiles
           git:
             repo: 'https://github.com/bob1983/dotfiles.git'
