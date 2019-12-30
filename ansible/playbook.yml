@@ -296,7 +296,6 @@
           apt:
             name: neovim
         - name: python related
-          become: yes
           shell: "{{ item }} install --upgrade neovim"
           loop:
             - pip2
@@ -308,4 +307,12 @@
             - editor $(which nvim)
             - vi $(which nvim)
             - vim $(which nvim)
-      tags: test
+    - name: Install fzf
+      block:
+        - name: Download fzf repo
+          git:
+            repo: https://github.com/junegunn/fzf
+            dest: /home/bob/.fzf
+            depth: 1
+        - name: Install fzf
+          shell: /home/bob/.fzf/install
