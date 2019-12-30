@@ -2,9 +2,9 @@
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-# ndenv
-export PATH=$HOME/.ndenv/bin:$PATH
-eval "$(ndenv init -)"
+# nodenv
+export PATH=$HOME/.nodenv/bin:$PATH
+eval "$(nodenv init -)"
 
 # pyenv
 export PATH=$HOME/.pyenv/bin:$PATH
