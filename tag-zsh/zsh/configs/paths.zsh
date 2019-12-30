@@ -12,8 +12,8 @@ export PYENV_ROOT=$HOME/.pyenv
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# go
-export GOPATH="$HOME/.go"
+# go-lang
+export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # direnv

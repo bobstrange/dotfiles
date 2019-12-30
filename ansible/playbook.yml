@@ -316,3 +316,17 @@
             depth: 1
         - name: Install fzf
           shell: /home/bob/.fzf/install
+    - name: Install ghq
+      block:
+        - name: Add go repository
+          become: yes
+          apt_repository:
+            repo: ppa:longsleep/golang-backports
+        - name: Install go
+          become: yes
+          apt:
+            name: golang-go
+            update_cache: yes
+        - name: Install ghq
+          shell: go get github.com/motemen/ghq
+
