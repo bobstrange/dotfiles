@@ -1,7 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
 
-source ~/.vim/ctrlp.vim
-source ~/.vim/ctags.vim
 source ~/.vim/ag.vim
 source ~/.vim/airline.vim
 source ~/.vim/completion.vim
