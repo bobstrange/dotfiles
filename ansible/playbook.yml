@@ -286,6 +286,10 @@
             - python-pip
             - python3-dev
             - python3-pip
+        - name: Add repo
+          become: yes
+          apt_repository:
+            repo: ppa:neovim-ppa/stable
         - name: Install neovim
           become: yes
           apt:
