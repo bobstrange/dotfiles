@@ -128,17 +128,21 @@
             - libffi-dev
             - libgdbm5
             - libgdbm-dev
-    - name: Install rbenv
-      block:
         - name: Install rbenv
-          git:
-            repo: https://github.com/rbenv/rbenv.git
-            dest: /home/bob/.rbenv
-        - name: Install ruby-build
-          git:
-            repo: https://github.com/rbenv/ruby-build.git
-            dest: /home/bob/.rbenv/plugins/ruby-build
-    - name: Install nodenv
+          block:
+            - name: Install rbenv
+              git:
+                repo: https://github.com/rbenv/rbenv.git
+                dest: /home/bob/.rbenv
+            - name: Install ruby-build
+              git:
+                repo: https://github.com/rbenv/ruby-build.git
+                dest: /home/bob/.rbenv/plugins/ruby-build
+        - name: Install ruby
+          shell: /home/bob/.rbenv/bin/rbenv install --skip-existing 2.7.0
+        - name: Set ruby 2.7.0 as global
+          shell: /home/bob/.rbenv/bin/rbenv global 2.7.0
+    - name: Install node
       block:
         - name: Install nodenv
           git:
@@ -155,7 +159,11 @@
           git:
             repo: https://github.com/nodenv/node-build
             dest: /home/bob/.nodenv/plugins/node-build
-    - name: Install pyenv
+        - name: Install node
+          shell: /home/bob/.nodenv/bin/nodenv install --skip-existing 12.14.0
+        - name: Set node 12.14.0 as a global
+          shell: /home/bob/.nodenv/bin/nodenv global 12.14.0
+    - name: Install python
       block:
         - name: Install pyenv
           git:
@@ -191,3 +199,7 @@
           git:
             repo: https://github.com/pyenv/pyenv-doctor
             dest: /home/bob/.pyenv/plugins/pyenv-doctor
+        - name: Install python
+          shell: pyenv install --skip-existing 3.8.1
+        - name: Set python 3.8.1 as a global
+          shell: pyenv global 3.8.1
