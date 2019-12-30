@@ -31,14 +31,6 @@ if ls ~/.github_token; then
 fi
 
 ## Elixir
-# kerl
-export KERL_BASE_DIR=$HOME/.kerl
-export KERL_DEFAULT_INSTALL_DIR=$KERL_BASE_DIR/installs
-export KERL_BUILD_BACKEND=git
-
-# kiex
-test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
-
 # nss ( for mkcert )
 export PATH="/usr/local/opt/nss/bin:$PATH"
 

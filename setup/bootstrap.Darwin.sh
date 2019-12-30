@@ -109,10 +109,6 @@ install_xxenv() {
 #   brew install yarn --without-node
 # }
 
-install_atom() {
-  brew cask install atom
-  apm install --packages-file ~/dotfiles/atom/installed_packages
-}
 
 install_mysql() {
   brew install mysql
@@ -153,7 +149,6 @@ if [ $(uname) == 'Darwin' ]; then
   install_font
   change_host
   install_xxenv
-  install_atom
   install_mysql
   install_redis
   install_ctags

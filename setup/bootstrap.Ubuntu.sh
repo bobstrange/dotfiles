@@ -129,14 +129,6 @@ function install_neovim() {
   sudo pip3 install --upgrade neovim
 }
 
-function install_atom() {
-  curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-  sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-  sudo apt-get update
-  sudo apt-get install atom -y
-  apm install --packages-file ~/dotfiles/atom/installed_packages
-}
-
 function install_go() {
   # version 1.8 will be installed for Ubuntu 17.10
   sudo apt-get install golang-go -y
@@ -169,19 +161,6 @@ function install_ibus_mozc() {
   # Need to configure some manually
   # see:  https://mlny.info/2016/05/ibus-skk-on-ubuntu-xenial/
   sudo apt-get install ibus-mozc -y
-}
-
-function install_xremap() {
-  sudo apt-get install libx11-dev -y
-  git clone https://github.com/k0kubun/xremap /tmp/xremap
-  cd /tmp/xremap
-  make
-  sudo make install
-
-  mkdir -p ~/.config/systemd/user/
-  cp -p ~/dotfiles/config/systemd/user/xremap.service ~/.config/systemd/user/xremap.service
-  systemctl --user enable xremap
-  systemctl --user start xremap
 }
 
 function gnome_extensions() {
@@ -259,14 +238,12 @@ if [[ ${ubuntu} = 0 ]];then
   setup_ndenv
   install_vim
   install_neovim
-  install_atom
   install_go
   install_ghq
   install_hub
   setup_mysql
   setup_postgres
   install_ibus_mozc
-  install_xremap
   install_gnome_extensions
   install_albert
   install_font
