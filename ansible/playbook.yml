@@ -18,6 +18,20 @@
             repo: 'https://github.com/bob1983/dotfiles.git'
             dest: /home/bob/dotfiles
             update: no
+        - name: Add thoughtbot keyring
+          apt_key:
+            url: 'https://apt.thoughtbot.com/thoughtbot.gpg.key'
+            state: present
+        - name: Add thoughtbot soucelist
+          apt_repository:
+            repo: deb https://apt.thoughtbot.com/debian/ stable main
+            state: present
+            filename: thoughtbot
+        - name: Install rcm
+          apt:
+            name: rcm
+            state: latest
+            update_cache: yes
     - name: Install essential packages
       become: yes
       apt:
