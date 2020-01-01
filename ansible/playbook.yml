@@ -67,6 +67,7 @@
         - tig
         - virtualbox
         - vagrant
+        - silversearcher-ag
     - name: Ensure /home/bob/.fonts dir exists
       file:
         path: /home/bob/.fonts
