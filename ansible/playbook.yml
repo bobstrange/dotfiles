@@ -31,7 +31,26 @@
             state: link
     - name: Setup xkeysnail
       block:
-
+        - name: Install pip3
+          become: yes
+          apt:
+            name: python3-pip
+        - name: configure user
+          block:
+            - name: Add group
+              become: yes
+              group:
+                name: uinput
+                state: present
+            - name: Add xkeysnail user
+              become: yes
+              user:
+                name: xkeysnail
+                create_home: no
+                groups:
+                  - input
+                  - uinput
+                shell: /usr/bin/nologin
     - name: Setup dotfiles
       block:
         - name: Clone dotfiles
