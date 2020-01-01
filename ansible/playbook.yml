@@ -29,8 +29,10 @@
             group: root
             mode: '777'
             state: link
+    - name: Setup xkeysnail
+      block:
+
     - name: Setup dotfiles
-      become: yes
       block:
         - name: Clone dotfiles
           git:
@@ -38,15 +40,18 @@
             dest: /home/bob/dotfiles
             update: no
         - name: Add thoughtbot keyring
+          become: yes
           apt_key:
             url: 'https://apt.thoughtbot.com/thoughtbot.gpg.key'
             state: present
         - name: Add thoughtbot soucelist
+          become: yes
           apt_repository:
             repo: deb https://apt.thoughtbot.com/debian/ stable main
             state: present
             filename: thoughtbot
         - name: Install rcm
+          become: yes
           apt:
             name: rcm
             state: latest
