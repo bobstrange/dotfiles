@@ -2,9 +2,9 @@
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-# ndenv
-export PATH=$HOME/.ndenv/bin:$PATH
-eval "$(ndenv init -)"
+# nodenv
+export PATH=$HOME/.nodenv/bin:$PATH
+eval "$(nodenv init -)"
 
 # pyenv
 export PATH=$HOME/.pyenv/bin:$PATH
@@ -12,8 +12,8 @@ export PYENV_ROOT=$HOME/.pyenv
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# go
-export GOPATH="$HOME/.go"
+# go-lang
+export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
 
 # direnv

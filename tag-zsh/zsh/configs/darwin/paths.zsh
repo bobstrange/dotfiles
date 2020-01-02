@@ -16,3 +16,5 @@ export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PA
 # openssl
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 
+# asdf
+test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
