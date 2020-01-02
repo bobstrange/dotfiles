@@ -31,10 +31,6 @@ fi
 
 # load aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
-for zsh_source in $HOME/.zsh/aliases/*.zsh; do
-  source $zsh_source
-done
-
 # load functions
 for zsh_source in $HOME/.zsh/functions/*.zsh; do
   source $zsh_source
