@@ -51,6 +51,12 @@
                   - input
                   - uinput
                 shell: /usr/bin/nologin
+            - name: Add uinput rules
+              become: yes
+              lineinfile:
+                create: yes
+                path: /etc/udev/rules.d/40-udev-xkeysnail.rules
+                line: 'KERNEL=="uinput", GROUP="uinput"'
             - name: Add uinput conf
               become: yes
               lineinfile:
