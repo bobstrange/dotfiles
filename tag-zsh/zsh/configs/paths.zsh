@@ -33,3 +33,6 @@ export PATH="/usr/local/opt/nss/bin:$PATH"
 
 # asdf
 test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
