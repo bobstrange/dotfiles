@@ -63,6 +63,11 @@
                 create: yes
                 path: /etc/modules-load.d/uinput.conf
                 line: uinput
+            - name: Add xkeysnail to sudoers
+              become: yes
+              lineinfile:
+                path: /etc/sudoers
+                line: 'bob ALL=(xkeysnail) NOPASSWD: /usr/local/bin/xkeysnail'
     - name: Setup dotfiles
       block:
         - name: Clone dotfiles
