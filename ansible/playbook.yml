@@ -51,6 +51,12 @@
                   - input
                   - uinput
                 shell: /usr/bin/nologin
+            - name: Add uinput conf
+              become: yes
+              lineinfile:
+                create: yes
+                path: /etc/modules-load.d/uinput.conf
+                line: uinput
     - name: Setup dotfiles
       block:
         - name: Clone dotfiles
