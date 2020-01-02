@@ -1,19 +1,19 @@
 # Unix
-alias ll="ls -al --time-style="+%F %H:%m:%S"
-alias ln="ln -v"
-alias mkdir="mkdir -p"
-alias tig="tig --all"
+alias ll='ls -al --time-style="+%F %H:%m:%S"'
+alias ln='ln -v'
+alias mkdir='mkdir -p'
+alias tig='tig --all'
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
 # Crontab editin
-alias crontab="VIM_CRONTAB=true crontab"
+alias crontab='VIM_CRONTAB=true crontab'
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
 # Use nvim as vim
-alias vim="nvim"
+alias vim='nvim'
 
-alias dotfile="cd ~/dotfiles"
+alias dotfile='cd ~/dotfiles'
