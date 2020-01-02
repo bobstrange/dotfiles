@@ -29,6 +29,30 @@
             group: root
             mode: '777'
             state: link
+    - name: Setup dotfiles
+      block:
+        - name: Clone dotfiles
+          git:
+            repo: 'https://github.com/bob1983/dotfiles.git'
+            dest: /home/bob/dotfiles
+            update: no
+        - name: Add thoughtbot keyring
+          become: yes
+          apt_key:
+            url: 'https://apt.thoughtbot.com/thoughtbot.gpg.key'
+            state: present
+        - name: Add thoughtbot soucelist
+          become: yes
+          apt_repository:
+            repo: deb https://apt.thoughtbot.com/debian/ stable main
+            state: present
+            filename: thoughtbot
+        - name: Install rcm
+          become: yes
+          apt:
+            name: rcm
+            state: latest
+            update_cache: yes
     - name: Setup xkeysnail
       block:
         - name: Install pip3
@@ -68,30 +92,24 @@
               lineinfile:
                 path: /etc/sudoers
                 line: 'bob ALL=(xkeysnail) NOPASSWD: /usr/local/bin/xkeysnail'
-    - name: Setup dotfiles
-      block:
-        - name: Clone dotfiles
-          git:
-            repo: 'https://github.com/bob1983/dotfiles.git'
-            dest: /home/bob/dotfiles
-            update: no
-        - name: Add thoughtbot keyring
-          become: yes
-          apt_key:
-            url: 'https://apt.thoughtbot.com/thoughtbot.gpg.key'
-            state: present
-        - name: Add thoughtbot soucelist
-          become: yes
-          apt_repository:
-            repo: deb https://apt.thoughtbot.com/debian/ stable main
-            state: present
-            filename: thoughtbot
-        - name: Install rcm
-          become: yes
-          apt:
-            name: rcm
-            state: latest
-            update_cache: yes
+            - name: Launch xkeysnail on startup
+              block:
+                - name: Create a symlink to bin
+                  become: yes
+                  file:
+                    src: /home/bob/dotfiles/tag-xkeysnail/launch_xkeysnail.sh
+                    path: /usr/local/bin/launch_xkeysnail.sh
+                    state: link
+                - name: Create a autostart directory
+                  file:
+                    path: /home/bob/.config/autostart
+                    state: directory
+                    recurse: yes
+                - name: Create a symlink to autostart
+                  file:
+                    src: /home/bob/dotfiles/tag-xkeysnail/xkeysnail.desktop
+                    path: /home/bob/.config/autostart/xkeysnail.desktop
+                    state: link
     - name: Install essential packages
       become: yes
       apt:
