@@ -34,7 +34,7 @@
         - name: Clone dotfiles
           git:
             repo: 'https://github.com/bob1983/dotfiles.git'
-            dest: /home/bob/dotfiles
+            dest: "{{ dotfiles_dir }}"
             update: no
         - name: Add thoughtbot keyring
           become: yes
@@ -97,18 +97,18 @@
                 - name: Create a symlink to bin
                   become: yes
                   file:
-                    src: /home/bob/dotfiles/tag-xkeysnail/launch_xkeysnail.sh
+                    src: "{{ dotfiles_dir }}/tag-xkeysnail/launch_xkeysnail.sh"
                     path: /usr/local/bin/launch_xkeysnail.sh
                     state: link
                 - name: Create a autostart directory
                   file:
-                    path: /home/bob/.config/autostart
+                    path: "{{ home_dir }}/.config/autostart"
                     state: directory
                     recurse: yes
                 - name: Create a symlink to autostart
                   file:
-                    src: /home/bob/dotfiles/tag-xkeysnail/xkeysnail.desktop
-                    path: /home/bob/.config/autostart/xkeysnail.desktop
+                    src: "{{ dotfiles_dir }}/tag-xkeysnail/xkeysnail.desktop"
+                    path: "{{ home_dir }}/.config/autostart/xkeysnail.desktop"
                     state: link
     - name: Install essential packages
       become: yes
@@ -127,14 +127,14 @@
         - virtualbox
         - vagrant
         - silversearcher-ag
-    - name: Ensure /home/bob/.fonts dir exists
+    - name: Ensure "{{ home_dir }}/.fonts dir exists"
       file:
-        path: /home/bob/.fonts
+        path: "{{ home_dir }}/.fonts"
         state: directory
     - name: Install fonts
       get_url:
         url: "{{ item }}"
-        dest: /home/bob/.fonts/
+        dest: "{{ home_dir }}/.fonts/"
       loop:
         - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf'
         - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf'
@@ -159,7 +159,7 @@
             shell: /bin/zsh
         - name: Check .zplug dir
           stat:
-            path: /home/bob/.zplug
+            path: "{{ home_dir }}/.zplug"
           register: zplug_dir
         - name: Install zplug
           shell: "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
@@ -196,42 +196,42 @@
             - name: Install rbenv
               git:
                 repo: https://github.com/rbenv/rbenv.git
-                dest: /home/bob/.rbenv
+                dest: "{{ home_dir }}/.rbenv"
             - name: Install ruby-build
               git:
                 repo: https://github.com/rbenv/ruby-build.git
-                dest: /home/bob/.rbenv/plugins/ruby-build
+                dest: "{{ home_dir }}/.rbenv/plugins/ruby-build"
         - name: Install ruby
-          shell: /home/bob/.rbenv/bin/rbenv install --skip-existing 2.7.0
+          shell: "{{ home_dir }}/.rbenv/bin/rbenv install --skip-existing 2.7.0"
         - name: Set ruby 2.7.0 as global
-          shell: /home/bob/.rbenv/bin/rbenv global 2.7.0
+          shell: "{{ home_dir }}/.rbenv/bin/rbenv global 2.7.0"
     - name: Install node
       block:
         - name: Install nodenv
           git:
             repo: https://github.com/nodenv/nodenv
-            dest: /home/bob/.nodenv
+            dest: "{{ home_dir }}/.nodenv"
         - name: Generate Makefile
           shell:
-            chdir: /home/bob/.nodenv
+            chdir: "{{ home_dir }}/.nodenv"
             cmd: src/configure
         - name: Install nodenv bin
           make:
-            chdir: /home/bob/.nodenv/src
+            chdir: "{{ home_dir }}/.nodenv/src"
         - name: Install node-build
           git:
             repo: https://github.com/nodenv/node-build
-            dest: /home/bob/.nodenv/plugins/node-build
+            dest: "{{ home_dir }}/.nodenv/plugins/node-build"
         - name: Install node
-          shell: /home/bob/.nodenv/bin/nodenv install --skip-existing 12.14.0
+          shell: "{{ home_dir }}/.nodenv/bin/nodenv install --skip-existing 12.14.0"
         - name: Set node 12.14.0 as a global
-          shell: /home/bob/.nodenv/bin/nodenv global 12.14.0
+          shell: "{{ home_dir }}/.nodenv/bin/nodenv global 12.14.0"
     - name: Install python
       block:
         - name: Install pyenv
           git:
             repo: https://github.com/pyenv/pyenv
-            dest: /home/bob/.pyenv
+            dest: "{{ home_dir }}/.pyenv"
         - name: Install python build dependencies
           become: yes
           apt:
@@ -257,11 +257,11 @@
         - name: Install pyenv-virtualenv
           git:
             repo: https://github.com/pyenv/pyenv-virtualenv
-            dest: /home/bob/.pyenv/plugins/pyenv-virtualenv
+            dest: "{{ home_dir }}/.pyenv/plugins/pyenv-virtualenv"
         - name: Install pyenv-doctor
           git:
             repo: https://github.com/pyenv/pyenv-doctor
-            dest: /home/bob/.pyenv/plugins/pyenv-doctor
+            dest: "{{ home_dir }}/.pyenv/plugins/pyenv-doctor"
         - name: Install python
           shell: pyenv install --skip-existing 3.8.1
         - name: Set python 3.8.1 as a global
@@ -302,17 +302,17 @@
             - gvim
         - name: Create base dir
           file:
-            path: /home/bob/src/github.com/vim
+            path: "{{ home_dir }}/src/github.com/vim"
             recurse: yes
             state: directory
         - name: Download vim repo
           git:
             repo: https://github.com/vim/vim
-            dest: /home/bob/src/github.com/vim/vim
+            dest: "{{ home_dir }}/src/github.com/vim/vim"
             depth: 1
         - name: Generate Makefile
           shell:
-            chdir: /home/bob/src/github.com/vim/vim
+            chdir: "{{ home_dir }}/src/github.com/vim/vim"
             cmd: |
               ./configure \
                 --with-features=huge \
@@ -328,7 +328,7 @@
         - name: Install vim
           become: yes
           make:
-            chdir: /home/bob/src/github.com/vim/vim
+            chdir: "{{ home_dir }}/src/github.com/vim/vim"
             target: install
         - name: Update editor path
           become: yes
@@ -374,10 +374,10 @@
         - name: Download fzf repo
           git:
             repo: https://github.com/junegunn/fzf
-            dest: /home/bob/.fzf
+            dest: "{{ home_dir }}/.fzf"
             depth: 1
         - name: Install fzf
-          shell: /home/bob/.fzf/install
+          shell: "{{ home_dir }}/.fzf/install"
     - name: Install ghq
       block:
         - name: Add go repository
