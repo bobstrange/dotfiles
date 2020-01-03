@@ -27,7 +27,7 @@
             dest: /usr/lib/git-core/git-credential-gnome-keyring
             owner: root
             group: root
-            mode: '777'
+            mode: '755'
             state: link
     - name: Setup dotfiles
       block:
