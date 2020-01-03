@@ -1,7 +1,0 @@
----
-- hosts: ubuntu:wsl
-  tasks:
-    name: Install
-    apt:
-      name: 'tig'
-
