@@ -1,1 +1,20 @@
-localhost ansible_connection=local
+all:
+  children:
+    ubuntu:
+      hosts:
+        localhost:
+          ansible_connection: 'local'
+          home_dir: '/home/bob'
+          dotfiles_dir: "{{ home_dir }}/dotfiles"
+    wsl:
+      hosts:
+        localhost:
+          ansible_connection: 'local'
+          home_dir: '/mnt/d/wsl'
+          dotfiles_dir: "{{ home_dir }}/dotfiles"
+    osx:
+      hosts:
+        localhost:
+          ansible_connection: 'local'
+          home_dir: '/home/bob'
+          dotfiles_dir: "{{ home_dir }}/dotfiles"
