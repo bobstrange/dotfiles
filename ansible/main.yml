@@ -4,4 +4,7 @@
   - name: 'Setup git'
     include_role:
       name: 'git'
+  - name: 'Setup dotfiles'
+    include_role:
+      name: 'dotfiles'
 
