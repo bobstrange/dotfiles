@@ -1,0 +1,5 @@
+ansible_host: 'localhost'
+ansible_connection: 'local'
+home_dir: '/home/bob'
+dotfiles_dir: "{{ home_dir }}/dotfiles"
+wsl_enabled: false
