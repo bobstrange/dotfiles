@@ -10,4 +10,7 @@
   - name: 'Setup xkeysnail'
     include_role:
       name: 'xkeysnail'
+  - name: 'Install essential packages'
+    include_role:
+      name: 'essential_packages'
 
