@@ -6,6 +6,7 @@ all:
           ansible_connection: 'local'
           home_dir: '/home/bob'
           dotfiles_dir: "{{ home_dir }}/dotfiles"
+          wsl_enabled: false
     wsl:
       hosts:
         localhost:
@@ -19,3 +20,4 @@ all:
           ansible_connection: 'local'
           home_dir: '/home/bob'
           dotfiles_dir: "{{ home_dir }}/dotfiles"
+          wsl_enabled: false

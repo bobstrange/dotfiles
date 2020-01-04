@@ -12,7 +12,7 @@
     name: git
     state: present
     update_homebrew: true
-  when: 
+  when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: Setup git credential helper (Ubuntu)
   block:
