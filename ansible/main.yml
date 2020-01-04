@@ -1,6 +1,7 @@
 ---
 - hosts: all
   tasks:
-  - include_role:
+  - name: 'Setup git'
+    include_role:
       name: 'git'
 

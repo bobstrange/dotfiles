@@ -4,20 +4,23 @@ all:
       hosts:
         localhost:
           ansible_connection: 'local'
-          home_dir: '/home/bob'
-          dotfiles_dir: "{{ home_dir }}/dotfiles"
-          wsl_enabled: false
+      vars:
+        home_dir: '/home/bob'
+        dotfiles_dir: "{{ home_dir }}/dotfiles"
+        wsl_enabled: false
     wsl:
       hosts:
         localhost:
           ansible_connection: 'local'
-          home_dir: '/mnt/d/wsl'
-          dotfiles_dir: "{{ home_dir }}/dotfiles"
-          wsl_enabled: true
+      vars:
+        home_dir: '/mnt/d/wsl'
+        dotfiles_dir: "{{ home_dir }}/dotfiles"
+        wsl_enabled: true
     osx:
       hosts:
         localhost:
           ansible_connection: 'local'
-          home_dir: '/home/bob'
-          dotfiles_dir: "{{ home_dir }}/dotfiles"
-          wsl_enabled: false
+      vars:
+        home_dir: '/home/bob'
+        dotfiles_dir: "{{ home_dir }}/dotfiles"
+        wsl_enabled: false
