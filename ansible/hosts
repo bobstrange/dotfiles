@@ -12,6 +12,7 @@ all:
           ansible_connection: 'local'
           home_dir: '/mnt/d/wsl'
           dotfiles_dir: "{{ home_dir }}/dotfiles"
+          wsl_enabled: true
     osx:
       hosts:
         localhost:

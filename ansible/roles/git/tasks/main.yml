@@ -1,0 +1,47 @@
+---
+- name: Install git (Ubuntu)
+  become: true
+  apt:
+    name: git
+    state: latest
+    update_cache: true
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+- name: Install git (OSX)
+  homebrew:
+    name: git
+    state: present
+    update_homebrew: true
+  when: 
+    - ansible_facts['os_family'] == 'Darwin'
+- name: Setup git credential helper (Ubuntu)
+  block:
+    - name: Install libgnome-keyring-dev
+      become: true
+      apt:
+        name: libgnome-keyring-dev
+        state: latest
+        update_cache: true
+    - name: Build gnome-keyring
+      become: true
+      make:
+        chdir: /usr/share/doc/git/contrib/credential/gnome-keyring
+    - name: Make symlink
+      become: true
+      file:
+        src: /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+        dest: /usr/lib/git-core/git-credential-gnome-keyring
+        owner: root
+        group: root
+        mode: '755'
+        state: link
+  when:
+   - ansible_facts['distribution'] == 'Ubuntu'
+   - wsl_enabled == false
+# Commented out since we use git for windows credential helper
+# - name: Setup git credential helper (WSL)
+#   when:
+#    - ansible_facts['distribution'] == 'Ubuntu'
+#    - wsl_enabled == true
+
+
