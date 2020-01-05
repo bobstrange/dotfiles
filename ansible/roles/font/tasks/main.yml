@@ -1,11 +1,11 @@
 ---
-- name: Install fonts (Ubuntu)
+- name: 'Install fonts (Ubuntu)'
   block:
-    - name: Ensure "{{ home_dir }}/.fonts dir exists"
+    - name: "Ensure {{ home_dir }}/.fonts dir exists"
       file:
         path: "{{ home_dir }}/.fonts"
-        state: directory
-    - name: Install fonts
+        state: 'directory'
+    - name: 'Install fonts'
       get_url:
         url: "{{ item }}"
         dest: "{{ home_dir }}/.fonts/"
@@ -15,8 +15,8 @@
         - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf'
         - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf'
       register: install_font_result
-    - name: Update font cache
-      shell: fc-cache -fv
+    - name: 'Update font cache'
+      shell: 'fc-cache -fv'
       when: 
         - install_font_result.changed
   when:
