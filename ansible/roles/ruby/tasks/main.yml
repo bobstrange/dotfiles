@@ -1,0 +1,36 @@
+---
+- name: 'Install dependencies (Ubuntu)'
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: 'latest'
+    update_cache: true
+  loop:
+    - 'autoconf'
+    - 'bison'
+    - 'build-essential'
+    - 'libssl-dev'
+    - 'libyaml-dev'
+    - 'libreadline6-dev'
+    - 'zlib1g-dev'
+    - 'libncurses5-dev'
+    - 'libffi-dev'
+    - 'libgdbm5'
+    - 'libgdbm-dev'
+  when:
+   - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Setup rbenv'
+  block:
+    - name: 'Install rbenv'
+      git:
+        repo: 'https://github.com/rbenv/rbenv.git'
+        dest: "{{ home_dir }}/.rbenv"
+    - name: 'Install ruby-build'
+      git:
+        repo: 'https://github.com/rbenv/ruby-build.git'
+        dest: "{{ home_dir }}/.rbenv/plugins/ruby-build"
+- name: 'Install ruby'
+  shell: "{{ home_dir }}/.rbenv/bin/rbenv install --skip-existing {{ ruby_version }}"
+- name: "Set ruby {{ ruby_verion }} as global"
+  shell: "{{ home_dir }}/.rbenv/bin/rbenv global {{ ruby_version }}"
+ 
