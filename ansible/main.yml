@@ -28,3 +28,6 @@
   - name: 'Setup python'
     include_role:
       name: 'python'
+  - name: 'Setup vim'
+    include_role:
+      name: 'vim'
