@@ -33,5 +33,5 @@
     - 'vagrant'
     - 'silversearcher-ag'
   when:
-    - ansible_facts['distribution'] == 'Darwin'
- 
+    - ansible_facts['os_family'] == 'Darwin'
+

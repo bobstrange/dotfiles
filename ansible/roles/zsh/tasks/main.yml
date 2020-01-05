@@ -12,7 +12,7 @@
     name: 'zsh'
     update_homebrew: true
   when:
-    - ansible_facts['distribution'] == 'Darwin'
+    - ansible_facts['os_family'] == 'Darwin'
 - name: 'Use zsh as a login shell'
   become: true
   user:
