@@ -16,4 +16,6 @@
   - name: 'Install font'
     include_role:
       name: 'font'
-
+  - name: 'Setup zsh'
+    include_role:
+      name: 'zsh'
