@@ -13,4 +13,7 @@
   - name: 'Install essential packages'
     include_role:
       name: 'essential_packages'
+  - name: 'Install font'
+    include_role:
+      name: 'font'
 

@@ -1,0 +1,25 @@
+---
+- name: Install fonts (Ubuntu)
+  block:
+    - name: Ensure "{{ home_dir }}/.fonts dir exists"
+      file:
+        path: "{{ home_dir }}/.fonts"
+        state: directory
+    - name: Install fonts
+      get_url:
+        url: "{{ item }}"
+        dest: "{{ home_dir }}/.fonts/"
+      loop:
+        - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Regular.ttf'
+        - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold.ttf'
+        - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Italic.ttf'
+        - 'https://github.com/romkatv/dotfiles-public/raw/master/.local/share/fonts/NerdFonts/MesloLGS%20NF%20Bold%20Italic.ttf'
+      register: install_font_result
+    - name: Update font cache
+      shell: fc-cache -fv
+      when: 
+        - install_font_result.changed
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+
+ 
