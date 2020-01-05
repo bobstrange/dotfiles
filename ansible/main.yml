@@ -22,3 +22,6 @@
   - name: 'Setup ruby'
     include_role:
       name: 'ruby'
+  - name: 'Setup nodejs'
+    include_role:
+      name: 'nodejs'
