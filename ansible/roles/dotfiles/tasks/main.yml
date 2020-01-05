@@ -35,6 +35,8 @@
         update_homebrew: true
   when:
     - ansible_facts['distribution'] == 'Darwin'
+- name: 'Run rcup'
+  shell: "RCRC={{ dotfiles_dir }}/rcrc rcup -f"
 
 
 
