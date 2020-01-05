@@ -31,3 +31,6 @@
   - name: 'Setup vim'
     include_role:
       name: 'vim'
+  - name: 'Setup neovim'
+    include_role:
+      name: 'nvim'
