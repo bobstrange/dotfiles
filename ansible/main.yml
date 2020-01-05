@@ -25,3 +25,6 @@
   - name: 'Setup nodejs'
     include_role:
       name: 'nodejs'
+  - name: 'Setup python'
+    include_role:
+      name: 'python'
