@@ -34,3 +34,6 @@
   - name: 'Setup neovim'
     include_role:
       name: 'nvim'
+  - name: 'Setup fzf'
+    include_role:
+      name: 'fzf'
