@@ -37,3 +37,6 @@
   - name: 'Setup fzf'
     include_role:
       name: 'fzf'
+  - name: 'Setup ghq'
+    include_role:
+      name: 'ghq'
