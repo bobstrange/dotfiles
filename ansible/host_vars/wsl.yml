@@ -1,0 +1,7 @@
+ansible_host: 'localhost'
+ansible_connection: 'local'
+user_name: 'bob'
+home_dir: '/mnt/d/wsl'
+dotfiles_dir: "{{ home_dir }}/dotfiles"
+dropbox_path: "/mnt/d/Dropbox"
+wsl_enabled: true

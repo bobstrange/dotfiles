@@ -1,0 +1,21 @@
+---
+- name: 'Install nodenv'
+  git:
+    repo: 'https://github.com/nodenv/nodenv'
+    dest: "{{ home_dir }}/.nodenv"
+- name: 'Generate Makefile'
+  shell:
+    chdir: "{{ home_dir }}/.nodenv"
+    cmd: 'src/configure'
+- name: 'Install nodenv bin'
+  make:
+    chdir: "{{ home_dir }}/.nodenv/src"
+- name: 'Install node-build'
+  git:
+    repo: 'https://github.com/nodenv/node-build'
+    dest: "{{ home_dir }}/.nodenv/plugins/node-build"
+- name: "Install node {{ node_version }}"
+  shell: "{{ home_dir }}/.nodenv/bin/nodenv install --skip-existing {{ node_version }}"
+- name: "Set node {{ node_version }} as a global"
+  shell: "{{ home_dir }}/.nodenv/bin/nodenv global {{ node_version }}"
+

@@ -8,7 +8,7 @@ define_modmap({
 })
 
 define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
-    # Emacs like 
+    # Emacs like
     ## Cursor
     K("LC-b"): K("left"),
     K("LC-f"): K("right"),
@@ -46,6 +46,9 @@ define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
     K("LM-tab"): K("C-tab"),
     K("LM-Shift-tab"): K("C-Shift-tab"),
     K("LM-Shift-BACKSLASH"): K("C-tab"),
-    K("LM-Shift-RIGHT_BRACE"): K("C-Shift-tab")
+    K("LM-Shift-RIGHT_BRACE"): K("C-Shift-tab"),
+
+    # Reload
+    K("LM-r"): K("C-r")
 
 }, "Chrome keys")

@@ -1,0 +1,42 @@
+---
+- name: 'Install pyenv'
+  git:
+    repo: 'https://github.com/pyenv/pyenv'
+    dest: "{{ pyenv_root }}"
+- name: 'Install python build dependencies (Ubuntu)'
+  become: true
+  apt:
+    name: "{{ item }}"
+  loop:
+    - 'make'
+    - 'build-essential'
+    - 'libssl-dev'
+    - 'zlib1g-dev'
+    - 'libbz2-dev'
+    - 'libreadline-dev'
+    - 'libsqlite3-dev'
+    - 'wget'
+    - 'curl'
+    - 'llvm'
+    - 'libncurses5-dev'
+    - 'xz-utils'
+    - 'tk-dev'
+    - 'libxml2-dev'
+    - 'libxmlsec1-dev'
+    - 'libffi-dev'
+    - 'liblzma-dev'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install pyenv-virtualenv'
+  git:
+    repo: 'https://github.com/pyenv/pyenv-virtualenv'
+    dest: "{{ pyenv_plugins }}/pyenv-virtualenv"
+- name: 'Install pyenv-doctor'
+  git:
+    repo: 'https://github.com/pyenv/pyenv-doctor'
+    dest: "{{ pyenv_plugins }}/pyenv-doctor"
+- name: "Install python {{ python_version }}"
+  shell: "{{ pyenv_bin }}/pyenv install --skip-existing {{ python_version }}"
+- name: "Set python {{ python_version }} as a global"
+  shell: "{{ pyenv_bin }}/pyenv global {{ python_version }}"
+
