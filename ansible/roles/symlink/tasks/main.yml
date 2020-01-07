@@ -1,0 +1,52 @@
+---
+- name: 'symlink .ssh'
+  file:
+    src: "{{ dropbox_path }}/config/.ssh"
+    dest: "{{ home_dir }}/.ssh"
+    state: 'link'
+- name: 'Change .ssh permission'
+  become: true
+  file:
+    path: "{{ dropbox_path }}/config/.ssh/{{ item }}"
+    mode: '0400'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  loop:
+    - 'id_rsa'
+    - 'id_rsa.pub'
+- name: 'Change .ssh permission'
+  become: true
+  file:
+    path: "{{ dropbox_path }}/config/.ssh/{{ item }}"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+  loop:
+    - 'known_hosts'
+    - 'config'
+    - 'ssh_config'
+- name: 'symlink .github_token'
+  file:
+    src: "{{ dropbox_path }}/config/github_token"
+    dest: "{{ home_dir }}/.github_token"
+    state: 'link'
+- name: 'Change .github_token permission'
+  become: true
+  file:
+    path: "{{ dropbox_path }}/config/github_token"
+    mode: '0644'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+- name: 'symlink .aws'
+  file:
+    src: "{{ dropbox_path }}/config/aws"
+    dest: "{{ home_dir }}/.aws"
+    state: 'link'
+
+- name: 'Change .aws permission'
+  become: true
+  file:
+    path: "{{ dropbox_path }}/config/aws"
+    mode: '0755'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"

@@ -40,3 +40,6 @@
   - name: 'Setup ghq'
     include_role:
       name: 'ghq'
+  - name: 'Make symlink'
+    include_role:
+      name: 'symlink'
