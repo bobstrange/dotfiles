@@ -1,6 +1,9 @@
 # dotfiles
-## Dependencies
-- pip
+## Requirements
+- Dropbox has been installed.
+- Dropbox folder should be `~/Dropbox/`.
+
+## Tools
 - ansible
 - rcm
 
