@@ -35,7 +35,7 @@ gshow() {
           --preview-window="right:70%" \
           --header "enter to view, alt-y to copy hash" \
           --bind "enter:execute:$_viewGitLogLine   | less -R" \
-            --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+            --bind "alt-y:execute:$_gitLogLineToHash | pbcopy"
 }
 
 # Browse branchs and checkout
