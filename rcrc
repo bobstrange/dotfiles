@@ -8,6 +8,7 @@ EXCLUDES="
   bootstrap*\.sh
   gitconfig\.*
   ansible
+  windows_terminal_profiles.json
 "
 DOTFILES_DIRS="$HOME/dotfiles"
 TAGS="
