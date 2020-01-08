@@ -5,7 +5,7 @@
   - 編集 -> 設定
     - プロファイルタブ
       - 新規
-        - bob-gnomre-terminal
+        - bob-gnome-terminal
       - 新しい端末を開くときに使うプロファイル
         - bob-gnome-terminal
     - ショートカットタブ
@@ -16,14 +16,16 @@
       - 検索
         - Alt+F
 - プロファイルの設定
-  - 起動時の端末サイズ
-    - 120 列
-    - 80  行
-  - フォントを指定する
-    - ~~Ricty Diminished Regular 12~~
-    - Ricty Diminished Powerline Regular
-      - Powerlineを使うため
-  - システムのテーマ色を使用するのチェックを外す
-    - 組み込みのスキーム Solarized Dark
-
+  - **文字**
+    - `起動時の端末サイズ`
+      - 80 列
+      - 120 行
+    - `Custom font`
+      - MesloLGS NF Regular 11
+        - Powerlineを使うため
+  - **色**
+    - `システムのテーマ色を使用する`
+      - チェックを外す
+    - `組み込みのスキーム`
+      - Solarized Dark
 

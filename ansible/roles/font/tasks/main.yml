@@ -17,9 +17,8 @@
       register: install_font_result
     - name: 'Update font cache'
       shell: 'fc-cache -fv'
-      when: 
+      when:
         - install_font_result.changed
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 
- 
