@@ -43,3 +43,6 @@
   - name: 'Make symlink'
     include_role:
       name: 'symlink'
+  - name: 'Setup fd'
+    include_role:
+      name: 'fd'
