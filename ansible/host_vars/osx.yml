@@ -1,7 +1,7 @@
 ansible_host: 'localhost'
 ansible_connection: 'local'
 user_name: 'bob'
-home_dir: "/home/{{ user_name }}"
+home_dir: "/Users/{{ user_name }}"
 dotfiles_dir: "{{ home_dir }}/dotfiles"
 dropbox_path: "{{ home_dir }}/Dropbox"
 wsl_enabled: false
