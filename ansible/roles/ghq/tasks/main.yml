@@ -1,17 +1,23 @@
 ---
-- name: Setup go
+- name: 'Setup go (Ubuntu)'
   block:
-    - name: Add go repository
-      become: yes
+    - name: 'Add go repository'
+      become: true
       apt_repository:
-        repo: ppa:longsleep/golang-backports
-    - name: Install go
-      become: yes
+        repo: 'ppa:longsleep/golang-backports'
+    - name: 'Install go'
+      become: true
       apt:
-        name: golang-go
-        update_cache: yes
+        name: 'golang-go'
+        update_cache: true
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-- name: Install ghq
-  shell: go get github.com/motemen/ghq
-
+- name: 'Install ghq (Ubuntu)'
+  shell: 'go get github.com/motemen/ghq'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install ghq (osx)'
+  homebrew:
+    name: 'ghq'
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
