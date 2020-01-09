@@ -49,3 +49,6 @@
     - name: 'Setup rg'
       include_role:
         name: 'rg'
+    - name: 'Setup bat'
+      include_role:
+        name: 'bat'
