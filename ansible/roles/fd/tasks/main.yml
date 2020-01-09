@@ -11,3 +11,8 @@
         deb: "/tmp/fd_{{ fd_version }}_amd64.deb"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install fd (osx)'
+  homebrew:
+    name: 'fd'
+    update_homebrew: true
+
