@@ -19,6 +19,13 @@
     - 'libgdbm-dev'
   when:
    - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install dependencies (osx)'
+  homebrew:
+    name: "{{ item }}"
+  loop:
+    - 'openssl'
+    - 'libyaml'
+    - 'libffi'
 - name: 'Setup rbenv'
   block:
     - name: 'Install rbenv'
@@ -33,4 +40,4 @@
   shell: "{{ home_dir }}/.rbenv/bin/rbenv install --skip-existing {{ ruby_version }}"
 - name: "Set ruby {{ ruby_verion }} as global"
   shell: "{{ home_dir }}/.rbenv/bin/rbenv global {{ ruby_version }}"
- 
+
