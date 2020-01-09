@@ -21,4 +21,13 @@
         - install_font_result.changed
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-
+- name: 'Install fonts (osx)'
+  block:
+    - name: 'Add cask-font'
+      homebrew_tap:
+        name: 'homebrew/cask-fonts'
+    - name: 'Install nerdfont'
+      homebrew_cask:
+        name: 'font-hack-nerd-font'
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
