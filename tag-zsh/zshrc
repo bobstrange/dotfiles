@@ -21,6 +21,9 @@ if [ ${wsl} = 0 ]; then
   for zsh_source in $HOME/.zsh/configs/wsl/*.zsh; do
     source $zsh_source
   done
+
+  # Set umask 022 only if it's wsl
+  umask 022
 fi
 
 # load custom configurations
