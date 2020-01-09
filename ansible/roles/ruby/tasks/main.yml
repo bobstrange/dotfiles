@@ -26,6 +26,8 @@
     - 'openssl'
     - 'libyaml'
     - 'libffi'
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
 - name: 'Setup rbenv'
   block:
     - name: 'Install rbenv'

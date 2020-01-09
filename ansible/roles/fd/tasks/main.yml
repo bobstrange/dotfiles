@@ -15,4 +15,6 @@
   homebrew:
     name: 'fd'
     update_homebrew: true
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
 

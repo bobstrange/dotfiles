@@ -36,6 +36,8 @@
     - 'sqlite3'
     - 'xz'
     - 'zlib'
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
 - name: 'Install pyenv-virtualenv'
   git:
     repo: 'https://github.com/pyenv/pyenv-virtualenv'
