@@ -27,6 +27,15 @@
     - 'liblzma-dev'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install python build dependencies (osx)'
+  homebrew:
+    name: "{{ item }}"
+  loop:
+    - 'openssl'
+    - 'readline'
+    - 'sqlite3'
+    - 'xz'
+    - 'zlib'
 - name: 'Install pyenv-virtualenv'
   git:
     repo: 'https://github.com/pyenv/pyenv-virtualenv'
