@@ -23,16 +23,16 @@ eval "$(direnv hook zsh)"
 export PATH="$HOME/.tfenv/bin:$PATH"
 
 # github token
-if ls ~/.github_token; then
-  source ~/.github_token
-fi
+test -s ~/.github_token &&  source ~/.github_token
 
 ## Elixir
 # nss ( for mkcert )
 export PATH="/usr/local/opt/nss/bin:$PATH"
 
 # asdf
-test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
+if [[ $(type brew > /dev/null) ]]; then
+  test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
+fi
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
