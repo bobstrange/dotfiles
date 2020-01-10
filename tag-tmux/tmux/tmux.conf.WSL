@@ -1,0 +1,5 @@
+# Setup 'v' to begin selection as in Vim
+
+## Override linux conf
+unbind-key -T copy-mode-vi Enter; bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "clip.exe > /dev/null"
+

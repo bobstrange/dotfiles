@@ -64,4 +64,3 @@ set mouse=a
 set sh=zsh
 set formatoptions-=ro " Avoid to insert a comment on newline
 
-
