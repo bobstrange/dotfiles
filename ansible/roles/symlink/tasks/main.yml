@@ -10,7 +10,7 @@
     path: "{{ dropbox_path }}/config/.ssh/{{ item }}"
     mode: '0400'
     owner: "{{ user_name }}"
-    group: "{{ user_name }}"
+    group: "{{ group_name }}"
   loop:
     - 'id_rsa'
     - 'id_rsa.pub'
@@ -20,7 +20,7 @@
     path: "{{ dropbox_path }}/config/.ssh/{{ item }}"
     mode: '0644'
     owner: "{{ user_name }}"
-    group: "{{ user_name }}"
+    group: "{{ group_name }}"
   loop:
     - 'known_hosts'
     - 'config'
@@ -36,7 +36,7 @@
     path: "{{ dropbox_path }}/config/github_token"
     mode: '0644'
     owner: "{{ user_name }}"
-    group: "{{ user_name }}"
+    group: "{{ group_name }}"
 - name: 'symlink .aws'
   file:
     src: "{{ dropbox_path }}/config/aws"
@@ -49,4 +49,4 @@
     path: "{{ dropbox_path }}/config/aws"
     mode: '0755'
     owner: "{{ user_name }}"
-    group: "{{ user_name }}"
+    group: "{{ group_name }}"

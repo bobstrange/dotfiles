@@ -29,9 +29,13 @@
     - 'jq'
     - 'tmux'
     - 'tig'
-    - 'virtualbox'
-    - 'vagrant'
-    - 'silversearcher-ag'
+    - 'ag'
   when:
     - ansible_facts['os_family'] == 'Darwin'
-
+- name: 'Install essential packages (Darwin cask)'
+  homebrew_cask:
+    name: "{{ item }}"
+    state: 'latest'
+  loop:
+    - 'virtualbox'
+    - 'vagrant'
