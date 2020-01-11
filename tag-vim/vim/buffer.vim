@@ -4,8 +4,8 @@
 " \b \f \g : go back/forward/last-used
 " \1 \2 \3 : go to buffer 1/2/3 etc
 
-" Depends bufexplorer plugin
-nnoremap <Leader>l :ToggleBufExplorer<CR>
+" Depends on fzf plugin
+nnoremap <Leader>l :Buffers<CR>
 
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>

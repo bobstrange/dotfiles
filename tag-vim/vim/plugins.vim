@@ -1,5 +1,4 @@
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'qpkorr/vim-bufkill'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'tomasr/molokai'
@@ -8,5 +7,4 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'cohama/lexima.vim'
 Plug 'tmux-plugins/vim-tmux'
-Plug 'jlanzarotta/bufexplorer'
 Plug 'pbrisbin/vim-mkdir'
