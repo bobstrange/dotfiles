@@ -28,6 +28,9 @@
     - name: 'Setup python'
       include_role:
         name: 'python'
+    - name: 'Setup win32yank'
+      include_role:
+        name: 'win32yank'
     - name: 'Setup vim'
       include_role:
         name: 'vim'
