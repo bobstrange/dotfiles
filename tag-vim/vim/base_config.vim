@@ -64,3 +64,14 @@ set mouse=a
 set sh=zsh
 set formatoptions-=ro " Avoid to insert a comment on newline
 
+" clipboard ref: https://blog.himanoa.net/entries/20/
+
+if has('wsl') && exectable('win32yank.exe')
+  nnoremap <silent>yy :.w !win32yank.exe -i<CR><CR>
+  vnoremap <silent>y :w !win32yank.exe -i<CR><CR>
+  nnoremap <silent>dd :.w !win32yank.exe -i<CR>dd
+  vnoremap <silent>d x:let pos = getpos(".")<CR>GpVG:w !win32yank.exe -i<CR>VGx:call setpos(".", pos)<CR>
+  nnoremap <silent>p :r !win32yank.exe -o<CR>
+  vnoremap <silent>p :r !win32yank.exe -o<CR>
+endif
+
