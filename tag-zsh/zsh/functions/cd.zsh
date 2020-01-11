@@ -1,5 +1,5 @@
 # Override default cd behavior for git root
-cd () {
+function cd() {
   # Call builtin cd when passed args
   if [ $# -gt 0 ]; then
     builtin cd "$@"
