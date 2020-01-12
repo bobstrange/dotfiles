@@ -1,0 +1,15 @@
+---
+- name: 'Install redshift'
+  become: true
+  apt:
+    name: 'redshift-gtk'
+    state: 'latest'
+  when:
+    - ansible_facts['distribution']
+- name: 'Symlink redshift configuration file'
+  file:
+    src: "{{ dropbox_path }}/config/redshift.conf"
+    dest: "{{ home_dir }}/.config/redshift.conf"
+    state: 'link'
+  when:
+    - ansible_facts['distribution']

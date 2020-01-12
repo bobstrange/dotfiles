@@ -55,3 +55,6 @@
     - name: 'Setup bat'
       include_role:
         name: 'bat'
+    - name: 'Setup redshift'
+      include_role:
+        name: 'redshift'
