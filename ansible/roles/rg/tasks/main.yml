@@ -15,5 +15,6 @@
   homebrew:
     name: 'ripgrep'
     update_homebrew: true
+    state: 'latest'
   when:
     - ansible_facts['os_family'] == 'Darwin'

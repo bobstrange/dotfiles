@@ -52,6 +52,7 @@
     - name: 'Setup rg'
       include_role:
         name: 'rg'
+      tags: update
     - name: 'Setup bat'
       include_role:
         name: 'bat'
