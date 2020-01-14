@@ -25,6 +25,8 @@
     - 'libxmlsec1-dev'
     - 'libffi-dev'
     - 'liblzma-dev'
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install python build dependencies (osx)'
@@ -36,16 +38,29 @@
     - 'sqlite3'
     - 'xz'
     - 'zlib'
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
+- name: 'Install pyenv'
+  git:
+    repo: 'https://github.com/pyenv'
+    dest: "{{ pyenv_plugins }}/pyenv-virtualenv"
+    update: true
+  tags:
+    - 'update_deps'
 - name: 'Install pyenv-virtualenv'
   git:
     repo: 'https://github.com/pyenv/pyenv-virtualenv'
-    dest: "{{ pyenv_plugins }}/pyenv-virtualenv"
+    dest: "{{ pyenv_root }}"
+    update: true
+  tags:
+    - 'update_deps'
 - name: 'Install pyenv-doctor'
   git:
     repo: 'https://github.com/pyenv/pyenv-doctor'
     dest: "{{ pyenv_plugins }}/pyenv-doctor"
+    update: true
 - name: "Install python {{ python_version }}"
   shell: "{{ pyenv_bin }}/pyenv install --skip-existing {{ python_version }}"
 - name: "Set python {{ python_version }} as a global"
