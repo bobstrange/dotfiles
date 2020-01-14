@@ -5,12 +5,16 @@
     name: 'zsh'
     state: 'latest'
     update_cache: true
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install zsh (osx)'
   homebrew:
     name: 'zsh'
     update_homebrew: true
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Use zsh as a login shell'

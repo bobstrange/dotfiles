@@ -4,15 +4,18 @@
     - name: 'Setup git'
       include_role:
         name: 'git'
+      tags: 'update_deps'
     - name: 'Setup dotfiles'
       include_role:
         name: 'dotfiles'
+      tags: 'update_deps'
     - name: 'Setup xkeysnail'
       include_role:
         name: 'xkeysnail'
     - name: 'Install essential packages'
       include_role:
         name: 'essential_packages'
+      tags: 'update_deps'
     - name: 'Install font'
       include_role:
         name: 'font'
@@ -52,7 +55,6 @@
     - name: 'Setup rg'
       include_role:
         name: 'rg'
-      tags: update
     - name: 'Setup bat'
       include_role:
         name: 'bat'

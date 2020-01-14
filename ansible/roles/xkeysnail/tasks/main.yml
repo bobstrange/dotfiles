@@ -1,61 +1,61 @@
 ---
-- name: Setup xkeysnail
+- name: 'Setup xkeysnail'
   block:
-    - name: Install pip3
-      become: yes
+    - name: 'Install pip3'
+      become: true
       apt:
-        name: python3-pip
-    - name: configure user
+        name: 'python3-pip'
+    - name: 'configure user'
       block:
-        - name: Add group
-          become: yes
+        - name: 'Add group'
+          become: true
           group:
-            name: uinput
-            state: present
-        - name: Add xkeysnail user
-          become: yes
+            name: 'uinput'
+            state: 'present'
+        - name: 'Add xkeysnail user'
+          become: true
           user:
-            name: xkeysnail
-            create_home: no
+            name: 'xkeysnail'
+            create_home: false
             groups:
-              - input
-              - uinput
-            shell: /usr/bin/nologin
-        - name: Add uinput rules
-          become: yes
+              - 'input'
+              - 'uinput'
+            shell: '/usr/bin/nologin'
+        - name: 'Add uinput rules'
+          become: true
           lineinfile:
-            create: yes
-            path: /etc/udev/rules.d/40-udev-xkeysnail.rules
+            create: true
+            path: '/etc/udev/rules.d/40-udev-xkeysnail.rules'
             line: 'KERNEL=="uinput", GROUP="uinput"'
-        - name: Add uinput conf
-          become: yes
+        - name: 'Add uinput conf'
+          become: true
           lineinfile:
-            create: yes
-            path: /etc/modules-load.d/uinput.conf
-            line: uinput
-        - name: Add xkeysnail to sudoers
-          become: yes
+            create: true
+            path: '/etc/modules-load.d/uinput.conf'
+            line: 'uinput'
+        - name: 'Add xkeysnail to sudoers'
+          become: true
           lineinfile:
-            path: /etc/sudoers
+            path: '/etc/sudoers'
             line: 'bob ALL=(xkeysnail) NOPASSWD: /usr/local/bin/xkeysnail'
-        - name: Launch xkeysnail on startup
+        - name: 'Launch xkeysnail on startup'
           block:
-            - name: Create a symlink to bin
-              become: yes
+            - name: 'Create a symlink to bin'
+              become: true
               file:
                 src: "{{ dotfiles_dir }}/tag-xkeysnail/launch_xkeysnail.sh"
-                path: /usr/local/bin/launch_xkeysnail.sh
-                state: link
-            - name: Create a autostart directory
+                path: '/usr/local/bin/launch_xkeysnail.sh'
+                state: 'link'
+            - name: 'Create a autostart directory'
               file:
                 path: "{{ home_dir }}/.config/autostart"
-                state: directory
-                recurse: yes
-            - name: Create a symlink to autostart
+                state: 'directory'
+                recurse: true
+            - name: 'Create a symlink to autostart'
               file:
                 src: "{{ dotfiles_dir }}/tag-xkeysnail/xkeysnail.desktop"
                 path: "{{ home_dir }}/.config/autostart/xkeysnail.desktop"
-                state: link
+                state: 'link'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
     - wsl_enabled == false

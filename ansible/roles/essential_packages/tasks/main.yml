@@ -16,6 +16,8 @@
     - 'virtualbox'
     - 'vagrant'
     - 'silversearcher-ag'
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install essential packages (Darwin)'
@@ -30,6 +32,8 @@
     - 'tmux'
     - 'tig'
     - 'ag'
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Install essential packages (Darwin cask)'
@@ -39,6 +43,8 @@
   loop:
     - 'virtualbox'
     - 'vagrant'
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
 
