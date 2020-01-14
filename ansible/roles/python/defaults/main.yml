@@ -3,3 +3,4 @@ python_version: '3.8.1'
 pyenv_root: "{{ home_dir }}/.pyenv"
 pyenv_bin: "{{ pyenv_root }}/bin"
 pyenv_plugins: "{{ pyenv_root }}/plugins"
+pip3_bin: "{{ pyenv_root }}/versions/{{ python_version }}/bin/pip3"

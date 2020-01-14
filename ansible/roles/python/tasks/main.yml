@@ -50,4 +50,10 @@
   shell: "{{ pyenv_bin }}/pyenv install --skip-existing {{ python_version }}"
 - name: "Set python {{ python_version }} as a global"
   shell: "{{ pyenv_bin }}/pyenv global {{ python_version }}"
-
+- name: "Check ansible installed"
+  shell: 'type ansible'
+  register: 'type_ansible_result'
+- name: "Install ansible"
+  shell: "{{ pip3_bin }} install ansible "
+  when:
+    - type_ansible_result.failed
