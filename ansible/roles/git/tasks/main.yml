@@ -5,13 +5,17 @@
     name: 'git'
     state: 'latest'
     update_cache: true
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install git (OSX)'
   homebrew:
     name: 'git'
-    state: 'present'
+    state: 'latest'
     update_homebrew: true
+  tags:
+    - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Setup git credential helper (Ubuntu)'
@@ -49,3 +53,5 @@
     url: 'https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy'
     dest: '/usr/local/bin/diff-so-fancy'
     mode: '0755'
+  tags:
+    - 'update_deps'
