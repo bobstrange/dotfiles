@@ -1,14 +1,8 @@
 ---
 - name: 'Install fd (Ubuntu)'
-  block:
-    - name: 'Download .deb file'
-      get_url:
-        url: "https://github.com/sharkdp/fd/releases/download/v{{ fd_version }}/fd_{{ fd_version }}_amd64.deb"
-        dest: "/tmp/fd_{{ fd_version }}_amd64.deb"
-    - name: 'Install fd'
-      become: true
-      apt:
-        deb: "/tmp/fd_{{ fd_version }}_amd64.deb"
+  become: true
+  apt:
+    deb: "https://github.com/sharkdp/fd/releases/download/v{{ fd_version }}/fd_{{ fd_version }}_amd64.deb"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install fd (osx)'

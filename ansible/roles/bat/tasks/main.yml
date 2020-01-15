@@ -1,15 +1,9 @@
 
 ---
 - name: 'Install bat (Ubuntu)'
-  block:
-    - name: 'Download .deb file'
-      get_url:
-        url: "https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat_{{ bat_version }}_amd64.deb"
-        dest: "/tmp/bat_{{ bat_version }}_amd64.deb"
-    - name: 'Install bat'
-      become: true
-      apt:
-        deb: "/tmp/bat_{{ bat_version }}_amd64.deb"
+  become: true
+  apt:
+    deb: "https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat_{{ bat_version }}_amd64.deb"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install bat (osx)'

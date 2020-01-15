@@ -1,14 +1,8 @@
 ---
 - name: 'Install ripgrep (Ubuntu)'
-  block:
-    - name: 'Download .deb file'
-      get_url:
-        url: "https://github.com/BurntSushi/ripgrep/releases/download/{{ rg_version }}/ripgrep_{{ rg_version }}_amd64.deb"
-        dest: "/tmp/ripgrep_{{ rg_version }}_amd64.deb"
-    - name: 'Install rg'
-      become: true
-      apt:
-        deb: "/tmp/ripgrep_{{ rg_version }}_amd64.deb"
+  become: true
+  apt:
+    deb: "https://github.com/BurntSushi/ripgrep/releases/download/{{ rg_version }}/ripgrep_{{ rg_version }}_amd64.deb"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install ripgrep (osx)'
