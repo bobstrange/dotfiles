@@ -3,12 +3,12 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # nodenv
-export PATH=$HOME/.nodenv/bin:$PATH
+export PATH="$HOME/.nodenv/bin:$PATH"
 eval "$(nodenv init -)"
 
 # pyenv
-export PATH=$HOME/.pyenv/bin:$PATH
-export PYENV_ROOT=$HOME/.pyenv
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
