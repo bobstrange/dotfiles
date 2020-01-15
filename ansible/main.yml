@@ -61,3 +61,6 @@
     - name: 'Setup redshift'
       include_role:
         name: 'redshift'
+    - name: 'Setup slack'
+      include_role:
+        name: 'slack'

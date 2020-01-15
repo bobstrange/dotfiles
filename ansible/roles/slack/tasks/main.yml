@@ -1,0 +1,13 @@
+---
+- name: 'Gather package facts'
+  package_facts:
+    manager: 'apt'
+- name: 'Install slack'
+  become: true
+  apt:
+    deb: "https://downloads.slack-edge.com/linux_releases/slack-desktop-{{ slack_version }}-amd64.deb"
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+    - wsl_enabled == false
+    - '"slack" not in ansible_facts.packages'
+
