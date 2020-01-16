@@ -42,3 +42,6 @@ nnoremap <Leader>c :close<CR>
 nnoremap <C-w>s :split<CR>
 nnoremap <C-w>v :vsplit<CR>
 nnoremap <C-w>c :close<CR>
+
+"u" Search
+nnoremap <C-s> :Rg<CR>

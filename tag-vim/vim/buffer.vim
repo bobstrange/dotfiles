@@ -3,9 +3,9 @@
 " \b \f \g : go back/forward/last-used
 " \1 \2 \3 : go to buffer 1/2/3 etc
 
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>g :e#<CR>
+" nnoremap <Leader>b :bp<CR>
+" nnoremap <Leader>f :bn<CR>
+" nnoremap <Leader>g :e#<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
