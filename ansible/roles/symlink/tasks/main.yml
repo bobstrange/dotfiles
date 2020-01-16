@@ -30,6 +30,29 @@
     src: "{{ dropbox_path }}/config/github_token"
     dest: "{{ home_dir }}/.github_token"
     state: 'link'
+- name: 'symlink .gitconfig.local(Ubuntu)'
+  file:
+    src: "{{ dotfiles_dir }}/tag-git/gitconfig.Linux"
+    dest: "{{ home_dir }}/.gitconfig.local"
+    state: 'link'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+    - wsl_enabled == false
+- name: 'symlink .gitconfig.local(osx)'
+  file:
+    src: "{{ dotfiles_dir }}/tag-git/gitconfig.Darwin"
+    dest: "{{ home_dir }}/.gitconfig.local"
+    state: 'link'
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
+- name: 'symlink .gitconfig.local(wsl)'
+  file:
+    src: "{{ dotfiles_dir }}/tag-git/gitconfig.WSL"
+    dest: "{{ home_dir }}/.gitconfig.local"
+    state: 'link'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+    - wsl_enabled == true
 - name: 'Change .github_token permission'
   become: true
   file:
@@ -42,7 +65,6 @@
     src: "{{ dropbox_path }}/config/aws"
     dest: "{{ home_dir }}/.aws"
     state: 'link'
-
 - name: 'Change .aws permission'
   become: true
   file:
