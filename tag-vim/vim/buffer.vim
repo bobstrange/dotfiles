@@ -1,11 +1,7 @@
-" Mappings to access buffers (don't use "\p" because a
-" delay before pressing "p" would accidentally paste).
-" \l       : list buffers
+" Mappings to access buffers" \l       : list buffers
+"
 " \b \f \g : go back/forward/last-used
 " \1 \2 \3 : go to buffer 1/2/3 etc
-
-" Depends on fzf plugin
-nnoremap <Leader>l :Buffers<CR>
 
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
