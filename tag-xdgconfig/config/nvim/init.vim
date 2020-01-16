@@ -1,22 +1,11 @@
-call plug#begin('~/.config/nvim/plugged')
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
 
-source ~/.vim/ag.vim
-source ~/.vim/airline.vim
-source ~/.vim/coc.vim
-source ~/.vim/fzf.vim
-source ~/.vim/plugins.vim
-source ~/.vim/ruby.vim
-source ~/.vim/javascript.vim
-source ~/.vim/typescript.vim
-source ~/.vim/vimdiff.vim
-source ~/.vim/markdown.vim
+" Install vim plug automatically
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
-call plug#end()
-
-syntax enable
-
-source ~/.vim/base_config.vim
-source ~/.vim/theme.vim
-source ~/.vim/keybindings.vim
-source ~/.vim/buffer.vim
-source ~/.vim/netrw.vim
+source ~/.vimrc
