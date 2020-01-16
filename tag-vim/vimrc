@@ -19,7 +19,6 @@ source ~/.vim/airline.vim
 source ~/.vim/keybindings.vim
 source ~/.vim/buffer.vim
 source ~/.vim/netrw.vim
-source ~/.vim/ag.vim
 source ~/.vim/vimdiff.vim
 source ~/.vim/fzf.vim
 source ~/.vim/coc.vim
