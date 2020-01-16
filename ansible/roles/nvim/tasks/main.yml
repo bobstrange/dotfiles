@@ -30,6 +30,14 @@
         - editor $(which nvim)
         - vi $(which nvim)
         - vim $(which nvim)
+    - name: 'Install plug.vim'
+      shell:
+        cmd: |
+          curl -fLo {{ home_dir }}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+          https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      tags:
+        - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-
+  tags:
+    - 'update_deps'
