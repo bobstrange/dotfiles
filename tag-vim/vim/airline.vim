@@ -1,6 +1,3 @@
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
 " Powerline系フォントを利用する
 set laststatus=2
 let g:airline_powerline_fonts = 1
@@ -54,5 +51,3 @@ let g:tmuxline_preset = {
   \'y'    : ['%R', '%a', '%Y'],
   \'z'    : '#H'}
 let g:tmuxline_theme = 'simple'
-
-

@@ -1,2 +1,1 @@
-Plug 'leafgarland/typescript-vim'
 

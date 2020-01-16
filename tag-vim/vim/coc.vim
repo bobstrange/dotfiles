@@ -127,4 +127,5 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Commented out as I've used <space>p as fuzzy finding files
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>

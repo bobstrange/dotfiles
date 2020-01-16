@@ -7,16 +7,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-source ~/.vim/ag.vim
-source ~/.vim/airline.vim
-source ~/.vim/coc.vim
-source ~/.vim/fzf.vim
 source ~/.vim/plugins.vim
-source ~/.vim/ruby.vim
-source ~/.vim/javascript.vim
-source ~/.vim/typescript.vim
-source ~/.vim/vimdiff.vim
-source ~/.vim/markdown.vim
 
 call plug#end()
 
@@ -24,11 +15,15 @@ syntax enable
 
 source ~/.vim/base_config.vim
 source ~/.vim/theme.vim
+source ~/.vim/airline.vim
 source ~/.vim/keybindings.vim
 source ~/.vim/buffer.vim
 source ~/.vim/netrw.vim
+source ~/.vim/ag.vim
+source ~/.vim/vimdiff.vim
+source ~/.vim/fzf.vim
+source ~/.vim/coc.vim
 
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
+" Config for each languages
+source ~/.vim/javascript.vim
+source ~/.vim/markdown.vim
