@@ -1,4 +1,4 @@
-nnoremap <Leader>p :GFiles<CR>
+nnoremap <Leader>p :Files<CR>
 nnoremap <Leader>l :Buffers<CR>
 
 " [Buffers] Jump to the existing window if possible
