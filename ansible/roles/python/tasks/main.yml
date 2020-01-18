@@ -46,15 +46,15 @@
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Install pyenv'
   git:
-    repo: 'https://github.com/pyenv'
-    dest: "{{ pyenv_plugins }}/pyenv-virtualenv"
+    repo: 'https://github.com/pyenv/pyenv'
+    dest: "{{ pyenv_root }}"
     update: true
   tags:
     - 'update_deps'
 - name: 'Install pyenv-virtualenv'
   git:
     repo: 'https://github.com/pyenv/pyenv-virtualenv'
-    dest: "{{ pyenv_root }}"
+    dest: "{{ pyenv_plugins }}/pyenv-virtualenv"
     update: true
   tags:
     - 'update_deps'
