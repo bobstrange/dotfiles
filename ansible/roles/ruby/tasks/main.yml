@@ -2,32 +2,36 @@
 - name: 'Install dependencies (Ubuntu)'
   become: true
   apt:
-    name: "{{ item }}"
+    name: "{{ ruby_dependencies_ubuntu }}"
     state: 'latest'
     update_cache: true
-  loop:
-    - 'autoconf'
-    - 'bison'
-    - 'build-essential'
-    - 'libssl-dev'
-    - 'libyaml-dev'
-    - 'libreadline6-dev'
-    - 'zlib1g-dev'
-    - 'libncurses5-dev'
-    - 'libffi-dev'
-    - 'libgdbm5'
-    - 'libgdbm-dev'
+  vars:
+    ruby_dependencies_ubuntu:
+      - 'autoconf'
+      - 'bison'
+      - 'build-essential'
+      - 'libssl-dev'
+      - 'libyaml-dev'
+      - 'libreadline6-dev'
+      - 'zlib1g-dev'
+      - 'libncurses5-dev'
+      - 'libffi-dev'
+      - 'libgdbm5'
+      - 'libgdbm-dev'
   tags:
     - 'update_deps'
   when:
    - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install dependencies (osx)'
   homebrew:
-    name: "{{ item }}"
-  loop:
-    - 'openssl'
-    - 'libyaml'
-    - 'libffi'
+    name: "{{ ruby_dependencies_osx }}"
+    update_homebrew: true
+    state: 'latest'
+  vars:
+    ruby_dependencies_osx:
+      - 'openssl'
+      - 'libyaml'
+      - 'libffi'
   tags:
     - 'update_deps'
   when:
