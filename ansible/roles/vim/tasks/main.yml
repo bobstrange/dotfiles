@@ -5,34 +5,36 @@
     - name: 'Update dependencies'
       become: true
       apt:
-        name: "{{ item }}"
-      loop:
-        - libncurses5-dev
-        - libgnome2-dev
-        - libgnomeui-dev
-        - libgtk2.0-dev
-        - libatk1.0-dev
-        - libbonoboui2-dev
-        - libcairo2-dev
-        - libx11-dev
-        - libxpm-dev
-        - libxt-dev
-        - python-dev
-        - python3-dev
-        - ruby-dev
-        - lua5.1
-        - liblua5.1-dev
-        - libperl-dev
-        - git
+        name: "{{ vim_dependencies_ubuntu }}"
+      vars:
+        vim_dependencies_ubuntu:
+          - 'libncurses5-dev'
+          - 'libgnome2-dev'
+          - 'libgnomeui-dev'
+          - 'libgtk2.0-dev'
+          - 'libatk1.0-dev'
+          - 'libbonoboui2-dev'
+          - 'libcairo2-dev'
+          - 'libx11-dev'
+          - 'libxpm-dev'
+          - 'libxt-dev'
+          - 'python-dev'
+          - 'python3-dev'
+          - 'ruby-dev'
+          - 'lua5.1'
+          - 'liblua5.1-dev'
+          - 'libperl-dev'
+          - 'git'
     - name: 'Uninstall vim install by apt'
       become: true
       apt:
-        name: "{{ item }}"
+        name: "{{ vim_packeges_to_uninstall }}"
         state: 'absent'
-      loop:
-        - vim
-        - vim-runtime
-        - gvim
+      vars:
+        vim_packeges_to_uninstall:
+          - 'vim'
+          - 'vim-runtime'
+          - 'gvim'
     - name: 'Create base dir'
       file:
         path: "{{ home_dir }}/src/github.com/vim"
