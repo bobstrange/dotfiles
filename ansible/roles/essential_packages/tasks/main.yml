@@ -2,36 +2,38 @@
 - name: 'Install essential packages (Ubuntu)'
   become: true
   apt:
-    name: "{{ item }}"
+    name: "{{ apt_packages }}"
     state: 'latest'
     update_cache: true
-  loop:
-    - 'build-essential'
-    - 'curl'
-    - 'direnv'
-    - 'jq'
-    - 'tmux'
-    - 'xclip'
-    - 'tig'
-    - 'virtualbox'
-    - 'vagrant'
-    - 'silversearcher-ag'
+  vars:
+    apt_packages:
+      - 'build-essential'
+      - 'curl'
+      - 'direnv'
+      - 'jq'
+      - 'tmux'
+      - 'xclip'
+      - 'tig'
+      - 'virtualbox'
+      - 'vagrant'
+      - 'silversearcher-ag'
   tags:
     - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install essential packages (Darwin)'
   homebrew:
-    name: "{{ item }}"
+    name: "{{ brew_packages }}"
     state: 'latest'
     update_homebrew: true
-  loop:
-    - 'curl'
-    - 'direnv'
-    - 'jq'
-    - 'tmux'
-    - 'tig'
-    - 'ag'
+  vars:
+    brew_packages:
+      - 'curl'
+      - 'direnv'
+      - 'jq'
+      - 'tmux'
+      - 'tig'
+      - 'ag'
   tags:
     - 'update_deps'
   when:
