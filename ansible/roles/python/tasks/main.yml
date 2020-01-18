@@ -6,38 +6,40 @@
 - name: 'Install python build dependencies (Ubuntu)'
   become: true
   apt:
-    name: "{{ item }}"
-  loop:
-    - 'make'
-    - 'build-essential'
-    - 'libssl-dev'
-    - 'zlib1g-dev'
-    - 'libbz2-dev'
-    - 'libreadline-dev'
-    - 'libsqlite3-dev'
-    - 'wget'
-    - 'curl'
-    - 'llvm'
-    - 'libncurses5-dev'
-    - 'xz-utils'
-    - 'tk-dev'
-    - 'libxml2-dev'
-    - 'libxmlsec1-dev'
-    - 'libffi-dev'
-    - 'liblzma-dev'
+    name: "{{ python_dependencies_ubuntu }}"
+  vars:
+    python_dependencies_ubuntu:
+      - 'make'
+      - 'build-essential'
+      - 'libssl-dev'
+      - 'zlib1g-dev'
+      - 'libbz2-dev'
+      - 'libreadline-dev'
+      - 'libsqlite3-dev'
+      - 'wget'
+      - 'curl'
+      - 'llvm'
+      - 'libncurses5-dev'
+      - 'xz-utils'
+      - 'tk-dev'
+      - 'libxml2-dev'
+      - 'libxmlsec1-dev'
+      - 'libffi-dev'
+      - 'liblzma-dev'
   tags:
     - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install python build dependencies (osx)'
   homebrew:
-    name: "{{ item }}"
-  loop:
-    - 'openssl'
-    - 'readline'
-    - 'sqlite3'
-    - 'xz'
-    - 'zlib'
+    name: "{{ python_dependencies_osx }}"
+  vars:
+    python_dependencies_osx:
+      - 'openssl'
+      - 'readline'
+      - 'sqlite3'
+      - 'xz'
+      - 'zlib'
   tags:
     - 'update_deps'
   when:
