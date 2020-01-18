@@ -34,5 +34,17 @@
           - 'docker-ce'
           - 'docker-ce-cli'
           - 'containerd.io'
+    - name: 'Add docker group'
+      become: true
+      group:
+        name: 'docker'
+        state: 'present'
+    - name: 'Add user to the docker group'
+      become: true
+      user:
+        name: "{{ user_name }}"
+        groups: 'docker'
+        append: true
+
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
