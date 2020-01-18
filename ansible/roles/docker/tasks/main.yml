@@ -2,11 +2,34 @@
 - name: 'Install dependencies (Ubuntu)'
   become: true
   apt:
-    name: "{{ item }}"
-  loop:
-    - apt-transport-https
-    - ca-certificates
-    - curl
-    - gnupg-agent
-    - software-properties-common
+    name: "{{ docker_dependencies }}"
+    state: 'present'
+    update_cache: true
+  vars:
+    docker_dependencies:
+      - 'apt-transport-https'
+      - 'ca-certificates'
+      - 'curl'
+      - 'gnupg-agent'
+      - 'software-properties-common'
+- name: 'Add apt key'
+  become: true
+  apt_key:
+    url: 'https://download.docker.com/linux/ubuntu/gpg'
+    state: 'present'
+- name: 'Add apt repository'
+  become: true
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+- name: 'Install docker'
+  become: true
+  apt:
+    name: "{{ docker_packages }}"
+    state: 'present'
+    update_cache: true
+  vars:
+    docker_packages:
+      - 'docker-ce'
+      - 'docker-ce-cli'
+      - 'containerd.io'
 
