@@ -6,4 +6,6 @@ init.author.url=https://github.com/bob1983
 init.license=MIT
 init.version=0.0.1
 
+also=dev
 progress=false
+engine-strict=true
