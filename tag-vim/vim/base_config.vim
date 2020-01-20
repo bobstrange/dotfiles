@@ -1,6 +1,7 @@
 " Base settings
 " refs: https://qiita.com/nrk_baby/items/154e3fa15c48a39e3375
 
+set modifiable
 " Encoding
 set encoding=utf-8
 set fileencoding=utf-8
