@@ -71,3 +71,6 @@
     - name: 'Setup docker'
       include_role:
         name: 'docker'
+    - name: 'Install google-musicmanager'
+      include_role:
+        name: 'google-musicmanager'
