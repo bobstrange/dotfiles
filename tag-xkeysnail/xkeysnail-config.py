@@ -53,7 +53,13 @@ define_keymap(lambda wm_class: wm_class in ("Code"), {
     K("LM-Shift-m"): K("C-Shift-m"),
 
     # Terminal (Ctrl+`)
-    K("LM-Shift-LEFT_BRACE"): K("C-Shift-LEFT_BRACE")
+    K("LM-Shift-LEFT_BRACE"): K("C-Shift-LEFT_BRACE"),
+
+    # Explorer window
+    K("LM-Shift-e"): K("RC-Shift-e"),
+
+    # Go to Symbol in File
+    K("LM-Shift-o"): K("RC-Shift-o")
 }, "VSCode keys")
 
 define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
@@ -68,5 +74,4 @@ define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
 
     # Reload
     K("LM-r"): K("RC-r")
-
 }, "Chrome keys")
