@@ -37,6 +37,7 @@ set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set virtualedit=onemore
 set ambiwidth=double
+set colorcolumn=80
 
 " highlight Zenkaku space
 " https://gist.github.com/pgtwitter/cb31d497aa02f221164fc2dd846d24dc
