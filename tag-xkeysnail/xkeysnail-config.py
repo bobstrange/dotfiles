@@ -7,7 +7,7 @@ define_modmap({
     Key.CAPSLOCK: Key.LEFT_CTRL,
 })
 
-define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
+define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt", "Code"), {
     # Emacs like
     ## Cursor
     K("LC-b"): K("left"),
@@ -39,27 +39,6 @@ define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
 }, "Emacs like")
 
 define_keymap(lambda wm_class: wm_class in ("Code"), {
-    # Quick Open
-    K("LM-p"): K("C-p"),
-
-    # Open Command Palette
-    K("LM-Shift-p"): K("C-Shift-p"),
-
-    # Search
-    K("LM-f"): K("C-f"),
-    K("LM-Shift-f"): K("C-Shift-f"),
-
-    # Errors and warnings
-    K("LM-Shift-m"): K("C-Shift-m"),
-
-    # Terminal (Ctrl+`)
-    K("LM-Shift-LEFT_BRACE"): K("C-Shift-LEFT_BRACE"),
-
-    # Explorer window
-    K("LM-Shift-e"): K("RC-Shift-e"),
-
-    # Go to Symbol in File
-    K("LM-Shift-o"): K("RC-Shift-o")
 }, "VSCode keys")
 
 define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
