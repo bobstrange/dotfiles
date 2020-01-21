@@ -36,7 +36,7 @@ define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
     K("LM-x"): K("C-x"),
     K("LM-z"): K("C-z"),
     K("LM-Shift-z"): K("C-Shift-z")
-}, "Default key mapping")
+}, "Emacs like")
 
 define_keymap(lambda wm_class: wm_class in ("Code"), {
     # Quick Open
@@ -67,6 +67,6 @@ define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
     K("LM-Shift-RIGHT_BRACE"): K("C-Shift-tab"),
 
     # Reload
-    K("LM-r"): K("C-r")
+    K("LM-r"): K("RC-r")
 
 }, "Chrome keys")
