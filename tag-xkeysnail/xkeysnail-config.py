@@ -50,8 +50,10 @@ define_keymap(lambda wm_class: wm_class in ("Code"), {
     K("LM-Shift-f"): K("C-Shift-f"),
 
     # Errors and warnings
-    K("LM-Shift-m"): K("C-Shift-m")
+    K("LM-Shift-m"): K("C-Shift-m"),
 
+    # Terminal (Ctrl+`)
+    K("LM-Shift-LEFT_BRACE"): K("C-Shift-LEFT_BRACE")
 }, "VSCode keys")
 
 define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
