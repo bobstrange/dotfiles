@@ -38,6 +38,10 @@ define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
     K("LM-Shift-z"): K("C-Shift-z")
 }, "Default key mapping")
 
+define_keymap(lambda wm_class: wm_class in ("Code"), {
+    K("LM-p"): K("C-p")
+}, "VSCode keys")
+
 define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
     # Re-open closed tab
     K("LM-Shift-t"): K("C-Shift-t"),
