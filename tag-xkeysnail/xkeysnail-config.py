@@ -39,7 +39,19 @@ define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt"), {
 }, "Default key mapping")
 
 define_keymap(lambda wm_class: wm_class in ("Code"), {
-    K("LM-p"): K("C-p")
+    # Quick Open
+    K("LM-p"): K("C-p"),
+
+    # Open Command Palette
+    K("LM-Shift-p"): K("C-Shift-p"),
+
+    # Search
+    K("LM-f"): K("C-f"),
+    K("LM-Shift-f"): K("C-Shift-f"),
+
+    # Errors and warnings
+    K("LM-Shift-m"): K("C-Shift-m")
+
 }, "VSCode keys")
 
 define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
