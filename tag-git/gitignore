@@ -37,13 +37,16 @@ tags.tmp
 # npm
 .npmrc
 
-
 # vagrant
 .vagrant
 
 # ruby
 .byebug_history
 .env
+
+# JavaScript
+dist
+coverage
 
 # direnv
 .envrc
