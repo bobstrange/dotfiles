@@ -74,3 +74,6 @@
     - name: 'Install google-musicmanager'
       include_role:
         name: 'google-musicmanager'
+    - name: 'Setup VSCode'
+      include_role:
+        name: 'vscode'
