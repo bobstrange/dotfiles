@@ -1,0 +1,12 @@
+# Don't ever lint node_modules
+node_modules
+
+# Don't lint build output
+dist
+
+# Don't lint coverage output
+coverage
+
+# Don't lint tmp dir
+tmp
+logs
