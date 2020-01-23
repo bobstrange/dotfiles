@@ -1,6 +1,6 @@
 # Unix
 alias ls='ls --color=auto'
-alias ll='ls -al --time-style="+%F %H:%m:%S"'
+alias ll='ls -altr --time-style="+%F %H:%m:%S"'
 alias ln='ln -v'
 alias mkdir='mkdir -p'
 alias tig='tig --all'
