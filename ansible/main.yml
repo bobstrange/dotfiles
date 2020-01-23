@@ -77,3 +77,8 @@
     - name: 'Setup VSCode'
       include_role:
         name: 'vscode'
+    - name: 'Setup ulauncher'
+      include_role:
+        name: 'ulauncher'
+      tags:
+        - 'update_deps'
