@@ -4,8 +4,9 @@
 - Dropbox folder should be `~/Dropbox/`.
 
 ## Tools
-- ansible
-- rcm
+- [Ansible](https://www.ansible.com/)
+- [rcm](https://github.com/thoughtbot/rcm)
+    - I'm thinking of migrating to [dotbot](https://github.com/anishathalye/dotbot)
 
 ## Usage
 ### bootstrap
