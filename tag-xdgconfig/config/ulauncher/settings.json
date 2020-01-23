@@ -4,6 +4,6 @@
     "hotkey-show-app": "<Alt>space",
     "render-on-screen": "mouse-pointer-monitor",
     "show-indicator-icon": true,
-    "show-recent-apps": true,
+    "show-recent-apps": false,
     "theme-name": "dark"
 }
