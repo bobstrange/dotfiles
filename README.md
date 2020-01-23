@@ -50,3 +50,7 @@ RCRC=~/dotfiles/rcrc lsrc -t vim
 RCRC=~/dotfiles/rcrc rcup
 RCRC=~/dotfiles/rcrc rcup -t vim
 ```
+
+## Note
+### Ulauncher
+I configured hotkey to Alt + Space as Ctrl + Space is used for intellisense
