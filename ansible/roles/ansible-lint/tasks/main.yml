@@ -1,0 +1,4 @@
+---
+- name: 'Install ansible-lint'
+  pip:
+    name: 'ansible-lint'

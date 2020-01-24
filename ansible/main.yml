@@ -82,3 +82,6 @@
         name: 'ulauncher'
       tags:
         - 'update_deps'
+    - name: 'Setup ansible-lint'
+      include_role:
+        name: 'ansible-lint'
