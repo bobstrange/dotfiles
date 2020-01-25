@@ -16,7 +16,6 @@
       - 'tig'
       - 'virtualbox'
       - 'vagrant'
-      - 'silversearcher-ag'
   tags:
     - 'update_deps'
   when:
@@ -33,7 +32,6 @@
       - 'jq'
       - 'tmux'
       - 'tig'
-      - 'ag'
   tags:
     - 'update_deps'
   when:
