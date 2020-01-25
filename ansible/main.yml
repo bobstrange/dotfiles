@@ -9,6 +9,9 @@
       include_role:
         name: 'dotfiles'
       tags: 'update_deps'
+    - name: 'Osx defaults'
+      include_role:
+        name: 'osx_defaults'
     - name: 'Setup xkeysnail'
       include_role:
         name: 'xkeysnail'
