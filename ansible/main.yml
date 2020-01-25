@@ -1,90 +1,93 @@
 ---
 - hosts: all
   tasks:
-    #    - name: 'Setup git'
-    #      include_role:
-    #        name: 'git'
-    #      tags: 'update_deps'
-    #    - name: 'Setup dotfiles'
-    #      include_role:
-    #        name: 'dotfiles'
-    #      tags: 'update_deps'
+    - name: 'Setup git'
+      include_role:
+        name: 'git'
+      tags: 'update_deps'
+    - name: 'Setup dotfiles'
+      include_role:
+        name: 'dotfiles'
+      tags: 'update_deps'
     - name: 'Osx defaults'
       include_role:
         name: 'osx_defaults'
-        #    - name: 'Setup xkeysnail'
-        #      include_role:
-        #        name: 'xkeysnail'
-        #    - name: 'Install essential packages'
-        #      include_role:
-        #        name: 'essential_packages'
-        #      tags: 'update_deps'
-        #    - name: 'Install font'
-        #      include_role:
-        #        name: 'font'
-        #    - name: 'Setup zsh'
-        #      include_role:
-        #        name: 'zsh'
-        #    - name: 'Setup ruby'
-        #      include_role:
-        #        name: 'ruby'
-        #    - name: 'Setup nodejs'
-        #      include_role:
-        #        name: 'nodejs'
-        #    - name: 'Setup python'
-        #      include_role:
-        #        name: 'python'
-        #    - name: 'Setup win32yank'
-        #      include_role:
-        #        name: 'win32yank'
-        #    - name: 'Setup vim'
-        #      include_role:
-        #        name: 'vim'
-        #      tags:
-        #        - 'update_deps'
-        #    - name: 'Setup neovim'
-        #      include_role:
-        #        name: 'nvim'
-        #      tags:
-        #        - 'update_deps'
-        #    - name: 'Setup fzf'
-        #      include_role:
-        #        name: 'fzf'
-        #    - name: 'Setup ghq'
-        #      include_role:
-        #        name: 'ghq'
-        #    - name: 'Make symlink'
-        #      include_role:
-        #        name: 'symlink'
-        #    - name: 'Setup fd'
-        #      include_role:
-        #        name: 'fd'
-        #    - name: 'Setup rg'
-        #      include_role:
-        #        name: 'rg'
-        #    - name: 'Setup bat'
-        #      include_role:
-        #        name: 'bat'
-        #    - name: 'Setup redshift'
-        #      include_role:
-        #        name: 'redshift'
-        #    - name: 'Setup slack'
-        #      include_role:
-        #        name: 'slack'
-        #    - name: 'Setup docker'
-        #      include_role:
-        #        name: 'docker'
-        #    - name: 'Install google-musicmanager'
-        #      include_role:
-        #        name: 'google-musicmanager'
-        #    - name: 'Setup VSCode'
-        #      include_role:
-        #        name: 'vscode'
-        #    - name: 'Setup ulauncher'
-        #      include_role:
-        #        name: 'ulauncher'
-        #      tags:
-        #        - 'update_deps'
-        #    - name: 'Setup ansible-lint'
-        #      include_role:
-        #        name: 'ansible-lint'
+    - name: 'Setup xkeysnail'
+      include_role:
+        name: 'xkeysnail'
+    - name: 'Install essential packages'
+      include_role:
+        name: 'essential_packages'
+      tags: 'update_deps'
+    - name: 'Install font'
+      include_role:
+        name: 'font'
+    - name: 'Setup zsh'
+      include_role:
+        name: 'zsh'
+    - name: 'Setup ruby'
+      include_role:
+        name: 'ruby'
+    - name: 'Setup nodejs'
+      include_role:
+        name: 'nodejs'
+    - name: 'Setup python'
+      include_role:
+        name: 'python'
+    - name: 'Setup win32yank'
+      include_role:
+        name: 'win32yank'
+    - name: 'Setup vim'
+      include_role:
+        name: 'vim'
+      tags:
+        - 'update_deps'
+    - name: 'Setup neovim'
+      include_role:
+        name: 'nvim'
+      tags:
+        - 'update_deps'
+    - name: 'Setup fzf'
+      include_role:
+        name: 'fzf'
+    - name: 'Setup ghq'
+      include_role:
+        name: 'ghq'
+    - name: 'Make symlink'
+      include_role:
+        name: 'symlink'
+    - name: 'Setup fd'
+      include_role:
+        name: 'fd'
+    - name: 'Setup rg'
+      include_role:
+        name: 'rg'
+    - name: 'Setup bat'
+      include_role:
+        name: 'bat'
+    - name: 'Setup redshift'
+      include_role:
+        name: 'redshift'
+    - name: 'Setup slack'
+      include_role:
+        name: 'slack'
+    - name: 'Setup docker'
+      include_role:
+        name: 'docker'
+    - name: 'Install google-musicmanager'
+      include_role:
+        name: 'google-musicmanager'
+    - name: 'Setup VSCode'
+      include_role:
+        name: 'vscode'
+    - name: 'Setup ulauncher'
+      include_role:
+        name: 'ulauncher'
+      tags:
+        - 'update_deps'
+    - name: 'Setup ansible-lint'
+      include_role:
+        name: 'ansible-lint'
+    - name: 'others'
+      include_role:
+        name: 'others'
