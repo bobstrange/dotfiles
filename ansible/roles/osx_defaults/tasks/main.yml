@@ -1,0 +1,14 @@
+---
+- name: 'Show hidden files'
+  osx_defaults:
+    domain: 'com.apple.finder'
+    key: 'AppleShowAllFiles'
+    value: true
+    state: 'present'
+- name: 'Change screenshot filename'
+  osx_defaults:
+    domain: 'com.apple.screencapture'
+    key: 'name'
+    type: 'string'
+    value: 'ScreenShot'
+

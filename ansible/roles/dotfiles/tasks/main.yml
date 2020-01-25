@@ -26,10 +26,8 @@
       become: true
       apt:
         name: 'rcm'
-        state: 'latest'
+        state: 'present'
         update_cache: true
-      tags:
-        - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install rcm (OSX)'
@@ -40,8 +38,6 @@
         name: 'rcm'
         state: 'present'
         update_homebrew: true
-  tags:
-    - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Run rcup'
