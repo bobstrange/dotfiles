@@ -1,14 +1,64 @@
 ---
-- name: 'Show hidden files'
-  osx_defaults:
-    domain: 'com.apple.finder'
-    key: 'AppleShowAllFiles'
-    value: true
-    state: 'present'
 - name: 'Change screenshot filename'
   osx_defaults:
     domain: 'com.apple.screencapture'
     key: 'name'
     type: 'string'
     value: 'ScreenShot'
-
+    state: 'present'
+- name: 'Show all extensions'
+  osx_defaults:
+    domain: 'NSGlobalDomain'
+    key: 'AppleShowAllExtensions'
+    type: 'bool'
+    value: true
+    state: 'present'
+- name: "Don't make .DS_Store file on network stores"
+  osx_defaults:
+    domain: 'com.apple.desktopservices'
+    key: 'DSDontWriteNetworkStores'
+    type: 'bool'
+    value: true
+    state: 'present'
+- name: "Don't make .DS_Store file on usb stores"
+  osx_defaults:
+    domain: 'com.apple.desktopservices'
+    key: 'DSDontWriteUSBStores'
+    type: 'bool'
+    value: true
+    state: 'present'
+- name: 'Show hidden files'
+  osx_defaults:
+    domain: 'com.apple.finder'
+    key: 'AppleShowAllFiles'
+    type: 'string'
+    value: 'YES'
+    state: 'present'
+- name: 'Show fullpath on finder title bar'
+  osx_defaults:
+    domain: 'com.apple.finder'
+    key: '_FXShowPosixPathInTitle'
+    type: 'bool'
+    value: true
+    state: 'present'
+- name: 'Show path bar'
+  osx_defaults:
+    domain: 'com.apple.finder'
+    key: 'ShowPathbar'
+    type: 'bool'
+    value: true
+    state: 'present'
+- name: 'Show status bar'
+  osx_defaults:
+    domain: 'com.apple.finder'
+    key: 'ShowStatusBar'
+    type: 'bool'
+    value: true
+    state: 'present'
+- name: 'Show tab bar'
+  osx_defaults:
+    domain: 'com.apple.finder'
+    key: 'ShowTabView'
+    type: 'bool'
+    value: true
+    state: 'present'
