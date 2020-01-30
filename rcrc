@@ -20,4 +20,6 @@ TAGS="
   tmux
   terraform
   js
+  bin
 "
+UNDOTTED="bin"
