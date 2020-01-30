@@ -1,5 +1,3 @@
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
 " if hidden is not set, TextEdit might fail.
 set hidden
 

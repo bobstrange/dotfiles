@@ -18,6 +18,9 @@ Plug 'tmux-plugins/vim-tmux'
 " Create a directory on save if needed
 Plug 'pbrisbin/vim-mkdir'
 
+" LSP
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
 " Markdown
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install' }
