@@ -34,6 +34,9 @@
     - name: 'Setup python'
       include_role:
         name: 'python'
+    - name: 'Setup asdf'
+      include_role:
+        name: 'asdf'
     - name: 'Setup win32yank'
       include_role:
         name: 'win32yank'
