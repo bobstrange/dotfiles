@@ -16,7 +16,6 @@ profile
 DerivedData
 *.hmap
 *.ipa
-bin/
 
 # CocoaPods
 Pods/
