@@ -11,3 +11,10 @@
     cmd: 'git checkout "$(git describe --abbrev=0 --tags)"'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Change completion file permission'
+  file:
+    path: "{{ home_dir }}/.asdf/completions/asdf.bash"
+    mode: '0755'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+

@@ -32,10 +32,5 @@ test -s ~/.github_token &&  source ~/.github_token
 # nss ( for mkcert )
 export PATH="/usr/local/opt/nss/bin:$PATH"
 
-# asdf
-if [[ $(type brew > /dev/null) ]]; then
-  test -s "$(brew --prefix asdf)" && source "$(brew --prefix asdf)/asdf.sh"
-fi
-
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
