@@ -33,6 +33,10 @@
             create: true
             path: '/etc/modules-load.d/uinput.conf'
             line: 'uinput'
+        - name: 'Reload udev rules'
+          become: true
+          command:
+            cmd: 'udevadm control --reload-rules && udevadm trigger'
         - name: 'Add xkeysnail to sudoers'
           become: true
           lineinfile:
