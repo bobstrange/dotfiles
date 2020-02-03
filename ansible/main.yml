@@ -91,6 +91,9 @@
     - name: 'Setup ansible-lint'
       include_role:
         name: 'ansible-lint'
+    - name: 'pip dependencies'
+      include_role:
+        name: 'pip'
     - name: 'others'
       include_role:
         name: 'others'
