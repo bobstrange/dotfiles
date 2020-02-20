@@ -18,6 +18,9 @@ Plug 'tmux-plugins/vim-tmux'
 " Create a directory on save if needed
 Plug 'pbrisbin/vim-mkdir'
 
+" Git
+Plug 'tpope/vim-fugitive'
+
 " LSP
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
