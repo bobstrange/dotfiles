@@ -1,5 +1,5 @@
 ---
-- name: 'Install essential packages (Ubuntu)'
+- name: 'Install essential apt packages (Ubuntu)'
   become: true
   apt:
     name: "{{ apt_packages }}"
@@ -18,6 +18,15 @@
       - 'vagrant'
   tags:
     - 'update_deps'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install essential snap packages(Ubuntu)'
+  become: true
+  snap:
+    name: "{{ snap_packages }}"
+  vars:
+    snap_packages:
+      - 'postman'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install essential packages (Darwin)'
@@ -47,4 +56,3 @@
     - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
-
