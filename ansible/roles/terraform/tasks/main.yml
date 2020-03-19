@@ -1,0 +1,15 @@
+---
+- name: 'Install tfenv(Ubuntu)'
+  git:
+    repo: 'https://github.com/tfutils/tfenv.git'
+    dest: "{{ home_dir }}/.tfenv"
+    update: true
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+- name: 'Install tfenv(osx)'
+  homebrew:
+    name: 'tfenv'
+    update_homebrew: true
+    state: 'latest'
+  when:
+    - ansible_facts['distribution'] == 'osx'

@@ -34,6 +34,9 @@
     - name: 'Setup python'
       include_role:
         name: 'python'
+    - name: 'Setup terraform'
+      include_role:
+        name: 'terraform'
     - name: 'Setup asdf'
       include_role:
         name: 'asdf'
