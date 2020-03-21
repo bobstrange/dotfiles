@@ -6,7 +6,6 @@
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
 
-
 if [ ${ubuntu} = 0 ]; then
   for zsh_source in $HOME/.zsh/configs/ubuntu/*.zsh; do
     source $zsh_source
@@ -51,3 +50,6 @@ done
 
 autoload -U compinit
 compinit
+
+# This should be loaded after compinit
+source <(kubectl completion zsh)
