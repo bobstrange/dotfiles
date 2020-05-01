@@ -46,6 +46,7 @@ tags.tmp
 # JavaScript
 dist
 coverage
+node_modules
 
 # direnv
 .envrc
