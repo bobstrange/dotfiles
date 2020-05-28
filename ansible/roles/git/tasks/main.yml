@@ -58,7 +58,7 @@
 - name: 'Install github cli (Ubuntu))'
   become: true
   apt:
-    deb: https://github.com/cli/cli/releases/download/v0.9.0/gh_0.9.0_linux_arm64.deb
+    deb: https://github.com/cli/cli/releases/download/v0.9.0/gh_0.9.0_linux_amd64.deb
   tags:
     - 'update_deps'
   when:
