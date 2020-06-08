@@ -19,5 +19,9 @@ alias vim='nvim'
 
 alias dotfile='cd ~/dotfiles'
 
+# docker-compose
+# As I don't use dc command...
+alias dc="docker-compose"
+
 # k8s
 alias kctl="kubectl"
