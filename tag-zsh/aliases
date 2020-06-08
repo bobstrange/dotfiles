@@ -24,4 +24,4 @@ alias dotfile='cd ~/dotfiles'
 alias dc="docker-compose"
 
 # k8s
-alias kctl="kubectl"
+alias kc="kubectl"
