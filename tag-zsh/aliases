@@ -18,3 +18,6 @@ alias crontab='VIM_CRONTAB=true crontab'
 alias vim='nvim'
 
 alias dotfile='cd ~/dotfiles'
+
+# k8s
+alias kctl="kubectl"
