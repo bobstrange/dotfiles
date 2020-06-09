@@ -25,3 +25,6 @@ alias dc="docker-compose"
 
 # k8s
 alias kc="kubectl"
+
+# minikube
+alias mk="minikube"
