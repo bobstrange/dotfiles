@@ -1,10 +1,10 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-	whitespace = trailing-space,space-before-tab
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  whitespace = trailing-space,space-before-tab
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
-  name = bob1983
+  name = bobstrange
   email = bob.1983.g@gmail.com
 [push]
   default = simple
