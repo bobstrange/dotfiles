@@ -1,5 +1,5 @@
 # OSXConfiguraton
-
+## Applications
 ### Alfred
 - Remove keybind
   - Show spotlight preference
