@@ -18,6 +18,7 @@ eval "$(pyenv virtualenv-init -)"
 # go-lang
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:$PATH"
+export GO111MODULE=on
 
 # direnv
 eval "$(direnv hook zsh)"
@@ -34,3 +35,4 @@ export PATH="/usr/local/opt/nss/bin:$PATH"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
