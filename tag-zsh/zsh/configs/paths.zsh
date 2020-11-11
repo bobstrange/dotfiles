@@ -16,7 +16,7 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # go-lang
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/dev"
 export PATH="$GOPATH/bin:$PATH"
 export GO111MODULE=on
 
