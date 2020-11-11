@@ -54,7 +54,7 @@
 [commit]
   template = ~/.stCommitMsg
 [ghq]
-  root = ~/src
+  root = $GOPATH/src
 [hub]
   protocol = https
 
