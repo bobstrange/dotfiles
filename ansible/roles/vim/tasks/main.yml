@@ -37,17 +37,17 @@
           - 'gvim'
     - name: 'Create base dir'
       file:
-        path: "{{ home_dir }}/src/github.com/vim"
+        path: "{{ home_dir }}/dev/src/github.com/vim"
         recurse: true
         state: 'directory'
     - name: 'Download vim repo'
       git:
         repo: 'https://github.com/vim/vim'
-        dest: "{{ home_dir }}/src/github.com/vim/vim"
+        dest: "{{ home_dir }}/dev/src/github.com/vim/vim"
         depth: 1
     - name: 'Generate Makefile'
       shell:
-        chdir: "{{ home_dir }}/src/github.com/vim/vim"
+        chdir: "{{ home_dir }}/dev/src/github.com/vim/vim"
         cmd: |
           ./configure \
             --with-features=huge \
@@ -63,7 +63,7 @@
     - name: 'Install vim'
       become: true
       make:
-        chdir: "{{ home_dir }}/src/github.com/vim/vim"
+        chdir: "{{ home_dir }}/dev/src/github.com/vim/vim"
         target: 'install'
     - name: 'Update editor path'
       become: true
