@@ -1,5 +1,11 @@
 " For intellisence
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
+" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
@@ -22,7 +28,7 @@ Plug 'pbrisbin/vim-mkdir'
 Plug 'tpope/vim-fugitive'
 
 " LSP
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " Markdown
 Plug 'plasticboy/vim-markdown'
@@ -35,7 +41,7 @@ Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx'
 Plug 'posva/vim-vue'
-Plug 'digitaltoad/vim-pug'
+" Plug 'digitaltoad/vim-pug'
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
@@ -47,4 +53,7 @@ Plug 'tpope/vim-rails', { 'for': ['ruby', 'eruby', 'haml', 'coffee', 'javascript
 Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
 
 " Elixir
-Plug 'elixir-editors/vim-elixir'
+" Plug 'elixir-editors/vim-elixir'
+
+" Go
+Plug 'mattn/vim-goimports'
