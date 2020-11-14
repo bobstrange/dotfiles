@@ -22,6 +22,7 @@ source ~/.vim/netrw.vim
 source ~/.vim/vimdiff.vim
 source ~/.vim/fzf.vim
 " source ~/.vim/coc.vim
+source ~/.vim/lsp.vim
 
 " Config for each languages
 source ~/.vim/javascript.vim
