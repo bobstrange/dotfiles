@@ -25,4 +25,5 @@ source ~/.vim/coc.vim
 
 " Config for each languages
 source ~/.vim/javascript.vim
+source ~/.vim/go.vim
 source ~/.vim/markdown.vim

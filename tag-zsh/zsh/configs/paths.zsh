@@ -18,6 +18,7 @@ eval "$(pyenv virtualenv-init -)"
 # go-lang
 export GOPATH="$HOME/dev"
 export PATH="$GOPATH/bin:$PATH"
+export GOROOT=$(go env GOROOT)
 export GO111MODULE=on
 
 # direnv
