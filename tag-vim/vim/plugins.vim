@@ -11,15 +11,13 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
 " Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-endwise'
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 Plug 'tmux-plugins/vim-tmux'
 
 " Create a directory on save if needed
