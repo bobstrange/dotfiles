@@ -8,7 +8,9 @@ set rtp+=$GOROOT/misc/vim
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
 set completeopt=menu,preview
 
+" enable auto format when write (default)
+let g:goimports = 1
+
+
 " Available commands
-" :Import fmt
-" :Godoc net/http
-" :Fmt
+" :GoImport fmt
