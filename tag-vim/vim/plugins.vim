@@ -5,13 +5,18 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
 
-" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" Snippet engine
+Plug 'SirVer/ultisnips'
+" Snippet definitions
+Plug 'honza/vim-snippets'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
+
 " Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
