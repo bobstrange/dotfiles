@@ -48,6 +48,7 @@ Plug 'posva/vim-vue'
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
+Plug 'ryanolsonx/vim-lsp-typescript'
 
 " Ruby
 Plug 'vim-ruby/vim-ruby', { 'for': ['ruby', 'haml', 'eruby'] }
