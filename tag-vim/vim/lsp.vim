@@ -35,7 +35,7 @@ let g:lsp_diagnostics_echo_cursor = 1
 
 " ref: https://github.com/prabirshrestha/asyncomplete.vim#language-server-protocol-lsp
 " Auto popup ref: https://github.com/prabirshrestha/asyncomplete.vim#auto-popup
-let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_auto_popup = 1
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -48,8 +48,12 @@ inoremap <silent><expr> <TAB>
   \ asyncomplete#force_refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+" Preview window ref: https://github.com/prabirshrestha/asyncomplete.vim#preview-window
 let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_popup_delay = 200
+set completeopt=menuone,noinsert,noselect,preview
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+let g:asyncomplete_popup_delay = 250
 let g:lsp_text_edit_enabled = 0
 
 " force refresh ref: https://github.com/prabirshrestha/asyncomplete.vim#force-refresh-completion

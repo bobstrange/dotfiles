@@ -6,11 +6,10 @@ set rtp+=$GOROOT/misc/vim
 " `go get github.com/nsf/gocode` needed
 " <c-x><c-o> で補完
 exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-set completeopt=menu,preview
+" set completeopt=menu,preview
 
 " enable auto format when write (default)
 let g:goimports = 1
-
 
 " ref https://github.com/golang/tools/blob/master/gopls/doc/vim.md#vim-lsp
 
