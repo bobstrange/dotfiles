@@ -47,7 +47,8 @@ Plug 'posva/vim-vue'
 " Plug 'digitaltoad/vim-pug'
 
 " TypeScript
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'ryanolsonx/vim-lsp-typescript'
 
 " Ruby
