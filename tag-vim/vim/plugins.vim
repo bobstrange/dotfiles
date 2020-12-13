@@ -1,4 +1,5 @@
 " For intellisence
+Plug 'prabirshrestha/async.vim.git'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
