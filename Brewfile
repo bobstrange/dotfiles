@@ -1,4 +1,5 @@
 tap "homebrew/cask"
+tap "homebrew/cask-versions"
 tap "homebrew/brewdler"
 tap "homebrew/bundle"
 tap "homebrew/core"
