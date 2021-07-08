@@ -30,6 +30,11 @@
     src: "{{ dropbox_path }}/config/github_token"
     dest: "{{ home_dir }}/.github_token"
     state: 'link'
+- name: 'symlink .dockerhub_token'
+  file:
+    src: "{{ dropbox_path }}/config/dockerhub_token"
+    dest: "{{ home_dir }}/.dockerhub_token"
+    state: 'link'
 - name: 'symlink .gitconfig.local(Ubuntu)'
   file:
     src: "{{ dotfiles_dir }}/tag-git/gitconfig.Linux"
