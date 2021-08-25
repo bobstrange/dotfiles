@@ -29,7 +29,7 @@ indent_size = 2
 [*.{md,markdown}]
 trim_trailing_whitespace = false
 insert_final_newline = false
-indent_size = 2
+indent_size = 4
 
 [{Makefile,go.mod,go.sum,*.go,.gitmodules}]
 indent_style = tab
