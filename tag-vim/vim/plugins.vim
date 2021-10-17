@@ -1,5 +1,5 @@
 " For intellisence
-Plug 'prabirshrestha/async.vim.git'
+Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -7,9 +7,9 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-lsp-icons'
 
 " Snippet engine
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 " Snippet definitions
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
