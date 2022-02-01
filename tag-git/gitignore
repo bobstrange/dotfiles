@@ -29,9 +29,6 @@ tags.tmp
 # vim
 *.un~
 
-# npm
-.npmrc
-
 # vagrant
 .vagrant
 
