@@ -103,4 +103,6 @@
     - name: 'others'
       include_role:
         name: 'others'
-
+    - name: 'copyq'
+      include_role:
+        name: 'copyq'
