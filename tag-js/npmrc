@@ -1,11 +1,11 @@
 # npm-config documentation https://docs.npmjs.com/misc/config
 
-init.author.name=bobstrange
-init.author.email=bob.1983.g@gmail.com
-init.author.url=https://github.com/bobstrange
-init.license=MIT
-init.version=0.0.1
+init-author-name=bobstrange
+init-author-email=bob.1983.g@gmail.com
+init-author-url=https://github.com/bobstrange
+init-license=MIT
+init-version=0.0.1
 
-also=dev
+include=dev
 progress=false
 engine-strict=true
