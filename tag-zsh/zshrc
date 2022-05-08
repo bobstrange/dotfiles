@@ -25,14 +25,6 @@ if [ ${wsl} = 0 ]; then
   umask 022
 fi
 
-# load custom configurations
-for zsh_source in $HOME/.zsh/configs/*.zsh; do
-  source $zsh_source
-done
-
-# load fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Load osx related configurations
 
 if [ "$(uname)" = 'Darwin' ]; then
@@ -40,6 +32,14 @@ if [ "$(uname)" = 'Darwin' ]; then
     source $zsh_source
   done
 fi
+
+# load custom configurations
+for zsh_source in $HOME/.zsh/configs/*.zsh; do
+  source $zsh_source
+done
+
+# load fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
 
