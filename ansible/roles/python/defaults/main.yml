@@ -1,5 +1,6 @@
 ---
-python_version: '3.9.14'
+python_version: '3.10.4'
+>>>>>>> 1b9080a (fix: python version)
 pyenv_root: "{{ home_dir }}/.pyenv"
 pyenv_bin: "{{ pyenv_root }}/bin"
 pyenv_plugins: "{{ pyenv_root }}/plugins"
