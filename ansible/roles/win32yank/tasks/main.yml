@@ -23,4 +23,5 @@
         mode: '0755'
   when:
     - not result.stat.exists
+    - wsl_enabled == true
 
