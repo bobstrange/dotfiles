@@ -5,7 +5,7 @@
     name: 'redshift-gtk'
     state: 'latest'
   when:
-    - ansible_facts['distribution']
+    - ansible_facts['distribution'] == 'Ubuntu'
     - wsl_enabled == false
 - name: 'Symlink redshift configuration file'
   file:
@@ -13,5 +13,5 @@
     dest: "{{ home_dir }}/.config/redshift.conf"
     state: 'link'
   when:
-    - ansible_facts['distribution']
+    - ansible_facts['distribution'] == 'Ubuntu'
     - wsl_enabled == false
