@@ -40,7 +40,7 @@ install_fzf() {
 install_font() {
   brew tap sanemat/font
   brew reinstall ricty --with-powerline --with-patch-in-place
-  cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+  cp -f /opt/homebrew/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
   fc-cache -vf
 }
 
