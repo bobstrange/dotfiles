@@ -25,8 +25,8 @@ install_dependencies() {
   # For neovim https://github.com/pyenv/pyenv/wiki/Common-build-problems
   brew install readline xz
 
-  brew install git gcc direnv tig ghq tmux wget zplug terraform jq peco neovim \
-    packer hub tree
+  brew install git gcc direnv tig ghq tmux wget zplug terraform jq neovim \
+    packer tree
   brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
   brew install grep
   brew install diff-so-fancy
@@ -44,7 +44,7 @@ install_font() {
   fc-cache -vf
 }
 
-install_colorscheme() {
+install_colorschemes() {
   ghq get https://github.com/mbadolato/iTerm2-Color-Schemes
 }
 
@@ -54,7 +54,7 @@ change_host() {
 }
 
 install_casks() {
-  brew --cask install \
+  brew install --cask \
     alfred \
     google-chrome \
     google-japanese-ime \
@@ -94,7 +94,8 @@ install_xxenv() {
 }
 
 install_aws_cli() {
-  pip3 install aws-cli
+  curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+  sudo installer -pkg AWSCLIV2.pkg -target /
 }
 
 if [ $(uname) == 'Darwin' ]; then
@@ -107,7 +108,6 @@ if [ $(uname) == 'Darwin' ]; then
   install_font
   change_host
   install_xxenv
-  install_mysql
   install_colorschemes
   install_fzf
   install_aws_cli
