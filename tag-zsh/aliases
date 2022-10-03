@@ -3,7 +3,7 @@ alias ls='ls --color=auto'
 alias ll='ls -altr --time-style="+%F %H:%m:%S"'
 alias ln='ln -v'
 alias mkdir='mkdir -p'
-alias tig='tig --all'
+# alias tig='tig --all'
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
