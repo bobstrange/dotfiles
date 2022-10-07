@@ -20,25 +20,31 @@
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Setup git credential helper (Ubuntu)'
   block:
-    - name: 'Install libgnome-keyring-dev'
+    - name: 'Install gnome-keyring'
       become: true
       apt:
-        name: 'libgnome-keyring-dev'
+        name: 'gnome-keyring'
         state: 'latest'
         update_cache: true
-    - name: 'Build gnome-keyring'
-      become: true
-      make:
-        chdir: '/usr/share/doc/git/contrib/credential/gnome-keyring'
-    - name: 'Make symlink'
-      become: true
-      file:
-        src: '/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring'
-        dest: '/usr/lib/git-core/git-credential-gnome-keyring'
-        owner: 'root'
-        group: 'root'
-        mode: '755'
-        state: 'link'
+    # - name: 'Install libgnome-keyring-dev'
+    #   become: true
+    #   apt:
+    #     name: 'libgnome-keyring-dev'
+    #     state: 'latest'
+    #     update_cache: true
+    # - name: 'Build gnome-keyring'
+    #   become: true
+    #   make:
+    #     chdir: '/usr/share/doc/git/contrib/credential/gnome-keyring'
+    # - name: 'Make symlink'
+    #   become: true
+    #   file:
+    #     src: '/usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring'
+    #     dest: '/usr/lib/git-core/git-credential-gnome-keyring'
+    #     owner: 'root'
+    #     group: 'root'
+    #     mode: '755'
+    #     state: 'link'
   when:
    - ansible_facts['distribution'] == 'Ubuntu'
    - wsl_enabled == false
