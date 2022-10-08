@@ -6,3 +6,4 @@ export PATH="$HOME/bin:$PATH"
 
 # Add xdg config home
 export XDG_CONFIG_HOME="$HOME/.config"
+. "$HOME/.cargo/env"
