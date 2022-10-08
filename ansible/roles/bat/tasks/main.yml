@@ -1,11 +1,25 @@
 
 ---
 - name: 'Install bat (Ubuntu)'
-  become: true
-  apt:
-    deb: "https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat_{{ bat_version }}_amd64.deb"
-  when:
-    - ansible_facts['distribution'] == 'Ubuntu'
+  block:
+    - name: 'Install'
+      become: true
+      apt:
+        name: 'bat'
+      when:
+        - ansible_facts['distribution'] == 'Ubuntu'
+    - name: 'Create ~/.local/bin'
+      file:
+        path: "{{ home_dir }}/.local/bin"
+        state: 'directory'
+        mode: '0755'
+    - name: 'Symlink batcat to bat'
+      file:
+        src: '/usr/bin/batcat'
+        dest: "{{ home_dir }}/.local/bin/bat"
+        state: 'link'
+        force: true
+
 - name: 'Install bat (osx)'
   homebrew:
     name: 'bat'
