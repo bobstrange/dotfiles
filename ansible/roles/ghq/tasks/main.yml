@@ -13,7 +13,7 @@
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install ghq (Ubuntu)'
-  shell: 'go get github.com/x-motemen/ghq'
+  shell: 'go install github.com/x-motemen/ghq@latest'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install ghq (osx)'
