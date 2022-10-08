@@ -19,7 +19,6 @@
         dest: "{{ home_dir }}/.local/bin/bat"
         state: 'link'
         force: true
-
 - name: 'Install bat (osx)'
   homebrew:
     name: 'bat'

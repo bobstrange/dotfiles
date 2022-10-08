@@ -12,6 +12,8 @@
     - name: 'Osx defaults'
       include_role:
         name: 'osx_defaults'
+      when:
+        - ansible_facts['os_family'] == 'Darwin'
     - name: 'Setup xkeysnail'
       include_role:
         name: 'xkeysnail'
@@ -37,12 +39,9 @@
     - name: 'Setup terraform'
       include_role:
         name: 'terraform'
-    - name: 'Setup asdf'
-      include_role:
-        name: 'asdf'
-    - name: 'Setup win32yank'
-      include_role:
-        name: 'win32yank'
+    # - name: 'Setup win32yank'
+    #   include_role:
+    #     name: 'win32yank'
     - name: 'Setup vim'
       include_role:
         name: 'vim'
@@ -74,15 +73,9 @@
     - name: 'Setup redshift'
       include_role:
         name: 'redshift'
-    - name: 'Setup slack'
-      include_role:
-        name: 'slack'
     - name: 'Setup docker'
       include_role:
         name: 'docker'
-    - name: 'Install google-musicmanager'
-      include_role:
-        name: 'google-musicmanager'
     - name: 'Setup VSCode'
       include_role:
         name: 'vscode'
@@ -100,6 +93,4 @@
     - name: 'others'
       include_role:
         name: 'others'
-    - name: 'copyq'
-      include_role:
-        name: 'copyq'
+

@@ -1,9 +1,10 @@
 ---
+- name: 'Install ansible.posix'
+  command: 'ansible-galaxy collection install ansible.posix'
 - name: 'Increase max_user_watches'
   become: true
-  sysctl:
+  ansible.posix.sysctl:
     name: 'fs.inotify.max_user_watches'
     value: '524288'
     sysctl_file: '/etc/sysctl.conf'
     reload: true
-
