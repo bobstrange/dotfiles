@@ -7,8 +7,6 @@
         name: "{{ neovim_dependencies_ubuntu }}"
       vars:
         neovim_dependencies_ubuntu:
-          - 'python-dev'
-          - 'python-pip'
           - 'python3-dev'
           - 'python3-pip'
     - name: 'Add neovim repo'
@@ -20,10 +18,7 @@
       apt:
         name: neovim
     - name: 'Configure python related'
-      shell: "{{ item }} install --upgrade neovim"
-      loop:
-        - "{{ home_dir }}/.pyenv/shims/pip3"
-        - pip2
+      shell: "{{ home_dir }}/.pyenv/shims/pip3 install --upgrade neovim"
     - name: 'Update editor path'
       become: true
       shell: "update-alternatives --set {{ item }}"

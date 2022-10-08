@@ -2,69 +2,15 @@
 - name: 'Install vim (Ubuntu)'
   # Referenced by https://github.com/ycm-core/YouCompleteMe/wiki/Building-Vim-from-source
   block:
-    - name: 'Update dependencies'
+    - name: 'Add vim repository'
       become: true
-      apt:
-        name: "{{ vim_dependencies_ubuntu }}"
-      vars:
-        vim_dependencies_ubuntu:
-          - 'libncurses5-dev'
-          - 'libgnome2-dev'
-          - 'libgnomeui-dev'
-          - 'libgtk2.0-dev'
-          - 'libatk1.0-dev'
-          - 'libbonoboui2-dev'
-          - 'libcairo2-dev'
-          - 'libx11-dev'
-          - 'libxpm-dev'
-          - 'libxt-dev'
-          - 'python-dev'
-          - 'python3-dev'
-          - 'ruby-dev'
-          - 'lua5.1'
-          - 'liblua5.1-dev'
-          - 'libperl-dev'
-          - 'git'
-    - name: 'Uninstall vim install by apt'
-      become: true
-      apt:
-        name: "{{ vim_packeges_to_uninstall }}"
-        state: 'absent'
-      vars:
-        vim_packeges_to_uninstall:
-          - 'vim'
-          - 'vim-runtime'
-          - 'gvim'
-    - name: 'Create base dir'
-      file:
-        path: "{{ home_dir }}/dev/src/github.com/vim"
-        recurse: true
-        state: 'directory'
-    - name: 'Download vim repo'
-      git:
-        repo: 'https://github.com/vim/vim'
-        dest: "{{ home_dir }}/dev/src/github.com/vim/vim"
-        depth: 1
-    - name: 'Generate Makefile'
-      shell:
-        chdir: "{{ home_dir }}/dev/src/github.com/vim/vim"
-        cmd: |
-          ./configure \
-            --with-features=huge \
-            --enable-multibyte \
-            --enable-rubyinterp=yes \
-            --enable-python3interp=yes \
-            --with-python3-config-dir=$(python3-config --configdir) \
-            --enable-perlinterp=yes \
-            --enable-luainterp=yes \
-            --enable-gui=gtk2 \
-            --enable-cscope \
-            --prefix=/usr/local
+      apt_repository:
+        repo: 'ppa:jonathonf/vim'
     - name: 'Install vim'
       become: true
-      make:
-        chdir: "{{ home_dir }}/dev/src/github.com/vim/vim"
-        target: 'install'
+      apt:
+        name: 'vim'
+        update_cache: true
     - name: 'Update editor path'
       become: true
       shell: "update-alternatives {{ item }}"
