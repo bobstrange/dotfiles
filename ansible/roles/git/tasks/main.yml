@@ -61,16 +61,10 @@
     mode: '0755'
   tags:
     - 'update_deps'
-- name: 'Install github cli (Ubuntu))'
-  become: true
-  apt:
-    deb: https://github.com/cli/cli/releases/download/v0.9.0/gh_0.9.0_linux_amd64.deb
-  tags:
-    - 'update_deps'
-  when:
-    - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Install github cli (OSX)'
   homebrew:
     name: 'github/gh/gh'
     update_homebrew: true
+  when:
+    - ansible_facts['os_family'] == 'Darwin'
 

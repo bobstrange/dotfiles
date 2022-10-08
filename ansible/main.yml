@@ -97,9 +97,6 @@
     - name: 'pip dependencies'
       include_role:
         name: 'pip'
-          #    - name: 'github-cli'
-          #      include_role:
-          #        name: 'github-cli'
     - name: 'others'
       include_role:
         name: 'others'
