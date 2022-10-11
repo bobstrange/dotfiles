@@ -34,6 +34,7 @@
           - 'docker-ce'
           - 'docker-ce-cli'
           - 'containerd.io'
+          - 'docker-compose-plugin'
     - name: 'Add docker group'
       become: true
       group:
@@ -45,17 +46,6 @@
         name: "{{ user_name }}"
         groups: 'docker'
         append: true
-    - name: 'Install docker compose'
-      become: true
-      shell:
-        cmd: "sudo curl -L \"https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose"
-      vars:
-        docker_compose_version: '1.25.4'
-    - name: 'Add exectable permission for docker-compose'
-      become: true
-      file:
-        path: '/usr/local/bin/docker-compose'
-        mode: '0755'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
 
