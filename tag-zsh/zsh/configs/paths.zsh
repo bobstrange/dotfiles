@@ -15,7 +15,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-# go-lang
+# golang
 export GOPATH="$HOME/dev"
 export PATH="$GOPATH/bin:$PATH"
 export GOROOT=$(go env GOROOT)
@@ -28,7 +28,7 @@ eval "$(direnv hook zsh)"
 export PATH="$HOME/.tfenv/bin:$PATH"
 
 # github token
-test -s ~/.github_token &&  source ~/.github_token
+test -s ~/.github_token && source ~/.github_token
 
 ## Elixir
 # nss ( for mkcert )
@@ -49,3 +49,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export DENO_INSTALL="/home/bob/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+# /usr/local/bin
+export PATH="/usr/local/bin:$PATH"
