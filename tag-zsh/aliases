@@ -5,6 +5,11 @@ alias ln='ln -v'
 alias mkdir='mkdir -p'
 # alias tig='tig --all'
 
+# Git
+alias gad='git add'
+alias gcm='git commit -m'
+alias gsw='git switch'
+
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
