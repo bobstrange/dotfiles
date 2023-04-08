@@ -4,7 +4,7 @@
   whitespace = trailing-space,space-before-tab
   pager = diff-so-fancy | less --tabs=4 -RFX
   quotepath = false
-	hooksPath = /home/bob/dev/src/github.com/secretlint/git-hooks/hooks
+  hooksPath = /home/bob/dev/src/github.com/secretlint/git-hooks/hooks
 [user]
   name = bobstrange
   email = bob.1983.g@gmail.com
@@ -22,7 +22,7 @@
 [alias]
   br = branch
   cb = rev-parse --abbrev-ref HEAD
-  cm = commit
+  cm = commit -m
   co = checkout
   fap = fetch --all --prune
   fp = push --force-with-lease
