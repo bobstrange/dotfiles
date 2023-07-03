@@ -61,3 +61,6 @@ Plug 'tpope/vim-rbenv', { 'for': 'ruby' }
 
 " Go
 Plug 'mattn/vim-goimports'
+
+" Zig
+Plug 'ziglang/zig.vim'
