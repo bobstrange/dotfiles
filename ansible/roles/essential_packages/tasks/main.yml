@@ -45,14 +45,15 @@
     - 'update_deps'
   when:
     - ansible_facts['os_family'] == 'Darwin'
-- name: 'Install essential packages (Darwin cask)'
-  homebrew_cask:
-    name: "{{ item }}"
-    state: 'latest'
-  loop:
-    - 'virtualbox'
-    - 'vagrant'
-  tags:
-    - 'update_deps'
-  when:
-    - ansible_facts['os_family'] == 'Darwin'
+# Commented out since we cannot install virtualbox to m1
+# - name: 'Install essential packages (Darwin cask)'
+#   homebrew_cask:
+#     name: "{{ item }}"
+#     state: 'latest'
+#   loop:
+#     - 'virtualbox'
+#     - 'vagrant'
+#   tags:
+#     - 'update_deps'
+#   when:
+#     - ansible_facts['os_family'] == 'Darwin'

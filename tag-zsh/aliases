@@ -33,3 +33,6 @@ alias kc="kubectl"
 
 # minikube
 alias mk="minikube"
+
+# python
+alias python="python3"

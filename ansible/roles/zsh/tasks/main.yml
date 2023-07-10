@@ -9,19 +9,21 @@
     - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-- name: 'Install zsh (osx)'
-  homebrew:
-    name: 'zsh'
-    update_homebrew: true
-  tags:
-    - 'update_deps'
-  when:
-    - ansible_facts['os_family'] == 'Darwin'
+# - name: 'Install zsh (osx)'
+#   homebrew:
+#     name: 'zsh'
+#     update_homebrew: true
+#   tags:
+#     - 'update_deps'
+#   when:
+#     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Use zsh as a login shell'
   become: true
   user:
     name: 'bob'
     shell: '/bin/zsh'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
 - name: 'Check .zplug dir'
   stat:
     path: "{{ home_dir }}/.zplug"

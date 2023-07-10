@@ -2,6 +2,9 @@
 - name: 'Gather package facts'
   package_facts:
     manager: 'apt'
+  when:
+    - ansible_facts['distribution'] == 'Ubuntu'
+    - wsl_enabled == false
 - name: 'Install slack'
   become: true
   apt:

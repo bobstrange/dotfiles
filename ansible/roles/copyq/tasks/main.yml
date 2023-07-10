@@ -13,9 +13,10 @@
         update_cache: true
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-- name: 'Install copyq (osx)'
-  homebrew_cask:
-    name: 'copyq'
-    state: 'latest'
-  when:
-    - ansible_facts['os_family'] == 'Darwin'
+# m1 mac does not support copyq
+# - name: 'Install copyq (osx)'
+#   homebrew_cask:
+#     name: 'copyq'
+#     state: 'latest'
+#   when:
+#     - ansible_facts['os_family'] == 'Darwin'

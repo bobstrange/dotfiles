@@ -25,17 +25,11 @@ install_dependencies() {
   # For neovim https://github.com/pyenv/pyenv/wiki/Common-build-problems
   brew install readline xz
 
-  brew install git gcc direnv tig ghq tmux wget zplug terraform jq peco neovim \
-    packer hub tree
+  brew install git gcc direnv tig ghq tmux wget zplug terraform jq neovim \
+    packer tree
   brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
-  brew tap homebrew/dupes; brew install grep
+  brew install grep
   brew install diff-so-fancy
-}
-
-install_zsh() {
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh| zsh
-  chsh -s /bin/zsh
-  exec $SHELL -s
 }
 
 install_fzf() {
@@ -46,11 +40,11 @@ install_fzf() {
 install_font() {
   brew tap sanemat/font
   brew reinstall ricty --with-powerline --with-patch-in-place
-  cp -f /usr/local/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
+  cp -f /opt/homebrew/opt/ricty/share/fonts/Ricty*.ttf ~/Library/Fonts/
   fc-cache -vf
 }
 
-install_colorscheme() {
+install_colorschemes() {
   ghq get https://github.com/mbadolato/iTerm2-Color-Schemes
 }
 
@@ -60,13 +54,17 @@ change_host() {
 }
 
 install_casks() {
-  brew cask install \
-    alfred google-chrome google-japanese-ime skype \
-    iterm2 karabiner shiftit macs-fan-control dropbox \
-    coteditor franz lastpass kindle slack vagrant \
-    virtualbox toggl
+  brew install --cask \
+    alfred \
+    iterm2 \
+    warp \
+    rectangle \
+    coteditor \
+    kindle \
+    slack \
+    tg-pro \
+    1password
 }
-
 
 install_rbenv() {
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -91,51 +89,9 @@ install_xxenv() {
   install_ndenv
 }
 
-# They should have beend done on dev_langs.sh
-# setup_ruby() {
-#   for version in 2.3.1 2.3.3 2.5.0; do
-#     rbenv install ${version}
-#     rbenv global ${version}
-#     gem install bundler
-#   done
-#   rbenv global 2.5.0
-# }
-#
-# setup_node() {
-#   for version in 8.9.4 6.9.2; do
-#     ndenv install ${version}
-#   done
-#   ndenv global 8.9.4
-#   brew install yarn --without-node
-# }
-
-
-install_mysql() {
-  brew install mysql
-  brew services start mysql
-}
-
-install_postgresql() {
-  brew install postgresql@9.6
-  brew services start postgresql@9.6
-}
-
-install_mongo() {
-  brew install mongo
-  brew services start mongodb
-}
-
-install_redis() {
-  brew install redis
-  brew services start redis
-}
-
-install_ctags() {
-  brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-}
-
 install_aws_cli() {
-  pip3 install aws-cli
+  curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+  sudo installer -pkg AWSCLIV2.pkg -target /
 }
 
 if [ $(uname) == 'Darwin' ]; then
@@ -145,13 +101,9 @@ if [ $(uname) == 'Darwin' ]; then
   change_screenshot_filename
   install_dependencies
   install_casks
-  install_zsh
   install_font
   change_host
   install_xxenv
-  install_mysql
-  install_redis
-  install_ctags
   install_colorschemes
   install_fzf
   install_aws_cli

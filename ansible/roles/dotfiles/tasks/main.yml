@@ -43,5 +43,3 @@
 - name: 'Run rcup'
   shell: "RCRC={{ dotfiles_dir }}/rcrc rcup -f"
 
-
-
