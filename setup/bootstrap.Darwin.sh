@@ -95,18 +95,18 @@ install_aws_cli() {
 }
 
 if [ $(uname) == 'Darwin' ]; then
-  # . setup/install_homebrew.sh
-  # setup_dotfile
-  # show_hidden_files
-  # change_screenshot_filename
-  # install_dependencies
+  . setup/install_homebrew.sh
+  setup_dotfile
+  show_hidden_files
+  change_screenshot_filename
+  install_dependencies
   install_casks
-  # install_font
-  # change_host
-  # install_xxenv
-  # install_colorschemes
-  # install_fzf
-  # install_aws_cli
+  install_font
+  change_host
+  install_xxenv
+  install_colorschemes
+  install_fzf
+  install_aws_cli
 else
   echo "This script doesn't support $(uname)"
   exit 1
