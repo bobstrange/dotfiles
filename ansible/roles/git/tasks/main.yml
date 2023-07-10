@@ -63,12 +63,12 @@
     - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-- name: 'Install diff-so-fancy'
+- name: 'Install diff-so-fancy(OSX)'
   homebrew:
     name: 'diff-so-fancy'
     update_homebrew: true
   when:
-    - ansible_facts['distribution']
+    - ansible_facts['distribution'] == 'Darwin'
 - name: 'Install github cli (Ubuntu))'
   become: true
   apt:
@@ -77,16 +77,10 @@
     - 'update_deps'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
->>>>>>> 3aa2412 (fix: fix diff-so-fancy installation)
 - name: 'Install github cli (OSX)'
   homebrew:
     name: 'github/gh/gh'
     update_homebrew: true
   when:
     - ansible_facts['os_family'] == 'Darwin'
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3aa2412 (fix: fix diff-so-fancy installation)
 
