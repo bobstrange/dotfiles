@@ -7,5 +7,4 @@ init-license=MIT
 init-version=0.0.1
 
 include=dev
-progress=false
 engine-strict=true
