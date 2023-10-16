@@ -1,9 +1,15 @@
 # # load zplug configuration
 # [[ -f $HOME/.zsh/zplug.zsh ]] && source $HOME/.zsh/zplug.zsh
 
-# Load ubuntu related configurations
+# Load plugin manager first
 
-[[ $(type sheldon) ]] && eval "$(sheldon source)"
+if [[ ! $(type sheldon) ]]; then
+  echo "sheldon hasn't been installed"
+else
+  eval "$(sheldon source)"
+fi
+
+# Load ubuntu related configurations
 
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
