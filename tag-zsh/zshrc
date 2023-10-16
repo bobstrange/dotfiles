@@ -3,6 +3,8 @@
 
 # Load ubuntu related configurations
 
+[[ $(type sheldon) ]] && eval "$(sheldon source)"
+
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
 
