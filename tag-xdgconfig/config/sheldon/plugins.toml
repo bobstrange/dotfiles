@@ -20,7 +20,23 @@ defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source 
 
 # the zsh-defer plugin definition should be placed before any plugins that will use the defer template
 [plugins.zsh-defer]
+
 github = 'romkatv/zsh-defer'
+
+[plugins.zsh-syntax-highlighting]
+
+apply = ["defer"]
+github = 'zsh-users/zsh-syntax-highlighting'
+
+[plugins.zsh-autosuggestions]
+
+apply = ["defer"]
+github = 'zsh-users/zsh-autosuggestions'
+
+[plugins.zsh-completions]
+
+apply = ["defer"]
+github = 'zsh-users/zsh-completions'
 
 # For example:
 #
