@@ -25,7 +25,7 @@ install_dependencies() {
   # For neovim https://github.com/pyenv/pyenv/wiki/Common-build-problems
   brew install readline xz
 
-  brew install git gcc direnv tig ghq tmux wget zplug terraform jq peco neovim \
+  brew install git gcc direnv tig ghq tmux wget terraform jq peco neovim \
     packer hub tree
   brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt
   brew tap homebrew/dupes; brew install grep

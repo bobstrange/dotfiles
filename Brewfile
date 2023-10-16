@@ -73,7 +73,6 @@ brew "tmux"
 brew "tree"
 brew "vim", args: ["with-custom-ruby", "with-lua", "with-override-system-vi", "with-python3"]
 brew "wget"
-brew "zplug"
 brew "zsh"
 brew "sanemat/font/ricty", args: ["vim-powerline", "with-powerline"]
 brew "thoughtbot/formulae/rcm"
