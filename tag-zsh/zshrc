@@ -61,3 +61,6 @@ compinit
 
 # This should be loaded after compinit
 source <(kubectl completion zsh)
+
+eval "$(starship init zsh)"
+
