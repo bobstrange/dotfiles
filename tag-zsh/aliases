@@ -13,7 +13,7 @@ alias gsw='git switch'
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
-# Crontab editin
+# Crontab editing
 alias crontab='VIM_CRONTAB=true crontab'
 
 # Include custom aliases
@@ -24,12 +24,14 @@ alias vim='nvim'
 
 alias dotfile='cd ~/dotfiles'
 
-# docker-compose
-# As I don't use dc command...
+# docker compose
+# I don't use dc command...
 alias dc="docker compose"
+alias dcps="dc ps --format 'table {{.Name}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}\t{{.Size}}'"
 
 # k8s
 alias kc="kubectl"
 
 # minikube
 alias mk="minikube"
+
