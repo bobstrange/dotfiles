@@ -16,3 +16,5 @@ bindkey "^y" accept-and-hold
 bindkey "^w" backward-kill-word
 bindkey "^u" backward-kill-line
 
+## zsh autosuggestions
+bindkey '^ ' autosuggest-accept
