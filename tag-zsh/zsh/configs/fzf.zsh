@@ -19,10 +19,6 @@ edit() {
 }
 
 # Git
-is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
-}
-
 ## Browse commit history
 gshow() {
   local _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
