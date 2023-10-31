@@ -9,4 +9,6 @@ ghq-look() {
 }
 
 zle -N ghq-look
-bindkey "^@" ghq-look # ctrl @
+# ^@ binds '^ ' to ghq-look so stop using it
+# bindkey "^@" ghq-look # ctrl @
+bindkey "^z" ghq-look # ctrl z
