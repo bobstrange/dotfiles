@@ -7,9 +7,14 @@ define_modmap({
     Key.CAPSLOCK: Key.LEFT_CTRL,
 })
 
+# How to get wm_class is:
+# xprop WM_CLASS
+# Then click the window you want to get the wm_class
+# WM_CLASS(STRING) = "vivaldi-stable", "Vivaldi-stable"
+
 define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt", "Code"), {
     # Emacs like
-    ## Cursor
+    # Cursor
     K("LC-b"): K("left"),
     K("LC-f"): K("right"),
     K("LC-p"): K("up"),
@@ -41,7 +46,7 @@ define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt", "Code"
 define_keymap(lambda wm_class: wm_class in ("Code"), {
 }, "VSCode keys")
 
-define_keymap(lambda wm_class: wm_class in ("Google-chrome"), {
+define_keymap(lambda wm_class: wm_class in ("Google-chrome", "vivaldi-stable"), {
     # Re-open closed tab
     K("LM-Shift-t"): K("C-Shift-t"),
 
