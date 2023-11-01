@@ -11,3 +11,14 @@ success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
+
+[git_branch]
+symbol = '🌱 '
+truncation_length = 48
+truncation_symbol = '…'
+style = 'blue bold'
+# ignore_branches = ['master', 'main']
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = '🔖 '
