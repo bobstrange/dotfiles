@@ -40,3 +40,19 @@ deleted_style = 'bold red'
 only_nonzero_diffs = false
 format = '([+$added]($added_style) )([-$deleted]($deleted_style) )'
 disabled = false
+
+[git_status]
+format = '([\[$all_status$ahead_behind \]]($style) )'
+conflicted = '🏳'
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇡${ahead_count} ⇣${behind_count}'
+up_to_date = '🆗'
+untracked = ''
+stashed = ''
+modified = '❗'
+staged = '[++\($count\)](green)'
+renamed = ''
+deleted = 'deleted'
+
+
