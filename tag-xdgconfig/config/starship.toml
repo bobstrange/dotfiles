@@ -16,9 +16,20 @@ disabled = true
 symbol = '🌱 '
 truncation_length = 48
 truncation_symbol = '…'
-style = 'blue bold'
+style = 'bold blue'
 # ignore_branches = ['master', 'main']
 
 [git_commit]
-commit_hash_length = 4
-tag_symbol = '🔖 '
+disabled = true
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+rebase = 'Rebasing'
+merge = 'Merging'
+revert = 'Reverting'
+cherry_pick = 'Cherry-Picking'
+bisect = 'Bisecting'
+am = 'AM'
+am_or_rebase = 'AM/Rebase'
+style = 'bold yellow'
+disabled = false
