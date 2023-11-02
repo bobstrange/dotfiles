@@ -24,6 +24,7 @@
   cb = rev-parse --abbrev-ref HEAD
   cm = commit -m
   co = checkout
+  sw = switch
   fap = fetch --all --prune
   fp = push --force-with-lease
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
