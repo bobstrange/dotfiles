@@ -37,9 +37,3 @@ github = 'zsh-users/zsh-autosuggestions'
 
 apply = ["defer"]
 github = 'zsh-users/zsh-completions'
-
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
-

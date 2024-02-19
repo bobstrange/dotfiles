@@ -40,7 +40,6 @@ done
 
 # load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/dev/src/github.com/lincheney/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && source ~/dev/src/github.com/lincheney/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 
 # Load osx related configurations
 
