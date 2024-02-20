@@ -18,6 +18,3 @@ bindkey "^u" backward-kill-line
 
 ## zsh autosuggestions
 bindkey '^ ' autosuggest-accept
-
-## fzf-tab-completion
-bindkey '^I' fzf_completion
