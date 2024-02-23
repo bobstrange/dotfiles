@@ -19,7 +19,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'chrisbra/vim-diff-enhanced'
 
 " Plug 'tomasr/molokai'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'sainnhe/everforest'
+
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-surround'
 " Plug 'cohama/lexima.vim'
