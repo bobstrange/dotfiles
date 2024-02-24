@@ -12,7 +12,7 @@ define_modmap({
 # Then click the window you want to get the wm_class
 # WM_CLASS(STRING) = "vivaldi-stable", "Vivaldi-stable"
 
-define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt", "Code"), {
+define_keymap(lambda wm_class: wm_class not in ("Gnome-terminal", "rxvt", "Code", "Alacritty"), {
     # Emacs like
     # Cursor
     K("LC-b"): K("left"),
