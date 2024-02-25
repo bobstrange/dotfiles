@@ -1,5 +1,6 @@
 ---
 - name: "Install Alacritty (Ubuntu)"
+  tags: tmp
   block:
     - name: "Clone alacritty"
       git:
@@ -30,5 +31,18 @@
         src: "/tmp/alacritty/target/release/alacritty"
         dest: "/usr/local/bin"
         mode: "0755"
+    - name: "Create a desktop launcher"
+      become: true
+      block:
+        - name: "Copy Icon"
+          copy:
+            src: "/tmp/alacritty/extra/logo/alacritty-term.svg"
+            dest: "/usr/share/pixmaps/Alacritty.svg"
+        - name: "Run desktop-file-install"
+          command: "desktop-file-install /tmp/alacritty/extra/linux/Alacritty.desktop"
+        - name: "Update desktop database"
+          command: "update-desktop-database"
+      when:
+        - ansible_facts['distribution'] == 'Ubuntu'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
