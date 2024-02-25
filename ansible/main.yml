@@ -1,96 +1,100 @@
 ---
 - hosts: all
   tasks:
-    - name: 'Setup git'
+    - name: "Setup git"
       include_role:
-        name: 'git'
-      tags: 'update_deps'
-    - name: 'Setup dotfiles'
+        name: "git"
+      tags: "update_deps"
+    - name: "Setup dotfiles"
       include_role:
-        name: 'dotfiles'
-      tags: 'update_deps'
-    - name: 'Osx defaults'
+        name: "dotfiles"
+      tags: "update_deps"
+    - name: "Osx defaults"
       include_role:
-        name: 'osx_defaults'
+        name: "osx_defaults"
       when:
         - ansible_facts['os_family'] == 'Darwin'
-    - name: 'Setup xkeysnail'
+    - name: "Setup xkeysnail"
       include_role:
-        name: 'xkeysnail'
-    - name: 'Install essential packages'
+        name: "xkeysnail"
+    - name: "Install essential packages"
       include_role:
-        name: 'essential_packages'
-      tags: 'update_deps'
-    - name: 'Install font'
+        name: "essential_packages"
+      tags: "update_deps"
+    - name: "Install font"
       include_role:
-        name: 'font'
-    - name: 'Setup zsh'
+        name: "font"
+    - name: "Setup zsh"
       include_role:
-        name: 'zsh'
-    - name: 'Setup ruby'
+        name: "zsh"
+    - name: "Setup ruby"
       include_role:
-        name: 'ruby'
-    - name: 'Setup nodejs'
+        name: "ruby"
+    - name: "Setup nodejs"
       include_role:
-        name: 'nodejs'
-    - name: 'Setup python'
+        name: "nodejs"
+    - name: "Setup python"
       include_role:
-        name: 'python'
-    - name: 'Setup terraform'
+        name: "python"
+    - name: "Setup terraform"
       include_role:
-        name: 'terraform'
+        name: "terraform"
     # - name: 'Setup win32yank'
     #   include_role:
     #     name: 'win32yank'
-    - name: 'Setup vim'
+    - name: "Setup vim"
       include_role:
-        name: 'vim'
+        name: "vim"
       tags:
-        - 'update_deps'
-    - name: 'Setup neovim'
+        - "update_deps"
+    - name: "Setup neovim"
       include_role:
-        name: 'nvim'
+        name: "nvim"
       tags:
-        - 'update_deps'
-    - name: 'Setup fzf'
+        - "update_deps"
+    - name: "Setup fzf"
       include_role:
-        name: 'fzf'
-    - name: 'Setup ghq'
+        name: "fzf"
+    - name: "Setup ghq"
       include_role:
-        name: 'ghq'
-    - name: 'Make symlink'
+        name: "ghq"
+    - name: "Make symlink"
       include_role:
-        name: 'symlink'
-    - name: 'Setup fd'
+        name: "symlink"
+    - name: "Setup fd"
       include_role:
-        name: 'fd'
-    - name: 'Setup rg'
+        name: "fd"
+    - name: "Setup rg"
       include_role:
-        name: 'rg'
-    - name: 'Setup bat'
+        name: "rg"
+    - name: "Setup bat"
       include_role:
-        name: 'bat'
-    - name: 'Setup redshift'
+        name: "bat"
+    - name: "Setup redshift"
       include_role:
-        name: 'redshift'
-    - name: 'Setup docker'
+        name: "redshift"
+    - name: "Setup docker"
       include_role:
-        name: 'docker'
-    - name: 'Setup VSCode'
+        name: "docker"
+    - name: "Setup VSCode"
       include_role:
-        name: 'vscode'
-    - name: 'Setup ulauncher'
+        name: "vscode"
+    - name: "Setup ulauncher"
       include_role:
-        name: 'ulauncher'
+        name: "ulauncher"
       tags:
-        - 'update_deps'
-    - name: 'Setup ansible-lint'
+        - "update_deps"
+    - name: "Setup ansible-lint"
       include_role:
-        name: 'ansible-lint'
-    - name: 'pip dependencies'
+        name: "ansible-lint"
+    - name: "pip dependencies"
       include_role:
-        name: 'pip'
-    - name: 'others'
+        name: "pip"
+    - name: "Setup Alacritty"
       include_role:
-        name: 'others'
-
+        name: "alacritty"
+      tags:
+        - tmp
+    - name: "others"
+      include_role:
+        name: "others"
