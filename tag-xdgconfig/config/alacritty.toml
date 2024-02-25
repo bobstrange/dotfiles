@@ -1,3 +1,5 @@
+live_config_reload = true
+
 [font]
 
 normal = { "family" = "MesloLGS NF", "style" = "Regular" }
