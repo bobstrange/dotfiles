@@ -1,5 +1,9 @@
 live_config_reload = true
 
+import = [
+    "~/.config/alacritty/themes/everforest_dark.toml"
+]
+
 [window]
 
 dimensions = { "columns" = 120, "lines" = 72 }
