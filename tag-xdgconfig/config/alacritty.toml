@@ -1,5 +1,15 @@
 live_config_reload = true
 
+[window]
+
+dimensions = { "columns" = 120, "lines" = 72 }
+position = { "x" = 0, "y" = 0 }
+opacity = 0.85
+
+[scrolling]
+
+history = 30000
+
 [font]
 
 normal = { "family" = "MesloLGS NF", "style" = "Regular" }
@@ -9,9 +19,3 @@ italic = { "family" = "MesloLGS NF", "style" = "Italic" }
 [env]
 
 TERM = "xterm-256color"
-
-[window]
-
-dimensions = { "columns" = 120, "lines" = 72 }
-position = { "x" = 0, "y" = 0 }
-opacity = 0.85
