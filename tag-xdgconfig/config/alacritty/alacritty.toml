@@ -4,6 +4,15 @@ import = [
     "~/.config/alacritty/themes/everforest_dark.toml"
 ]
 
+[shell]
+
+program = "/bin/zsh"
+args = [
+  "-l",
+  "-c",
+  "tmux attach || tmux"
+]
+
 [window]
 
 dimensions = { "columns" = 120, "lines" = 64 }
