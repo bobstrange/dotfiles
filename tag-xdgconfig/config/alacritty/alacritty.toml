@@ -31,7 +31,10 @@ hide_when_typing = true
 bindings = [
   # alt to command key like Mac
   { "key" = "V", "mods" = "Alt", "action" = "Paste" },
-  { "key" = "C", "mods" = "Alt", "action" = "Copy" }
+  { "key" = "C", "mods" = "Alt", "action" = "Copy" },
+  { "key" = "+", "mods" = "Shift | Alt", "action" = "IncreaseFontSize" }, # + to increase font size
+  { "key" = "=", "mods" = "Shift | Alt", "action" = "DecreaseFontSize" }, # - to decrease font size
+  { "key" = "~", "mods" = "Shift | Alt", "action" = "ResetFontSize"}      # 0 to reset font size
 ]
 
 [env]
