@@ -26,6 +26,14 @@ size = 12.0
 
 hide_when_typing = true
 
+[keyboard]
+
+bindings = [
+  # alt to command key like Mac
+  { "key" = "V", "mods" = "Alt", "action" = "Paste" },
+  { "key" = "C", "mods" = "Alt", "action" = "Copy" }
+]
+
 [env]
 
 TERM = "xterm-256color"
