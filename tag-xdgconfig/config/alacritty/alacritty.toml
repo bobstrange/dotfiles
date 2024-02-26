@@ -32,9 +32,16 @@ bindings = [
   # alt to command key like Mac
   { "key" = "V", "mods" = "Alt", "action" = "Paste" },
   { "key" = "C", "mods" = "Alt", "action" = "Copy" },
+
   { "key" = "+", "mods" = "Shift | Alt", "action" = "IncreaseFontSize" }, # + to increase font size
   { "key" = "=", "mods" = "Shift | Alt", "action" = "DecreaseFontSize" }, # - to decrease font size
-  { "key" = "~", "mods" = "Shift | Alt", "action" = "ResetFontSize"}      # 0 to reset font size
+  { "key" = "~", "mods" = "Shift | Alt", "action" = "ResetFontSize"},     # 0 to reset font size
+
+  { "key" = "W", "mods" = "Alt", "action" = "Quit" },
+  { "key" = "N", "mods" = "Alt", "action" = "SpawnNewInstance" },
+  { "key" = "M", "mods" = "Shift | Alt", "action" = "ToggleMaximized" },
+
+  { "key" = "F", "mods" = "Alt", "action" = "SearchForward" },
 ]
 
 [env]
