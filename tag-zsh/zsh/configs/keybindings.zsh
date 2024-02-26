@@ -3,6 +3,7 @@
 bindkey -v
 bindkey "^t" vi-cmd-mode
 
+### ^ は ctrl
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
 bindkey "^f" forward-char
@@ -13,12 +14,15 @@ bindkey "^p" history-search-backward
 bindkey "^n" history-search-forward
 bindkey "^r" history-incremental-search-backward
 bindkey "^y" accept-and-hold
-bindkey "^w" backward-kill-word
-bindkey "^u" backward-kill-line
+
+### ^[ は alt
+bindkey "^[f" vi-forward-word
+bindkey "^[b" vi-backward-word
+bindkey "^[d" delete-word
+bindkey "^[h" backward-delete-word
 
 ## zsh autosuggestions
 bindkey '^ ' autosuggest-accept
-
 
 ## zsh auto-comoplete
 
