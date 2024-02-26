@@ -6,7 +6,7 @@ import = [
 
 [window]
 
-dimensions = { "columns" = 120, "lines" = 72 }
+dimensions = { "columns" = 120, "lines" = 64 }
 position = { "x" = 0, "y" = 0 }
 opacity = 0.85
 
