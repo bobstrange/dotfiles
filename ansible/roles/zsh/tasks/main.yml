@@ -29,6 +29,7 @@
         url: https://starship.rs/install.sh
         dest: /tmp/starship_install.sh
         mode: "0755"
+        force: true
       register: starship_installation_script
     - name: Install starship with installation script
       become: true

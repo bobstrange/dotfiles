@@ -24,7 +24,11 @@
     - name: "Install font"
       include_role:
         name: "font"
-    - name: "Setup zsh"
+    # This role should be executed before zsh role because starship and sheldon depend on rust
+    - name: "Install rust"
+      include_role:
+        name: "rust"
+      tags: tmp    - name: "Setup zsh"
       include_role:
         name: "zsh"
     - name: "Setup ruby"
