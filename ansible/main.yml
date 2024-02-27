@@ -93,8 +93,6 @@
     - name: "Setup Alacritty"
       include_role:
         name: "alacritty"
-      tags:
-        - tmp
     - name: "others"
       include_role:
         name: "others"
