@@ -18,7 +18,6 @@ defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source 
 
 [plugins]
 
-
 # the zsh-defer plugin definition should be placed before any plugins that will use the defer template
 [plugins.zsh-defer]
 
