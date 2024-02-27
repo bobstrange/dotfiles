@@ -36,3 +36,5 @@
         cmd: /tmp/starship_install.sh --yes
         executable: /bin/sh
       when: starship_installation_script.changed
+- name: "Install sheldon"
+  shell: "cargo install sheldon"
