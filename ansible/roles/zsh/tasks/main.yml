@@ -1,32 +1,38 @@
 ---
-- name: 'Install zsh (Ubuntu)'
+- name: "Install zsh (Ubuntu)"
   become: true
   apt:
-    name: 'zsh'
-    state: 'latest'
+    name: "zsh"
+    state: "latest"
     update_cache: true
   tags:
-    - 'update_deps'
+    - "update_deps"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
-- name: 'Install zsh (osx)'
+- name: "Install zsh (osx)"
   homebrew:
-    name: 'zsh'
+    name: "zsh"
     update_homebrew: true
   tags:
-    - 'update_deps'
+    - "update_deps"
   when:
     - ansible_facts['os_family'] == 'Darwin'
-- name: 'Use zsh as a login shell'
+- name: "Use zsh as a login shell"
   become: true
   user:
-    name: 'bob'
-    shell: '/bin/zsh'
-# - name: 'Check .zplug dir'
-#   stat:
-#     path: "{{ home_dir }}/.zplug"
-#   register: zplug_dir
-# - name: 'Install zplug'
-#   shell: "curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh"
-#   when: not zplug_dir.stat.exists
-
+    name: "bob"
+    shell: "/bin/zsh"
+- name: "Install starship"
+  block:
+    - name: Get starship install script
+      ansible.builtin.get_url:
+        url: https://starship.rs/install.sh
+        dest: /tmp/starship_install.sh
+        mode: "0755"
+      register: starship_installation_script
+    - name: Install starship with installation script
+      become: true
+      ansible.builtin.shell:
+        cmd: /tmp/starship_install.sh --yes
+        executable: /bin/sh
+      when: starship_installation_script.changed
