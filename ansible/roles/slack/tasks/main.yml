@@ -6,6 +6,7 @@
   become: true
   apt:
     deb: "https://downloads.slack-edge.com/linux_releases/slack-desktop-{{ slack_version }}-amd64.deb"
+    deb: "https://downloads.slack-edge.com/releases/linux/4.36.140/prod/x64/slack-desktop-{{ slack_version }}-amd64.deb"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
     - wsl_enabled == false
