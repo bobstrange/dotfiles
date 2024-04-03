@@ -17,8 +17,10 @@
       become: true
       apt:
         name: neovim
-    - name: 'Configure python related'
+    - name: 'Configure python3 provider'
       shell: "{{ home_dir }}/.pyenv/shims/pip3 install --upgrade neovim"
+    - name: 'Configure ruby provider'
+      shell: "{{ home_dir }}/.rbenv/shims/gem install neovim"
     - name: 'Update editor path'
       become: true
       shell: "update-alternatives --set {{ item }}"
