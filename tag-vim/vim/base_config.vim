@@ -7,7 +7,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 
 " Python runtime
-let g:python3_host_prog = $HOME .'/.pyenv/versions/3.9.4/bin/python3'
+let g:python3_host_prog = $HOME.'/.pyenv/shims/python3'
 
 " Make space as a <Leader>
 let mapleader = "\<Space>"
