@@ -41,7 +41,9 @@ gbr() {
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) --no-multi) &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+  git stash &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") &&
+  git stash pop
 }
 
 # checkout git commit with previews
@@ -50,7 +52,9 @@ gco() {
   commit=$( glNoGraph |
     fzf --no-sort --reverse --tiebreak=index --no-multi \
         --ansi --preview="$_viewGitLogLine" ) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
+  git stash &&
+  git checkout $(echo "$commit" | sed "s/ .*//") &&
+  git stash pop
 }
 
 # delete git branches
