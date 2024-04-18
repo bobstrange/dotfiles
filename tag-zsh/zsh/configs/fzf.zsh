@@ -59,8 +59,8 @@ gco() {
 
 # delete git branches
 gdel() {
-  local branches
-  branches=$(git --no-pager branch)
+  local branches delete_branches
+  branches=$(git --no-pager branch | grep -v )
   delete_branches=$(echo "$branches" | fzf --multi)
   echo "$delete_branches" | sed "s/.* //" | xargs git branch -D
 }
