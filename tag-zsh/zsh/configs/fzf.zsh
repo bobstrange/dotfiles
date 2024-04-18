@@ -19,46 +19,38 @@ edit() {
 }
 
 # Git
-## Browse commit history
-gshow() {
-  local _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-  local _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+# https://github.com/junegunn/fzf/wiki/examples#git
 
-  git log --graph --color=always \
-      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --no-sort --reverse --tiebreak=index --no-multi \
-      --ansi --preview $_viewGitLogLine \
-          --preview-window="right:70%" \
-          --header "enter to view, alt-y to copy hash" \
-          --bind "enter:execute:$_viewGitLogLine   | less -R" \
-            --bind "alt-y:execute:$_gitLogLineToHash | pbcopy"
+alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
+_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+
+#  git commit browser with previews
+gshow() {
+  glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+      --ansi --preview="$_viewGitLogLine" \
+      --header "enter to view, alt-y to copy hash" \
+      --bind "enter:execute:$_viewGitLogLine   | less -R" \
+      --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
 
-# Browse branchs and checkout
+# checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
 gbr() {
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
-           fzf-tmux \
-           --reverse \
-           -d 30% \
-           --no-multi) &&
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+# checkout git commit with previews
 gco() {
-  local _gitDiff='echo {} | sed "s/^\sM\s//" | xargs git diff --color=always | diff-so-fancy'
-  local files file
-  files=$(git status --short --untracked-files=no)
-  file=$(echo "$files" |
-         fzf-tmux \
-         --reverse -d "70%" \
-         --no-multi --no-sort --tiebreak=index \
-         --ansi --preview ${_gitDiff} \
-         --preview-window="right:80%" \
-         ) &&
-  echo "$file"
-  git checkout -- $(echo "${file}" | sed "s/^\sM\s//")
+  local commit
+  commit=$( glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+        --ansi --preview="$_viewGitLogLine" ) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
 # Run rspec
