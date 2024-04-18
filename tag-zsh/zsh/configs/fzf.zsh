@@ -40,7 +40,7 @@ gbr() {
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) --no-multi) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
@@ -51,6 +51,14 @@ gco() {
     fzf --no-sort --reverse --tiebreak=index --no-multi \
         --ansi --preview="$_viewGitLogLine" ) &&
   git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# delete git branches
+gdel() {
+  local branches
+  branches=$(git --no-pager branch)
+  delete_branches=$(echo "$branches" | fzf --multi)
+  echo "$delete_branches" | sed "s/.* //" | xargs git branch -D
 }
 
 # Run rspec
