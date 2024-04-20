@@ -1,7 +1,11 @@
 " https://github.com/dense-analysis/ale
 
 " Fixing
-let b:ale_fixers = { 'javascript': ['prettier', 'eslint'], 'typescript': ['prettier', 'eslint'], 'typescriptreact': ['prettier', 'eslint'] }
+let b:ale_fixers = {
+      \'javascript': ['prettier', 'eslint'],
+      \'typescript': ['prettier', 'eslint'],
+      \'typescriptreact': ['prettier', 'eslint']
+      \}
 let b:ale_fix_on_save = 1
 
 " whereever the cursor currently lies on show errors or warnings
