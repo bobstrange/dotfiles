@@ -65,6 +65,18 @@ gdel() {
   echo "$delete_branches" | sed "s/.* //" | xargs git branch -D
 }
 
+# git stash apply with previews
+gsta() {
+  git stash list | \
+  fzf \
+    --exit-0 \
+    --no-multi \
+    --preview 'git stash show --color=always -p $(echo {} | cut -d: -f1)' \
+    --preview-window=down:70% | \
+  cut -d: -f1 | \
+  xargs git stash apply
+}
+
 # Run rspec
 fz-rspec() {
   local files target_files
