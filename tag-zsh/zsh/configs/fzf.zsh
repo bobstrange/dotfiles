@@ -65,6 +65,15 @@ gdel() {
   echo "$delete_branches" | sed "s/.* //" | xargs git branch -D
 }
 
+# git add with previews
+gad() {
+  git ls-files --deleted --modified --other --exclude-standard | \
+  fzf \
+    --multi \
+    --preview 'git diff --color=always {-1}' | \
+  xargs --no-run-if-empty git add
+}
+
 # git stash apply with previews
 gsta() {
   git stash list | \
@@ -74,7 +83,7 @@ gsta() {
     --preview 'git stash show --color=always -p $(echo {} | cut -d: -f1)' \
     --preview-window=down:70% | \
   cut -d: -f1 | \
-  xargs git stash apply
+  xargs --no-run-if-empty git stash apply
 }
 
 # Run rspec
