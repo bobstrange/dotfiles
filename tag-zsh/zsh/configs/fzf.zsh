@@ -60,7 +60,7 @@ gco() {
 # delete git branches
 gdel() {
   local branches delete_branches
-  branches=$(git --no-pager branch | grep -v )
+  branches=$(git --no-pager branch | grep -vE '(main|master|development)')
   delete_branches=$(echo "$branches" | fzf --multi)
   echo "$delete_branches" | sed "s/.* //" | xargs git branch -D
 }
