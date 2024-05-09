@@ -26,7 +26,7 @@ _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
 
 #  git commit browser with previews
-gshow() {
+fz-git-show() {
   glNoGraph |
     fzf --no-sort --reverse --tiebreak=index --no-multi \
       --ansi --preview="$_viewGitLogLine" \
@@ -36,7 +36,7 @@ gshow() {
 }
 
 # checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
-gbr() {
+fz-git-branch() {
   local branches branch
   branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
   branch=$(echo "$branches" |
@@ -47,7 +47,7 @@ gbr() {
 }
 
 # checkout git commit with previews
-gco() {
+fz-git-checkout() {
   local commit
   commit=$( glNoGraph |
     fzf --no-sort --reverse --tiebreak=index --no-multi \
@@ -58,7 +58,7 @@ gco() {
 }
 
 # delete git branches
-gdel() {
+fz-git-delete-branch() {
   local branches delete_branches
   branches=$(git --no-pager branch | grep -vE '(main|master|development)')
   delete_branches=$(echo "$branches" | fzf --multi)
@@ -66,7 +66,7 @@ gdel() {
 }
 
 # git add with previews
-gad() {
+fz-git-add() {
   git ls-files --deleted --modified --other --exclude-standard | \
   fzf \
     --multi \
@@ -75,7 +75,7 @@ gad() {
 }
 
 # git stash apply with previews
-gsta() {
+fz-git-stash-apply() {
   git stash list | \
   fzf \
     --exit-0 \
