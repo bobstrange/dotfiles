@@ -10,7 +10,7 @@ alias gad=fz-git-add
 alias gbr=fz-git-branch
 alias gco=fz-git-checkout
 alias gsh=fz-git-show
-alias gdel=fz-git-delte-branch
+alias gdel=fz-git-delete-branch
 alias gsta=fz-git-stash-apply
 alias gcm='git commit -m'
 alias gsw='git switch'
@@ -27,7 +27,7 @@ alias crontab='VIM_CRONTAB=true crontab'
 # Use nvim as vim
 alias vim='nvim'
 
-alias dotfile='cd ~/dotfiles'
+alias dotfiles='cd ~/dotfiles'
 
 # docker compose
 # I don't use dc command...
