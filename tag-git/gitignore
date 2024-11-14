@@ -49,3 +49,6 @@ node_modules
 
 # Terraform
 .terraform/
+
+# For Local Patch
+dev.patch
