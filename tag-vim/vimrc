@@ -45,6 +45,6 @@ require("mason").setup({
 
 -- Mason-LSPconfigの設定
 require("mason-lspconfig").setup({
-  ensure_installed = { "tsserver", "pyright", "solargraph" }, -- 必要なLSPサーバー
+  ensure_installed = { "ts_ls", "pyright", "solargraph" }, -- 必要なLSPサーバー
   automatic_installation = true,
 })
