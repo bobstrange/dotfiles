@@ -24,7 +24,7 @@ source ~/.vim/fzf.vim
 " source ~/.vim/coc.vim
 " source ~/.vim/lsp.vim
 
-source ~/.vim/ale.vim
+" source ~/.vim/ale.vim
 
 " Config for each languages
 source ~/.vim/javascript.vim
