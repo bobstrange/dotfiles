@@ -52,3 +52,7 @@ node_modules
 
 # For Local Patch
 dev.patch
+
+# tmux
+tmux-client-*.log
+
