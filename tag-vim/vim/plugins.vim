@@ -25,7 +25,10 @@ Plug 'chrisbra/vim-diff-enhanced'
 
 " Plug 'tomasr/molokai'
 " Plug 'altercation/vim-colors-solarized'
-Plug 'sainnhe/everforest'
+" Plug 'sainnhe/everforest'
+" Plug 'folke/tokyonight.nvim'
+Plug 'projekt0n/github-nvim-theme'
+
 
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-surround'
