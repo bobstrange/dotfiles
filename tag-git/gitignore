@@ -43,6 +43,8 @@ node_modules
 
 # direnv
 .envrc
+.envrc.tmp
+.envrc.bak
 
 # IntelliJ
 .idea/
