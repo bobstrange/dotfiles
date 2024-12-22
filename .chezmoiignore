@@ -1,0 +1,7 @@
+README.md
+Brewfile
+Makefile
+ansible.cfg
+bootstrap.sh
+dircolors
+windows_terminal_profiles.json
