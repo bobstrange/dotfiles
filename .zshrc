@@ -49,7 +49,7 @@ if [ "$(uname)" = 'Darwin' ]; then
   done
 fi
 
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases
+[[ -f $HOME/.zsh_aliases ]] && source $HOME/.zsh_aliases
 
 # load functions
 for zsh_source in $HOME/.zsh/functions/*.zsh; do
