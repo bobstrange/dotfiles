@@ -5,3 +5,4 @@ ansible.cfg
 bootstrap.sh
 dircolors
 windows_terminal_profiles.json
+unmanaged
