@@ -1,8 +1,10 @@
 # # load zplug configuration
 # [[ -f $HOME/.zsh/zplug.zsh ]] && source $HOME/.zsh/zplug.zsh
 
-# Load plugin manager first
+# eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Load plugin manager first
+# Make sure you have rust and sheldon installed
 if [[ ! $(type sheldon) ]]; then
   echo "sheldon hasn't been installed"
 else
@@ -33,6 +35,14 @@ if [ ${wsl} = 0 ]; then
   umask 022
 fi
 
+# Load osx related configurations
+
+if [ "$(uname)" = 'Darwin' ]; then
+  for zsh_source in $HOME/.zsh/configs/darwin/*.zsh; do
+    source $zsh_source
+  done
+fi
+
 # load custom configurations
 for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
@@ -41,13 +51,7 @@ done
 # load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Load osx related configurations
 
-if [ "$(uname)" = 'Darwin' ]; then
-  for zsh_source in $HOME/.zsh/configs/darwin/*.zsh; do
-    source $zsh_source
-  done
-fi
 
 [[ -f $HOME/.zsh_aliases ]] && source $HOME/.zsh_aliases
 
