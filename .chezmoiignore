@@ -7,3 +7,4 @@ windows_terminal_profiles.json
 setup/
 unmanaged/
 .config/chezmoi
+.github/
