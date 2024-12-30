@@ -1,0 +1,101 @@
+[core]
+  excludesfile = ~/.gitignore
+  editor = nvim
+  whitespace = trailing-space,space-before-tab
+  pager = diff-so-fancy | less --tabs=4 -RFX
+  quotepath = false
+  hooksPath = ~/dev/src/github.com/secretlint/git-hooks/hooks
+[user]
+  name = bobstrange
+  email = bob.1983.g@gmail.com
+[push]
+  default = simple
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+
+# Platform specific git config
+[include]
+  path = ~/.gitconfig.local
+
+[alias]
+  br = branch
+  cb = rev-parse --abbrev-ref HEAD
+  cm = commit -m
+  co = checkout
+  sw = switch
+  fap = fetch --all --prune
+  fp = push --force-with-lease
+  lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  st = status
+  # Show only filenames
+  # Replace first 3 characters as git statsus --short input is like "M  app/models/something.rb"
+  stfn = ! git status --short | sed s/^...//
+
+  amend = commit --amend --no-edit
+  delete = branch --delete
+  delete-merged = !git merged | xargs git delete
+  delete-remote-branch = push --delete origin
+  delete-remote-tag = push --delete origin
+  delete-tag = tag --delete
+  discard = checkout --
+  hard-reset = !git reset --hard "origin/$(git cb)"
+  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
+  modified = ! git diff --name-only --diff-filter=M
+  unstage = reset -q HEAD --
+  uncommit = reset --mixed HEAD~
+  update-all = !git stash && git fap && git co development && git pull --rebase && git co master && git pull --rebase
+  update-branch = !git branch -m
+  push-upstream = !git push -u origin $(git cb)
+  sync-tag = !git tag -l | xargs git delete-tag && git fetch origin --tags
+
+  change = "!f() { git stash; git checkout $1; git pull --rebase; git stash pop; }; f"
+  # git rebase-onto <to> <from>
+  rebase-onto = "!f() { git rebase --onto $1 $2 $(git cb); }; f"
+
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+
+[commit]
+  template = ~/.stCommitMsg
+
+[ghq]
+  root = ~/dev/src
+
+[hub]
+  protocol = https
+
+# diff and merge
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool]
+  prompt = false
+[diff]
+  tool = vimdiff
+
+# diff-so-fancy setting
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  meta = 11
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+
+# Make gitconfig space 2
+[filter "spacify"]
+  clean = expand --tabs=2 --initial
+[rerere]
+	enabled = true

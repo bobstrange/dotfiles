@@ -1,0 +1,20 @@
+# Add homebrew binaries
+export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
+# Add my custom commands
+export PATH="$HOME/bin:$PATH"
+
+# Add xdg config home
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# For sheldon.)
+. "$HOME/.cargo/env"
+
+# For ecspresso
+export ECSPRESSO_FILTER_COMMAND=fzf
+
+# For zsh-autocomplete
+# https://github.com/marlonrichert/zsh-autocomplete#additional-step-for-ubuntu
+skip_global_compinit=1
+

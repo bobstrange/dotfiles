@@ -1,4 +1,0 @@
-{
-  "filter_command": "fzf",
-  "output": "tsv"
-}
