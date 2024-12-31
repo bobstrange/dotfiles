@@ -41,7 +41,7 @@
   delete-tag = tag --delete
   discard = checkout --
   hard-reset = !git reset --hard "origin/$(git cb)"
-  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$'
+  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$|main$'
   modified = ! git diff --name-only --diff-filter=M
   unstage = reset -q HEAD --
   uncommit = reset --mixed HEAD~
