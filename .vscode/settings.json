@@ -1,0 +1,17 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json": [
+      "setup/ansible/**/*.yml",
+      "setup/ansible/**/*.yaml"
+    ]
+  },
+  "ansible.validation.lint.path": "ansible-lint",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.associations": {
+    "*.yml": "yaml",
+    "*.yaml": "yaml"
+  },
+  "editor.formatOnSave": true,
+  "ansible.python.interpreterPath": "python3"
+}
