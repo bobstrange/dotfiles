@@ -1,0 +1,26 @@
+---
+- block:
+    - name: Install common packages (Linux)
+      package:
+        name: "{{ packages.common }}"
+        state: latest
+      become: yes
+
+    - name: Install Linux-specific packages
+      package:
+        name: "{{ packages.linux }}"
+        state: latest
+      become: yes
+  when: ansible_os_family != "Darwin"
+
+- block:
+    - name: Install common packages (macOS)
+      homebrew:
+        name: "{{ packages.common }}"
+        state: latest
+
+    - name: Install macOS-specific packages
+      homebrew:
+        name: "{{ packages.osx }}"
+        state: latest
+  when: ansible_os_family == "Darwin"
