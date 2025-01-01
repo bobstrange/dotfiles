@@ -1,9 +1,19 @@
 packages:
   common:
+    - neovim
+    - vim
+    - curl
+    - jq
+    - direnv
+    - tmux
+    - git
+    - tig
     - fzf
     - bat
+    - ripgrep
   linux:
     - build-essential
     - fd-find
+    - xclip
   osx:
     - fd
