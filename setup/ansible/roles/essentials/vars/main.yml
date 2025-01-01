@@ -1,0 +1,9 @@
+packages:
+  common:
+    - fzf
+    - bat
+  linux:
+    - build-essential
+    - fd-find
+  osx:
+    - fd

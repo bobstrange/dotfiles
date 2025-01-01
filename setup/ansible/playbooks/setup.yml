@@ -1,8 +1,12 @@
 ---
-- name: Setup common environment
+- name: Update package cache
   hosts: all
   roles:
-    - common
+    - update_package_cache
+- name: Setup
+  hosts: all
+  roles:
+    - essentials
 # - name: Setup Ubuntu-specific environment
 #   hosts: "wsl:ubuntu"
 #   become: yes
