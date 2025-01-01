@@ -1,0 +1,4 @@
+---
+- name: Install Rust
+  include_tasks: rust.yml
+

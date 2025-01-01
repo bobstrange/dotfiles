@@ -3,18 +3,22 @@
   hosts: all
   roles:
     - update_package_cache
-- name: Setup
+- name: Install essential packages
   hosts: all
   roles:
     - essential_packages
-- name: Setup Ubuntu-specific environment
-  hosts: "wsl:ubuntu"
-  become: yes
+- name: Install custom packages
+  hosts: all
   roles:
-    - ubuntu
-
-- name: Setup macOS-specific environment
-  hosts: osx
-  become: no
-  roles:
-    - osx
+    - custom_packages
+# - name: Setup Ubuntu-specific environment
+#   hosts: "wsl:ubuntu"
+#   become: yes
+#   roles:
+#     - ubuntu
+#
+# - name: Setup macOS-specific environment
+#   hosts: osx
+#   become: no
+#   roles:
+#     - osx
