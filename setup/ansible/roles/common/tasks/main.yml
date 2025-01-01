@@ -1,0 +1,13 @@
+---
+- name: Install common packages (Linux)
+  package:
+    name: "{{ common_packages.linux }}"
+    state: latest
+  become: yes
+  when: ansible_os_family != "Darwin"
+
+- name: Install common packages (macOS)
+  homebrew:
+    name: "{{ common_packages.osx }}"
+    state: latest
+  when: ansible_os_family == "Darwin"
