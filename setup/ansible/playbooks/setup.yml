@@ -6,15 +6,15 @@
 - name: Setup
   hosts: all
   roles:
-    - essentials
-# - name: Setup Ubuntu-specific environment
-#   hosts: "wsl:ubuntu"
-#   become: yes
-#   roles:
-#     - ubuntu
+    - essential_packages
+- name: Setup Ubuntu-specific environment
+  hosts: "wsl:ubuntu"
+  become: yes
+  roles:
+    - ubuntu
 
-# - name: Setup macOS-specific environment
-#   hosts: osx
-#   become: no
-#   roles:
-#     - osx
+- name: Setup macOS-specific environment
+  hosts: osx
+  become: no
+  roles:
+    - osx
