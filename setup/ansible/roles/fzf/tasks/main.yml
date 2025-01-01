@@ -1,8 +1,0 @@
----
-- name: "Download fzf repo"
-  git:
-    repo: "https://github.com/junegunn/fzf"
-    dest: "{{ home_dir }}/.fzf"
-    depth: 1
-- name: "Install fzf"
-  shell: "{{ home_dir }}/.fzf/install"
