@@ -1,0 +1,24 @@
+---
+- name: Setup common environment
+  hosts: all
+  become: yes
+  vars:
+    common_packages:
+      - git
+      - curl
+      - vim
+
+  roles:
+    - common
+
+- name: Setup Ubuntu-specific environment
+  hosts: "wsl:ubuntu"
+  become: yes
+  roles:
+    - ubuntu
+
+- name: Setup macOS-specific environment
+  hosts: osx
+  become: no
+  roles:
+    - osx
