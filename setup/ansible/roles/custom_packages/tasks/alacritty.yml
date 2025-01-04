@@ -49,7 +49,5 @@
           command: "desktop-file-install /tmp/alacritty/extra/linux/Alacritty.desktop"
         - name: "Update desktop database"
           command: "update-desktop-database"
-      when:
-        - ansible_facts['distribution'] == 'Ubuntu'
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
