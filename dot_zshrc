@@ -52,10 +52,11 @@ for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
 done
 
+export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
 # load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
 
 [[ -f $HOME/.zsh_aliases ]] && source $HOME/.zsh_aliases
 
@@ -72,7 +73,6 @@ done
 
 eval "$(starship init zsh)"
 
-
 # bun completions
 [ -s "/home/bob/.bun/_bun" ] && source "/home/bob/.bun/_bun"
 
@@ -83,7 +83,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # pnpm
 export PNPM_HOME="/Users/bob/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
