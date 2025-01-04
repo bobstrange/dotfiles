@@ -1,7 +1,12 @@
 
 [terminal.shell]
 
-program = "/bin/zsh"
+program = {{- if eq .chezmoi.os "darwin" -}}
+  "/opt/homebrew/bin/zsh"
+{{- else -}}
+  "/bin/zsh"
+{{- end }}
+
 args = [
   "-l",
   "-c",
