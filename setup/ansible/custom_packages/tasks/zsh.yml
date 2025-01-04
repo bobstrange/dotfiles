@@ -1,0 +1,24 @@
+---
+- name: "Use zsh as a login shell"
+  become: true
+  ansible.builtin.user:
+    name: "bob"
+    shell: "{{ '/opt/homebrew/bin/zsh' if ansible_facts['os_family'] == 'Darwin' else '/bin/zsh' }}"
+
+- name: "Install starship"
+  block:
+    - name: Get starship install script
+      ansible.builtin.get_url:
+        url: https://starship.rs/install.sh
+        dest: /tmp/starship_install.sh
+        mode: "0755"
+        force: true
+      register: starship_installation_script
+    - name: Install starship with installation script
+      become: true
+      ansible.builtin.shell:
+        cmd: /tmp/starship_install.sh --yes
+        executable: /bin/sh
+      when: starship_installation_script.changed
+- name: "Install sheldon"
+  ansible.builtin.shell: "cargo install sheldon"
