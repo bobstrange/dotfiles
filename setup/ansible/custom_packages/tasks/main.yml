@@ -3,4 +3,5 @@
   include_tasks: rust.yml
 - name: Install zsh related packages
   include_tasks: zsh.yml
-
+- name: Install ruby related packages
+  include_tasks: ruby.yml

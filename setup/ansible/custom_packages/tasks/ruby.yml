@@ -1,0 +1,18 @@
+---
+- name: 'Setup rbenv'
+  block:
+    - name: 'Install rbenv'
+      git:
+        repo: 'https://github.com/rbenv/rbenv.git'
+        dest: "{{ home_dir }}/.rbenv"
+        update: true
+    - name: 'Install ruby-build'
+      git:
+        repo: 'https://github.com/rbenv/ruby-build.git'
+        dest: "{{ home_dir }}/.rbenv/plugins/ruby-build"
+        update: true
+- name: 'Install ruby'
+  shell: "{{ home_dir }}/.rbenv/bin/rbenv install --skip-existing {{ ruby.version }}"
+- name: "Set ruby {{ ruby.version }} as global"
+  shell: "{{ home_dir }}/.rbenv/bin/rbenv global {{ ruby.version }}"
+

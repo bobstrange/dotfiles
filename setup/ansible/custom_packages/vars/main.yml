@@ -1,3 +1,5 @@
 ---
 rust:
   version: stable
+ruby:
+  version: 3.4.1
