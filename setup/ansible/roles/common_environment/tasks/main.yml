@@ -1,0 +1,3 @@
+---
+- name: Symbolic link dotfiles
+  include_tasks: symlink_dotfiles.yml

@@ -11,6 +11,10 @@
   hosts: all
   roles:
     - custom_packages
+- name: Setup common environment
+  hosts: all
+  roles:
+    - common_environment
 # - name: Setup Ubuntu-specific environment
 #   hosts: "wsl:ubuntu"
 #   become: yes
