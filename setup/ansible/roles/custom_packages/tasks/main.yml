@@ -5,3 +5,5 @@
   include_tasks: zsh.yml
 - name: Install ruby related packages
   include_tasks: ruby.yml
+- name: Install alacritty
+  include_tasks: alacritty.yml
