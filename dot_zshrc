@@ -53,7 +53,7 @@ for zsh_source in $HOME/.zsh/configs/*.zsh; do
 done
 
 export PATH="/usr/local/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

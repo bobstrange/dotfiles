@@ -1,6 +1,6 @@
 # Add homebrew binaries
 export PATH="/usr/local/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Add my custom commands
 export PATH="$HOME/bin:$PATH"
