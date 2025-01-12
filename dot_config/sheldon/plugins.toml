@@ -46,3 +46,7 @@ github = 'zsh-users/zsh-autosuggestions'
 apply = ["defer"]
 github = 'zsh-users/zsh-completions'
 
+[plugins.diff-so-fancy]
+
+apply = ["defer"]
+github = 'so-fancy/diff-so-fancy'
