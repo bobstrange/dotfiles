@@ -1,5 +1,5 @@
 ---
 - name: Setup Git
-  include_files: setup_git.yml
+  include_tasks: setup_git.yml
 - name: Symbolic link dotfiles
   include_tasks: symlink_dotfiles.yml

@@ -16,5 +16,8 @@ packages:
     - build-essential
     - fd-find
     - xclip
+    - pkg-config
+    - openssl
+    - libssl-dev
   osx:
     - fd
