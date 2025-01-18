@@ -51,3 +51,4 @@
           command: "update-desktop-database"
   when:
     - ansible_facts['distribution'] == 'Ubuntu'
+    - ansible_virtualization_type != "wsl"
