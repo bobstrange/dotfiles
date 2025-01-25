@@ -3,15 +3,21 @@
 
 program = {{- if eq .chezmoi.os "darwin" -}}
   "/opt/homebrew/bin/zsh"
+{{- else if .chezmoi.kernel.osrelease | contains "WSL" -}}
+  "/Windows/System32/wsl.exe ~ -d Ubuntu-24.04"
 {{- else -}}
   "/bin/zsh"
-{{- end }}
+{{ end }}
 
+{{ if .chezmoi.kernel.osrelease | contains "WSL" }}
+args = []
+{{ else }}
 args = [
   "-l",
   "-c",
   "tmux attach || tmux"
 ]
+{{ end }}
 
 [window]
 
