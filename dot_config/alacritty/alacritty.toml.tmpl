@@ -9,7 +9,7 @@ program = {{- if eq .chezmoi.os "darwin" -}}
   "/bin/zsh"
 {{ end }}
 
-{{ if .chezmoi.kernel.osrelease | contains "WSL" }}
+{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | contains "WSL") }}
 args = []
 {{ else }}
 args = [
@@ -35,7 +35,7 @@ normal = { "family" = "PlemolJP Console NF", "style" = "Regular" }
 bold = { "family" = "PlemolJP Console NF", "style" = "Bold" }
 italic = { "family" = "PlemolJP Console NF", "style" = "Italic" }
 
-{{ if .chezmoi.kernel.osrelease | contains "WSL" }}
+{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | contains "WSL") }}
 size = 12.0
 {{ else }}
 size = 16.0
@@ -51,6 +51,9 @@ bindings = [
   # alt to command key like Mac
   { "key" = "V", "mods" = "Alt", "action" = "Paste" },
   { "key" = "C", "mods" = "Alt", "action" = "Copy" },
+
+  # Make backslash enabled on osx
+  { "key" = "¥", "chars" = "\\" },
 
   { "key" = "+", "mods" = "Shift | Alt", "action" = "IncreaseFontSize" }, # + to increase font size
   { "key" = "=", "mods" = "Shift | Alt", "action" = "DecreaseFontSize" }, # - to decrease font size
