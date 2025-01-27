@@ -1,10 +1,19 @@
 ghq-look() {
-  local repo=$(ghq list|fzf --query "${LBUFFER}")
-  if [ -n "${repo}" ]; then
-    repo=$(ghq list --full-path --exact ${repo})
-    BUFFER="cd ${repo}"
+  local src=$(
+    ghq list |
+      fzf --preview "\
+        bat \
+        --color=always \
+        --style=header,grid \
+        --line-range :80 \
+        $(ghq root)/{}/README.*\
+      "
+  )
+  if [ -n "$src" ]; then
+    BUFFER="cd $(ghq root)/$src"
     zle accept-line
   fi
+
   zle clear-screen
 }
 
