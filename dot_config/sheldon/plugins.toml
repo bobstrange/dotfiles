@@ -41,6 +41,17 @@ github = 'zsh-users/zsh-syntax-highlighting'
 apply = ["defer"]
 github = 'zsh-users/zsh-autosuggestions'
 
+
+[plugins.zsh-abbr]
+
+apply = ["defer"]
+github = 'olets/zsh-abbr'
+
+[plugins.zsh-autosuggestions-abbreviations-strategy]
+
+apply = ["defer"]
+github = 'olets/zsh-autosuggestions-abbreviations-strategy'
+
 [plugins.zsh-completions]
 
 apply = ["defer"]
