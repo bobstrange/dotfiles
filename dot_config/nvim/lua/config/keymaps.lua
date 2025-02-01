@@ -12,3 +12,8 @@ vim.keymap.set("n", "<leader>l", "<cmd>lua require('fzf-lua').buffers()<CR>", {
     silent = true,
     desc = "FZF Buffers"
 })
+vim.keymap.set("n", "<leader>f", "<cmd>lua require('fzf-lua').live_grep()<CR>", {
+    noremap = true,
+    silent = true,
+    desc = "FZF Grep (glob)"
+})
