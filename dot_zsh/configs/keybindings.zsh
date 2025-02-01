@@ -1,25 +1,27 @@
-# use vi mode
+# use emacs mode
 
-bindkey -v
-bindkey "^t" vi-cmd-mode
+bindkey -e
 
-### ^ は ctrl
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-bindkey "^f" forward-char
-bindkey "^b" backward-char
-bindkey "^k" kill-line
-bindkey "^d" delete-char
-bindkey "^p" history-search-backward
-bindkey "^n" history-search-forward
-bindkey "^r" history-incremental-search-backward
-bindkey "^y" accept-and-hold
-
-### ^[ は alt
-bindkey "^[f" vi-forward-word
-bindkey "^[b" vi-backward-word
-bindkey "^[d" delete-word
-bindkey "^[h" backward-delete-word
+# bindkey -v
+# bindkey "^t" vi-cmd-mode
+#
+# ### ^ は ctrl
+# bindkey "^a" beginning-of-line
+# bindkey "^e" end-of-line
+# bindkey "^f" forward-char
+# bindkey "^b" backward-char
+# bindkey "^k" kill-line
+# bindkey "^d" delete-char
+# bindkey "^p" history-search-backward
+# bindkey "^n" history-search-forward
+# bindkey "^r" history-incremental-search-backward
+# bindkey "^y" accept-and-hold
+#
+# ### ^[ は alt
+# bindkey "^[f" vi-forward-word
+# bindkey "^[b" vi-backward-word
+# bindkey "^[d" delete-word
+# bindkey "^[h" backward-delete-word
 
 ## zsh autosuggestions
 bindkey '^ ' autosuggest-accept
