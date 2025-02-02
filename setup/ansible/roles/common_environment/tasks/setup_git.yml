@@ -13,7 +13,7 @@
 - name: 'Setup Git Credential Manager (osx)'
   community.general.homebrew_cask:
     name: 'git-credential-manager'
-    state: 'latest'
+    state: 'present'
   when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: 'Install github cli (OSX)'

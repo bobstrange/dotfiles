@@ -10,6 +10,6 @@
   homebrew:
     name: 'tfenv'
     update_homebrew: true
-    state: 'latest'
+    state: 'present'
   when:
     - ansible_facts['distribution'] == 'osx'

@@ -5,13 +5,13 @@
       become: true
       apt:
         name: 'gnome-keyring'
-        state: 'latest'
+        state: 'present'
         update_cache: true
     # - name: 'Install libgnome-keyring-dev'
     #   become: true
     #   apt:
     #     name: 'libgnome-keyring-dev'
-    #     state: 'latest'
+    #     state: 'present'
     #     update_cache: true
     # - name: 'Build gnome-keyring'
     #   become: true

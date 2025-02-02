@@ -3,7 +3,7 @@
   become: true
   apt:
     name: 'redshift-gtk'
-    state: 'latest'
+    state: 'present'
   when:
     - ansible_facts['distribution']
     - wsl_enabled == false

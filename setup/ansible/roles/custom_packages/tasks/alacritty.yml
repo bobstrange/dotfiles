@@ -4,7 +4,7 @@
     - name: "Install Alacritty"
       homebrew:
         name: "alacritty"
-        state: latest
+        state: present
   when:
     - ansible_facts['os_family'] == 'Darwin'
 - name: "Install Alacritty (Ubuntu)"
@@ -26,7 +26,7 @@
           - libxcb-xfixes0-dev
           - libxkbcommon-dev
           - python3
-        state: latest
+        state: present
         update_cache: true
     - name: "Build alacritty"
       command: "cargo build --release"
