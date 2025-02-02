@@ -8,16 +8,16 @@ set fileencoding=utf-8
 
 " Python provider
 if system('python -c "import pynvim"') != 0
-  !pip install --upgrade pynvim
-  !pyenv rehash
+" !pip install --upgrade pynvim
+" !pyenv rehash
 endif
 
 let g:python3_host_prog = $HOME.'/.pyenv/shims/python3'
 
 " Ruby provider
 if system('ruby -e "require \"neovim\""') != 0
-  !gem install neovim
-  !rbenv rehash
+" !gem install neovim
+" !rbenv rehash
 endif
 
 " Make space as a <Leader>
@@ -47,22 +47,21 @@ set wrap
 set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set virtualedit=onemore
-set ambiwidth=double
 set colorcolumn=80
 
 " highlight Zenkaku space
 " https://gist.github.com/pgtwitter/cb31d497aa02f221164fc2dd846d24dc
 function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+  " highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
 endfunction
 
 if has('syntax')
-  augroup ZenkakuSpace
-    autocmd!
-    autocmd ColorScheme       * call ZenkakuSpace()
-    autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
-  augroup END
-  call ZenkakuSpace()
+" augroup ZenkakuSpace
+  " autocmd!
+  " autocmd ColorScheme       * call ZenkakuSpace()
+  " autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+" augroup END
+" call ZenkakuSpace()
 endif
 
 " search
