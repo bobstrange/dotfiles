@@ -25,7 +25,8 @@ $applications = @(
     "neeview",
     "vscode",
     "7zip",
-    "discord"
+    "discord",
+    "vlc"
 )
 
 # アプリケーションのインストール
