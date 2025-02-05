@@ -2,7 +2,7 @@
   excludesfile = ~/.gitignore
   editor = nvim
   whitespace = trailing-space,space-before-tab
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
   quotepath = false
   hooksPath = ~/dev/src/github.com/secretlint/git-hooks/hooks
 [user]
@@ -99,3 +99,17 @@
   clean = expand --tabs=2 --initial
 [rerere]
 	enabled = true
+
+# git-delta related config
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  line-numbers = true
+  side-by-side = true
+  keep-plus-minus-markers = true
+  syntax-theme = DarkNeon
+
+[merge]
+  conflictstyle = zdiff3
