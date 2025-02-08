@@ -30,9 +30,9 @@ github = 'romkatv/zsh-defer'
 # Add at or near the top of your .zshrc file (before any calls to compdef)
 github = "marlonrichert/zsh-autocomplete"
 
-[plugins.zsh-abbr]
-
-github = 'olets/zsh-abbr'
+# [plugins.zsh-abbr]
+#
+# github = 'olets/zsh-abbr'
 
 [plugins.zsh-syntax-highlighting]
 
@@ -44,10 +44,10 @@ github = 'zsh-users/zsh-syntax-highlighting'
 apply = ["defer"]
 github = 'zsh-users/zsh-autosuggestions'
 
-[plugins.zsh-autosuggestions-abbreviations-strategy]
-
-apply = ["defer"]
-github = 'olets/zsh-autosuggestions-abbreviations-strategy'
+# [plugins.zsh-autosuggestions-abbreviations-strategy]
+#
+# apply = ["defer"]
+# github = 'olets/zsh-autosuggestions-abbreviations-strategy'
 
 [plugins.zsh-completions]
 
