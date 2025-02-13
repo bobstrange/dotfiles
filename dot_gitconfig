@@ -104,12 +104,17 @@
 [interactive]
   diffFilter = delta --color-only
 
+[include]
+  path = ~/.gitconfig.d/themes.gitconfig
+
 [delta]
+  # Use arctic-fox theme
+  features = arctic-fox
   navigate = true
   line-numbers = true
   side-by-side = true
+  hyperlinks = true
   keep-plus-minus-markers = true
-  syntax-theme = DarkNeon
 
 [merge]
   conflictstyle = zdiff3
