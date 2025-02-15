@@ -26,7 +26,8 @@ $applications = @(
     "vscode",
     "7zip",
     "discord",
-    "vlc"
+    "vlc",
+    "win32yank"
 )
 
 # アプリケーションのインストール
