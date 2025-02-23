@@ -65,6 +65,8 @@ for zsh_source in $HOME/.zsh/functions/*.zsh; do
   source $zsh_source
 done
 
+fpath=("$XDG_DATA_HOME/zsh/completions" $fpath)
+
 # autoload -U compinit
 # compinit
 #
