@@ -1,8 +1,3 @@
-# # load zplug configuration
-# [[ -f $HOME/.zsh/zplug.zsh ]] && source $HOME/.zsh/zplug.zsh
-
-# eval "$(/opt/homebrew/bin/brew shellenv)"
-
 if [[ -e ~/.nix-profile/etc/profile.d/nix.sh ]]; then
   . ~/.nix-profile/etc/profile.d/nix.sh
 fi
@@ -16,7 +11,6 @@ else
 fi
 
 # Load ubuntu related configurations
-
 uname -v | grep -q "Ubuntu"
 ubuntu=$?
 
@@ -52,9 +46,6 @@ for zsh_source in $HOME/.zsh/configs/*.zsh; do
   source $zsh_source
 done
 
-export PATH="/usr/local/bin:$PATH"
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-
 # load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -64,8 +55,6 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 for zsh_source in $HOME/.zsh/functions/*.zsh; do
   source $zsh_source
 done
-
-fpath=("$XDG_DATA_HOME/zsh/completions" $fpath)
 
 # autoload -U compinit
 # compinit

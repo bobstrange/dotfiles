@@ -50,5 +50,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export DENO_INSTALL="/home/bob/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# /usr/local/bin
 export PATH="/usr/local/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+
+fpath=("$XDG_DATA_HOME/zsh/completions" $fpath)
