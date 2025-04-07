@@ -54,7 +54,12 @@ github = 'zsh-users/zsh-autosuggestions'
 apply = ["defer"]
 github = 'zsh-users/zsh-completions'
 
-[plugins.diff-so-fancy]
+# Use git-delta instead
+# [plugins.diff-so-fancy]
+#
+# apply = ["defer"]
+# github = 'so-fancy/diff-so-fancy'
 
-apply = ["defer"]
-github = 'so-fancy/diff-so-fancy'
+[plugins.fzf-git]
+github = "junegunn/fzf-git.sh"
+use = ["fzf-git.sh"]
