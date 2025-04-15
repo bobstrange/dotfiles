@@ -6,12 +6,12 @@ alias mkdir='mkdir -p'
 # alias tig='tig --all'
 
 # Git
-alias gad=fz-git-add
-alias gbr=fz-git-branch
-alias gco=fz-git-checkout
-alias gsh=fz-git-show
-alias gdel=fz-git-delete-branch
-alias gsta=fz-git-stash-apply
+# alias gad=fz-git-add
+# alias gbr=fz-git-branch
+# alias gco=fz-git-checkout
+# alias gsh=fz-git-show
+# alias gdel=fz-git-delete-branch
+# alias gsta=fz-git-stash-apply
 alias gcm='git commit -m'
 alias gsw='git switch'
 
