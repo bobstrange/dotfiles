@@ -25,81 +25,28 @@ alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bo
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
 
-#  git commit browser with previews
-fz-git-show() {
-  glNoGraph |
-    fzf --no-sort --reverse --tiebreak=index --no-multi \
-      --ansi --preview="$_viewGitLogLine" \
-      --header "enter to view, alt-y to copy hash" \
-      --bind "enter:execute:$_viewGitLogLine   | less -R" \
-      --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+gco() {
+  _fzf_git_each_ref --no-multi | xargs git checkout
 }
 
-# checkout git branch (including remote branches), sorted by most recent commit, limit 30 last branches
-fz-git-branch() {
-  local branches branch
-  branches=$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format="%(refname:short)") &&
-  branch=$(echo "$branches" |
-           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) --no-multi) &&
-  git stash &&
-  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##") &&
-  git stash pop
+gbr() {
+  cd "$(_fzf_git_branches --no-multi)"
 }
 
-# checkout git commit with previews
-fz-git-checkout() {
-  local commit
-  commit=$( glNoGraph |
-    fzf --no-sort --reverse --tiebreak=index --no-multi \
-        --ansi --preview="$_viewGitLogLine" ) &&
-  git stash &&
-  git checkout $(echo "$commit" | sed "s/ .*//") &&
-  git stash pop
+gsta() {
+  _fzf_git_stashes --no-multi | xargs git stash apply
 }
 
-# delete git branches
-fz-git-delete-branch() {
-  local branches delete_branches
-  branches=$(git --no-pager branch | grep -vE '(main|master|development)')
-  delete_branches=$(echo "$branches" | fzf --multi)
-  echo "$delete_branches" | sed "s/.* //" | xargs git branch -D
+gdel() {
+  _fzf_git_branches --multi | xargs git branch -D
 }
 
-# git add with previews
-fz-git-add() {
+gadd() {
   git ls-files --deleted --modified --other --exclude-standard | \
   fzf \
     --multi \
     --preview 'git diff --color=always {-1}' | \
-  xargs --no-run-if-empty git add
+  xargs git add
 }
 
-# git stash apply with previews
-fz-git-stash-apply() {
-  git stash list | \
-  fzf \
-    --exit-0 \
-    --no-multi \
-    --preview 'git stash show --color=always -p $(echo {} | cut -d: -f1)' \
-    --preview-window=down:70% | \
-  cut -d: -f1 | \
-  xargs --no-run-if-empty git stash apply
-}
 
-# Run rspec
-fz-rspec() {
-  local files target_files
-  files=$(git status --short | grep "_spec\.rb$" | sed "s/^...//")
-  echo "You could multi select with 'tab' button"
-  target_files=$(echo "$files" |
-        fzf-tmux \
-        --reverse \
-        -d 30% \
-        --multi \
-        ) &&
-        echo "$target_files"
-  echo "Starting rspec:
-$target_files"
-
-  rspec $(echo $target_files | sed "s/\n//")
-}
