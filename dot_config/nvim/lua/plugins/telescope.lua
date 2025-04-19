@@ -5,14 +5,14 @@ return {
     keys = {{
         "<leader>p",
         "<cmd>Telescope find_files<cr>",
-        desc = "Find Files"
+        desc = "Telescope Find Files"
     }, {
         "<leader>f",
         "<cmd>Telescope live_grep<cr>",
-        desc = "Live Grep"
+        desc = "Telescope Live Grep"
     }, {
         "<leader>l",
         "<cmd>Telescope buffers<cr>",
-        desc = "Buffers"
+        desc = "Telescope Buffers"
     }}
 }
