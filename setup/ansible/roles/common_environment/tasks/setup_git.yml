@@ -4,7 +4,7 @@
   block:
     - name: 'Install GCM'
       ansible.builtin.apt:
-        deb: https://github.com/git-ecosystem/git-credential-manager/releases/download/{{ git.gcm.version }}/gcm-{{ git.gcm.architecture }}.deb
+        deb: https://github.com/git-ecosystem/git-credential-manager/releases/download/v{{ git.gcm.version }}/gcm-{{ git.gcm.architecture }}.{{ git.gcm.version }}.deb
     - name: 'Configure GCM'
       ansible.builtin.command: 'git-credential-manager configure'
   when:
