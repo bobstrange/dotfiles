@@ -29,7 +29,7 @@
         state: present
         update_cache: true
     - name: "Build alacritty"
-      command: "cargo build --release"
+      command: "~/.cargo/bin/cargo build --release"
       args:
         chdir: "/tmp/alacritty"
     - name: "Move alacritty to /usr/local/bin"

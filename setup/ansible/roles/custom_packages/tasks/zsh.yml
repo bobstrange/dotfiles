@@ -21,4 +21,4 @@
         path: /tmp/install_starship.sh
         state: absent
 - name: "Install sheldon"
-  ansible.builtin.shell: "cargo install sheldon"
+  ansible.builtin.shell: "~/.cargo/bin/cargo install sheldon"
