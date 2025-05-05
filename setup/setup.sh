@@ -27,16 +27,18 @@ check_arg() {
 
 run_playbook() {
   echo "Arg: $1"
+  cd ./ansible
+
   if [[ $1 = 'ubuntu' ]]; then
-    ansible-playbook -i ansible/inventory/hosts.yml -l ubuntu ansible/playbooks/setup.yml --ask-become-pass -vvv
+    ansible-playbook -i inventory/hosts.yml -l ubuntu playbooks/setup.yml --ask-become-pass -vvv
   fi
 
   if [[ $1 = 'osx' ]]; then
-    ansible-playbook -i ansible/inventory/hosts.yml -l osx ansible/playbooks/setup.yml --ask-become-pass -vvv
+    ansible-playbook -i inventory/hosts.yml -l osx playbooks/setup.yml --ask-become-pass -vvv
   fi
 
   if [[ $1 = 'wsl' ]]; then
-    (cd ansible && ansible-playbook -i inventory/hosts.yml -l wsl playbooks/setup.yml --ask-become-pass -vvv)
+    ansible-playbook -i inventory/hosts.yml -l wsl playbooks/setup.yml --ask-become-pass -vvv
   fi
 }
 
