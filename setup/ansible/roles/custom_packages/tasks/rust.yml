@@ -16,7 +16,7 @@
   when: ansible_os_family == "Darwin"
 
 - name: Check if Rust is already installed
-  ansible.builtin.command: "rustc --version"
+  ansible.builtin.command: "~/.cargo/bin/rustc --version"
   register: rust_version_check
   ignore_errors: true
   changed_when: false
