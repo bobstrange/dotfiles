@@ -13,11 +13,25 @@ packages:
     - bat
     - ripgrep
   linux:
-    - build-essential
     - fd-find
     - xclip
     - pkg-config
     - openssl
     - libssl-dev
+    # required by ruby-build
+    - build-essential
+    - autoconf
+    - patch
+    - libssl-dev
+    - libyaml-dev
+    - libreadline6-dev
+    - zlib1g-dev
+    - libgmp-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm6
+    - libgdbm-dev
+    - libdb-dev
+    - uuid-dev
   osx:
     - fd
