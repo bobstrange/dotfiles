@@ -100,6 +100,4 @@
     - name: "Setup Alacritty"
       include_role:
         name: "alacritty"
-    - name: "others"
-      include_role:
-        name: "others"
+
