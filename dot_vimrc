@@ -14,10 +14,10 @@ call plug#end()
 syntax enable
 
 source ~/.vim/base_config.vim
-source ~/.vim/theme.vim
-source ~/.vim/airline.vim
+" source ~/.vim/theme.vim
+" source ~/.vim/airline.vim
 source ~/.vim/keybindings.vim
 source ~/.vim/buffer.vim
 source ~/.vim/netrw.vim
-source ~/.vim/vimdiff.vim
-source ~/.vim/fzf.vim
+" source ~/.vim/vimdiff.vim
+" source ~/.vim/fzf.vim
