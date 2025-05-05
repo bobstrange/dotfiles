@@ -25,17 +25,17 @@
   when: rust_version_check.rc == 0
   block:
     - name: Update rustup to the latest version
-      ansible.builtin.command: rustup self update
+      ansible.builtin.command: ~/.cargo/bin/rustup self update
       register: rustup_update_result
       changed_when: "'Updated' in rustup_update_result.stdout"
 
     - name: Update Rust to the latest stable version
-      ansible.builtin.command: rustup update {{ rust.version }}
+      ansible.builtin.command: ~/.cargo/bin/rustup update {{ rust.version }}
       register: rust_update_result
       changed_when: "'updated' in rust_update_result.stdout"
 
     - name: Update installed Rust components
-      ansible.builtin.command: rustup component add clippy rustfmt
+      ansible.builtin.command: ~/.cargo/bin/rustup component add clippy rustfmt
       changed_when: false
 
 - name: Install Rust if not installed
