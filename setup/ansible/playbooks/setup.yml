@@ -7,6 +7,10 @@
   hosts: all
   roles:
     - essential_packages
+- name: Install nix
+  hosts: all
+  roles:
+    - install_nix
 - name: Install custom packages
   hosts: all
   roles:
