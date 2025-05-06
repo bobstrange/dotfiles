@@ -97,8 +97,6 @@
 # Make gitconfig space 2
 [filter "spacify"]
   clean = expand --tabs=2 --initial
-[rerere]
-	enabled = true
 
 # git-delta related config
 [interactive]
