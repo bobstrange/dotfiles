@@ -15,10 +15,6 @@
   smudge = git-lfs smudge %f
   required = true
 
-# Platform specific git config
-[include]
-  path = ~/.gitconfig.local
-
 [alias]
   br = branch
   cb = rev-parse --abbrev-ref HEAD
@@ -97,6 +93,8 @@
 # Make gitconfig space 2
 [filter "spacify"]
   clean = expand --tabs=2 --initial
+[rerere]
+	enabled = true
 
 # git-delta related config
 [interactive]
@@ -116,3 +114,29 @@
 
 [merge]
   conflictstyle = zdiff3
+
+{{/* credential start */}}
+
+{{ if eq .chezmoi.os "darwin" }}
+
+[credential]
+  helper = osxkeychain
+
+{{ else if eq .chezmoi.os "linux" }}
+  {{ if .chezmoi.kernel.osrelease | contains "WSL" }}
+
+[credential]
+  helper = /mnt/c/Users/bob19/scoop/shims/git-credential-manager.exe
+
+  {{ else }}
+
+[credential]
+  credentialStore = secretservice
+  helper = /usr/local/bin/git-credential-manager
+[credential "https://dev.azure.com"]
+  useHttpPath = true
+
+  {{ end }}
+{{ end }}
+
+{{/* credential end */}}
