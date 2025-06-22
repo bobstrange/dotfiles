@@ -19,13 +19,13 @@
 git clone https://github.com/bob1983/dotfiles ~/dotfiles
 cd dotfiles
 
-# Run bootstrap script
+# Run setup script
 # ubuntu
-./bootstrap.sh ubuntu
+./setup/setup.sh ubuntu
 # osx
-./bootstrap.sh osx
+./setup/setup.sh osx
 # wsl
-./bootstrap.sh wsl
+./setup/setup.sh wsl
 ```
 
 ### run ansible playbook

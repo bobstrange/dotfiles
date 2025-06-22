@@ -9,7 +9,7 @@ This is a personal dotfiles repository managed with [chezmoi](https://www.chezmo
 ## Key Commands
 
 ### Setup and Bootstrap
-- Initial setup: `./bootstrap.sh [ubuntu|osx|wsl]` from the dotfiles directory
+- Initial setup: `./setup/setup.sh [ubuntu|osx|wsl]` from the dotfiles directory
 - Run Ansible playbook: `cd setup/ansible && ansible-playbook -i inventory/hosts.yml playbooks/setup.yml --limit [osx|ubuntu|wsl] --ask-become -v`
 - Quick Ubuntu setup: `make run-ubuntu` (runs Ansible with verbose output)
 
