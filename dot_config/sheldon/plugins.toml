@@ -23,12 +23,12 @@ defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source 
 
 github = 'romkatv/zsh-defer'
 
-# [plugins.zsh-autocomplete]
-#
-# # Doesn't apply deferred loading
-# # https://github.com/marlonrichert/zsh-autocomplete#manual-installation
-# # Add at or near the top of your .zshrc file (before any calls to compdef)
-# github = "marlonrichert/zsh-autocomplete"
+[plugins.zsh-autocomplete]
+
+# Doesn't apply deferred loading
+# https://github.com/marlonrichert/zsh-autocomplete#manual-installation
+# Add at or near the top of your .zshrc file (before any calls to compdef)
+github = "marlonrichert/zsh-autocomplete"
 
 # [plugins.zsh-abbr]
 #
@@ -49,10 +49,10 @@ github = 'zsh-users/zsh-autosuggestions'
 # apply = ["defer"]
 # github = 'olets/zsh-autosuggestions-abbreviations-strategy'
 
-[plugins.zsh-completions]
-
-apply = ["defer"]
-github = 'zsh-users/zsh-completions'
+# [plugins.zsh-completions]
+#
+# apply = ["defer"]
+# github = 'zsh-users/zsh-completions'
 
 # Use git-delta instead
 # [plugins.diff-so-fancy]
