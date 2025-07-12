@@ -9,11 +9,13 @@ This is a personal dotfiles repository managed with [chezmoi](https://www.chezmo
 ## Key Commands
 
 ### Setup and Bootstrap
+
 - Initial setup: `./setup/setup.sh [ubuntu|osx|wsl]` from the dotfiles directory
 - Run Ansible playbook: `cd setup/ansible && ansible-playbook -i inventory/hosts.yml playbooks/setup.yml --limit [osx|ubuntu|wsl] --ask-become -v`
 - Quick Ubuntu setup: `make run-ubuntu` (runs Ansible with verbose output)
 
 ### Chezmoi Management
+
 - Apply changes: `chezmoi apply`
 - Check differences: `chezmoi diff`
 - Edit files: `chezmoi edit <file>`
@@ -22,18 +24,21 @@ This is a personal dotfiles repository managed with [chezmoi](https://www.chezmo
 ## Architecture
 
 ### File Structure
+
 - **Root dotfiles**: Files prefixed with `dot_` become `.` files in the home directory
 - **Executable files**: Files prefixed with `executable_` become executable
 - **Templates**: Files ending with `.tmpl` are processed as templates
 - **Platform-specific configs**: Organized in subdirectories like `dot_config/`
 
 ### Key Components
+
 - **Ansible roles** in `setup/ansible/roles/` handle software installation and system configuration
 - **Shell configuration** split across `dot_zsh/` with modular configs and functions
 - **Development tools** configured via individual dotfiles (vim, tmux, git, etc.)
 - **Platform detection** in Ansible inventory supports macOS, Ubuntu, and WSL
 
 ### Template System
+
 - Uses chezmoi templates for platform-specific configurations
 - Variables defined in Ansible host vars (`setup/ansible/inventory/host_vars/`)
 - Git config uses templates for conditional email/username settings
