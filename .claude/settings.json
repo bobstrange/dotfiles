@@ -16,7 +16,7 @@
       "Edit(**/env)",
       "Edit(**/environment)"
     ],
-    "defaultMode": "allowEdits"
+    "defaultMode": "acceptEdits"
   },
   "env": {
     "ANSIBLE_HOST_KEY_CHECKING": "False"
