@@ -63,17 +63,3 @@ done
 # source <(kubectl completion zsh)
 
 eval "$(starship init zsh)"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# pnpm
-export PNPM_HOME="/Users/bob/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-# claude code
-alias claude="/Users/bob/.claude/local/claude"
