@@ -1,0 +1,26 @@
+modmap:
+  - name: Global
+    remap:
+      CapsLock: Ctrl_L
+      Alt_L: Ctrl_R
+
+keymap:
+  - name: Emacs
+    application:
+      not: [Emacs, emacs, vim, nvim]
+    remap:
+      C-b: left
+      C-f: right
+      C-p: up
+      C-n: down
+      C-a: home
+      C-e: end
+      C-d: delete
+      C-h: backspace
+      C-k: [Shift-end, C-x]
+      C-w: C-x
+      M-w: C-c
+      C-y: C-v
+      C-s: C-f
+      C-g: esc
+      C-space: { set_mark: true }
