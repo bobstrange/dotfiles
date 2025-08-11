@@ -1,26 +1,101 @@
+# xremap configuration file
+# I don't use virtual_modifire as I set left alt as virtual_modifire and it doesn't work well.
+
+# Modifier remapping - Capslock to Left Ctrl
 modmap:
-  - name: Global
+  - name: "Capslock to Ctrl"
     remap:
       CapsLock: Ctrl_L
-      Alt_L: Ctrl_R
 
+# Keymaps
 keymap:
-  - name: Emacs
+  # Emacs-like keybindings for non-terminal applications
+  - name: "Emacs like"
     application:
-      not: [Emacs, emacs, vim, nvim]
+      not:
+        - gnome-terminal-server
+        - Code
     remap:
-      C-b: left
-      C-f: right
-      C-p: up
-      C-n: down
-      C-a: home
-      C-e: end
-      C-d: delete
-      C-h: backspace
-      C-k: [Shift-end, C-x]
-      C-w: C-x
-      M-w: C-c
-      C-y: C-v
-      C-s: C-f
-      C-g: esc
-      C-space: { set_mark: true }
+      # Cursor movement
+      Ctrl-b: left
+      Ctrl-f: right
+      Ctrl-p: up
+      Ctrl-n: down
+
+      # Word movement
+      Alt-b: Ctrl-left
+      Alt-f: Ctrl-right
+
+      # Line navigation
+      Ctrl-a: home
+      Ctrl-e: end
+
+      # Deletion
+      Ctrl-k: [Shift-end, backspace]
+      Ctrl-d: delete
+      Ctrl-h: backspace
+
+      # Alt to Ctrl mappings (Command-like behavior)
+      Alt-a: Ctrl-a        # Select all
+      Alt-c: Ctrl-c        # Copy
+      Alt-f: Ctrl-f        # Find
+      Alt-l: Ctrl-l        # Location/address bar
+      Alt-n: Ctrl-n        # New
+      Alt-t: Ctrl-t        # New tab
+      Alt-v: Ctrl-v        # Paste
+      Alt-w: Ctrl-w        # Close tab/window
+      Alt-x: Ctrl-x        # Cut
+      Alt-z: Ctrl-z        # Undo
+      Alt-Shift-z: Ctrl-Shift-z  # Redo
+
+      # Additional common shortcuts
+      Alt-s: Ctrl-s        # Save
+      Alt-o: Ctrl-o        # Open
+      Alt-p: Ctrl-p        # Print
+      Alt-q: Alt-F4        # Quit application
+
+  # VSCode specific
+  - name: "VSCode keys"
+    application:
+      only:
+        - Code
+    remap:
+      # VSCode keeps most defaults
+      # Alt-Shift-p would conflict with Emacs bindings
+      {}
+
+  # Chrome specific keybindings
+  - name: "Chrome keys"
+    application:
+      only:
+        - google-chrome
+    remap:
+      # Re-open closed tab
+      Alt-Shift-t: Ctrl-Shift-t
+
+      # Tab navigation
+      Alt-Tab: Ctrl-Tab                        # 次のタブ
+      Alt-Shift-Tab: Ctrl-Shift-Tab            # 前のタブ
+
+      # 日本語キーボード用のタブ移動
+      # { キー = rightbrace, } キー = backslash
+      Alt-Shift-rightbrace: Ctrl-Shift-Tab     # 前のタブ（{キー）
+      Alt-Shift-backslash: Ctrl-Tab            # 次のタブ（}キー）
+
+      # Reload
+      Alt-r: Ctrl-r
+      Alt-Shift-r: Ctrl-Shift-r  # Hard reload
+
+      # Additional browser shortcuts
+      Alt-d: Ctrl-d              # Bookmark
+      Alt-Shift-d: Ctrl-Shift-d  # Bookmark all tabs
+
+  # Slack specific
+  - name: "Slack keys"
+    application:
+      only:
+        - Slack
+    remap:
+      # Slack specific shortcuts
+      Alt-k: Ctrl-k  # Quick switcher
+
