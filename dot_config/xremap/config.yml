@@ -1,5 +1,6 @@
 # xremap configuration file
-# I don't use virtual_modifire as I set left alt as virtual_modifire and it doesn't work well.
+# Based on xkeysnail config.py
+# Without virtual_modifiers for stability
 
 # Modifier remapping - Capslock to Left Ctrl
 modmap:
@@ -9,6 +10,14 @@ modmap:
 
 # Keymaps
 keymap:
+  # Window management (global)
+  - name: "Window management"
+    remap:
+      # ウィンドウの位置調整
+      Alt-Shift-h: Super-left      # ウィンドウを左に寄せる
+      Alt-Shift-l: Super-right     # ウィンドウを右に寄せる
+      Alt-Shift-m: Super-up        # ウィンドウを最大化/もとに戻す (トグル)
+
   # Emacs-like keybindings for non-terminal applications
   - name: "Emacs like"
     application:
@@ -108,4 +117,3 @@ keymap:
     remap:
       # Slack specific shortcuts
       Alt-k: Ctrl-k  # Quick switcher
-
