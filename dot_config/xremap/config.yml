@@ -64,6 +64,16 @@ keymap:
       # Alt-Shift-p would conflict with Emacs bindings
       {}
 
+  # Terminal specific keybindings
+  - name: "Terminal keys"
+    application:
+      only:
+        - gnome-terminal-server
+    remap:
+      # macOS-like shortcuts for terminal
+      Alt-v: Ctrl-Shift-v  # Paste in terminal
+      Alt-c: Ctrl-Shift-c  # Copy in terminal (optional)
+
   # Chrome specific keybindings
   - name: "Chrome keys"
     application:
