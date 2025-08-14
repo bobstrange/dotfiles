@@ -51,6 +51,8 @@ done
 
 [[ -f $HOME/.zsh_aliases ]] && source $HOME/.zsh_aliases
 
+[[ -f $HOME/.zsh_aliases.local ]] && source $HOME/.zsh_aliases.local
+
 # load functions
 for zsh_source in $HOME/.zsh/functions/*.zsh; do
   source $zsh_source
