@@ -7,10 +7,6 @@
   hosts: all
   roles:
     - essential_packages
-- name: Install nix
-  hosts: all
-  roles:
-    - install_nix
 - name: Install custom packages
   hosts: all
   roles:
@@ -19,14 +15,4 @@
   hosts: all
   roles:
     - common_environment
-# - name: Setup Ubuntu-specific environment
-#   hosts: "wsl:ubuntu"
-#   become: yes
-#   roles:
-#     - ubuntu
-#
-# - name: Setup macOS-specific environment
-#   hosts: osx
-#   become: no
-#   roles:
-#     - osx
+
