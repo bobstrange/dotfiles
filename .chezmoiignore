@@ -9,3 +9,4 @@ setup/
 unmanaged/
 .config/chezmoi
 .github/
+_config.yml
