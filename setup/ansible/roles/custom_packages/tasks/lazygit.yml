@@ -1,0 +1,59 @@
+---
+- name: Get latest lazygit version
+  uri:
+    url: "https://api.github.com/repos/jesseduffield/lazygit/releases/latest"
+    method: GET
+    return_content: yes
+    status_code: 200
+  register: lazygit_release_info
+
+- name: Extract version number
+  set_fact:
+    lazygit_version: "{{ (lazygit_release_info.content | from_json).tag_name | regex_replace('^v', '') }}"
+
+- name: Display version being installed
+  debug:
+    msg: "Installing lazygit version: {{ lazygit_version }}"
+
+- name: Create temporary directory
+  tempfile:
+    state: directory
+    suffix: lazygit
+  register: temp_dir
+
+- name: Download lazygit archive
+  get_url:
+    url: "https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
+    dest: "{{ temp_dir.path }}/lazygit.tar.gz"
+    mode: '0644'
+
+- name: Extract lazygit binary
+  unarchive:
+    src: "{{ temp_dir.path }}/lazygit.tar.gz"
+    dest: "{{ temp_dir.path }}"
+    remote_src: yes
+    creates: "{{ temp_dir.path }}/lazygit"
+
+- name: Install lazygit to /usr/local/bin
+  copy:
+    src: "{{ temp_dir.path }}/lazygit"
+    dest: /usr/local/bin/lazygit
+    mode: '0755'
+    owner: root
+    group: root
+    remote_src: yes
+  become: yes
+
+- name: Clean up temporary directory
+  file:
+    path: "{{ temp_dir.path }}"
+    state: absent
+
+- name: Verify lazygit installation
+  command: lazygit --version
+  register: lazygit_version_check
+  changed_when: false
+
+- name: Display installation result
+  debug:
+    msg: "{{ lazygit_version_check.stdout }}"
