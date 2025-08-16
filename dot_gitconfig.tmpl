@@ -5,6 +5,9 @@
   pager = delta
   quotepath = false
   hooksPath = ~/dev/src/github.com/secretlint/git-hooks/hooks
+{{ if .chezmoi.kernel.osrelease | contains "WSL" }}
+  sshCommand = ssh.exe
+{{ end }}
 [user]
   name = bobstrange
   email = bob.1983.g@gmail.com
