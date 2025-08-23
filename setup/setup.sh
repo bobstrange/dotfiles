@@ -34,11 +34,11 @@ run_playbook() {
   fi
 
   if [[ $1 = 'osx' ]]; then
-    ansible-playbook -i inventory/hosts.yml -l osx playbooks/setup.yml --ask-become-pass -vvv
+    ~/.local/share/pipx/venvs/ansible/bin/ansible-playbook -i inventory/hosts.yml -l osx playbooks/setup.yml --ask-become-pass -vvv
   fi
 
   if [[ $1 = 'wsl' ]]; then
-     ~/.local/share/pipx/venvs/ansible/bin/ansible-playbook -i inventory/hosts.yml -l wsl playbooks/setup.yml --ask-become-pass -vvv
+    ~/.local/share/pipx/venvs/ansible/bin/ansible-playbook -i inventory/hosts.yml -l wsl playbooks/setup.yml --ask-become-pass -vvv
   fi
 }
 
