@@ -14,6 +14,7 @@ alias mkdir='mkdir -p'
 # alias gsta=fz-git-stash-apply
 alias gcm='git commit -m'
 alias gsw='git switch'
+alias lg='lazygit'
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
