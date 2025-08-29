@@ -42,4 +42,4 @@ alias kc="kubectl"
 alias mk="minikube"
 
 # claude code
-alias claude="/Users/bob/.claude/local/claude"
+# alias claude="/Users/bob/.claude/local/claude"
