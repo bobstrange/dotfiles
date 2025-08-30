@@ -19,27 +19,16 @@ alias lg='lazygit'
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 
-# Crontab editing
-alias crontab='VIM_CRONTAB=true crontab'
-
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
 
 # Use nvim as vim
 alias vim='nvim'
 
-alias dotfiles='cd ~/dotfiles'
-
 # docker compose
 # I don't use dc command...
 alias dc="docker compose"
 alias dcps="dc ps --format 'table {{.Name}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}\t{{.Size}}'"
 
-# k8s
-alias kc="kubectl"
-
-# minikube
-alias mk="minikube"
-
-# claude code
-# alias claude="/Users/bob/.claude/local/claude"
+# directory
+alias memo="cd $HOME/src/github.com/bobstrange/memot"
