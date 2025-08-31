@@ -30,6 +30,10 @@ github = 'romkatv/zsh-defer'
 # Add at or near the top of your .zshrc file (before any calls to compdef)
 github = "marlonrichert/zsh-autocomplete"
 
+# Avoid freeze
+# https://github.com/marlonrichert/zsh-autocomplete/issues/736#issuecomment-2232428532
+rev = "adfade31a84dfa512a7e3583d567ee19ac4a7936"
+
 # [plugins.zsh-abbr]
 #
 # github = 'olets/zsh-abbr'
