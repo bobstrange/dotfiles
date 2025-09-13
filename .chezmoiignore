@@ -10,3 +10,6 @@ unmanaged/
 .config/chezmoi
 .github/
 _config.yml
+node_modules/
+package.json
+package-lock.json
