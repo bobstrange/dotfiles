@@ -30,5 +30,8 @@ alias vim='nvim'
 alias dc="docker compose"
 alias dcps="dc ps --format 'table {{.Name}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}\t{{.Size}}'"
 
+# claude-code
+alias claude="bun claude"
+
 # directory
 alias memo="cd $HOME/src/github.com/bobstrange/memot"
