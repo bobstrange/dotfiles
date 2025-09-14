@@ -7,22 +7,22 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+command rbenv 2>/dev/null && eval "$(rbenv init -)"
 
 # nodenv
 export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
+command nodenv 2>/dev/null && eval "$(nodenv init -)"
 
 # pyenv
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+command pyenv 2>/dev/null && eval "$(pyenv init -)"
+command virtualenv 2>/dev/null && eval "$(pyenv virtualenv-init -)"
 
 # golang
 export GOPATH="$HOME/dev"
 export PATH="$GOPATH/bin:$PATH"
-export GOROOT=$(go env GOROOT)
+command go 2>/dev/null && export GOROOT=$(go env GOROOT)
 export GO111MODULE=on
 
 # direnv
