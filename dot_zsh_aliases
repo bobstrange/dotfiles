@@ -32,6 +32,7 @@ alias dcps="dc ps --format 'table {{.Name}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}
 
 # claude-code
 alias claude="bunx claude"
+alias cost="bunx ccusage@latest"
 
 # directory
 alias memo="cd $HOME/src/github.com/bobstrange/memot"
