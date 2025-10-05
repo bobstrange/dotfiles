@@ -13,6 +13,9 @@ command rbenv 2>/dev/null && eval "$(rbenv init -)"
 export PATH="$HOME/.nodenv/bin:$PATH"
 command nodenv 2>/dev/null && eval "$(nodenv init -)"
 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
 # pyenv
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
