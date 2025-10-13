@@ -48,3 +48,4 @@ ansible-playbook \
 ### Ulauncher
 
 I configured hotkey to Alt + Space as Ctrl + Space is used for intellisense
+
