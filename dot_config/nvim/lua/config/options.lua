@@ -7,3 +7,6 @@
 -- vim.g.maplocalleader = "\\"
 
 -- vim.opt.winbar = "%=%m %f"
+
+-- Set conceallevel to 0 to show all concealed text
+vim.opt.conceallevel = 0
