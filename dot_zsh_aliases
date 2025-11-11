@@ -35,4 +35,4 @@ alias claude="bunx claude"
 alias cost="bunx ccusage@latest"
 
 # directory
-alias memo="cd $HOME/src/github.com/bobstrange/memot"
+alias memo="cd $HOME/src/github.com/bobstrange/memot/work/spideraf/"
