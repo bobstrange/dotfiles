@@ -62,4 +62,6 @@ tmux-client-*.log
 # Memo
 mymemo.md
 
+# claude
+.claude/settings.local.json
 
