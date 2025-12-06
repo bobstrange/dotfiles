@@ -59,3 +59,7 @@ dev.patch
 # tmux
 tmux-client-*.log
 
+# Memo
+mymemo.md
+
+
