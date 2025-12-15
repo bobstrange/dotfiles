@@ -24,6 +24,7 @@ keymap:
       not:
         - gnome-terminal-server
         - Code
+        - code # since 1.107.0 Ubuntu?
     remap:
       # Cursor movement
       Ctrl-b: left
