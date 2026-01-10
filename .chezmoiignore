@@ -6,6 +6,7 @@ ansible.cfg
 dircolors
 windows_terminal_profiles.json
 setup/
+nix/
 unmanaged/
 .config/chezmoi
 .github/
