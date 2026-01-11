@@ -62,5 +62,18 @@
     "ask": [],
     "defaultMode": "default"
   },
-  "enabledPlugins": {}
+  "enabledPlugins": {},
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-stop.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
