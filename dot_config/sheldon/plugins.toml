@@ -34,36 +34,16 @@ github = "marlonrichert/zsh-autocomplete"
 # https://github.com/marlonrichert/zsh-autocomplete/issues/736#issuecomment-2232428532
 rev = "adfade31a84dfa512a7e3583d567ee19ac4a7936"
 
-# [plugins.zsh-abbr]
-#
-# github = 'olets/zsh-abbr'
-
 [plugins.zsh-syntax-highlighting]
 
 apply = ["defer"]
 github = 'zsh-users/zsh-syntax-highlighting'
 
 [plugins.zsh-autosuggestions]
-
 apply = ["defer"]
 github = 'zsh-users/zsh-autosuggestions'
 
-# [plugins.zsh-autosuggestions-abbreviations-strategy]
-#
-# apply = ["defer"]
-# github = 'olets/zsh-autosuggestions-abbreviations-strategy'
-
-# [plugins.zsh-completions]
-#
-# apply = ["defer"]
-# github = 'zsh-users/zsh-completions'
-
-# Use git-delta instead
-# [plugins.diff-so-fancy]
-#
-# apply = ["defer"]
-# github = 'so-fancy/diff-so-fancy'
-
 [plugins.fzf-git]
+apply = ["defer"]
 github = "junegunn/fzf-git.sh"
 use = ["fzf-git.sh"]
