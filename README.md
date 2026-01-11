@@ -7,28 +7,60 @@
 
 ## Tools
 
-- [Ansible](https://www.ansible.com/)
-- [chezmoi](https://www.chezmoi.io/)
+- **[chezmoi](https://www.chezmoi.io/)**: Dotfile management
+- **[Nix Flakes](https://nixos.wiki/wiki/Flakes) + [home-manager](https://github.com/nix-community/home-manager)**: Package management (Ubuntu/WSL)
+- **[Ansible](https://www.ansible.com/)**: Legacy package management (macOS)
 
 ## Usage
 
-### bootstrap
+### Ubuntu/WSL (Nix)
 
 ```bash
-# Checkout repo
+# Clone repo
 git clone https://github.com/bob1983/dotfiles ~/dotfiles
-cd dotfiles
+cd ~/dotfiles
 
-# Run setup script
-# ubuntu
-./setup/setup.sh ubuntu
-# osx
-./setup/setup.sh osx
-# wsl
-./setup/setup.sh wsl
+# 1. Install Nix
+make nix-install
+
+# 2. Restart shell
+exec $SHELL
+
+# 3. Install packages
+make nix-bootstrap
+
+# 4. Apply dotfiles
+chezmoi apply
 ```
 
-### run ansible playbook
+#### Daily Operations
+
+```bash
+# After editing nix/*.nix files
+make nix-apply
+
+# Update all packages to latest
+make nix-update
+
+# Search for packages
+nix search nixpkgs <package-name>
+
+# Rollback to previous generation
+home-manager rollback
+```
+
+### macOS (Ansible - Legacy)
+
+```bash
+# Clone repo
+git clone https://github.com/bob1983/dotfiles ~/dotfiles
+cd ~/dotfiles
+
+# Run setup script
+./setup/setup.sh osx
+```
+
+Or run Ansible manually:
 
 ```bash
 cd setup/ansible
@@ -36,12 +68,16 @@ cd setup/ansible
 ansible-playbook \
   -i inventory/hosts.yml \
   playbooks/setup.yml \
-  --limit osx
+  --limit osx \
   --ask-become \
   -v
 ```
 
-`--limit osx` could be `--limit osx`, `--limit ubuntu` or `--limit wsl`.
+## Help
+
+```bash
+make help
+```
 
 ## Note
 
