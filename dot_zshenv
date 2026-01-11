@@ -3,10 +3,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export ECSPRESSO_FILTER_COMMAND=fzf
 
-# For zsh-autocomplete
-# https://github.com/marlonrichert/zsh-autocomplete#additional-step-for-ubuntu
-skip_global_compinit=1
-
 # PATH setup (order matters: later entries take priority)
 # Cargo (for non-nix tools)
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

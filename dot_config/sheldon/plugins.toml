@@ -1,13 +1,4 @@
 # `sheldon` configuration file
-# ----------------------------
-#
-# You can modify this file directly or you can use one of the following
-# `sheldon` commands which are provided to assist in editing the config file:
-#
-# - `sheldon add` to add a new plugin to the config file
-# - `sheldon edit` to open up the config file in the default editor
-# - `sheldon remove` to remove a plugin from the config file
-#
 # See the documentation for more https://github.com/rossmacarthur/sheldon#readme
 
 shell = "zsh"
@@ -18,24 +9,26 @@ defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source 
 
 [plugins]
 
-# the zsh-defer plugin definition should be placed before any plugins that will use the defer template
+# zsh-defer must be loaded first for deferred loading
 [plugins.zsh-defer]
-
 github = 'romkatv/zsh-defer'
 
-[plugins.zsh-autocomplete]
-
-# Doesn't apply deferred loading
-# https://github.com/marlonrichert/zsh-autocomplete#manual-installation
-# Add at or near the top of your .zshrc file (before any calls to compdef)
-github = "marlonrichert/zsh-autocomplete"
-
-# Avoid freeze
-# https://github.com/marlonrichert/zsh-autocomplete/issues/736#issuecomment-2232428532
-rev = "adfade31a84dfa512a7e3583d567ee19ac4a7936"
+# fzf-tab: must be loaded after compinit, before autosuggestions/syntax-highlighting
+# https://github.com/Aloxaf/fzf-tab#install
+[plugins.fzf-tab]
+github = 'Aloxaf/fzf-tab'
+[plugins.fzf-tab.hooks]
+pre = """
+# Initialize completion system (cached, security check once per day)
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+"""
 
 [plugins.zsh-syntax-highlighting]
-
 apply = ["defer"]
 github = 'zsh-users/zsh-syntax-highlighting'
 

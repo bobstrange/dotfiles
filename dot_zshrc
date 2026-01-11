@@ -1,8 +1,5 @@
-# Load plugin manager first
-# Make sure you have rust and sheldon installed
-if [[ ! $(type sheldon) ]]; then
-  echo "sheldon hasn't been installed"
-else
+# Load plugin manager (compinit is handled by sheldon hooks)
+if command -v sheldon &>/dev/null; then
   eval "$(sheldon source)"
 fi
 
