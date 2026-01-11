@@ -16,18 +16,31 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 
 # Add my custom commands
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
-# Nix package manager (load last to ensure nix-installed tools take priority)
-# Note: nix-daemon.sh may already be sourced by /etc/profile.d, so we also explicitly prepend paths
+# Go
+export GOPATH="$HOME/dev"
+export PATH="$GOPATH/bin:$PATH"
+export GO111MODULE=on
+
+# Deno
+export DENO_INSTALL="$HOME/.deno"
+[ -d "$DENO_INSTALL" ] && export PATH="$DENO_INSTALL/bin:$PATH"
+
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+[ -d "$BUN_INSTALL" ] && export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Volta (Node.js version manager)
+export VOLTA_HOME="$HOME/.volta"
+[ -d "$VOLTA_HOME" ] && export PATH="$VOLTA_HOME/bin:$PATH"
+
+# Nix package manager (environment setup)
+# Note: PATH priority is ensured in dot_zshrc (loaded last)
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
   . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-fi
-# Explicitly prepend nix paths to ensure they take priority
-if [ -d "$HOME/.nix-profile/bin" ]; then
-  export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 

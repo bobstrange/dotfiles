@@ -56,8 +56,5 @@ done
 
 eval "$(starship init zsh)"
 
-# bun completions
-[ -s "/home/bob/.bun/_bun" ] && source "/home/bob/.bun/_bun"
-
 # Ensure nix-installed tools take priority (must be last)
 [ -d "$HOME/.nix-profile/bin" ] && export PATH="$HOME/.nix-profile/bin:$PATH"
