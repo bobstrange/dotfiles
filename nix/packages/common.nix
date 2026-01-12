@@ -7,6 +7,7 @@ with pkgs; [
   tmux
   starship
   alacritty
+  ghostty
   sheldon
 
   # Editors
