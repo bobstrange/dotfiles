@@ -28,15 +28,32 @@ else
 fi
 """
 
+# Order matters: syntax-highlighting must be loaded before autosuggestions
 [plugins.zsh-syntax-highlighting]
-apply = ["defer"]
 github = 'zsh-users/zsh-syntax-highlighting'
 
 [plugins.zsh-autosuggestions]
-apply = ["defer"]
 github = 'zsh-users/zsh-autosuggestions'
 
 [plugins.fzf-git]
 apply = ["defer"]
 github = "junegunn/fzf-git.sh"
 use = ["fzf-git.sh"]
+
+# fzf key-bindings and completion (from Nix)
+# Note: key-bindings must not be deferred to work properly
+[plugins.fzf]
+local = "~/.nix-profile/share/fzf"
+use = ["key-bindings.zsh", "completion.zsh"]
+
+# Custom key bindings and settings (after plugins are loaded)
+[plugins.keybindings]
+inline = """
+bindkey '^ ' autosuggest-accept
+# Make autosuggestions more visible (brighter gray)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
+"""
+
+# Starship prompt (must be loaded last, only in interactive shell)
+[plugins.starship]
+inline = '[[ $- == *i* ]] && eval "$(starship init zsh)"'
