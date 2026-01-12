@@ -7,12 +7,13 @@ with pkgs; [
   tmux
   starship
   alacritty
+  sheldon
 
   # Editors
   neovim
   vim
 
-  # Git tools
+  # Git
   git
   tig
   lazygit
@@ -27,18 +28,22 @@ with pkgs; [
 
   # Utilities
   curl
-  jq
-  direnv
   wget
+  jq
   htop
   tree
+  direnv
 
-  # Shell plugin manager
-  sheldon
-
-  # Build tools (for version managers and native extensions)
+  # Build tools
   gcc
   gnumake
   pkg-config
   openssl
+
+  # Language tools
+  uv
+  luarocks
+
+  # Database
+  clickhouse
 ]
