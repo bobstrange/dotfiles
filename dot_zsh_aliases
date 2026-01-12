@@ -34,5 +34,8 @@ alias dcps="dc ps --format 'table {{.Name}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}
 alias claude='/home/bob/.local/bin/claude'
 alias cost="bunx ccusage@latest"
 
+# gemini
+alias gemini='npx @google/gemini-cli@latest'
+
 # directory
 alias memo="cd $HOME/src/github.com/bobstrange/memot/work/spideraf/"
