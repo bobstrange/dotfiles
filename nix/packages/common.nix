@@ -16,6 +16,8 @@ with pkgs; [
   git
   tig
   lazygit
+  delta
+  gh
 
   # Search and navigation
   fzf
@@ -27,6 +29,9 @@ with pkgs; [
   curl
   jq
   direnv
+  wget
+  htop
+  tree
 
   # Shell plugin manager
   sheldon
