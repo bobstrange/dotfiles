@@ -35,7 +35,10 @@ alias claude='/home/bob/.local/bin/claude'
 alias cost="bunx ccusage@latest"
 
 # gemini
-alias gemini='npx @google/gemini-cli@latest'
+alias gemini='bunx @google/gemini-cli@latest'
+
+# codex
+alias codex='bunx @openai/codex@latest'
 
 # directory
 alias memo="cd $HOME/src/github.com/bobstrange/memot/work/spideraf/"
