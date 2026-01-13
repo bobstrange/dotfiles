@@ -20,5 +20,9 @@ command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 test -s ~/.github_token && source ~/.github_token
 
 # zsh completions path
-fpath=("$XDG_DATA_HOME/zsh/completions" $fpath)
+fpath=(
+  "$HOME/.nix-profile/share/zsh/site-functions"
+  "$XDG_DATA_HOME/zsh/completions"
+  $fpath
+)
 
