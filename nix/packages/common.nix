@@ -45,6 +45,9 @@ with pkgs; [
   uv
   luarocks
 
+  # Formatters
+  dprint
+
   # Database
   clickhouse
 ]
