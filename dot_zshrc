@@ -4,6 +4,13 @@ HISTSIZE=65535
 SAVEHIST=1000000000
 setopt hist_ignore_all_dups hist_ignore_dups inc_append_history share_history EXTENDED_HISTORY
 
+# Set fpath before compinit (Nix completions + custom completions)
+fpath=(
+  "$HOME/.nix-profile/share/zsh/site-functions"
+  "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/completions"
+  $fpath
+)
+
 # Load plugin manager (compinit is handled by sheldon hooks)
 if command -v sheldon &>/dev/null; then
   eval "$(sheldon source)"

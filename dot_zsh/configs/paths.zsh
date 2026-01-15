@@ -19,10 +19,5 @@ command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 # github token
 test -s ~/.github_token && source ~/.github_token
 
-# zsh completions path
-fpath=(
-  "$HOME/.nix-profile/share/zsh/site-functions"
-  "$XDG_DATA_HOME/zsh/completions"
-  $fpath
-)
+# Note: fpath is set in .zshrc before compinit
 
