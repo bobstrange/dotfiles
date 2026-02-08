@@ -62,6 +62,9 @@ tmux-client-*.log
 # Memo
 mymemo.md
 
+# Python
+__pycache__/
+
 # claude
 .claude/settings.local.json
 
