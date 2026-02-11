@@ -13,7 +13,11 @@ LOCAL_TZ = timezone(timedelta(hours=9))
 HISTORY_FILE = os.path.expanduser("~/.claude/history.jsonl")
 
 
-def parse_history(query=None):
+GREEN = "\033[32m"
+RESET = "\033[0m"
+
+
+def parse_history(query=None, cwd=None):
     sessions = {}
 
     with open(HISTORY_FILE) as f:
@@ -63,9 +67,11 @@ def parse_history(query=None):
         first_prompt = info["first_prompt"].replace("\n", " ").replace("\t", " ")[:80]
 
         project_path = info["project"] or ""
-        print(
-            f"{sid}\t{project_path}\t{date_str}\t{project_name}\t{prompt_count}\t{first_prompt}"
-        )
+        line = f"{sid}\t{project_path}\t{date_str}\t{project_name}\t{prompt_count}\t{first_prompt}"
+        if cwd and project_path == cwd:
+            print(f"{GREEN}{line}{RESET}")
+        else:
+            print(line)
 
 
 def show_session_prompts(session_id):
@@ -92,5 +98,10 @@ if __name__ == "__main__":
     if len(sys.argv) >= 2 and sys.argv[1] == "--preview":
         show_session_prompts(sys.argv[2])
     else:
-        query = sys.argv[1] if len(sys.argv) >= 2 else None
-        parse_history(query)
+        import argparse
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument("query", nargs="?", default=None)
+        parser.add_argument("--cwd", default=None)
+        args = parser.parse_args()
+        parse_history(args.query, args.cwd)

@@ -20,7 +20,7 @@ csr() {
   local selected
 
   selected=$(
-    python3 "$_CLAUDE_SESSION_SCRIPT" |
+    python3 "$_CLAUDE_SESSION_SCRIPT" --cwd "$PWD" |
       fzf \
         --query="$query" \
         --delimiter='\t' \
