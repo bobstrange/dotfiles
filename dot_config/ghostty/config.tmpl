@@ -1,0 +1,64 @@
+# Ghostty configuration
+# Ported from Alacritty config
+
+# Shell
+{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | contains "WSL") -}}
+command = /bin/zsh
+{{ else -}}
+command = /bin/zsh -l -c "tmux attach || tmux"
+{{ end -}}
+
+# Font
+font-family = PlemolJP Console NF
+font-style = Regular
+font-style-bold = Bold
+font-style-italic = Italic
+{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | contains "WSL") -}}
+font-size = 12
+{{ else -}}
+font-size = 13
+{{ end -}}
+
+# Window
+background-opacity = 0.85
+window-padding-x = 2
+window-padding-y = 2
+
+# Scrollback
+scrollback-limit = 30000
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Theme — GitHub Dark
+background = 0d1117
+foreground = b3b1ad
+palette = 0=#484f58
+palette = 1=#ff7b72
+palette = 2=#3fb950
+palette = 3=#d29922
+palette = 4=#58a6ff
+palette = 5=#bc8cff
+palette = 6=#39c5cf
+palette = 7=#b1bac4
+palette = 8=#6e7681
+palette = 9=#ffa198
+palette = 10=#56d364
+palette = 11=#e3b341
+palette = 12=#79c0ff
+palette = 13=#d2a8ff
+palette = 14=#56d4dd
+palette = 15=#f0f6fc
+
+# Keybindings (Mac Command-like with Alt)
+keybind = alt+v=paste_from_clipboard
+keybind = alt+c=copy_to_clipboard
+keybind = alt+w=close_surface
+keybind = alt+n=new_window
+keybind = alt+shift+m=toggle_fullscreen
+keybind = alt+semicolon=increase_font_size:1
+keybind = alt+minus=decrease_font_size:1
+keybind = alt+zero=reset_font_size
+
+# GTK single instance
+gtk-single-instance = true

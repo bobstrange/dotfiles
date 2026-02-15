@@ -8,6 +8,7 @@ with pkgs; [
   starship
   alacritty
   ghostty
+  nixgl.nixGLIntel
   sheldon
 
   # Editors

@@ -23,6 +23,7 @@ keymap:
     application:
       not:
         - gnome-terminal-server
+        - com.mitchellh.ghostty
         - Code
         - code # since 1.107.0 Ubuntu?
     remap:
