@@ -11,6 +11,9 @@ in
   # Let home-manager manage itself
   programs.home-manager.enable = true;
 
+  # Disable news notifications
+  news.display = "silent";
+
   # CRITICAL: Do not let home-manager manage any dotfiles
   # chezmoi handles all dotfile management
   home.file = { };
