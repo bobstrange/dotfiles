@@ -111,6 +111,15 @@ keymap:
       Alt-d: Ctrl-d              # Bookmark
       Alt-Shift-d: Ctrl-Shift-d  # Bookmark all tabs
 
+  # Ghostty specific
+  - name: "Ghostty keys"
+    application:
+      only:
+        - com.mitchellh.ghostty
+    remap:
+      # Shift+Enter → Ctrl+Enter (GTK consumes Shift+Enter before Ghostty keybind)
+      Shift-Enter: Ctrl-Enter
+
   # Slack specific
   - name: "Slack keys"
     application:

@@ -60,5 +60,10 @@ keybind = alt+semicolon=increase_font_size:1
 keybind = alt+minus=decrease_font_size:1
 keybind = alt+zero=reset_font_size
 
+# Claude Code: Shift+Enter for multi-line input
+# tmux prefix is C-j (0x0A), so single \n is consumed as prefix.
+# Sending \n\n: first triggers prefix, second triggers send-prefix → pane receives 0x0A.
+keybind = ctrl+enter=text:\n\n
+
 # GTK single instance
 gtk-single-instance = true
