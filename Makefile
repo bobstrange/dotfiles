@@ -23,7 +23,7 @@ help:
 
 # macOS: Install Homebrew packages
 macos-install:
-	brew bundle --file=./Brewfile
+	time brew bundle --file=./Brewfile --verbose
 
 # macOS: Apply system defaults
 macos-defaults:
@@ -48,12 +48,12 @@ nix-install:
 # Nix: Bootstrap home-manager and install packages
 # Run once after nix-install
 nix-bootstrap:
-	nix run nixpkgs#home-manager -- switch --flake ./nix#bob@ubuntu
+	time nix run nixpkgs#home-manager -- switch --flake ./nix#bob@ubuntu
 
 # Nix: Apply configuration changes
 # Run after editing nix/*.nix files to install/remove packages
 nix-apply:
-	home-manager switch --flake ./nix#bob@ubuntu
+	time home-manager switch --flake ./nix#bob@ubuntu
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
 		echo "flake.lock: no changes"; \
 	else \
@@ -64,7 +64,7 @@ nix-apply:
 # Nix: Update all packages to latest versions
 # Updates flake.lock and applies changes
 nix-update:
-	cd nix && nix flake update && home-manager switch --flake .#bob@ubuntu
+	time sh -c 'cd nix && nix flake update && home-manager switch --flake .#bob@ubuntu'
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
 		echo "flake.lock: no changes"; \
 	else \
