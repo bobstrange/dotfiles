@@ -1,5 +1,5 @@
-# Auto-attach to tmux when running inside Ghostty (not already in tmux)
-if [[ "$TERM_PROGRAM" == "ghostty" ]] && [[ -z "$TMUX" ]]; then
+# Auto-attach to tmux when running inside a GUI terminal (not already in tmux)
+if [[ -n "$TERM_PROGRAM" ]] && [[ -z "$TMUX" ]]; then
   exec tmux new-session -A -s main
 fi
 

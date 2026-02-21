@@ -9,15 +9,6 @@ program = {{- if eq .chezmoi.os "darwin" -}}
   "/bin/zsh"
 {{ end }}
 
-{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | contains "WSL") }}
-args = []
-{{ else }}
-args = [
-  "-l",
-  "-c",
-  "tmux attach || tmux"
-]
-{{ end }}
 
 [window]
 
