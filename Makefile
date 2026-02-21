@@ -1,9 +1,14 @@
-.PHONY: help run-ubuntu nix-install nix-bootstrap nix-apply nix-update
+.PHONY: help run-ubuntu nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup
 
 .DEFAULT_GOAL := help
 
 help:
 	@echo "Usage: make [target]"
+	@echo ""
+	@echo "macOS:"
+	@echo "  macos-install  Install Homebrew packages (brew bundle)"
+	@echo "  macos-defaults Apply macOS system defaults"
+	@echo "  macos-setup    Run both (initial setup)"
 	@echo ""
 	@echo "Ansible:"
 	@echo "  run-ubuntu     Run Ansible playbook for Ubuntu"
@@ -15,6 +20,17 @@ help:
 	@echo "Nix (daily use):"
 	@echo "  nix-apply      Apply nix/*.nix changes (install/remove packages)"
 	@echo "  nix-update     Update all packages to latest versions"
+
+# macOS: Install Homebrew packages
+macos-install:
+	brew bundle --file=./Brewfile
+
+# macOS: Apply system defaults
+macos-defaults:
+	bash ./setup/macos/defaults.sh
+
+# macOS: Full initial setup
+macos-setup: macos-install macos-defaults
 
 # Ansible: Run playbook for Ubuntu
 run-ubuntu:
