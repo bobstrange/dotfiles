@@ -20,6 +20,7 @@ with pkgs; [
   tig
   lazygit
   delta
+  lefthook
   gh
 
   # Search and navigation

@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: true
+  commands:
+    trailing-whitespace:
+      run: git diff --cached --check
+    dprint-check:
+      glob: "*.{md,json,yaml,yml,toml}"
+      run: dprint check --allow-no-files {staged_files}

@@ -4,7 +4,6 @@
   whitespace = trailing-space,space-before-tab
   pager = delta
   quotepath = false
-  hooksPath = ~/dev/src/github.com/secretlint/git-hooks/hooks
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | contains "WSL") }}
   sshCommand = ssh.exe
 {{ end }}
