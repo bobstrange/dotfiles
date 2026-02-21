@@ -5,7 +5,7 @@ shell = "zsh"
 
 # https://sheldon.cli.rs/Examples.html#deferred-loading-of-plugins-in-zsh
 [templates]
-defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks | get: \"post\" | nl }}"
+defer = "{{"{{"}} hooks | get: \"pre\" | nl {{"}}"}}{% for file in files %}zsh-defer source \"{{"{{"}} file {{"}}"}}\"\n{% endfor %}{{"{{"}} hooks | get: \"post\" | nl {{"}}"}}"
 
 [plugins]
 
@@ -40,10 +40,18 @@ apply = ["defer"]
 github = "junegunn/fzf-git.sh"
 use = ["fzf-git.sh"]
 
-# fzf key-bindings and completion (from Nix)
+# fzf key-bindings and completion
 # Note: key-bindings must not be deferred to work properly
 [plugins.fzf]
+{{- if eq .chezmoi.os "darwin" }}
+{{-   if eq .chezmoi.arch "arm64" }}
+local = "/opt/homebrew/opt/fzf/shell"
+{{-   else }}
+local = "/usr/local/opt/fzf/shell"
+{{-   end }}
+{{- else }}
 local = "~/.nix-profile/share/fzf"
+{{- end }}
 use = ["key-bindings.zsh", "completion.zsh"]
 
 # Custom key bindings and settings (after plugins are loaded)
