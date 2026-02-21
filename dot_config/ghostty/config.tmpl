@@ -1,9 +1,10 @@
 # Ghostty configuration
 # Ported from Alacritty config
 
-# Disable login wrapper to avoid PTY conflicts with tmux
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: disable login wrapper to avoid PTY conflicts with tmux
 login-shell = false
-
+{{ end -}}
 
 # Font
 font-family = PlemolJP Console NF
