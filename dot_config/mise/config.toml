@@ -2,3 +2,5 @@
 node = "lts"
 ruby = "latest"
 python = "latest"
+erlang = "27"
+elixir = "1.18"
