@@ -14,4 +14,6 @@ _config.yml
 node_modules/
 package.json
 package-lock.json
+pnpm-lock.yaml
 docs/
+erl_crash.dump
