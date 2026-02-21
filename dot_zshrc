@@ -1,3 +1,8 @@
+# Auto-attach to tmux when running inside Ghostty (not already in tmux)
+if [[ "$TERM_PROGRAM" == "ghostty" ]] && [[ -z "$TMUX" ]]; then
+  exec tmux new-session -A -s main
+fi
+
 # History settings (must be set before autosuggestions plugin)
 HISTFILE=~/.zhistory
 HISTSIZE=65535

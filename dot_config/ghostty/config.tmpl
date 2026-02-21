@@ -1,12 +1,6 @@
 # Ghostty configuration
 # Ported from Alacritty config
 
-# Shell
-{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | contains "WSL") -}}
-command = /bin/zsh
-{{ else -}}
-command = /bin/zsh -l -c "tmux attach || tmux"
-{{ end -}}
 
 # Font
 font-family = PlemolJP Console NF
