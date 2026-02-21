@@ -43,6 +43,7 @@ with pkgs; [
   openssl
 
   # Language tools
+  mise
   uv
   luarocks
 
