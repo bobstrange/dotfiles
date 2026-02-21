@@ -2,5 +2,5 @@
 node = "lts"
 ruby = "latest"
 python = "latest"
-erlang = "27"
-elixir = "1.18-otp-27"
+erlang = "28"
+elixir = "1.18"
