@@ -1,6 +1,6 @@
 # Auto-attach to tmux when running inside a GUI terminal (not already in tmux)
 if [[ -n "$TERM_PROGRAM" ]] && [[ -z "$TMUX" ]]; then
-  exec tmux new-session -A -s main
+  tmux new-session -A -s main 2>/dev/null || true
 fi
 
 # History settings (must be set before autosuggestions plugin)
