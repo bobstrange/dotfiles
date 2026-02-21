@@ -1,4 +1,4 @@
-.PHONY: help run-ubuntu nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup symlinks
+.PHONY: help nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup symlinks
 
 .DEFAULT_GOAL := help
 
@@ -12,9 +12,6 @@ help:
 	@echo "  macos-install  Install Homebrew packages (brew bundle)"
 	@echo "  macos-defaults Apply macOS system defaults"
 	@echo "  macos-setup    Run both (initial setup)"
-	@echo ""
-	@echo "Ansible:"
-	@echo "  run-ubuntu     Run Ansible playbook for Ubuntu"
 	@echo ""
 	@echo "Nix (initial setup - run in order):"
 	@echo "  nix-install    1. Install Nix package manager (requires shell restart)"
@@ -38,14 +35,6 @@ macos-defaults:
 
 # macOS: Full initial setup
 macos-setup: macos-install macos-defaults
-
-# Ansible: Run playbook for Ubuntu
-run-ubuntu:
-	ansible-playbook ansible/main.yml \
-		-i ansible/hosts.ini \
-		-l local_ubuntu \
-		--ask-become-pass \
-		-vvv
 
 # Nix: Install Nix package manager
 # Run once on fresh system, then restart shell

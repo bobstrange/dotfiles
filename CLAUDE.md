@@ -6,8 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a personal dotfiles repository managed with:
 - **[chezmoi](https://www.chezmoi.io/)**: Dotfile management (config files)
+- **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
 - **[Nix Flakes](https://nixos.wiki/wiki/Flakes) + [home-manager](https://github.com/nix-community/home-manager)**: Package management (Ubuntu/WSL)
-- **[Ansible](https://www.ansible.com/)**: Legacy package management (macOS)
 
 Supports macOS, Ubuntu, and WSL environments.
 
@@ -28,10 +28,14 @@ make nix-update       # Update all packages to latest versions
 nix search nixpkgs <package-name>
 ```
 
-### Ansible (Legacy/macOS)
+### Homebrew (macOS)
 
-- Run Ansible playbook: `cd setup/ansible && ansible-playbook -i inventory/hosts.yml playbooks/setup.yml --limit [osx|ubuntu|wsl] --ask-become -v`
-- Quick Ubuntu setup: `make run-ubuntu`
+```bash
+make macos-setup    # Initial setup (brew bundle + defaults)
+make macos-install  # Install/update packages
+make macos-defaults # Apply macOS system defaults
+make symlinks       # Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
+```
 
 ### Chezmoi (Dotfiles)
 
@@ -46,7 +50,7 @@ nix search nixpkgs <package-name>
 
 ```
 ~/.local/share/chezmoi/
-├── nix/                    # Nix package management
+├── nix/                    # Nix package management (Ubuntu/WSL)
 │   ├── flake.nix           # Flake definition (inputs, outputs)
 │   ├── flake.lock          # Version lockfile (auto-generated)
 │   ├── home.nix            # home-manager config
@@ -54,31 +58,37 @@ nix search nixpkgs <package-name>
 │       ├── common.nix      # Cross-platform packages
 │       └── ubuntu.nix      # Ubuntu-specific packages
 ├── setup/
-│   └── nix-setup.sh        # Nix installation script
+│   ├── nix-setup.sh        # Nix installation script
+│   ├── symlinks.sh         # Symlink secret files from Dropbox
+│   └── macos/
+│       └── defaults.sh     # macOS system defaults
+├── Brewfile                # macOS package management
 ├── dot_*                   # Chezmoi dotfiles (become .* in home)
 └── Makefile                # Build targets
 ```
 
 ### Key Components
 
-- **Nix Flakes** (`nix/`) handle declarative package management with lockfile
+- **Homebrew + Brewfile** manage macOS packages declaratively
+- **Nix Flakes** (`nix/`) handle declarative package management with lockfile (Ubuntu/WSL)
 - **home-manager** manages packages only (`home.file = { }` leaves dotfiles to chezmoi)
 - **chezmoi** manages all dotfiles (shell configs, editor configs, etc.)
 - **Shell configuration** split across `dot_zsh/` with modular configs and functions
-- **Ansible roles** in `setup/ansible/roles/` (legacy, for macOS)
 
 ### Package Management Design
 
 | Concern | Tool |
 |---------|------|
 | Dotfiles (.zshrc, .vimrc, etc.) | chezmoi |
-| Packages (zsh, neovim, fzf, etc.) | Nix + home-manager |
-| System configuration | Manual / Ansible |
+| Packages - macOS | Homebrew + Brewfile |
+| Packages - Ubuntu/WSL | Nix + home-manager |
+| macOS system configuration | `setup/macos/defaults.sh` |
+| Secret files (~/.ssh, ~/.aws) | `setup/symlinks.sh` (Dropbox) |
 
 ### Adding Packages
 
-1. Edit `nix/packages/common.nix` (or `ubuntu.nix` for platform-specific)
-2. Run `make nix-apply`
+- **macOS**: Edit `Brewfile`, run `make macos-install`
+- **Ubuntu/WSL**: Edit `nix/packages/common.nix` (or `ubuntu.nix`), run `make nix-apply`
 
 ## Development Notes
 

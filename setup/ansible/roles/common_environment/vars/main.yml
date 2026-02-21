@@ -1,5 +1,0 @@
----
-git:
-  gcm:
-    version: '2.6.1'
-    architecture: 'linux_amd64'

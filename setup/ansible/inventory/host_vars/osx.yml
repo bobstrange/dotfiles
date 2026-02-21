@@ -1,5 +1,0 @@
-group_name: "staff"
-home_dir: "/Users/{{ user_name }}"
-dotfiles_dir: "{{ home_dir }}/dotfiles"
-dropbox_path: "{{ home_dir }}/Dropbox"
-wsl_enabled: false
