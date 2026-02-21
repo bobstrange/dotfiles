@@ -1,4 +1,4 @@
-.PHONY: help nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup symlinks
+.PHONY: help nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup symlinks mise-install
 
 .DEFAULT_GOAL := help
 
@@ -7,11 +7,12 @@ help:
 	@echo ""
 	@echo "Common:"
 	@echo "  symlinks       Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)"
+	@echo "  mise-install   Install language runtimes via mise (node, ruby, python, elixir...)"
 	@echo ""
 	@echo "macOS:"
 	@echo "  macos-install  Install Homebrew packages (brew bundle)"
 	@echo "  macos-defaults Apply macOS system defaults"
-	@echo "  macos-setup    Run both (initial setup)"
+	@echo "  macos-setup    Run all of the above (initial setup)"
 	@echo ""
 	@echo "Nix (initial setup - run in order):"
 	@echo "  nix-install    1. Install Nix package manager (requires shell restart)"
@@ -25,6 +26,10 @@ help:
 symlinks:
 	bash ./setup/symlinks.sh
 
+# Common: Install language runtimes via mise
+mise-install:
+	time mise install
+
 # macOS: Install Homebrew packages
 macos-install:
 	time brew bundle --file=./Brewfile --verbose
@@ -34,7 +39,7 @@ macos-defaults:
 	bash ./setup/macos/defaults.sh
 
 # macOS: Full initial setup
-macos-setup: macos-install macos-defaults
+macos-setup: macos-install macos-defaults mise-install
 
 # Nix: Install Nix package manager
 # Run once on fresh system, then restart shell
