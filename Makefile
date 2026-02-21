@@ -1,9 +1,12 @@
-.PHONY: help run-ubuntu nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup
+.PHONY: help run-ubuntu nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup symlinks
 
 .DEFAULT_GOAL := help
 
 help:
 	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Common:"
+	@echo "  symlinks       Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)"
 	@echo ""
 	@echo "macOS:"
 	@echo "  macos-install  Install Homebrew packages (brew bundle)"
@@ -20,6 +23,10 @@ help:
 	@echo "Nix (daily use):"
 	@echo "  nix-apply      Apply nix/*.nix changes (install/remove packages)"
 	@echo "  nix-update     Update all packages to latest versions"
+
+# Common: Symlink secret files from Dropbox
+symlinks:
+	bash ./setup/symlinks.sh
 
 # macOS: Install Homebrew packages
 macos-install:
