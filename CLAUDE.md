@@ -29,8 +29,7 @@ Run `make help` to see all available targets.
 │   ├── flake.nix           # Flake definition (inputs, outputs)
 │   ├── flake.lock          # Version lockfile (auto-generated)
 │   ├── home.nix            # home-manager config
-│   └── packages/
-│       └── packages.nix    # All packages (Linux/WSL)
+│   └── packages.nix        # All packages (Linux/WSL)
 ├── setup/
 │   ├── bootstrap.sh        # One-liner bootstrap for fresh machines
 │   ├── nix-setup.sh        # Nix installation script
@@ -58,7 +57,7 @@ Run `make help` to see all available targets.
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
-- **Ubuntu/WSL**: Edit `nix/packages/packages.nix`, run `make nix-apply` (or use `nix-add` shell function)
+- **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply` (or use `nix-add` shell function)
 
 ## Development Notes
 

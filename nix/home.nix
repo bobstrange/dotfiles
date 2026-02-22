@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  packages = import ./packages/packages.nix { inherit pkgs; };
+  packages = import ./packages.nix { inherit pkgs; };
 in
 {
   # home-manager version compatibility
