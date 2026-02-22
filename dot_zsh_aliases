@@ -1,6 +1,7 @@
 # Unix
-alias ls='ls --color=auto'
-alias ll='ls -altr --time-style="+%F %H:%m:%S"'
+alias ls='eza'
+alias ll='eza -la --icons --git --time-style=long-iso --sort=modified'
+alias lt='eza --tree --level=2 --icons'
 alias ln='ln -v'
 alias mkdir='mkdir -p'
 # alias tig='tig --all'

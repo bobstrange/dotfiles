@@ -28,6 +28,7 @@ with pkgs; [
   # Search and navigation
   fzf
   bat
+  eza
   ripgrep
   fd
 
