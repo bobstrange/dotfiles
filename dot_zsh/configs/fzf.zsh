@@ -1,8 +1,9 @@
-# Color scheme
-# molokai https://github.com/junegunn/fzf/wiki/Color-schemes#molokai
+# Color scheme: GitHub Dark
 export FZF_DEFAULT_OPTS='
-  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
-  --color info:144,prompt:161,spinner:135,pointer:135,marker:118
+  --color "bg:#0d1117,bg+:#161b22,fg:#c9d1d9,fg+:#c9d1d9"
+  --color "hl:#58a6ff,hl+:#58a6ff"
+  --color "info:#8b949e,prompt:#58a6ff,spinner:#58a6ff,pointer:#f85149,marker:#3fb950"
+  --color "border:#30363d,header:#8b949e"
   --layout=reverse
   --border=rounded
   --info=inline
