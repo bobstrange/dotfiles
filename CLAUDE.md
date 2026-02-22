@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## About This Repository
 
 This is a personal dotfiles repository managed with:
+
 - **[chezmoi](https://www.chezmoi.io/)**: Dotfile management (config files)
 - **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
 - **[Nix Flakes](https://nixos.wiki/wiki/Flakes) + [home-manager](https://github.com/nix-community/home-manager)**: Package management (Ubuntu/WSL)
@@ -16,9 +17,8 @@ Supports macOS, Ubuntu, and WSL environments.
 ### Nix Package Management (Ubuntu/WSL)
 
 ```bash
-# Initial setup (run in order)
-make nix-install      # 1. Install Nix (requires shell restart)
-make nix-bootstrap    # 2. Install home-manager and packages
+# Initial setup
+make setup-nix        # Install Nix (requires shell restart, then run nix-apply)
 
 # Daily use
 make nix-apply        # Apply changes after editing nix/*.nix
@@ -31,9 +31,16 @@ nix search nixpkgs <package-name>
 ### Homebrew (macOS)
 
 ```bash
-make macos-setup    # Initial setup (brew bundle + defaults)
-make macos-install  # Install/update packages
+make setup-macos    # Initial setup (brew bundle + defaults + mise runtimes)
+make macos-apply    # Apply Brewfile changes
 make macos-defaults # Apply macOS system defaults
+```
+
+### Tools and Config (cross-platform)
+
+```bash
+make lefthook-setup # Generate lefthook.yml and install hooks
+make mise-install   # Install language runtimes via mise
 make symlinks       # Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
 ```
 
@@ -59,6 +66,7 @@ make symlinks       # Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
 │       └── ubuntu.nix      # Ubuntu-specific packages
 ├── setup/
 │   ├── nix-setup.sh        # Nix installation script
+│   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
 │   ├── symlinks.sh         # Symlink secret files from Dropbox
 │   └── macos/
 │       └── defaults.sh     # macOS system defaults
@@ -77,17 +85,17 @@ make symlinks       # Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
 
 ### Package Management Design
 
-| Concern | Tool |
-|---------|------|
-| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi |
-| Packages - macOS | Homebrew + Brewfile |
-| Packages - Ubuntu/WSL | Nix + home-manager |
-| macOS system configuration | `setup/macos/defaults.sh` |
-| Secret files (~/.ssh, ~/.aws) | `setup/symlinks.sh` (Dropbox) |
+| Concern                         | Tool                          |
+| ------------------------------- | ----------------------------- |
+| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                       |
+| Packages - macOS                | Homebrew + Brewfile           |
+| Packages - Ubuntu/WSL           | Nix + home-manager            |
+| macOS system configuration      | `setup/macos/defaults.sh`     |
+| Secret files (~/.ssh, ~/.aws)   | `setup/symlinks.sh` (Dropbox) |
 
 ### Adding Packages
 
-- **macOS**: Edit `Brewfile`, run `make macos-install`
+- **macOS**: Edit `Brewfile`, run `make macos-apply`
 - **Ubuntu/WSL**: Edit `nix/packages/common.nix` (or `ubuntu.nix`), run `make nix-apply`
 
 ## Development Notes

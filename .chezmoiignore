@@ -17,6 +17,8 @@ package-lock.json
 pnpm-lock.yaml
 docs/
 erl_crash.dump
+lefthook.yml
+.secretlintrc.json
 
 # nvim auto-generated files
 .config/nvim/lazy-lock.json

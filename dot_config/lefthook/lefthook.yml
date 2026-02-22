@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    secretlint:
+      run: npx --yes --package secretlint --package @secretlint/secretlint-rule-preset-recommend -- secretlint {staged_files}
+      glob: "*.{env*,json,yml,yaml,toml,js,ts,jsx,tsx,rb,py,go,sh,bash,zsh}"

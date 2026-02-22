@@ -1,58 +1,38 @@
-.PHONY: help nix-install nix-bootstrap nix-apply nix-update macos-install macos-defaults macos-setup symlinks mise-install
+.PHONY: help setup-nix setup-macos nix-apply nix-update macos-apply macos-defaults lefthook-setup mise-install symlinks
 
 .DEFAULT_GOAL := help
 
 help:
 	@echo "Usage: make [target]"
 	@echo ""
-	@echo "Common:"
-	@echo "  symlinks       Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)"
-	@echo "  mise-install   Install language runtimes via mise (node, ruby, python, elixir...)"
+	@echo "Initial setup (run once):"
+	@echo "  setup-nix        Install Nix + home-manager + packages (requires shell restart after Nix install)"
+	@echo "  setup-macos      Install Homebrew packages + apply macOS defaults + mise runtimes"
 	@echo ""
-	@echo "macOS:"
-	@echo "  macos-install  Install Homebrew packages (brew bundle)"
-	@echo "  macos-defaults Apply macOS system defaults"
-	@echo "  macos-setup    Run all of the above (initial setup)"
+	@echo "Package changes (after editing config):"
+	@echo "  nix-apply        Apply nix/*.nix changes"
+	@echo "  nix-update       Update all Nix packages to latest versions"
+	@echo "  macos-apply      Apply Brewfile changes"
 	@echo ""
-	@echo "Nix (initial setup - run in order):"
-	@echo "  nix-install    1. Install Nix package manager (requires shell restart)"
-	@echo "  nix-bootstrap  2. Install home-manager and packages"
+	@echo "Tools and config (cross-platform):"
+	@echo "  lefthook-setup   Generate lefthook.yml and install hooks"
+	@echo "  mise-install     Install language runtimes via mise"
+	@echo "  symlinks         Symlink secret files from Dropbox"
 	@echo ""
-	@echo "Nix (daily use):"
-	@echo "  nix-apply      Apply nix/*.nix changes (install/remove packages)"
-	@echo "  nix-update     Update all packages to latest versions"
+	@echo "macOS config:"
+	@echo "  macos-defaults   Apply macOS system defaults"
 
-# Common: Symlink secret files from Dropbox
-symlinks:
-	bash ./setup/symlinks.sh
+# --- Initial setup ---
 
-# Common: Install language runtimes via mise
-mise-install:
-	time mise install
-
-# macOS: Install Homebrew packages
-macos-install:
-	time brew bundle --file=./Brewfile --verbose
-
-# macOS: Apply system defaults
-macos-defaults:
-	bash ./setup/macos/defaults.sh
-
-# macOS: Full initial setup
-macos-setup: macos-install macos-defaults mise-install
-
-# Nix: Install Nix package manager
-# Run once on fresh system, then restart shell
-nix-install:
+setup-nix:
 	./setup/nix-setup.sh
+	@echo ""
+	@echo "Restart your shell, then run: make nix-apply"
 
-# Nix: Bootstrap home-manager and install packages
-# Run once after nix-install
-nix-bootstrap:
-	time nix run nixpkgs#home-manager -- switch --flake ./nix#bob@ubuntu
+setup-macos: macos-apply macos-defaults mise-install
 
-# Nix: Apply configuration changes
-# Run after editing nix/*.nix files to install/remove packages
+# --- Package changes ---
+
 nix-apply:
 	time home-manager switch --flake ./nix#bob@ubuntu
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
@@ -62,8 +42,6 @@ nix-apply:
 		echo "flake.lock: committed"; \
 	fi
 
-# Nix: Update all packages to latest versions
-# Updates flake.lock and applies changes
 nix-update:
 	time sh -c 'cd nix && nix flake update && home-manager switch --flake .#bob@ubuntu'
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
@@ -72,3 +50,23 @@ nix-update:
 		git add nix/flake.lock && git commit -m "chore: update flake.lock" && \
 		echo "flake.lock: committed"; \
 	fi
+
+macos-apply:
+	time brew bundle --file=./Brewfile --verbose
+
+# --- Tools and config ---
+
+lefthook-setup:
+	bash ./setup/lefthook-gen.sh
+	lefthook install
+
+mise-install:
+	time mise install
+
+symlinks:
+	bash ./setup/symlinks.sh
+
+# --- macOS config ---
+
+macos-defaults:
+	bash ./setup/macos/defaults.sh
