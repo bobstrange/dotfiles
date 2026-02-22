@@ -13,6 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ludeeus/action-shellcheck@2.0.0
+        env:
+          SHELLCHECK_OPTS: "--shell=bash --external-sources"
+        with:
+          ignore_paths: dot_zsh
 
   yamllint:
     name: yamllint

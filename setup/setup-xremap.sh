@@ -19,7 +19,7 @@ mkdir -p ~/.config/xremap
 # 2. input グループに追加（必要な場合）
 if ! groups | grep -q input; then
   echo "👤 input グループに追加します..."
-  sudo usermod -aG input $USER
+  sudo usermod -aG input "$USER"
   echo "⚠️  input グループに追加しました。再ログインが必要です。"
   NEED_RELOGIN=true
 fi
