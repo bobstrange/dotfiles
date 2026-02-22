@@ -1,4 +1,7 @@
-.PHONY: help setup-nix setup-macos nix-apply nix-update macos-apply macos-defaults lefthook-setup mise-install symlinks
+.PHONY: help setup-nix setup-linux setup-macos \
+        nix-apply nix-update macos-apply \
+        lefthook-setup xremap-setup mise-install symlinks \
+        macos-defaults
 
 .DEFAULT_GOAL := help
 
@@ -6,32 +9,40 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Initial setup (run once):"
-	@echo "  setup-nix        Install Nix + home-manager + packages (requires shell restart after Nix install)"
-	@echo "  setup-macos      Install Homebrew packages + apply macOS defaults + mise runtimes"
+	@echo "  setup-nix        Install Nix package manager"
+	@echo "  setup-linux      Set up Linux development environment"
+	@echo "  setup-macos      Set up macOS development environment"
 	@echo ""
-	@echo "Package changes (after editing config):"
-	@echo "  nix-apply        Apply nix/*.nix changes"
-	@echo "  nix-update       Update all Nix packages to latest versions"
-	@echo "  macos-apply      Apply Brewfile changes"
+	@echo "Apply config changes:"
+	@echo "  nix-apply        Apply Nix package config changes"
+	@echo "  macos-apply      Apply Homebrew package config changes"
 	@echo ""
-	@echo "Tools and config (cross-platform):"
-	@echo "  lefthook-setup   Generate lefthook.yml and install hooks"
-	@echo "  mise-install     Install language runtimes via mise"
-	@echo "  symlinks         Symlink secret files from Dropbox"
+	@echo "Update packages:"
+	@echo "  nix-update       Update Nix packages to latest"
 	@echo ""
-	@echo "macOS config:"
-	@echo "  macos-defaults   Apply macOS system defaults"
+	@echo "Tools:"
+	@echo "  lefthook-setup   Set up git hooks"
+	@echo "  xremap-setup     Set up key remapper (Linux/GNOME)"
+	@echo "  mise-install     Install language runtimes"
+	@echo "  symlinks         Link secret files from Dropbox"
+	@echo "  macos-defaults   Apply macOS system preferences"
 
-# --- Initial setup ---
+# --- Initial setup (run once) ---
 
 setup-nix:
 	./setup/nix-setup.sh
 	@echo ""
-	@echo "Restart your shell, then run: make nix-apply"
+	@echo "Restart your shell, then run: make setup-linux"
+
+setup-linux: nix-apply lefthook-setup xremap-setup mise-install
+	@echo ""
+	@echo "--- Next steps ---"
+	@echo "- If added to input group: log out and back in for xremap to work"
+	@echo "- After setting up Dropbox: make symlinks"
 
 setup-macos: macos-apply macos-defaults mise-install
 
-# --- Package changes ---
+# --- Apply config changes ---
 
 nix-apply:
 	time home-manager switch --flake ./nix#bob@ubuntu
@@ -42,6 +53,11 @@ nix-apply:
 		echo "flake.lock: committed"; \
 	fi
 
+macos-apply:
+	time brew bundle --file=./Brewfile --verbose
+
+# --- Update packages ---
+
 nix-update:
 	time sh -c 'cd nix && nix flake update && home-manager switch --flake .#bob@ubuntu'
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
@@ -51,22 +67,20 @@ nix-update:
 		echo "flake.lock: committed"; \
 	fi
 
-macos-apply:
-	time brew bundle --file=./Brewfile --verbose
-
-# --- Tools and config ---
+# --- Tools ---
 
 lefthook-setup:
 	bash ./setup/lefthook-gen.sh
 	lefthook install
+
+xremap-setup:
+	bash ./setup/setup-xremap.sh
 
 mise-install:
 	time mise install
 
 symlinks:
 	bash ./setup/symlinks.sh
-
-# --- macOS config ---
 
 macos-defaults:
 	bash ./setup/macos/defaults.sh

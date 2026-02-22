@@ -14,34 +14,38 @@ Supports macOS, Ubuntu, and WSL environments.
 
 ## Key Commands
 
-### Nix Package Management (Ubuntu/WSL)
+### Initial Setup (run once)
 
 ```bash
-# Initial setup
-make setup-nix        # Install Nix (requires shell restart, then run nix-apply)
-
-# Daily use
-make nix-apply        # Apply changes after editing nix/*.nix
-make nix-update       # Update all packages to latest versions
+make setup-nix        # Install Nix package manager (requires shell restart)
+make setup-linux      # Set up Linux development environment
+make setup-macos      # Set up macOS development environment
 
 # Search packages
 nix search nixpkgs <package-name>
 ```
 
-### Homebrew (macOS)
+### Apply Config Changes
 
 ```bash
-make setup-macos    # Initial setup (brew bundle + defaults + mise runtimes)
-make macos-apply    # Apply Brewfile changes
-make macos-defaults # Apply macOS system defaults
+make nix-apply        # Apply Nix package config changes
+make macos-apply      # Apply Homebrew package config changes
 ```
 
-### Tools and Config (cross-platform)
+### Update Packages
 
 ```bash
-make lefthook-setup # Generate lefthook.yml and install hooks
-make mise-install   # Install language runtimes via mise
-make symlinks       # Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
+make nix-update       # Update Nix packages to latest
+```
+
+### Tools
+
+```bash
+make lefthook-setup   # Set up git hooks
+make xremap-setup     # Set up key remapper (Linux/GNOME)
+make mise-install     # Install language runtimes
+make symlinks         # Link secret files from Dropbox
+make macos-defaults   # Apply macOS system preferences
 ```
 
 ### Chezmoi (Dotfiles)
@@ -67,6 +71,7 @@ make symlinks       # Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
 ├── setup/
 │   ├── nix-setup.sh        # Nix installation script
 │   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
+│   ├── setup-xremap.sh     # xremap key remapper setup (Linux/GNOME)
 │   ├── symlinks.sh         # Symlink secret files from Dropbox
 │   └── macos/
 │       └── defaults.sh     # macOS system defaults

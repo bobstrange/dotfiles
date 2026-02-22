@@ -2,6 +2,9 @@
 
 # xremap サービス設定スクリプト
 # Ubuntu 24.04 GNOME Wayland 対応
+#
+# This script is idempotent — safe to run multiple times.
+# It will overwrite service/autostart files and restart the service.
 
 set -e
 
