@@ -46,6 +46,17 @@ nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
 ```
 
+### Nix vs mise
+
+| Category                | Manager                             | Examples                           |
+| ----------------------- | ----------------------------------- | ---------------------------------- |
+| CLI tools and utilities | Nix (`nix/packages.nix`)            | bun, fzf, ripgrep, jq, gh          |
+| Language runtimes       | mise (`~/.config/mise/config.toml`) | node, ruby, python, erlang, elixir |
+
+- **Nix**: Reproducible, declarative. Good for tools where exact version doesn't matter much.
+- **mise**: Tracks `latest`/`lts`, supports per-project `.mise.toml` for version switching.
+  nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 when 4.0 is out).
+
 ## Help
 
 ```bash

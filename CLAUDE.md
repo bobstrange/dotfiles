@@ -59,6 +59,16 @@ Run `make help` to see all available targets.
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
 - **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply` (or use `nix-add` shell function)
 
+### Nix vs mise: Package Management Guidelines
+
+- **Nix** (`nix/packages.nix`): CLI tools, utilities, and packages where the latest version is not critical
+  (e.g. bun, fzf, ripgrep, jq, gh, neovim)
+- **mise** (`~/.config/mise/config.toml`): Language runtimes that need version switching per project or
+  tracking `latest`/`lts` (e.g. node, ruby, python, erlang, elixir)
+
+Rationale: nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 vs 4.0), while mise provides
+flexible version management with `latest`, `lts`, and per-project `.mise.toml` overrides.
+
 ## Development Notes
 
 - `dot_*.tmpl` files are chezmoi templates (Go text/template) — edit these, not the `$HOME` targets

@@ -49,6 +49,7 @@ with pkgs; [
   mise
   uv
   luarocks
+  bun
 
   # Formatters
   dprint
