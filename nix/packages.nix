@@ -32,6 +32,7 @@ with pkgs; [
   ripgrep
   fd
   zoxide
+  atuin
 
   # Utilities
   curl

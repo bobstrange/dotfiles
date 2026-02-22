@@ -12,6 +12,9 @@ command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 # zoxide (smart cd)
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
 
+# atuin (shell history)
+command -v atuin &>/dev/null && eval "$(atuin init zsh)"
+
 # github token
 test -s ~/.github_token && source ~/.github_token
 
