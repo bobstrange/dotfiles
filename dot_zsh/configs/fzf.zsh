@@ -1,20 +1,28 @@
 # Color scheme
 # molokai https://github.com/junegunn/fzf/wiki/Color-schemes#molokai
 export FZF_DEFAULT_OPTS='
---color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
---color info:144,prompt:161,spinner:135,pointer:135,marker:118
+  --color fg:252,bg:233,hl:67,fg+:252,bg+:235,hl+:81
+  --color info:144,prompt:161,spinner:135,pointer:135,marker:118
+  --layout=reverse
+  --border=rounded
+  --info=inline
+  --preview "bat --color=always --style=numbers --line-range=:200 {}"
+  --preview-window=right:55%:wrap
+  --bind="ctrl-/:toggle-preview"
 '
-# Experimental: use rg as the default source for fzf instead of ag
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
-# To apply the command to CTRL-T and ALT-T as well
+export FZF_TMUX=1
+export FZF_TMUX_OPTS='-p 90%,90%'
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 
 # File
 edit() {
   local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  IFS=$'\n' files=($(fzf-tmux $FZF_TMUX_OPTS --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
