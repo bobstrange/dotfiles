@@ -40,6 +40,9 @@ with pkgs; [
   imagemagick      # Image conversion (SVG, HEIC, etc.)
   p7zip            # Archive preview
 
+  # Encryption
+  age
+
   # Utilities
   curl
   wget
