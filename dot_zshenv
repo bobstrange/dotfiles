@@ -23,13 +23,7 @@ export GO111MODULE=on
 export DENO_INSTALL="$HOME/.deno"
 [ -d "$DENO_INSTALL" ] && export PATH="$DENO_INSTALL/bin:$PATH"
 
-# Bun
-export BUN_INSTALL="$HOME/.bun"
-[ -d "$BUN_INSTALL" ] && export PATH="$BUN_INSTALL/bin:$PATH"
 
-# Volta (Node.js version manager)
-export VOLTA_HOME="$HOME/.volta"
-[ -d "$VOLTA_HOME" ] && export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Nix package manager (environment setup)
 # Note: PATH priority is ensured in dot_zshrc (loaded last)
