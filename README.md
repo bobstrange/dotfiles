@@ -8,10 +8,37 @@
 ## Tools
 
 - **[chezmoi](https://www.chezmoi.io/)**: Dotfile management
+- **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
 - **[Nix Flakes](https://nixos.wiki/wiki/Flakes) + [home-manager](https://github.com/nix-community/home-manager)**: Package management (Ubuntu/WSL)
-- **[Ansible](https://www.ansible.com/)**: Legacy package management (macOS)
 
 ## Usage
+
+### macOS (Homebrew)
+
+```bash
+# Clone repo
+git clone https://github.com/bob1983/dotfiles ~/dotfiles
+cd ~/dotfiles
+
+# 1. Initial setup (brew bundle + macOS defaults)
+make macos-setup
+
+# 2. Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
+make symlinks
+
+# 3. Apply dotfiles
+chezmoi apply
+```
+
+#### Daily Operations
+
+```bash
+# Install/update packages
+make macos-install
+
+# Apply macOS system defaults
+make macos-defaults
+```
 
 ### Ubuntu/WSL (Nix)
 
@@ -49,39 +76,8 @@ nix search nixpkgs <package-name>
 home-manager rollback
 ```
 
-### macOS (Ansible - Legacy)
-
-```bash
-# Clone repo
-git clone https://github.com/bob1983/dotfiles ~/dotfiles
-cd ~/dotfiles
-
-# Run setup script
-./setup/setup.sh osx
-```
-
-Or run Ansible manually:
-
-```bash
-cd setup/ansible
-
-ansible-playbook \
-  -i inventory/hosts.yml \
-  playbooks/setup.yml \
-  --limit osx \
-  --ask-become \
-  -v
-```
-
 ## Help
 
 ```bash
 make help
 ```
-
-## Note
-
-### Ulauncher
-
-I configured hotkey to Alt + Space as Ctrl + Space is used for intellisense
-
