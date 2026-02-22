@@ -61,16 +61,16 @@ docs() {
       echo "  investigations   Browse docs/investigations/"
       echo "  runbooks         Browse docs/runbooks/"
       echo "  plans            Browse docs/plans/"
-      echo "  cleanups         Browse docs/cleanup/"
-      echo "  ideas            Browse docs/idea/"
+      echo "  cleanups         Browse docs/cleanups/"
+      echo "  ideas            Browse docs/ideas/"
       echo "  help             Show this help"
       return 0
       ;;
     investigations) _browse_docs investigations ;;
     runbooks)       _browse_docs runbooks ;;
     plans)          _browse_docs plans ;;
-    cleanups)       _browse_docs cleanup ;;
-    ideas)          _browse_docs idea ;;
+    cleanups)       _browse_docs cleanups ;;
+    ideas)          _browse_docs ideas ;;
     *)
       echo "Unknown command: $1" >&2
       docs --help >&2
@@ -85,8 +85,8 @@ _docs() {
     'investigations:Browse docs/investigations/'
     'runbooks:Browse docs/runbooks/'
     'plans:Browse docs/plans/'
-    'cleanups:Browse docs/cleanup/'
-    'ideas:Browse docs/idea/'
+    'cleanups:Browse docs/cleanups/'
+    'ideas:Browse docs/ideas/'
     'help:Show help'
   )
   _describe 'command' subcommands
@@ -97,5 +97,5 @@ compdef _docs docs
 investigations() { _browse_docs investigations; }
 runbooks()       { _browse_docs runbooks; }
 plans()          { _browse_docs plans; }
-cleanups()       { _browse_docs cleanup; }
-ideas()          { _browse_docs idea; }
+cleanups()       { _browse_docs cleanups; }
+ideas()          { _browse_docs ideas; }
