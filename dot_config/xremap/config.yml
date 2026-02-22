@@ -1,5 +1,4 @@
 # xremap configuration file
-# Based on xkeysnail config.py
 # Without virtual_modifiers for stability
 
 # Modifier remapping - Capslock to Left Ctrl
