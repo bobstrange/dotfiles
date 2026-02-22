@@ -10,6 +10,7 @@ with pkgs; [
   ghostty
   nixgl.nixGLIntel
   sheldon
+  shellcheck
 
   # Editors
   neovim
