@@ -65,6 +65,9 @@ with pkgs; [
 
   # Database
   clickhouse
+  pgcli
+  pg_activity
+  pgformatter
 
   # Clipboard (X11)
   xclip
