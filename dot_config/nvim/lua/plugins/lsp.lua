@@ -37,7 +37,16 @@ return { -- LSPの追加設定（LazyVimのデフォルトを拡張）
                     }
                 }
             },
-            elixirls = {},
+            elixirls = {
+                cmd_env = {
+                    GOOGLE_APPLICATION_CREDENTIALS = vim.fn.expand("~/.config/gcloud/application_default_credentials.json"),
+                },
+                settings = {
+                    elixirLS = {
+                        dialyzerEnabled = false,
+                    }
+                }
+            },
             sqls = {},
             lua_ls = {
                 settings = {
