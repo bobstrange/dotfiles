@@ -14,3 +14,9 @@ nix-apply() {
 nix-update() {
   make -C "${CHEZMOI_DIR}" nix-update
 }
+
+nix-search() {
+  nix search nixpkgs "$@" 2>&1 \
+    | grep -v "^evaluation warning:" \
+    | awk '/^\* / { skip = /\.(tests|haskellPackages|vimPlugins|vscode-extensions)\./ } !skip'
+}
