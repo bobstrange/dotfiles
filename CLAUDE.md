@@ -109,4 +109,4 @@ make macos-defaults   # Apply macOS system preferences
 - Rollback: `home-manager rollback`
 - Configuration is modular - individual components can be modified without affecting others
 - Shell functions and aliases are organized by platform in `dot_zsh/configs/`
-- See `docs/2026-01-12_nix-migration.md` for detailed migration documentation
+- See `docs/` for setup and migration notes

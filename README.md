@@ -17,11 +17,11 @@
 
 ```bash
 # Clone repo
-git clone https://github.com/bob1983/dotfiles ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/bobstrange/dotfiles ~/.local/share/chezmoi
+cd ~/.local/share/chezmoi
 
-# 1. Initial setup (brew bundle + macOS defaults)
-make macos-setup
+# 1. Initial setup (brew bundle + macOS defaults + mise runtimes)
+make setup-macos
 
 # 2. Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
 make symlinks
@@ -33,8 +33,8 @@ chezmoi apply
 #### Daily Operations
 
 ```bash
-# Install/update packages
-make macos-install
+# Apply Brewfile changes
+make macos-apply
 
 # Apply macOS system defaults
 make macos-defaults
@@ -44,20 +44,17 @@ make macos-defaults
 
 ```bash
 # Clone repo
-git clone https://github.com/bob1983/dotfiles ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/bobstrange/dotfiles ~/.local/share/chezmoi
+cd ~/.local/share/chezmoi
 
 # 1. Install Nix
-make nix-install
+make setup-nix
 
 # 2. Restart shell
 exec $SHELL
 
-# 3. Install packages
-make nix-bootstrap
-
-# 4. Apply dotfiles
-chezmoi apply
+# 3. Set up Linux environment (nix-apply + lefthook + xremap + mise)
+make setup-linux
 ```
 
 #### Daily Operations
