@@ -1,0 +1,7 @@
+Include config.d/*.conf
+
+Host *
+    StrictHostKeyChecking accept-new
+    # Send keepalive every 60s, disconnect after 3 failed attempts (~3min)
+    ServerAliveInterval 60
+    ServerAliveCountMax 3

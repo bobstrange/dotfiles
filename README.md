@@ -57,6 +57,21 @@ home-manager rollback              # Rollback to previous generation
 - **mise**: Tracks `latest`/`lts`, supports per-project `.mise.toml` for version switching.
   nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 when 4.0 is out).
 
+## Encrypted Files (age)
+
+Some files (e.g. `~/.ssh/config.d/work.conf`) are encrypted with [age](https://github.com/FiloSottile/age).
+
+Before running `chezmoi apply` on a new machine, restore the age key from 1Password:
+
+```bash
+mkdir -p ~/.config/chezmoi
+# Paste the age key from 1Password into key.txt
+vim ~/.config/chezmoi/key.txt
+chmod 600 ~/.config/chezmoi/key.txt
+```
+
+Without this key, `chezmoi apply` will fail on encrypted files.
+
 ## Help
 
 ```bash

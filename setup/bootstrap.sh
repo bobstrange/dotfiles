@@ -57,15 +57,24 @@ if [ "$PLATFORM" = "macos" ]; then
   info "Running make setup-macos..."
   make setup-macos
 
-  info "Applying dotfiles..."
-  "$CHEZMOI_BIN" apply
+  if [ ! -f "$HOME/.config/chezmoi/key.txt" ]; then
+    info "WARNING: age key not found at ~/.config/chezmoi/key.txt"
+    info "Encrypted files (e.g. SSH config) will be skipped."
+    info "Restore the key from 1Password, then run: chezmoi apply"
+    "$CHEZMOI_BIN" apply --exclude=encrypted
+  else
+    info "Applying dotfiles..."
+    "$CHEZMOI_BIN" apply
+  fi
 
   echo ""
   info "Setup complete!"
   echo ""
   echo "Next steps:"
   echo "  1. Restart your shell"
-  echo "  2. After setting up Dropbox: make symlinks"
+  echo "  2. Restore age key from 1Password: mkdir -p ~/.config/chezmoi && vim ~/.config/chezmoi/key.txt"
+  echo "  3. Run 'chezmoi apply' to decrypt encrypted files"
+  echo "  4. After setting up Dropbox: make symlinks"
 
 elif [ "$PLATFORM" = "linux" ]; then
   info "Running make setup-nix..."
@@ -80,14 +89,23 @@ elif [ "$PLATFORM" = "linux" ]; then
   info "Running make setup-linux..."
   make setup-linux
 
-  info "Applying dotfiles..."
-  "$CHEZMOI_BIN" apply
+  if [ ! -f "$HOME/.config/chezmoi/key.txt" ]; then
+    info "WARNING: age key not found at ~/.config/chezmoi/key.txt"
+    info "Encrypted files (e.g. SSH config) will be skipped."
+    info "Restore the key from 1Password, then run: chezmoi apply"
+    "$CHEZMOI_BIN" apply --exclude=encrypted
+  else
+    info "Applying dotfiles..."
+    "$CHEZMOI_BIN" apply
+  fi
 
   echo ""
   info "Setup complete!"
   echo ""
   echo "Next steps:"
-  echo "  1. If added to input group: log out and back in for xremap to work"
-  echo "  2. After setting up Dropbox: make symlinks"
-  echo "  3. Restart your shell"
+  echo "  1. Restore age key from 1Password: mkdir -p ~/.config/chezmoi && vim ~/.config/chezmoi/key.txt"
+  echo "  2. Run 'chezmoi apply' to decrypt encrypted files"
+  echo "  3. If added to input group: log out and back in for xremap to work"
+  echo "  4. After setting up Dropbox: make symlinks"
+  echo "  5. Restart your shell"
 fi
