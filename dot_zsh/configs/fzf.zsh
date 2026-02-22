@@ -9,10 +9,8 @@ export FZF_DEFAULT_OPTS='
   --preview "bat --color=always --style=numbers --line-range=:200 {}"
   --preview-window=right:55%:wrap
   --bind="ctrl-/:toggle-preview"
+  --tmux center,90%
 '
-
-export FZF_TMUX=1
-export FZF_TMUX_OPTS='-p 90%,90%'
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -22,7 +20,7 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 # File
 edit() {
   local files
-  IFS=$'\n' files=($(fzf-tmux $FZF_TMUX_OPTS --query="$1" --multi --select-1 --exit-0))
+  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
