@@ -14,46 +14,7 @@ Supports macOS, Ubuntu, and WSL environments.
 
 ## Key Commands
 
-### Initial Setup (run once)
-
-```bash
-make setup-nix        # Install Nix package manager (requires shell restart)
-make setup-linux      # Set up Linux development environment
-make setup-macos      # Set up macOS development environment
-
-# Search packages
-nix search nixpkgs <package-name>
-```
-
-### Apply Config Changes
-
-```bash
-make nix-apply        # Apply Nix package config changes
-make macos-apply      # Apply Homebrew package config changes
-```
-
-### Update Packages
-
-```bash
-make nix-update       # Update Nix packages to latest
-```
-
-### Tools
-
-```bash
-make lefthook-setup   # Set up git hooks
-make xremap-setup     # Set up key remapper (Linux/GNOME)
-make mise-install     # Install language runtimes
-make symlinks         # Link secret files from Dropbox
-make macos-defaults   # Apply macOS system preferences
-```
-
-### Chezmoi (Dotfiles)
-
-- Apply changes: `chezmoi apply`
-- Check differences: `chezmoi diff`
-- Edit files: `chezmoi edit <file>`
-- Add new files: `chezmoi add <file>`
+Run `make help` to see all available targets.
 
 ## Architecture
 
@@ -81,23 +42,16 @@ make macos-defaults   # Apply macOS system preferences
 └── Makefile                # Build targets
 ```
 
-### Key Components
+### Responsibility Matrix
 
-- **Homebrew + Brewfile** manage macOS packages declaratively
-- **Nix Flakes** (`nix/`) handle declarative package management with lockfile (Ubuntu/WSL)
-- **home-manager** manages packages only (`home.file = { }` leaves dotfiles to chezmoi)
-- **chezmoi** manages all dotfiles (shell configs, editor configs, etc.)
-- **Shell configuration** split across `dot_zsh/` with modular configs and functions
-
-### Package Management Design
-
-| Concern                         | Tool                          |
-| ------------------------------- | ----------------------------- |
-| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                       |
-| Packages - macOS                | Homebrew + Brewfile           |
-| Packages - Ubuntu/WSL           | Nix + home-manager            |
-| macOS system configuration      | `setup/macos/defaults.sh`     |
-| Secret files (~/.ssh, ~/.aws)   | `setup/symlinks.sh` (Dropbox) |
+| Concern                         | Tool                                                  |
+| ------------------------------- | ----------------------------------------------------- |
+| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                               |
+| Packages - macOS                | Homebrew + Brewfile                                   |
+| Packages - Ubuntu/WSL           | Nix + home-manager (packages only; `home.file = { }`) |
+| Shell configuration             | `dot_zsh/configs/` (modular by platform)              |
+| macOS system configuration      | `setup/macos/defaults.sh`                             |
+| Secret files (~/.ssh, ~/.aws)   | `setup/symlinks.sh` (Dropbox)                         |
 
 ### Adding Packages
 
@@ -106,8 +60,8 @@ make macos-defaults   # Apply macOS system preferences
 
 ## Development Notes
 
+- `dot_*.tmpl` files are chezmoi templates (Go text/template) — edit these, not the `$HOME` targets
 - Nix provides reproducible builds via `flake.lock`
 - Rollback: `home-manager rollback`
 - Configuration is modular - individual components can be modified without affecting others
-- Shell functions and aliases are organized by platform in `dot_zsh/configs/`
 - See `docs/` for setup and migration notes
