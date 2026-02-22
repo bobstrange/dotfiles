@@ -34,6 +34,12 @@ with pkgs; [
   zoxide
   atuin
 
+  # File manager
+  yazi
+  poppler-utils    # PDF text preview
+  imagemagick      # Image conversion (SVG, HEIC, etc.)
+  p7zip            # Archive preview
+
   # Utilities
   curl
   wget
