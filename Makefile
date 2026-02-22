@@ -45,7 +45,12 @@ setup-macos: macos-apply macos-defaults mise-install
 # --- Apply config changes ---
 
 nix-apply:
-	time home-manager switch --flake ./nix#bob@ubuntu
+	@if command -v home-manager >/dev/null 2>&1; then \
+		time home-manager switch --flake ./nix#bob@ubuntu; \
+	else \
+		echo "home-manager not found, bootstrapping via nix run..."; \
+		time nix run home-manager/master -- switch --flake ./nix#bob@ubuntu; \
+	fi
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
 		echo "flake.lock: no changes"; \
 	else \

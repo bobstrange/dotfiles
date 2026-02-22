@@ -11,66 +11,36 @@
 - **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
 - **[Nix Flakes](https://nixos.wiki/wiki/Flakes) + [home-manager](https://github.com/nix-community/home-manager)**: Package management (Ubuntu/WSL)
 
-## Usage
+## Setup
 
-### macOS (Homebrew)
+Run this on a fresh machine (macOS or Linux/WSL):
 
 ```bash
-# Clone repo
-git clone https://github.com/bobstrange/dotfiles ~/.local/share/chezmoi
-cd ~/.local/share/chezmoi
-
-# 1. Initial setup (brew bundle + macOS defaults + mise runtimes)
-make setup-macos
-
-# 2. Symlink secret files from Dropbox (~/.ssh, ~/.aws, tokens)
-make symlinks
-
-# 3. Apply dotfiles
-chezmoi apply
+curl -fsLS https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/bootstrap.sh | bash
 ```
 
-#### Daily Operations
+This will:
+
+1. Install chezmoi and clone this repo
+2. Install packages (Homebrew on macOS, Nix on Linux)
+3. Apply dotfiles
+
+### Daily Operations
+
+#### macOS
 
 ```bash
-# Apply Brewfile changes
-make macos-apply
-
-# Apply macOS system defaults
-make macos-defaults
+make macos-apply      # Apply Brewfile changes
+make macos-defaults   # Apply macOS system defaults
 ```
 
-### Ubuntu/WSL (Nix)
+#### Ubuntu/WSL
 
 ```bash
-# Clone repo
-git clone https://github.com/bobstrange/dotfiles ~/.local/share/chezmoi
-cd ~/.local/share/chezmoi
-
-# 1. Install Nix
-make setup-nix
-
-# 2. Restart shell
-exec $SHELL
-
-# 3. Set up Linux environment (nix-apply + lefthook + xremap + mise)
-make setup-linux
-```
-
-#### Daily Operations
-
-```bash
-# After editing nix/*.nix files
-make nix-apply
-
-# Update all packages to latest
-make nix-update
-
-# Search for packages
-nix search nixpkgs <package-name>
-
-# Rollback to previous generation
-home-manager rollback
+make nix-apply        # After editing nix/*.nix files
+make nix-update       # Update all packages to latest
+nix search nixpkgs <package-name>  # Search for packages
+home-manager rollback              # Rollback to previous generation
 ```
 
 ## Help

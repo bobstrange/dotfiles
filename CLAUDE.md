@@ -69,6 +69,7 @@ make macos-defaults   # Apply macOS system preferences
 │       ├── common.nix      # Cross-platform packages
 │       └── ubuntu.nix      # Ubuntu-specific packages
 ├── setup/
+│   ├── bootstrap.sh        # One-liner bootstrap for fresh machines
 │   ├── nix-setup.sh        # Nix installation script
 │   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
 │   ├── setup-xremap.sh     # xremap key remapper setup (Linux/GNOME)
