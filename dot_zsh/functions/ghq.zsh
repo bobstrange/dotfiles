@@ -12,12 +12,13 @@ ghq-look() {
   if [ -n "$src" ]; then
     BUFFER="cd $(ghq root)/$src"
     zle accept-line
+  else
+    zle reset-prompt
   fi
-
-  zle clear-screen
 }
 
 zle -N ghq-look
-# ^@ binds '^ ' to ghq-look so stop using it
-# bindkey "^@" ghq-look # ctrl @
-bindkey "^z" ghq-look # ctrl z
+# ^@ (Ctrl+Space) conflicts with ibus IME trigger in GTK apps,
+# but in terminal emulators (Ghostty) the terminal captures the key first,
+# so no conflict occurs. Restored from ^z to ^@.
+bindkey "^@" ghq-look # ctrl+space
