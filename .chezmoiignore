@@ -17,3 +17,8 @@ package-lock.json
 pnpm-lock.yaml
 docs/
 erl_crash.dump
+
+# nvim auto-generated files
+.config/nvim/lazy-lock.json
+.config/nvim/lazyvim.json
+.config/nvim/lua/plugins/example.lua
