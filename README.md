@@ -9,7 +9,10 @@
 
 - **[chezmoi](https://www.chezmoi.io/)**: Dotfile management
 - **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
-- **[Nix Flakes](https://nixos.wiki/wiki/Flakes) + [home-manager](https://github.com/nix-community/home-manager)**: Package management (Ubuntu/WSL)
+- **[Nix Flakes][nix] + [home-manager][hm]**: Package management (Ubuntu/WSL)
+
+[nix]: https://nixos.wiki/wiki/Flakes
+[hm]: https://github.com/nix-community/home-manager
 
 ## Setup
 
