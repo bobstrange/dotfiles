@@ -1,8 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  commonPackages = import ./packages/common.nix { inherit pkgs; };
-  ubuntuPackages = import ./packages/ubuntu.nix { inherit pkgs; };
+  packages = import ./packages/packages.nix { inherit pkgs; };
 in
 {
   # home-manager version compatibility
@@ -19,7 +18,7 @@ in
   home.file = { };
 
   # Package installation only
-  home.packages = commonPackages ++ ubuntuPackages;
+  home.packages = packages;
 
   # Add paths for user-installed binaries
   home.sessionPath = [

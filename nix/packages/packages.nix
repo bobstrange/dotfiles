@@ -1,4 +1,4 @@
-# Common packages installed on all platforms
+# Nix packages for Linux/WSL
 { pkgs }:
 
 with pkgs; [
@@ -22,6 +22,7 @@ with pkgs; [
   delta
   lefthook
   gh
+  ghq
 
   # Search and navigation
   fzf
@@ -53,4 +54,7 @@ with pkgs; [
 
   # Database
   clickhouse
+
+  # Clipboard (X11)
+  xclip
 ]
