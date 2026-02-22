@@ -31,6 +31,7 @@ with pkgs; [
   eza
   ripgrep
   fd
+  zoxide
 
   # Utilities
   curl

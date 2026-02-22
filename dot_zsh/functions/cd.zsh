@@ -1,17 +1,11 @@
-# Override default cd behavior for git root
-function cd() {
-  # Call builtin cd when passed args
-  if [ $# -gt 0 ]; then
-    builtin cd "$@"
-    return
-  fi
-
-  # Go to git root when you're in the git repository
-  local gitroot=`git rev-parse --show-toplevel 2>/dev/null`
-  if [ ! "$gitroot" = "" ]; then
+# Go to git repository root
+function cdr() {
+  local gitroot
+  gitroot=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [ -n "$gitroot" ]; then
     builtin cd "$gitroot"
-    return
+  else
+    echo "Not in a git repository" >&2
+    return 1
   fi
-
-  builtin cd
 }
