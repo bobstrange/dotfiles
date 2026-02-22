@@ -20,15 +20,14 @@ Run `make help` to see all available targets.
 
 ### File Structure
 
-```
+```text
 ~/.local/share/chezmoi/
 ├── nix/                    # Nix package management (Ubuntu/WSL)
 │   ├── flake.nix           # Flake definition (inputs, outputs)
 │   ├── flake.lock          # Version lockfile (auto-generated)
 │   ├── home.nix            # home-manager config
 │   └── packages/
-│       ├── common.nix      # Cross-platform packages
-│       └── ubuntu.nix      # Ubuntu-specific packages
+│       └── packages.nix    # All packages (Linux/WSL)
 ├── setup/
 │   ├── bootstrap.sh        # One-liner bootstrap for fresh machines
 │   ├── nix-setup.sh        # Nix installation script
@@ -56,7 +55,7 @@ Run `make help` to see all available targets.
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
-- **Ubuntu/WSL**: Edit `nix/packages/common.nix` (or `ubuntu.nix`), run `make nix-apply`
+- **Ubuntu/WSL**: Edit `nix/packages/packages.nix`, run `make nix-apply` (or use `nix-add` shell function)
 
 ## Development Notes
 

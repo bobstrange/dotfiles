@@ -1,23 +1,47 @@
-name: Ansible Lint
+---
+name: Lint
 
 on:
   push:
-    branches:
-      - '**'
+    branches: [main]
   pull_request:
-    paths:
-      - 'setup/ansible/**'
 
 jobs:
-  build:
-    name: Ansible Lint
+  shellcheck:
+    name: ShellCheck
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Run ansible-lint
-        uses: ansible/ansible-lint@main
+      - uses: ludeeus/action-shellcheck@v2
+
+  yamllint:
+    name: yamllint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ibiqlik/action-yamllint@v3
+
+  markdownlint:
+    name: markdownlint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v19
+
+  secretlint:
+    name: secretlint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          args: ""
-          setup_python: "true"
-          working_directory: "setup/ansible/"
-          requirements_file: ""
+          node-version: "22"
+      - run: npm install --no-save secretlint @secretlint/secretlint-rule-preset-recommend
+      - run: npx secretlint "**/*"
+
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: raven-actions/actionlint@v2

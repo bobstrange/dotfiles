@@ -1,3 +1,4 @@
+---
 # xremap configuration file
 # Without virtual_modifiers for stability
 
@@ -24,7 +25,7 @@ keymap:
         - gnome-terminal-server
         - com.mitchellh.ghostty
         - Code
-        - code # since 1.107.0 Ubuntu?
+        - code  # since 1.107.0 Ubuntu?
     remap:
       # Cursor movement
       Ctrl-b: left
@@ -48,7 +49,7 @@ keymap:
       # Alt to Ctrl mappings (Command-like behavior)
       Alt-a: Ctrl-a        # Select all
       Alt-c: Ctrl-c        # Copy
-      Alt-f: Ctrl-f        # Find
+      # Alt-f is used for word movement (Ctrl-right) above
       Alt-l: Ctrl-l        # Location/address bar
       Alt-n: Ctrl-n        # New
       Alt-t: Ctrl-t        # New tab
