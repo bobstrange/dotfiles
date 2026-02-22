@@ -65,6 +65,7 @@ mymemo.md
 # Python
 __pycache__/
 
-# claude
+# AI agent local settings
 .claude/settings.local.json
+.agent/settings.local.json
 
