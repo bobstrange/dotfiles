@@ -59,5 +59,14 @@ keybind = alt+zero=reset_font_size
 # Sending \n\n: first triggers prefix, second triggers send-prefix → pane receives 0x0A.
 keybind = ctrl+enter=text:\n\n
 
-# GTK single instance
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: launch zsh directly to bypass /usr/bin/login wrapper
+# Without this, tmux fails with "open terminal failed: not a terminal"
+# because macOS wraps the shell in: /usr/bin/login -flp user /bin/bash --noprofile --norc -c exec -l /bin/zsh
+command = /opt/homebrew/bin/zsh -l
+{{ end -}}
+
+# GTK single instance (Linux only)
+{{ if ne .chezmoi.os "darwin" -}}
 gtk-single-instance = true
+{{ end -}}
