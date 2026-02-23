@@ -68,4 +68,5 @@ __pycache__/
 # AI agent local settings
 .claude/settings.local.json
 .agent/settings.local.json
+.agent/handoffs/
 
