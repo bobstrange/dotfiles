@@ -59,5 +59,12 @@ for zsh_source in $HOME/.zsh/functions/*.zsh; do
   source $zsh_source
 done
 
+{{ if eq .chezmoi.os "linux" -}}
+# Load linux-specific functions
+for zsh_source in $HOME/.zsh/functions/linux/*.zsh; do
+  source $zsh_source
+done
+{{ end -}}
+
 # Ensure nix-installed tools take priority (must be last)
 [ -d "$HOME/.nix-profile/bin" ] && export PATH="$HOME/.nix-profile/bin:$PATH"
