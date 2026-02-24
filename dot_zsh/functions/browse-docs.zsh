@@ -38,11 +38,11 @@ _browse_docs() {
       }' |
       fzf \
         --layout=reverse \
-        --tmux center,80%,70% \
+        --tmux center,95%,85% \
         --with-nth=1 \
         --delimiter=$'\t' \
         --preview 'bat --color=always --style=header,grid --line-range :80 {2}' \
-        --preview-window='right:60%:wrap' \
+        --preview-window='right:50%:wrap' \
         --header="${header}"
   )
 
