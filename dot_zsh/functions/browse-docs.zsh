@@ -15,20 +15,31 @@ _browse_docs() {
   local selected
   selected=$(
     # Collect *.md files from docs/<subdir>/ in each repo
+    # Sort key: filename date prefix (yyyy-mm-dd) if present, else mtime as date
+    zmodload -F zsh/stat b:zstat 2>/dev/null
     ghq list |
       while IFS= read -r repo; do
-        local dir="${ghq_root}/${repo}/docs/${subdir}"
+        dir="${ghq_root}/${repo}/docs/${subdir}"
         if [[ -d "$dir" ]]; then
-          find "$dir" -type f -name '*.md' |
+          fd -t f -e md . "$dir" |
             while IFS= read -r f; do
-              local name="${f#"${dir}/"}"
-              # Output: <repo-short-name>\t<filename>\t<full-path>
-              echo "${repo##*/}	${name}	${f}"
+              name="${f#"${dir}/"}"
+              base="${name##*/}"
+              if [[ "$base" =~ ^([0-9]{4}-[0-9]{2}-[0-9]{2}) ]]; then
+                sort_key="${match[1]}"
+              else
+                # Fallback: mtime formatted as yyyy-mm-dd
+                sort_key=$(zstat -F '%Y-%m-%d' +mtime "$f")
+              fi
+              # Output: <sort_key>\t<repo-short-name>\t<filename>\t<full-path>
+              echo "${sort_key}	${repo##*/}	${name}	${f}"
             done
         fi
       done |
-      # Sort by repo then filename so grouping works correctly
-      sort -t$'\t' -k1,1 -k2,2 |
+      # Sort by date descending (newest first)
+      sort -t$'\t' -k1,1r |
+      # Drop the sort key column
+      cut -f2- |
       # Pad repo name to fixed width (20 chars) and deduplicate consecutive names
       awk -F'\t' -v width=20 '{
         repo = substr($1, 1, width)
