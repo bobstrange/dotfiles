@@ -1,3 +1,42 @@
+# Collect *.md files from docs/<subdir>/ in each ghq repo with sort keys.
+# Output: <sort_key>\t<repo-short-name>\t<filename>\t<full-path> (TSV)
+_browse_docs_collect() {
+  local ghq_root="$1" subdir="$2"
+
+  zmodload -F zsh/stat b:zstat 2>/dev/null
+  ghq list |
+    while IFS= read -r repo; do
+      dir="${ghq_root}/${repo}/docs/${subdir}"
+      if [[ -d "$dir" ]]; then
+        fd -t f -e md . "$dir" |
+          while IFS= read -r f; do
+            name="${f#"${dir}/"}"
+            base="${name##*/}"
+            if [[ "$base" =~ ^([0-9]{4}-[0-9]{2}-[0-9]{2}) ]]; then
+              sort_key="${match[1]}"
+            else
+              sort_key=$(zstat -F '%Y-%m-%d' +mtime "$f")
+            fi
+            echo "${sort_key}	${repo##*/}	${name}	${f}"
+          done
+      fi
+    done
+}
+
+# Sort by date descending, drop sort key, pad repo name to fixed width.
+# Input:  <sort_key>\t<repo-short-name>\t<filename>\t<full-path>
+# Output: <display>\t<full-path> (for fzf)
+_browse_docs_format() {
+  sort -t$'\t' -k1,1r |
+    cut -f2- |
+    awk -F'\t' -v width=20 '{
+      repo = substr($1, 1, width)
+      if (repo == prev) display = sprintf("%-*s %s", width, "", $2)
+      else { prev = repo; display = sprintf("%-*s %s", width, repo, $2) }
+      print display "\t" $3
+    }'
+}
+
 # Browse docs/<subdir>/ files across ghq-managed repos with fzf.
 # Files are grouped by repo name; consecutive entries from the same repo
 # show the repo name only on the first line.
@@ -14,39 +53,8 @@ _browse_docs() {
 
   local selected
   selected=$(
-    # Collect *.md files from docs/<subdir>/ in each repo
-    # Sort key: filename date prefix (yyyy-mm-dd) if present, else mtime as date
-    zmodload -F zsh/stat b:zstat 2>/dev/null
-    ghq list |
-      while IFS= read -r repo; do
-        dir="${ghq_root}/${repo}/docs/${subdir}"
-        if [[ -d "$dir" ]]; then
-          fd -t f -e md . "$dir" |
-            while IFS= read -r f; do
-              name="${f#"${dir}/"}"
-              base="${name##*/}"
-              if [[ "$base" =~ ^([0-9]{4}-[0-9]{2}-[0-9]{2}) ]]; then
-                sort_key="${match[1]}"
-              else
-                # Fallback: mtime formatted as yyyy-mm-dd
-                sort_key=$(zstat -F '%Y-%m-%d' +mtime "$f")
-              fi
-              # Output: <sort_key>\t<repo-short-name>\t<filename>\t<full-path>
-              echo "${sort_key}	${repo##*/}	${name}	${f}"
-            done
-        fi
-      done |
-      # Sort by date descending (newest first)
-      sort -t$'\t' -k1,1r |
-      # Drop the sort key column
-      cut -f2- |
-      # Pad repo name to fixed width (20 chars) and deduplicate consecutive names
-      awk -F'\t' -v width=20 '{
-        repo = substr($1, 1, width)
-        if (repo == prev) display = sprintf("%-*s %s", width, "", $2)
-        else { prev = repo; display = sprintf("%-*s %s", width, repo, $2) }
-        print display "\t" $3
-      }' |
+    _browse_docs_collect "$ghq_root" "$subdir" |
+      _browse_docs_format |
       fzf \
         --layout=reverse \
         --tmux center,95%,85% \
