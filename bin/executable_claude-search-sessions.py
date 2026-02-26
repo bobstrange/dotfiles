@@ -23,6 +23,7 @@ PROJECTS_DIR = os.path.expanduser("~/.claude/projects")
 GREEN = "\033[32m"
 CYAN = "\033[36m"
 DIM = "\033[2m"
+YELLOW_BG = "\033[30;43m"
 RESET = "\033[0m"
 
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
@@ -133,6 +134,14 @@ def parse_history(query=None, cwd=None):
             print(f"{DIM}{line}{RESET}")
 
 
+def _highlight(text, query):
+    """Highlight all case-insensitive occurrences of query in text."""
+    if not query:
+        return text
+    pattern = re.compile(re.escape(query), re.IGNORECASE)
+    return pattern.sub(lambda m: f"{YELLOW_BG}{m.group()}{RESET}", text)
+
+
 def _extract_text_blocks(message):
     """Yield (role, text) pairs from a message's content field."""
     role = message.get("role", "")
@@ -160,7 +169,8 @@ def _extract_content_snippets(session_file, query, max_lines=10):
                 for role, text in _extract_text_blocks(obj.get("message", {})):
                     if query_lower in text.lower():
                         truncated = text.replace("\n", " ")[:120]
-                        snippets.append(f"  {DIM}[{role}]{RESET} {truncated}")
+                        highlighted = _highlight(truncated, query)
+                        snippets.append(f"  {DIM}[{role}]{RESET} {highlighted}")
                         if len(snippets) >= max_lines:
                             return snippets
     except OSError:
@@ -187,7 +197,7 @@ def show_session_prompts(session_id, query=None):
         ts = datetime.fromtimestamp(timestamp / 1000, tz=LOCAL_TZ)
         date_str = ts.strftime("%m-%d %H:%M")
         text = obj.get("display", "").replace("\n", " ")[:120]
-        print(f"  {date_str}  {text}")
+        print(f"  {date_str}  {_highlight(text, query)}")
 
     # Show content matches if query provided
     if query:

@@ -1,7 +1,7 @@
 # Claude Code session search & resume with fzf
 # Usage: csr [query]
 
-_CLAUDE_SESSION_SCRIPT="$HOME/.local/bin/claude-search-sessions.py"
+_CLAUDE_SESSION_SCRIPT="$HOME/bin/claude-search-sessions.py"
 
 csr() {
   local missing=()
