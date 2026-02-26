@@ -18,6 +18,37 @@ keymap:
       Alt-Shift-l: Super-right     # ウィンドウを右に寄せる
       Alt-Shift-m: Super-up        # ウィンドウを最大化/もとに戻す (トグル)
 
+  # Chrome specific keybindings
+  # NOTE: This section must come BEFORE "Emacs like" so Chrome-specific
+  # remaps (e.g. Alt-f → Ctrl-f) take priority over Emacs word movement.
+  - name: "Chrome keys"
+    application:
+      only:
+        - google-chrome
+    remap:
+      # Find (override Emacs Alt-f word movement)
+      Alt-f: Ctrl-f
+
+      # Re-open closed tab
+      Alt-Shift-t: Ctrl-Shift-t
+
+      # Tab navigation
+      Alt-Tab: Ctrl-Tab                        # 次のタブ
+      Alt-Shift-Tab: Ctrl-Shift-Tab            # 前のタブ
+
+      # 日本語キーボード用のタブ移動
+      # { キー = rightbrace, } キー = backslash
+      Alt-Shift-rightbrace: Ctrl-Shift-Tab     # 前のタブ（{キー）
+      Alt-Shift-backslash: Ctrl-Tab            # 次のタブ（}キー）
+
+      # Reload
+      Alt-r: Ctrl-r
+      Alt-Shift-r: Ctrl-Shift-r  # Hard reload
+
+      # Additional browser shortcuts
+      Alt-d: Ctrl-d              # Bookmark
+      Alt-Shift-d: Ctrl-Shift-d  # Bookmark all tabs
+
   # Emacs-like keybindings for non-terminal applications
   - name: "Emacs like"
     application:
@@ -84,32 +115,6 @@ keymap:
       # macOS-like shortcuts for terminal
       Alt-v: Ctrl-Shift-v  # Paste in terminal
       Alt-c: Ctrl-Shift-c  # Copy in terminal (optional)
-
-  # Chrome specific keybindings
-  - name: "Chrome keys"
-    application:
-      only:
-        - google-chrome
-    remap:
-      # Re-open closed tab
-      Alt-Shift-t: Ctrl-Shift-t
-
-      # Tab navigation
-      Alt-Tab: Ctrl-Tab                        # 次のタブ
-      Alt-Shift-Tab: Ctrl-Shift-Tab            # 前のタブ
-
-      # 日本語キーボード用のタブ移動
-      # { キー = rightbrace, } キー = backslash
-      Alt-Shift-rightbrace: Ctrl-Shift-Tab     # 前のタブ（{キー）
-      Alt-Shift-backslash: Ctrl-Tab            # 次のタブ（}キー）
-
-      # Reload
-      Alt-r: Ctrl-r
-      Alt-Shift-r: Ctrl-Shift-r  # Hard reload
-
-      # Additional browser shortcuts
-      Alt-d: Ctrl-d              # Bookmark
-      Alt-Shift-d: Ctrl-Shift-d  # Bookmark all tabs
 
   # Ghostty specific
   - name: "Ghostty keys"
