@@ -20,17 +20,18 @@ csr() {
   local selected
 
   # fzf fields (tab-delimited): 1=sid 2=path 3=date 4=project 5=count 6=prompt
-  # --with-nth='3..' displays from date onward → displayed: 1=date 2=project 3=count 4=prompt
-  # --nth='1,3..' matches date(1), count(3), prompt(4..) — skips project(2)
+  # --disabled: fzf doesn't filter; Python script handles filtering (history + content search via rg)
+  # --bind change:reload: re-runs script on each keystroke so typed queries search conversation content
   selected=$(
     python3 "$_CLAUDE_SESSION_SCRIPT" ${query:+"$query"} --cwd "$PWD" |
       fzf \
         ${query:+--query="$query"} \
+        --disabled \
         --delimiter='\t' \
         --with-nth='3..' \
-        --nth='1,3..' \
         --header='date        project         #  first prompt' \
-        --preview="python3 $_CLAUDE_SESSION_SCRIPT --preview {1} ${query:+\"$query\"}" \
+        --bind "change:reload:python3 $_CLAUDE_SESSION_SCRIPT {q} --cwd $PWD || true" \
+        --preview="python3 $_CLAUDE_SESSION_SCRIPT --preview {1} {q}" \
         --preview-window='down:40%:wrap' \
         --no-sort \
         --ansi
