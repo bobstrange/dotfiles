@@ -48,86 +48,101 @@ def _content_search(query):
     return session_ids
 
 
-def parse_history(query=None, cwd=None):
-    sessions = {}
-
-    with open(HISTORY_FILE) as f:
+def _read_jsonl(path):
+    """Yield parsed JSON objects from a JSONL file, skipping invalid lines."""
+    with open(path) as f:
         for line in f:
             try:
-                obj = json.loads(line)
+                yield json.loads(line)
             except json.JSONDecodeError:
                 continue
 
-            sid = obj.get("sessionId")
-            if not sid:
-                continue
 
-            display = obj.get("display", "")
-            timestamp = obj.get("timestamp", 0)
-            project = obj.get("project", "")
+def _load_sessions():
+    """Load all sessions from history.jsonl, return dict keyed by session ID."""
+    sessions = {}
+    for obj in _read_jsonl(HISTORY_FILE):
+        sid = obj.get("sessionId")
+        if not sid:
+            continue
 
-            if sid not in sessions:
-                sessions[sid] = {
-                    "first_prompt": display,
-                    "prompts": [],
-                    "first_ts": timestamp,
-                    "last_ts": timestamp,
-                    "project": project,
-                }
+        display = obj.get("display", "")
+        timestamp = obj.get("timestamp", 0)
+        project = obj.get("project", "")
 
-            sessions[sid]["prompts"].append(display)
-            if timestamp > sessions[sid]["last_ts"]:
-                sessions[sid]["last_ts"] = timestamp
+        if sid not in sessions:
+            sessions[sid] = {
+                "first_prompt": display,
+                "prompts": [],
+                "first_ts": timestamp,
+                "last_ts": timestamp,
+                "project": project,
+            }
 
-    # Content search: find session IDs matching query in conversation files
-    content_match_ids = set()
-    if query:
-        content_match_ids = _content_search(query)
+        sessions[sid]["prompts"].append(display)
+        sessions[sid]["last_ts"] = max(sessions[sid]["last_ts"], timestamp)
 
-    # Sort by last timestamp descending
+    return sessions
+
+
+def _format_session_line(sid, info, tag=""):
+    """Format a single session as a tab-separated line for fzf."""
+    ts = datetime.fromtimestamp(info["last_ts"] / 1000, tz=LOCAL_TZ)
+    date_str = ts.strftime("%Y-%m-%d %H:%M")
+    project_name = os.path.basename(info["project"]) if info["project"] else "-"
+    prompt_count = len(info["prompts"])
+    first_prompt = info["first_prompt"].replace("\n", " ").replace("\t", " ")[:80]
+    project_path = info["project"] or ""
+    return f"{sid}\t{project_path}\t{date_str}\t{project_name}\t{prompt_count}\t{first_prompt}{tag}"
+
+
+def _matches_history(query_lower, prompts):
+    """Check if query matches any prompt display text."""
+    return any(query_lower in p.lower() for p in prompts)
+
+
+def parse_history(query=None, cwd=None):
+    sessions = _load_sessions()
+    content_match_ids = _content_search(query) if query else set()
+    query_lower = query.lower() if query else ""
+
     sorted_sessions = sorted(
         sessions.items(), key=lambda x: x[1]["last_ts"], reverse=True
     )
 
-    # Track history-matched session IDs for content-only detection
-    history_match_ids = set()
-
     for sid, info in sorted_sessions:
-        history_match = False
+        history_match = _matches_history(query_lower, info["prompts"]) if query else False
         content_match = sid in content_match_ids
 
-        if query:
-            history_match = any(query.lower() in p.lower() for p in info["prompts"])
-            if not history_match and not content_match:
-                continue
-            if history_match:
-                history_match_ids.add(sid)
+        if query and not history_match and not content_match:
+            continue
 
-        ts = datetime.fromtimestamp(info["last_ts"] / 1000, tz=LOCAL_TZ)
-        date_str = ts.strftime("%Y-%m-%d %H:%M")
-        project_name = os.path.basename(info["project"]) if info["project"] else "-"
-        prompt_count = len(info["prompts"])
-        first_prompt = info["first_prompt"].replace("\n", " ").replace("\t", " ")[:80]
+        tag = " [content]" if query and content_match and not history_match else ""
+        line = _format_session_line(sid, info, tag)
 
-        # Mark content-only matches
-        tag = ""
-        if query and content_match and not history_match:
-            tag = " [content]"
-
-        project_path = info["project"] or ""
-        line = f"{sid}\t{project_path}\t{date_str}\t{project_name}\t{prompt_count}\t{first_prompt}{tag}"
-        if cwd and project_path == cwd:
+        if cwd and (info["project"] or "") == cwd:
             print(f"{GREEN}{line}{RESET}")
         else:
             print(line)
 
-    # Content-only sessions not in history (edge case: session file exists but no history entry)
+    # Content-only sessions not in history (session file exists but no history entry)
     if query:
-        shown_ids = {sid for sid, _ in sorted_sessions}
-        for sid in sorted(content_match_ids - shown_ids):
-            # Try to get timestamp from session file
+        known_ids = set(sessions)
+        for sid in sorted(content_match_ids - known_ids):
             line = f"{sid}\t\t-\t-\t0\t[content match only]"
             print(f"{DIM}{line}{RESET}")
+
+
+def _extract_text_blocks(message):
+    """Yield (role, text) pairs from a message's content field."""
+    role = message.get("role", "")
+    content = message.get("content", "")
+    if isinstance(content, str):
+        yield role, content
+    elif isinstance(content, list):
+        for block in content:
+            if isinstance(block, dict) and isinstance(block.get("text"), str):
+                yield role, block["text"]
 
 
 def _extract_content_snippets(session_file, query, max_lines=10):
@@ -142,26 +157,13 @@ def _extract_content_snippets(session_file, query, max_lines=10):
                 except json.JSONDecodeError:
                     continue
 
-                msg_type = obj.get("type", "")
-                # Look in message content
-                message = obj.get("message", {})
-                content = message.get("content", "")
-                role = message.get("role", "")
-
-                if isinstance(content, str) and query_lower in content.lower():
-                    text = content.replace("\n", " ")[:120]
-                    snippets.append(f"  {DIM}[{role}]{RESET} {text}")
-                elif isinstance(content, list):
-                    for block in content:
-                        if isinstance(block, dict):
-                            text_val = block.get("text", "")
-                            if isinstance(text_val, str) and query_lower in text_val.lower():
-                                text = text_val.replace("\n", " ")[:120]
-                                snippets.append(f"  {DIM}[{role}]{RESET} {text}")
-
-                if len(snippets) >= max_lines:
-                    break
-    except (OSError, json.JSONDecodeError):
+                for role, text in _extract_text_blocks(obj.get("message", {})):
+                    if query_lower in text.lower():
+                        truncated = text.replace("\n", " ")[:120]
+                        snippets.append(f"  {DIM}[{role}]{RESET} {truncated}")
+                        if len(snippets) >= max_lines:
+                            return snippets
+    except OSError:
         pass
     return snippets
 
@@ -177,22 +179,15 @@ def _find_session_file(session_id):
 
 def show_session_prompts(session_id, query=None):
     """Output all prompts for a given session (used for fzf preview)."""
-    with open(HISTORY_FILE) as f:
-        for line in f:
-            try:
-                obj = json.loads(line)
-            except json.JSONDecodeError:
-                continue
+    for obj in _read_jsonl(HISTORY_FILE):
+        if obj.get("sessionId") != session_id:
+            continue
 
-            if obj.get("sessionId") != session_id:
-                continue
-
-            display = obj.get("display", "")
-            timestamp = obj.get("timestamp", 0)
-            ts = datetime.fromtimestamp(timestamp / 1000, tz=LOCAL_TZ)
-            date_str = ts.strftime("%m-%d %H:%M")
-            text = display.replace("\n", " ")[:120]
-            print(f"  {date_str}  {text}")
+        timestamp = obj.get("timestamp", 0)
+        ts = datetime.fromtimestamp(timestamp / 1000, tz=LOCAL_TZ)
+        date_str = ts.strftime("%m-%d %H:%M")
+        text = obj.get("display", "").replace("\n", " ")[:120]
+        print(f"  {date_str}  {text}")
 
     # Show content matches if query provided
     if query:
