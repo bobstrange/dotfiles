@@ -29,46 +29,79 @@ RESET = "\033[0m"
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 
-def _has_user_message_match(session_file, query_lower):
-    """Check if any role=user message in the session contains the query.
+# ---------------------------------------------------------------------------
+# JSONL / message helpers
+# ---------------------------------------------------------------------------
 
-    Only checks messages where the user actually typed text:
-    - Plain string content (direct user input)
-    - List content with only text blocks (no tool_result blocks)
-    Skips messages that are system-injected context:
-    - Messages with isMeta=true (skill injections, system context)
-    - Messages containing tool_result blocks (tool execution responses)
+def _read_jsonl(path):
+    """Yield parsed JSON objects from a JSONL file, skipping invalid lines."""
+    with open(path) as f:
+        for line in f:
+            try:
+                yield json.loads(line)
+            except json.JSONDecodeError:
+                continue
+
+
+def _is_user_typed_entry(obj):
+    """Return True if a JSONL entry represents genuine user-typed input.
+
+    Excludes:
+    - isMeta entries (skill injections, system context)
+    - Non-user roles
+    - Messages containing tool_result blocks (tool execution responses
+      where accompanying text blocks are system-injected context)
     """
+    if obj.get("isMeta"):
+        return False
+    msg = obj.get("message", {})
+    if msg.get("role") != "user":
+        return False
+    content = msg.get("content", "")
+    if not isinstance(content, list):
+        return True
+    return not any(
+        isinstance(b, dict) and b.get("type") == "tool_result"
+        for b in content
+    )
+
+
+def _iter_user_text(obj):
+    """Yield text strings from a user-typed JSONL entry's content."""
+    content = obj.get("message", {}).get("content", "")
+    if isinstance(content, str):
+        yield content
+    elif isinstance(content, list):
+        for block in content:
+            if isinstance(block, dict) and isinstance(block.get("text"), str):
+                yield block["text"]
+
+
+def _extract_text_blocks(message):
+    """Yield (role, text) pairs from a message's content field."""
+    role = message.get("role", "")
+    content = message.get("content", "")
+    if isinstance(content, str):
+        yield role, content
+    elif isinstance(content, list):
+        for block in content:
+            if isinstance(block, dict) and isinstance(block.get("text"), str):
+                yield role, block["text"]
+
+
+# ---------------------------------------------------------------------------
+# Content search
+# ---------------------------------------------------------------------------
+
+def _has_user_message_match(session_file, query_lower):
+    """Check if any user-typed message in the session contains the query."""
     try:
-        with open(session_file) as f:
-            for line in f:
-                try:
-                    obj = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                # Skip system-injected meta messages (skill context, etc.)
-                if obj.get("isMeta"):
-                    continue
-                msg = obj.get("message", {})
-                if msg.get("role") != "user":
-                    continue
-                content = msg.get("content", "")
-                # Plain string: always user-typed input
-                if isinstance(content, str):
-                    if query_lower in content.lower():
-                        return True
-                # List: skip if any tool_result block present
-                elif isinstance(content, list):
-                    has_tool_result = any(
-                        isinstance(b, dict) and b.get("type") == "tool_result"
-                        for b in content
-                    )
-                    if has_tool_result:
-                        continue
-                    for block in content:
-                        if isinstance(block, dict) and isinstance(block.get("text"), str):
-                            if query_lower in block["text"].lower():
-                                return True
+        for obj in _read_jsonl(session_file):
+            if not _is_user_typed_entry(obj):
+                continue
+            for text in _iter_user_text(obj):
+                if query_lower in text.lower():
+                    return True
     except OSError:
         pass
     return False
@@ -94,24 +127,17 @@ def _content_search(query, user_only=True):
     query_lower = query.lower()
     for path in result.stdout.splitlines():
         basename = os.path.splitext(os.path.basename(path))[0]
-        if UUID_RE.match(basename):
-            if user_only:
-                if _has_user_message_match(path, query_lower):
-                    session_ids.add(basename)
-            else:
-                session_ids.add(basename)
+        if not UUID_RE.match(basename):
+            continue
+        if user_only and not _has_user_message_match(path, query_lower):
+            continue
+        session_ids.add(basename)
     return session_ids
 
 
-def _read_jsonl(path):
-    """Yield parsed JSON objects from a JSONL file, skipping invalid lines."""
-    with open(path) as f:
-        for line in f:
-            try:
-                yield json.loads(line)
-            except json.JSONDecodeError:
-                continue
-
+# ---------------------------------------------------------------------------
+# History loading
+# ---------------------------------------------------------------------------
 
 def _load_sessions():
     """Load all sessions from history.jsonl, return dict keyed by session ID."""
@@ -140,6 +166,18 @@ def _load_sessions():
     return sessions
 
 
+# ---------------------------------------------------------------------------
+# Output formatting
+# ---------------------------------------------------------------------------
+
+def _highlight(text, query):
+    """Highlight all case-insensitive occurrences of query in text."""
+    if not query:
+        return text
+    pattern = re.compile(re.escape(query), re.IGNORECASE)
+    return pattern.sub(lambda m: f"{YELLOW_BG}{m.group()}{RESET}", text)
+
+
 def _format_session_line(sid, info, tag=""):
     """Format a single session as a tab-separated line for fzf."""
     ts = datetime.fromtimestamp(info["last_ts"] / 1000, tz=LOCAL_TZ)
@@ -155,6 +193,38 @@ def _matches_history(query_lower, prompts):
     """Check if query matches any prompt display text."""
     return any(query_lower in p.lower() for p in prompts)
 
+
+def _extract_content_snippets(session_file, query, max_lines=10):
+    """Extract matching content snippets from a session file."""
+    snippets = []
+    query_lower = query.lower()
+    try:
+        for obj in _read_jsonl(session_file):
+            for role, text in _extract_text_blocks(obj.get("message", {})):
+                if query_lower not in text.lower():
+                    continue
+                truncated = text.replace("\n", " ")[:120]
+                highlighted = _highlight(truncated, query)
+                snippets.append(f"  {DIM}[{role}]{RESET} {highlighted}")
+                if len(snippets) >= max_lines:
+                    return snippets
+    except OSError:
+        pass
+    return snippets
+
+
+def _find_session_file(session_id):
+    """Find the session .jsonl file across project directories."""
+    for dirpath, _, filenames in os.walk(PROJECTS_DIR):
+        fname = f"{session_id}.jsonl"
+        if fname in filenames:
+            return os.path.join(dirpath, fname)
+    return None
+
+
+# ---------------------------------------------------------------------------
+# Entry points
+# ---------------------------------------------------------------------------
 
 def parse_history(query=None, cwd=None, search_mode="user"):
     sessions = _load_sessions()
@@ -189,59 +259,6 @@ def parse_history(query=None, cwd=None, search_mode="user"):
             print(f"{DIM}{line}{RESET}")
 
 
-def _highlight(text, query):
-    """Highlight all case-insensitive occurrences of query in text."""
-    if not query:
-        return text
-    pattern = re.compile(re.escape(query), re.IGNORECASE)
-    return pattern.sub(lambda m: f"{YELLOW_BG}{m.group()}{RESET}", text)
-
-
-def _extract_text_blocks(message):
-    """Yield (role, text) pairs from a message's content field."""
-    role = message.get("role", "")
-    content = message.get("content", "")
-    if isinstance(content, str):
-        yield role, content
-    elif isinstance(content, list):
-        for block in content:
-            if isinstance(block, dict) and isinstance(block.get("text"), str):
-                yield role, block["text"]
-
-
-def _extract_content_snippets(session_file, query, max_lines=10):
-    """Extract matching content snippets from a session file."""
-    snippets = []
-    query_lower = query.lower()
-    try:
-        with open(session_file) as f:
-            for line in f:
-                try:
-                    obj = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-
-                for role, text in _extract_text_blocks(obj.get("message", {})):
-                    if query_lower in text.lower():
-                        truncated = text.replace("\n", " ")[:120]
-                        highlighted = _highlight(truncated, query)
-                        snippets.append(f"  {DIM}[{role}]{RESET} {highlighted}")
-                        if len(snippets) >= max_lines:
-                            return snippets
-    except OSError:
-        pass
-    return snippets
-
-
-def _find_session_file(session_id):
-    """Find the session .jsonl file across project directories."""
-    for dirpath, _, filenames in os.walk(PROJECTS_DIR):
-        fname = f"{session_id}.jsonl"
-        if fname in filenames:
-            return os.path.join(dirpath, fname)
-    return None
-
-
 def show_session_prompts(session_id, query=None):
     """Output all prompts for a given session (used for fzf preview)."""
     for obj in _read_jsonl(HISTORY_FILE):
@@ -254,15 +271,16 @@ def show_session_prompts(session_id, query=None):
         text = obj.get("display", "").replace("\n", " ")[:120]
         print(f"  {date_str}  {_highlight(text, query)}")
 
-    # Show content matches if query provided
-    if query:
-        session_file = _find_session_file(session_id)
-        if session_file:
-            snippets = _extract_content_snippets(session_file, query)
-            if snippets:
-                print(f"\n{CYAN}--- Content matches ---{RESET}")
-                for s in snippets:
-                    print(s)
+    if not query:
+        return
+    session_file = _find_session_file(session_id)
+    if not session_file:
+        return
+    snippets = _extract_content_snippets(session_file, query)
+    if snippets:
+        print(f"\n{CYAN}--- Content matches ---{RESET}")
+        for s in snippets:
+            print(s)
 
 
 if __name__ == "__main__":

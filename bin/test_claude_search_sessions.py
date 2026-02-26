@@ -13,6 +13,8 @@ import importlib
 
 mod = importlib.import_module("executable_claude-search-sessions")
 _has_user_message_match = mod._has_user_message_match
+_is_user_typed_entry = mod._is_user_typed_entry
+_iter_user_text = mod._iter_user_text
 _content_search = mod._content_search
 
 
@@ -162,6 +164,66 @@ class TestHasUserMessageMatch(unittest.TestCase):
         ]))
         self.assertFalse(_has_user_message_match(path, "performance"))
         self.assertTrue(_has_user_message_match(path, "logs"))
+
+
+class TestIsUserTypedEntry(unittest.TestCase):
+    def test_plain_user_message(self):
+        obj = {"message": {"role": "user", "content": "hello"}}
+        self.assertTrue(_is_user_typed_entry(obj))
+
+    def test_assistant_message(self):
+        obj = {"message": {"role": "assistant", "content": "hi"}}
+        self.assertFalse(_is_user_typed_entry(obj))
+
+    def test_is_meta_true(self):
+        obj = {"isMeta": True, "message": {"role": "user", "content": "skill context"}}
+        self.assertFalse(_is_user_typed_entry(obj))
+
+    def test_tool_result_in_content(self):
+        obj = {"message": {"role": "user", "content": [
+            {"type": "tool_result", "tool_use_id": "x", "content": "ok"},
+            {"type": "text", "text": "system context"},
+        ]}}
+        self.assertFalse(_is_user_typed_entry(obj))
+
+    def test_text_only_list(self):
+        obj = {"message": {"role": "user", "content": [
+            {"type": "text", "text": "user input"},
+        ]}}
+        self.assertTrue(_is_user_typed_entry(obj))
+
+
+class TestIterUserText(unittest.TestCase):
+    def test_plain_string(self):
+        obj = {"message": {"role": "user", "content": "hello world"}}
+        self.assertEqual(list(_iter_user_text(obj)), ["hello world"])
+
+    def test_text_blocks(self):
+        obj = {"message": {"role": "user", "content": [
+            {"type": "text", "text": "first"},
+            {"type": "text", "text": "second"},
+        ]}}
+        self.assertEqual(list(_iter_user_text(obj)), ["first", "second"])
+
+    def test_skips_non_text_blocks(self):
+        obj = {"message": {"role": "user", "content": [
+            {"type": "image", "source": "data"},
+            {"type": "text", "text": "caption"},
+        ]}}
+        self.assertEqual(list(_iter_user_text(obj)), ["caption"])
+
+    def test_empty_string_content(self):
+        obj = {"message": {"role": "user", "content": ""}}
+        self.assertEqual(list(_iter_user_text(obj)), [""])
+
+    def test_missing_content(self):
+        obj = {"message": {"role": "user"}}
+        # Default is "" (empty string), which is still yielded as a str
+        self.assertEqual(list(_iter_user_text(obj)), [""])
+
+    def test_empty_list_content(self):
+        obj = {"message": {"role": "user", "content": []}}
+        self.assertEqual(list(_iter_user_text(obj)), [])
 
 
 class TestContentSearch(unittest.TestCase):
