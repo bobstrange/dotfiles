@@ -30,7 +30,15 @@ UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]
 
 
 def _has_user_message_match(session_file, query_lower):
-    """Check if any role=user message in the session contains the query."""
+    """Check if any role=user message in the session contains the query.
+
+    Only checks messages where the user actually typed text:
+    - Plain string content (direct user input)
+    - List content with only text blocks (no tool_result blocks)
+    Skips messages that are system-injected context:
+    - Messages with isMeta=true (skill injections, system context)
+    - Messages containing tool_result blocks (tool execution responses)
+    """
     try:
         with open(session_file) as f:
             for line in f:
@@ -38,12 +46,29 @@ def _has_user_message_match(session_file, query_lower):
                     obj = json.loads(line)
                 except json.JSONDecodeError:
                     continue
+                # Skip system-injected meta messages (skill context, etc.)
+                if obj.get("isMeta"):
+                    continue
                 msg = obj.get("message", {})
                 if msg.get("role") != "user":
                     continue
-                for _role, text in _extract_text_blocks(msg):
-                    if query_lower in text.lower():
+                content = msg.get("content", "")
+                # Plain string: always user-typed input
+                if isinstance(content, str):
+                    if query_lower in content.lower():
                         return True
+                # List: skip if any tool_result block present
+                elif isinstance(content, list):
+                    has_tool_result = any(
+                        isinstance(b, dict) and b.get("type") == "tool_result"
+                        for b in content
+                    )
+                    if has_tool_result:
+                        continue
+                    for block in content:
+                        if isinstance(block, dict) and isinstance(block.get("text"), str):
+                            if query_lower in block["text"].lower():
+                                return True
     except OSError:
         pass
     return False
