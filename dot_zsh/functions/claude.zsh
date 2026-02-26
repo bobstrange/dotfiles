@@ -20,13 +20,13 @@ csr() {
   local selected
 
   selected=$(
-    python3 "$_CLAUDE_SESSION_SCRIPT" --cwd "$PWD" |
+    python3 "$_CLAUDE_SESSION_SCRIPT" ${query:+"$query"} --cwd "$PWD" |
       fzf \
-        --query="$query" \
+        ${query:+--query="$query"} \
         --delimiter='\t' \
         --with-nth='3..' \
         --header='date        project         #  first prompt' \
-        --preview="python3 $_CLAUDE_SESSION_SCRIPT --preview {1}" \
+        --preview="python3 $_CLAUDE_SESSION_SCRIPT --preview {1} ${query:+\"$query\"}" \
         --preview-window='down:40%:wrap' \
         --no-sort \
         --ansi
