@@ -29,8 +29,32 @@ RESET = "\033[0m"
 UUID_RE = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
 
-def _content_search(query):
-    """Search session .jsonl files via rg, return set of matching session IDs."""
+def _has_user_message_match(session_file, query_lower):
+    """Check if any role=user message in the session contains the query."""
+    try:
+        with open(session_file) as f:
+            for line in f:
+                try:
+                    obj = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                msg = obj.get("message", {})
+                if msg.get("role") != "user":
+                    continue
+                for _role, text in _extract_text_blocks(msg):
+                    if query_lower in text.lower():
+                        return True
+    except OSError:
+        pass
+    return False
+
+
+def _content_search(query, user_only=True):
+    """Search session .jsonl files via rg, return set of matching session IDs.
+
+    If user_only is True, post-filter rg results to only include sessions where
+    a role=user message contains the query.
+    """
     try:
         result = subprocess.run(
             ["rg", "-Fil", "--glob", "*.jsonl", query, PROJECTS_DIR],
@@ -42,10 +66,15 @@ def _content_search(query):
         return set()
 
     session_ids = set()
+    query_lower = query.lower()
     for path in result.stdout.splitlines():
         basename = os.path.splitext(os.path.basename(path))[0]
         if UUID_RE.match(basename):
-            session_ids.add(basename)
+            if user_only:
+                if _has_user_message_match(path, query_lower):
+                    session_ids.add(basename)
+            else:
+                session_ids.add(basename)
     return session_ids
 
 
@@ -102,9 +131,10 @@ def _matches_history(query_lower, prompts):
     return any(query_lower in p.lower() for p in prompts)
 
 
-def parse_history(query=None, cwd=None):
+def parse_history(query=None, cwd=None, search_mode="user"):
     sessions = _load_sessions()
-    content_match_ids = _content_search(query) if query else set()
+    user_only = search_mode == "user"
+    content_match_ids = _content_search(query, user_only=user_only) if query else set()
     query_lower = query.lower() if query else ""
 
     sorted_sessions = sorted(
@@ -221,5 +251,11 @@ if __name__ == "__main__":
         parser = argparse.ArgumentParser()
         parser.add_argument("query", nargs="?", default=None)
         parser.add_argument("--cwd", default=None)
+        parser.add_argument(
+            "--search-mode",
+            choices=["user", "all"],
+            default="user",
+            help="user: match only user messages, all: match entire session",
+        )
         args = parser.parse_args()
-        parse_history(args.query, args.cwd)
+        parse_history(args.query, args.cwd, search_mode=args.search_mode)

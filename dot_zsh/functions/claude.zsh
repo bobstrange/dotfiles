@@ -21,16 +21,20 @@ csr() {
 
   # fzf fields (tab-delimited): 1=sid 2=path 3=date 4=project 5=count 6=prompt
   # --disabled: fzf doesn't filter; Python script handles filtering (history + content search via rg)
-  # --bind change:reload: re-runs script on each keystroke so typed queries search conversation content
+  # --bind change: re-runs script on each keystroke; reads mode from $FZF_PROMPT
+  # --bind ctrl-s: toggle search-mode between user (user messages only) and all (entire session)
+  # State is stored in prompt text: "user> " or "all> "
   selected=$(
-    python3 "$_CLAUDE_SESSION_SCRIPT" ${query:+"$query"} --cwd "$PWD" |
+    python3 "$_CLAUDE_SESSION_SCRIPT" ${query:+"$query"} --cwd "$PWD" --search-mode user |
       fzf \
         ${query:+--query="$query"} \
         --disabled \
         --delimiter='\t' \
         --with-nth='3..' \
-        --header='date        project         #  first prompt' \
-        --bind "change:reload:python3 $_CLAUDE_SESSION_SCRIPT {q} --cwd $PWD || true" \
+        --prompt='user> ' \
+        --header='date        project         #  first prompt  [C-s: toggle user/all]' \
+        --bind 'change:transform:[[ $FZF_PROMPT = "user> " ]] && echo "reload(python3 '"$_CLAUDE_SESSION_SCRIPT"' {q} --cwd '"$PWD"' --search-mode user || true)" || echo "reload(python3 '"$_CLAUDE_SESSION_SCRIPT"' {q} --cwd '"$PWD"' --search-mode all || true)"' \
+        --bind 'ctrl-s:transform:[[ $FZF_PROMPT = "user> " ]] && echo "change-prompt(all> )+reload(python3 '"$_CLAUDE_SESSION_SCRIPT"' {q} --cwd '"$PWD"' --search-mode all || true)" || echo "change-prompt(user> )+reload(python3 '"$_CLAUDE_SESSION_SCRIPT"' {q} --cwd '"$PWD"' --search-mode user || true)"' \
         --preview="python3 $_CLAUDE_SESSION_SCRIPT --preview {1} {q}" \
         --preview-window='down:40%:wrap' \
         --no-sort \
