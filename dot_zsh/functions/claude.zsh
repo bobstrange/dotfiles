@@ -19,12 +19,16 @@ csr() {
   local query="${1:-}"
   local selected
 
+  # fzf fields (tab-delimited): 1=sid 2=path 3=date 4=project 5=count 6=prompt
+  # --with-nth='3..' displays from date onward → displayed: 1=date 2=project 3=count 4=prompt
+  # --nth='1,3..' matches date(1), count(3), prompt(4..) — skips project(2)
   selected=$(
     python3 "$_CLAUDE_SESSION_SCRIPT" ${query:+"$query"} --cwd "$PWD" |
       fzf \
         ${query:+--query="$query"} \
         --delimiter='\t' \
         --with-nth='3..' \
+        --nth='1,3..' \
         --header='date        project         #  first prompt' \
         --preview="python3 $_CLAUDE_SESSION_SCRIPT --preview {1} ${query:+\"$query\"}" \
         --preview-window='down:40%:wrap' \
