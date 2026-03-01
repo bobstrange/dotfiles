@@ -15,9 +15,6 @@ return {
         html = { "prettier" },
         -- ruby
         ruby = { "rubocop" },
-        -- elixir (lang.elixir extra handles this, but be explicit)
-        elixir = { "mix" },
-        heex = { "mix" },
         -- terraform/HCL
         terraform = { "terraform_fmt" },
         hcl = { "terraform_fmt" },

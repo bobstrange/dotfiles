@@ -32,6 +32,5 @@ return { -- LSPの追加設定（LazyVimのデフォルトを拡張）
             },
         })
 
-        opts.servers.sqls = {}
     end,
 }}
