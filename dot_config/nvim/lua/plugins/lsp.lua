@@ -12,24 +12,14 @@ return { -- LSPの追加設定（LazyVimのデフォルトを拡張）
 
         return {
             servers = {
+                -- inlay hints (extras does not configure these)
                 ts_ls = {
                     settings = {
                         typescript = { inlayHints = ts_inlay_hints },
                         javascript = { inlayHints = ts_inlay_hints },
                     }
                 },
-                html = {},
-                cssls = {},
-                vue_ls = {},
-                rust_analyzer = {
-                    settings = {
-                        ["rust-analyzer"] = {
-                            check = {
-                                command = "clippy"
-                            }
-                        }
-                    }
-                },
+                -- custom env and dialyzer setting specific to this machine
                 elixirls = {
                     cmd_env = {
                         GOOGLE_APPLICATION_CREDENTIALS = vim.fn.expand("~/.config/gcloud/application_default_credentials.json"),
@@ -41,25 +31,6 @@ return { -- LSPの追加設定（LazyVimのデフォルトを拡張）
                     }
                 },
                 sqls = {},
-                lua_ls = {
-                    settings = {
-                        Lua = {
-                            runtime = {
-                                version = "LuaJIT"
-                            },
-                            diagnostics = {
-                                globals = {"vim"}
-                            },
-                            workspace = {
-                                checkThirdParty = false,
-                                library = {vim.env.VIMRUNTIME}
-                            },
-                            telemetry = {
-                                enable = false
-                            }
-                        }
-                    }
-                }
             }
         }
     end
