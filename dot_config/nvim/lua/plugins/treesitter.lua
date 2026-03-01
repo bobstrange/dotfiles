@@ -37,6 +37,9 @@ return {
       "vim",
     }
 
+    -- 未インストールのパーサーをインストール（インストール済みはスキップ）
+    require("nvim-treesitter").install(parsers)
+
     -- 各FileTypeでTreesitterを有効化
     vim.api.nvim_create_autocmd("FileType", {
       pattern = parsers,
