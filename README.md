@@ -10,9 +10,12 @@
 - **[chezmoi](https://www.chezmoi.io/)**: Dotfile management
 - **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
 - **[Nix Flakes][nix] + [home-manager][hm]**: Package management (Ubuntu/WSL)
+- **[mise](https://mise.jdx.dev/)**: Language runtime version management
 
 [nix]: https://nixos.wiki/wiki/Flakes
 [hm]: https://github.com/nix-community/home-manager
+
+Supports macOS, Ubuntu, and WSL environments.
 
 ## Setup
 
@@ -27,6 +30,13 @@ This will:
 1. Install chezmoi and clone this repo
 2. Install packages (Homebrew on macOS, Nix on Linux)
 3. Apply dotfiles
+
+After bootstrapping, run the appropriate setup target:
+
+```bash
+make setup-macos   # macOS
+make setup-linux   # Ubuntu/WSL (after make setup-nix + shell restart)
+```
 
 ### Daily Operations
 
