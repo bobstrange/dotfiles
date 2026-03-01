@@ -4,7 +4,7 @@ return {
     picker = {
       sources = {
         files = {
-          args = { "--hidden", "--glob", "!**/.git/*" },
+          hidden = true,
         },
       },
     },
