@@ -25,6 +25,7 @@ Run `make help` to see all available targets.
 
 ```text
 ~/.local/share/chezmoi/
+├── bin/                    # Executable scripts (added to ~/bin)
 ├── nix/                    # Nix package management (Ubuntu/WSL)
 │   ├── flake.nix           # Flake definition (inputs, outputs)
 │   ├── flake.lock          # Version lockfile (auto-generated)
@@ -39,7 +40,11 @@ Run `make help` to see all available targets.
 │   └── macos/
 │       └── defaults.sh     # macOS system defaults
 ├── Brewfile                # macOS package management
-├── dot_*                   # Chezmoi dotfiles (become .* in home)
+├── dot_aerospace.toml      # Aerospace window manager (macOS)
+├── dot_config/             # ~/.config/* (ghostty, nvim, starship, etc.)
+├── dot_zsh/                # Shell config (modular by platform)
+├── windows_terminal_profiles.json  # Windows Terminal profiles
+├── dot_*                   # Other chezmoi dotfiles (become .* in home)
 └── Makefile                # Build targets
 ```
 
@@ -50,7 +55,9 @@ Run `make help` to see all available targets.
 | Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                               |
 | Packages - macOS                | Homebrew + Brewfile                                   |
 | Packages - Ubuntu/WSL           | Nix + home-manager (packages only; `home.file = { }`) |
+| Language runtimes               | mise (`~/.config/mise/config.toml`)                   |
 | Shell configuration             | `dot_zsh/configs/` (modular by platform)              |
+| macOS window manager            | Aerospace (`dot_aerospace.toml`)                      |
 | macOS system configuration      | `setup/macos/defaults.sh`                             |
 | Secret files (~/.ssh, ~/.aws)   | `setup/symlinks.sh` (Dropbox)                         |
 
