@@ -1,6 +1,7 @@
 return {
   "folke/snacks.nvim",
   opts = {
+    lazygit = { enabled = true },
     picker = {
       sources = {
         files = {
