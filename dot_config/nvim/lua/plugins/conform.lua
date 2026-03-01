@@ -13,11 +13,8 @@ return {
         css = { "prettier" },
         scss = { "prettier" },
         html = { "prettier" },
-        -- data formats
-        json = { "prettier" },
-        jsonc = { "prettier" },
-        yaml = { "prettier" },
-        markdown = { "prettier" },
+        -- ruby
+        ruby = { "rubocop" },
         -- elixir (lang.elixir extra handles this, but be explicit)
         elixir = { "mix" },
         heex = { "mix" },
@@ -36,6 +33,7 @@ return {
       ensure_installed = {
         "prettier",
         "stylua",
+        "rubocop",
       },
     },
   },
