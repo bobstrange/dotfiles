@@ -22,7 +22,6 @@ return {
       "toml",
       "typescript",
       "html",
-      "html-tags",
       "css",
       "scss",
       "vue",
