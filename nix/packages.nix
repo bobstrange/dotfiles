@@ -50,6 +50,7 @@ with pkgs; [
   htop
   tree
   direnv
+  pandoc
 
   # Build tools
   gcc
