@@ -2,8 +2,8 @@
 
 ## Requirements
 
-- Dropbox has been installed.
-- Dropbox folder should be `~/Dropbox/`.
+- age key restored at `~/.config/chezmoi/key.txt` (from 1Password) for encrypted files
+- (Optional) Dropbox at `~/Dropbox/` for secret symlinks (`~/.aws`, tokens)
 
 ## Tools
 
@@ -28,15 +28,8 @@ curl -fsLS https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/boot
 This will:
 
 1. Install chezmoi and clone this repo
-2. Install packages (Homebrew on macOS, Nix on Linux)
-3. Apply dotfiles
-
-After bootstrapping, run the appropriate setup target:
-
-```bash
-make setup-macos   # macOS
-make setup-linux   # Ubuntu/WSL (after make setup-nix + shell restart)
-```
+2. Install packages (Homebrew on macOS, Nix on Linux) via `make setup-macos` / `make setup-linux`
+3. Apply dotfiles (encrypted files are skipped if age key is not yet restored)
 
 ### Daily Operations
 
@@ -67,20 +60,22 @@ home-manager rollback              # Rollback to previous generation
 - **mise**: Tracks `latest`/`lts`, supports per-project `.mise.toml` for version switching.
   nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 when 4.0 is out).
 
-## Encrypted Files (age)
+## Post-Bootstrap Steps
 
-Some files (e.g. `~/.ssh/config.d/work.conf`) are encrypted with [age](https://github.com/FiloSottile/age).
-
-Before running `chezmoi apply` on a new machine, restore the age key from 1Password:
+1. Restore the age key and apply encrypted files:
 
 ```bash
 mkdir -p ~/.config/chezmoi
-# Paste the age key from 1Password into key.txt
-vim ~/.config/chezmoi/key.txt
+vim ~/.config/chezmoi/key.txt   # Paste from 1Password
 chmod 600 ~/.config/chezmoi/key.txt
+chezmoi apply                   # Now includes encrypted files (e.g. SSH work config)
 ```
 
-Without this key, `chezmoi apply` will fail on encrypted files.
+2. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
+
+```bash
+make symlinks   # Requires ~/Dropbox/config
+```
 
 ## Help
 
