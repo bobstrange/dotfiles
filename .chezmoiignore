@@ -15,6 +15,7 @@ package.json
 package-lock.json
 pnpm-lock.yaml
 docs/
+tmp/
 erl_crash.dump
 lefthook.yml
 .secretlintrc.json
