@@ -25,41 +25,45 @@ Run `make help` to see all available targets.
 
 ```text
 ~/.local/share/chezmoi/
+├── .chezmoi.toml.tmpl      # chezmoi config template (age encryption)
+├── .chezmoiignore          # Files excluded from chezmoi apply
 ├── bin/                    # Executable scripts (added to ~/bin)
+├── dot_config/             # ~/.config/* (ghostty, nvim, starship, etc.)
+├── dot_local/              # ~/.local/* (desktop files, scripts)
+├── dot_zsh/                # Shell config (modular by platform)
 ├── nix/                    # Nix package management (Ubuntu/WSL)
 │   ├── flake.nix           # Flake definition (inputs, outputs)
 │   ├── flake.lock          # Version lockfile (auto-generated)
-│   ├── home.nix            # home-manager config
+│   ├── home.nix            # home-manager config (packages + sessionPath)
 │   └── packages.nix        # All packages (Linux/WSL)
+├── private_dot_ssh/        # ~/.ssh (managed by chezmoi, includes encrypted files)
 ├── setup/
 │   ├── bootstrap.sh        # One-liner bootstrap for fresh machines
 │   ├── nix-setup.sh        # Nix installation script
 │   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
 │   ├── setup-xremap.sh     # xremap key remapper setup (Linux/GNOME)
-│   ├── symlinks.sh         # Symlink secret files from Dropbox
+│   ├── symlinks.sh         # Symlink secret files from Dropbox (~/.aws, tokens)
 │   └── macos/
 │       └── defaults.sh     # macOS system defaults
 ├── Brewfile                # macOS package management
 ├── dot_aerospace.toml      # Aerospace window manager (macOS)
-├── dot_config/             # ~/.config/* (ghostty, nvim, starship, etc.)
-├── dot_zsh/                # Shell config (modular by platform)
-├── windows_terminal_profiles.json  # Windows Terminal profiles
 ├── dot_*                   # Other chezmoi dotfiles (become .* in home)
 └── Makefile                # Build targets
 ```
 
 ### Responsibility Matrix
 
-| Concern                         | Tool                                                  |
-| ------------------------------- | ----------------------------------------------------- |
-| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                               |
-| Packages - macOS                | Homebrew + Brewfile                                   |
-| Packages - Ubuntu/WSL           | Nix + home-manager (packages only; `home.file = { }`) |
-| Language runtimes               | mise (`~/.config/mise/config.toml`)                   |
-| Shell configuration             | `dot_zsh/configs/` (modular by platform)              |
-| macOS window manager            | Aerospace (`dot_aerospace.toml`)                      |
-| macOS system configuration      | `setup/macos/defaults.sh`                             |
-| Secret files (~/.ssh, ~/.aws)   | `setup/symlinks.sh` (Dropbox)                         |
+| Concern                         | Tool                                               |
+| ------------------------------- | -------------------------------------------------- |
+| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                            |
+| SSH (~/.ssh)                    | chezmoi (`private_dot_ssh/`, encrypted with age)   |
+| Secrets (~/.aws, tokens)        | `setup/symlinks.sh` (Dropbox `~/Dropbox/config`)   |
+| Packages - macOS                | Homebrew + Brewfile                                |
+| Packages - Ubuntu/WSL           | Nix + home-manager (packages + `home.sessionPath`) |
+| Language runtimes               | mise (`~/.config/mise/config.toml`)                |
+| Shell configuration             | `dot_zsh/configs/` (modular by platform)           |
+| macOS window manager            | Aerospace (`dot_aerospace.toml`)                   |
+| macOS system configuration      | `setup/macos/defaults.sh`                          |
 
 ### Adding Packages
 
@@ -78,8 +82,9 @@ flexible version management with `latest`, `lts`, and per-project `.mise.toml` o
 
 ## Development Notes
 
-- `dot_*.tmpl` files are chezmoi templates (Go text/template) — edit these, not the `$HOME` targets
+- Any `.tmpl` file (root or nested, e.g. `dot_config/ghostty/config.tmpl`) is a chezmoi template
+  (Go text/template) — edit these, not the `$HOME` targets
 - Nix provides reproducible builds via `flake.lock`
 - Rollback: `home-manager rollback`
+- `make nix-apply` auto-commits `nix/flake.lock` if it changes — be aware of this side effect
 - Configuration is modular - individual components can be modified without affecting others
-- See `docs/` for setup and migration notes
