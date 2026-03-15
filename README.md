@@ -71,7 +71,7 @@ chmod 600 ~/.config/chezmoi/key.txt
 chezmoi apply                   # Now includes encrypted files (e.g. SSH work config)
 ```
 
-2. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
+1. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
 
 ```bash
 make symlinks   # Requires ~/Dropbox/config
