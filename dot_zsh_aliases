@@ -38,8 +38,5 @@ alias cost="bunx ccusage@latest"
 # gemini
 alias gemini='bunx @google/gemini-cli@latest'
 
-# codex
-alias codex='bunx @openai/codex@latest'
-
 # directory
 alias memo="cd $HOME/src/github.com/bobstrange/memot/work/spideraf/"

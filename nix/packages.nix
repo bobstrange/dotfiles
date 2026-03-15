@@ -63,6 +63,7 @@ with pkgs; [
   uv
   luarocks
   bun
+  codex
 
   # Formatters
   dprint
