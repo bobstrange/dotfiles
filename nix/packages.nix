@@ -14,6 +14,7 @@ with pkgs; [
 
   # Editors
   neovim
+  neovide
   vim
 
   # Git
