@@ -11,5 +11,7 @@
 -- Set conceallevel to 0 to show all concealed text
 vim.opt.conceallevel = 0
 
--- GUI font (used by Neovide etc.)
-vim.o.guifont = "PlemolJP Console NF:h13"
+-- Neovide / GUI settings
+if vim.g.neovide then
+  vim.o.guifont = "PlemolJP Console NF:h13"
+end
