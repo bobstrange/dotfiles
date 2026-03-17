@@ -10,3 +10,6 @@
 
 -- Set conceallevel to 0 to show all concealed text
 vim.opt.conceallevel = 0
+
+-- GUI font (used by Neovide etc.)
+vim.o.guifont = "PlemolJP Console NF:h13"
