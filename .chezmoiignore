@@ -11,6 +11,8 @@ unmanaged/
 .github/
 _config.yml
 node_modules/
+__pycache__/
+*.pyc
 package.json
 package-lock.json
 pnpm-lock.yaml
