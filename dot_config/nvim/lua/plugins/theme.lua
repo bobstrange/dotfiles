@@ -1,9 +1,11 @@
+local is_neovide = vim.g.neovide
+
 return {
-  -- GitHub Dark theme
+  -- GitHub Dark theme (terminal)
   {
     "projekt0n/github-nvim-theme",
-    lazy = false, -- make sure we load this during startup
-    priority = 1000, -- make sure to load this before all the other start plugins
+    lazy = is_neovide,
+    priority = 1000,
     config = function()
       require("github-theme").setup({
         options = {
@@ -15,17 +17,33 @@ return {
           },
         },
       })
-      vim.cmd("colorscheme github_dark")
+      if not is_neovide then
+        vim.cmd("colorscheme github_dark")
+      end
     end,
   },
 
-  -- Configure LazyVim to use GitHub Dark
+  -- Catppuccin theme (Neovide)
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = not is_neovide,
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha",
+      })
+      if is_neovide then
+        vim.cmd("colorscheme catppuccin")
+      end
+    end,
+  },
+
+  -- Configure LazyVim colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "github_dark",
+      colorscheme = is_neovide and "catppuccin" or "github_dark",
     },
   },
-
-  -- add any additional plugins here
 }
