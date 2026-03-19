@@ -25,6 +25,7 @@ with pkgs; [
   lefthook
   gh
   ghq
+  circleci-cli
 
   # Search and navigation
   fzf
