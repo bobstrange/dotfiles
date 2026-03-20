@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Application
 Exec=neovide-launcher %F
+Path=/home/bob/src/github.com/bobstrange/memot/work/spideraf
 Icon=neovide
 Name=Neovide
 Keywords=Text;Editor;
