@@ -6,4 +6,4 @@ if [ $# -eq 0 ]; then
   cd "$HOME/src/github.com/bobstrange/memot/work/spideraf"
 fi
 
-exec nixGLIntel neovide "$@"
+exec nixGLIntel neovide --size 800x960 "$@"
