@@ -21,4 +21,9 @@ for ext in "${extensions[@]}"; do
     echo "$ext: installing..."
     gext install "$ext"
   fi
+
+  if ! gnome-extensions list --enabled 2>/dev/null | grep -q "$ext"; then
+    echo "$ext: enabling..."
+    gnome-extensions enable "$ext"
+  fi
 done
