@@ -12,6 +12,7 @@ gext() {
 extensions=(
   "xremap@k0kubun.com"
   "monitor@astraext.github.io"
+  "clipboard-indicator@tudmotu.com"
 )
 
 for ext in "${extensions[@]}"; do
