@@ -27,7 +27,7 @@
   fp = push --force-with-lease
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   st = status
-  files = ! git status --short | sed s/^...//'
+  files = ! git status --short | sed s/^...//
 
   amend = commit --amend --no-edit
   delete = branch --delete
