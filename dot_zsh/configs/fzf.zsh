@@ -18,6 +18,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 
+# fzf-git.sh: disable side-by-side in preview pane (too narrow)
+export FZF_GIT_PAGER='env DELTA_FEATURES=arctic-fox delta'
+
 # File
 fe() {
   local files
