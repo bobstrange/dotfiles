@@ -26,6 +26,7 @@ fe() {
       --exclude .git \
       --exclude .elixir_ls \
       --exclude node_modules \
+      --exclude _build \
       --exec-batch perl -e \
         'print join "\n", map { $_->[0] } sort { $b->[1] <=> $a->[1] } map { [$_, (stat $_)[9]] } @ARGV' \
     | fzf --query="$1" --multi --select-1 --exit-0
@@ -39,18 +40,6 @@ fe() {
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | delta'"
-
-gco() {
-  _fzf_git_each_ref --no-multi | xargs git checkout
-}
-
-gbr() {
-  cd "$(_fzf_git_branches --no-multi)"
-}
-
-gsta() {
-  _fzf_git_stashes --no-multi | xargs git stash apply
-}
 
 gadd() {
   git ls-files --deleted --modified --other --exclude-standard | \
