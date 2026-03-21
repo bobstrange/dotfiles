@@ -1,6 +1,6 @@
 .PHONY: help setup-nix setup-linux setup-macos \
         nix-apply nix-update macos-apply \
-        lefthook-setup xremap-setup mise-install symlinks \
+        lefthook-setup xremap-setup gnome-extensions-setup mise-install symlinks \
         macos-defaults
 
 .DEFAULT_GOAL := help
@@ -23,6 +23,7 @@ help:
 	@echo "Tools:"
 	@echo "  lefthook-setup   Set up git hooks"
 	@echo "  xremap-setup     Set up key remapper (Linux/GNOME)"
+	@echo "  gnome-ext-setup  Install GNOME Shell extensions"
 	@echo "  mise-install     Install language runtimes"
 	@echo "  symlinks         Link secret files from Dropbox"
 	@echo "  macos-defaults   Apply macOS system preferences"
@@ -34,7 +35,8 @@ setup-nix:
 	@echo ""
 	@echo "Restart your shell, then run: make setup-linux"
 
-setup-linux: nix-apply lefthook-setup xremap-setup mise-install
+# gnome-extensions-setup before xremap-setup: xremap needs its GNOME extension installed first
+setup-linux: nix-apply lefthook-setup gnome-extensions-setup xremap-setup mise-install
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- If added to input group: log out and back in for xremap to work"
@@ -80,6 +82,9 @@ lefthook-setup:
 
 xremap-setup:
 	bash ./setup/setup-xremap.sh
+
+gnome-extensions-setup:
+	bash ./setup/gnome-extensions.sh
 
 mise-install:
 	time mise install

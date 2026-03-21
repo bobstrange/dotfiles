@@ -72,17 +72,7 @@ Hidden=false
 X-GNOME-Autostart-enabled=true
 EOF
 
-# 6. GNOME Shell 拡張機能の確認
-echo "🔍 GNOME Shell 拡張機能を確認中..."
-if command -v gnome-extensions &>/dev/null; then
-  if gnome-extensions list | grep -q "xremap@k0kubun.com"; then
-    echo "✅ GNOME Shell xremap 拡張機能が見つかりました"
-    gnome-extensions enable xremap@k0kubun.com 2>/dev/null || true
-  else
-    echo "⚠️  GNOME Shell xremap 拡張機能がインストールされていません"
-    echo "   https://extensions.gnome.org/extension/5060/xremap/ からインストールしてください"
-  fi
-fi
+# 6. GNOME Shell xremap 拡張機能は gnome-extensions.sh で管理
 
 # 7. systemd ユーザーサービスをリロード
 echo "🔄 systemd をリロード中..."
