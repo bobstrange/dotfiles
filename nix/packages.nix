@@ -76,6 +76,9 @@ with pkgs; [
   pg_activity
   pgformatter
 
+  # GNOME
+  libgtop  # Data source for Astra Monitor extension
+
   # Clipboard (X11)
   xclip
 ]
