@@ -19,7 +19,7 @@ export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 
 # File
-edit() {
+fe() {
   local files
   IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
@@ -42,10 +42,6 @@ gbr() {
 
 gsta() {
   _fzf_git_stashes --no-multi | xargs git stash apply
-}
-
-gdel() {
-  _fzf_git_branches --multi | xargs git branch -D
 }
 
 gadd() {
