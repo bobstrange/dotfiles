@@ -22,6 +22,9 @@ erl_crash.dump
 lefthook.yml
 .secretlintrc.json
 
+# Ulauncher (settings auto-modified by the app)
+.config/ulauncher
+
 # nvim auto-generated files
 .config/nvim/lazy-lock.json
 .config/nvim/lazyvim.json
