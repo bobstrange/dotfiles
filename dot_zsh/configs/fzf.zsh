@@ -21,7 +21,7 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 # File
 fe() {
   local files
-  IFS=$'\n' files=($(fzf --query="$1" --multi --select-1 --exit-0))
+  IFS=$'\n' files=($(fd --type f --hidden --no-ignore --follow --exclude .git | sort | fzf --query="$1" --multi --select-1 --exit-0))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
