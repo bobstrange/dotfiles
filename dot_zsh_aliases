@@ -31,3 +31,5 @@ alias gemini='bunx @google/gemini-cli@latest'
 
 # directory
 alias memo="cd $HOME/src/github.com/bobstrange/memot/work/spideraf/"
+alias prdb="cd /home/bob/src/github.com/bobstrange/elixir-playground/"
+alias agent-config="cd /home/bob/src/github.com/bobstrange/agent-configs/"
