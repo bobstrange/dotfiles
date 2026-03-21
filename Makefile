@@ -23,7 +23,7 @@ help:
 	@echo "Tools:"
 	@echo "  lefthook-setup   Set up git hooks"
 	@echo "  xremap-setup     Set up key remapper (Linux/GNOME)"
-	@echo "  gnome-ext-setup  Install GNOME Shell extensions"
+	@echo "  gnome-extensions-setup  Install GNOME Shell extensions"
 	@echo "  mise-install     Install language runtimes"
 	@echo "  symlinks         Link secret files from Dropbox"
 	@echo "  macos-defaults   Apply macOS system preferences"
