@@ -21,7 +21,15 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 # File
 fe() {
   local files
-  IFS=$'\n' files=($(fd --type f --hidden --no-ignore --follow --exclude .git | sort | fzf --query="$1" --multi --select-1 --exit-0))
+  IFS=$'\n' files=($(
+    fd --type f --hidden --no-ignore --follow \
+      --exclude .git \
+      --exclude .elixir_ls \
+      --exclude node_modules \
+      --exec-batch perl -e \
+        'print join "\n", map { $_->[0] } sort { $b->[1] <=> $a->[1] } map { [$_, (stat $_)[9]] } @ARGV' \
+    | fzf --query="$1" --multi --select-1 --exit-0
+  ))
   [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 }
 
