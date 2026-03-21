@@ -27,25 +27,20 @@
   fp = push --force-with-lease
   lo = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
   st = status
-  # Show only filenames
-  # Replace first 3 characters as git statsus --short input is like "M  app/models/something.rb"
-  stfn = ! git status --short | sed s/^...//
+  files = ! git status --short | sed s/^...//'
 
   amend = commit --amend --no-edit
   delete = branch --delete
   tidy = "!git branch --format='%(refname:short)' | fzf --multi --preview \"git log --color --format='%Cred%h %Cgreen%cd %C(bold blue)%an%Creset %s' --date=format:'%Y-%m-%d %H:%M' -20 {}\" | xargs git branch -D"
   delete-merged = !git merged | xargs git delete
-  delete-remote-branch = push --delete origin
-  delete-remote-tag = push --delete origin
+  delete-remote = push --delete origin
   delete-tag = tag --delete
-  discard = checkout --
+  discard = restore --
   hard-reset = !git reset --hard "origin/$(git cb)"
   merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$|main$'
   modified = ! git diff --name-only --diff-filter=M
   unstage = reset -q HEAD --
   uncommit = reset --mixed HEAD~
-  update-all = !git stash && git fap && git co development && git pull --rebase && git co master && git pull --rebase
-  update-branch = !git branch -m
   push-upstream = !git push -u origin $(git cb)
   sync-tag = !git tag -l | xargs git delete-tag && git fetch origin --tags
 
