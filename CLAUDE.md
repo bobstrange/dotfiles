@@ -17,7 +17,13 @@ Supports macOS, Ubuntu, and WSL environments.
 
 ## Key Commands
 
-Run `make help` to see all available targets.
+Run `make help` to see all available targets. Summary:
+
+- **Initial setup**: `make setup-nix`, `make setup-linux`, `make setup-macos`
+- **Apply changes**: `make nix-apply`, `make macos-apply`
+- **Update packages**: `make nix-update`
+- **Tools**: `make lefthook-setup`, `make xremap-setup`, `make gnome-extensions-setup`,
+  `make mise-install`, `make symlinks`, `make macos-defaults`
 
 ## Architecture
 
@@ -40,9 +46,12 @@ Run `make help` to see all available targets.
 ├── setup/
 │   ├── bootstrap.sh        # One-liner bootstrap for fresh machines
 │   ├── nix-setup.sh        # Nix installation script
+│   ├── gnome-extensions.sh # Install GNOME Shell extensions (Linux)
 │   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
 │   ├── setup-xremap.sh     # xremap key remapper setup (Linux/GNOME)
+│   ├── setup.ps1           # Windows/PowerShell setup
 │   ├── symlinks.sh         # Symlink secret files from Dropbox (~/.aws, tokens)
+│   ├── README.Ubuntu.md    # Ubuntu-specific setup notes
 │   └── macos/
 │       └── defaults.sh     # macOS system defaults
 ├── Brewfile                # macOS package management
@@ -63,6 +72,7 @@ Run `make help` to see all available targets.
 | Language runtimes               | mise (`~/.config/mise/config.toml`)                |
 | Shell configuration             | `dot_zsh/configs/` (modular by platform)           |
 | macOS window manager            | Aerospace (`dot_aerospace.toml`)                   |
+| GNOME extensions                | `setup/gnome-extensions.sh`                        |
 | macOS system configuration      | `setup/macos/defaults.sh`                          |
 
 ### Adding Packages
