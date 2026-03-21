@@ -79,6 +79,9 @@ with pkgs; [
   # GNOME
   libgtop  # Data source for Astra Monitor extension
 
+  # Launcher
+  rofi
+
   # Clipboard (X11)
   xclip
 ]
