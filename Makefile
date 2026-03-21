@@ -1,6 +1,6 @@
 .PHONY: help setup-nix setup-linux setup-macos \
         nix-apply nix-update macos-apply \
-        lefthook-setup xremap-setup gnome-extensions-setup mise-install symlinks \
+        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
 .DEFAULT_GOAL := help
@@ -24,6 +24,8 @@ help:
 	@echo "  lefthook-setup           Set up git hooks"
 	@echo "  xremap-setup             Set up key remapper (Linux/GNOME)"
 	@echo "  gnome-extensions-setup   Install GNOME Shell extensions"
+	@echo "  ulauncher-setup          Install Ulauncher v6 launcher"
+	@echo "  gnome-defaults           Apply GNOME system preferences"
 	@echo "  mise-install             Install language runtimes"
 	@echo "  symlinks                 Link secret files from Dropbox"
 	@echo "  macos-defaults           Apply macOS system preferences"
@@ -36,7 +38,7 @@ setup-nix:
 	@echo "Restart your shell, then run: make setup-linux"
 
 # gnome-extensions-setup before xremap-setup: xremap needs its GNOME extension installed first
-setup-linux: nix-apply lefthook-setup gnome-extensions-setup xremap-setup mise-install
+setup-linux: nix-apply lefthook-setup gnome-extensions-setup ulauncher-setup gnome-defaults xremap-setup mise-install
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- If added to input group: log out and back in for xremap to work"
@@ -91,6 +93,12 @@ mise-install:
 
 symlinks:
 	bash ./setup/symlinks.sh
+
+ulauncher-setup:
+	bash ./setup/setup-ulauncher.sh
+
+gnome-defaults:
+	bash ./setup/gnome-defaults.sh
 
 macos-defaults:
 	bash ./setup/macos/defaults.sh

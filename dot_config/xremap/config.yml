@@ -13,6 +13,7 @@ keymap:
   # Window management (global)
   - name: "Window management"
     remap:
+      Alt-Space: { launch: ["gapplication", "action", "io.ulauncher.Ulauncher", "toggle-window"] }  # アプリランチャー
       # ウィンドウの位置調整
       Alt-Shift-h: Super-left      # ウィンドウを左に寄せる
       Alt-Shift-l: Super-right     # ウィンドウを右に寄せる
