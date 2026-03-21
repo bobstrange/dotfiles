@@ -25,5 +25,11 @@ for ext in "${extensions[@]}"; do
   if ! gnome-extensions list --enabled 2>/dev/null | grep -q "$ext"; then
     echo "$ext: enabling..."
     gext enable "$ext"
+    NEEDS_RELOGIN=true
   fi
 done
+
+if [ "${NEEDS_RELOGIN:-}" = "true" ]; then
+  echo ""
+  echo "New extensions were installed. Log out and back in for them to appear."
+fi
