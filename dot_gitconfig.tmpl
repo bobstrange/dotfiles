@@ -31,7 +31,7 @@
 
   amend = commit --amend --no-edit
   delete = branch --delete
-  tidy = "!git branch --format='%(refname:short)' | fzf --multi --preview \"git log --color --format='%Cred%h %Cgreen%cd %C(bold blue)%an%Creset %s' --date=format:'%Y-%m-%d %H:%M' -20 {}\" | xargs git branch -D"
+  tidy = "!git branch --format='%(refname:short)' | fzf --multi --preview \"git log --color --format='%Cred%h %Cgreen%cd %C(bold blue)%an%Creset %s' --date=format:'%Y-%m-%d %H:%M' -20 {}\" | xargs --no-run-if-empty git branch -D"
   delete-merged = !git merged | xargs git delete
   delete-remote = push --delete origin
   delete-tag = tag --delete
