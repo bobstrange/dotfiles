@@ -28,8 +28,8 @@ curl -fsLS https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/boot
 This will:
 
 1. Install chezmoi and clone this repo
-2. Install packages (Homebrew on macOS, Nix on Linux) via `make setup-macos` / `make setup-linux`
-3. Apply dotfiles (encrypted files are skipped if age key is not yet restored)
+1. Install packages (Homebrew on macOS, Nix on Linux) via `make setup-macos` / `make setup-linux`
+1. Apply dotfiles (encrypted files are skipped if age key is not yet restored)
 
 ### Daily Operations
 
@@ -45,9 +45,15 @@ make macos-defaults   # Apply macOS system defaults
 ```bash
 make nix-apply        # After editing nix/*.nix files
 make nix-update       # Update all packages to latest
+make gnome-defaults   # Apply GNOME system preferences
 nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
 ```
+
+### Adding Packages
+
+- **macOS**: Edit `Brewfile`, run `make macos-apply`
+- **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply`
 
 ### Nix vs mise
 
@@ -71,14 +77,31 @@ chmod 600 ~/.config/chezmoi/key.txt
 chezmoi apply                   # Now includes encrypted files (e.g. SSH work config)
 ```
 
-1. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
+2. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
 
 ```bash
 make symlinks   # Requires ~/Dropbox/config
 ```
 
-## Help
+## Make Targets
 
 ```bash
 make help
 ```
+
+| Target                   | Description                           |
+| ------------------------ | ------------------------------------- |
+| `setup-nix`              | Install Nix package manager           |
+| `setup-linux`            | Set up Linux development environment  |
+| `setup-macos`            | Set up macOS development environment  |
+| `nix-apply`              | Apply Nix package config changes      |
+| `nix-update`             | Update Nix packages to latest         |
+| `macos-apply`            | Apply Homebrew package config changes |
+| `lefthook-setup`         | Set up git hooks                      |
+| `xremap-setup`           | Set up key remapper (Linux/GNOME)     |
+| `gnome-extensions-setup` | Install GNOME Shell extensions        |
+| `ulauncher-setup`        | Install Ulauncher v6 launcher         |
+| `gnome-defaults`         | Apply GNOME system preferences        |
+| `mise-install`           | Install language runtimes             |
+| `symlinks`               | Link secret files from Dropbox        |
+| `macos-defaults`         | Apply macOS system preferences        |
