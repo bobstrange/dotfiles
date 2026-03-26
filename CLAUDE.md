@@ -1,6 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# Dotfiles (chezmoi)
 
 ## About This Repository
 
@@ -17,51 +15,19 @@ Supports macOS, Ubuntu, and WSL environments.
 
 ## Key Commands
 
-Run `make help` to see all available targets. Summary:
-
-- **Initial setup**: `make setup-nix`, `make setup-linux`, `make setup-macos`
-- **Apply changes**: `make nix-apply`, `make macos-apply`
-- **Update packages**: `make nix-update`
-- **Tools**: `make lefthook-setup`, `make xremap-setup`, `make gnome-extensions-setup`,
-  `make ulauncher-setup`, `make gnome-defaults`, `make mise-install`, `make symlinks`,
-  `make macos-defaults`
+Run `make help` to see all available targets.
 
 ## Architecture
 
-### File Structure
+### chezmoi Naming Conventions
 
-```text
-~/.local/share/chezmoi/
-├── .chezmoi.toml.tmpl      # chezmoi config template (age encryption)
-├── .chezmoiignore          # Files excluded from chezmoi apply
-├── bin/                    # Executable scripts (added to ~/bin)
-├── dot_config/             # ~/.config/* (ghostty, nvim, starship, etc.)
-├── dot_local/              # ~/.local/* (desktop files, scripts)
-├── dot_zsh/                # Shell config (modular by platform)
-├── nix/                    # Nix package management (Ubuntu/WSL)
-│   ├── flake.nix           # Flake definition (inputs, outputs)
-│   ├── flake.lock          # Version lockfile (auto-generated)
-│   ├── home.nix            # home-manager config (packages + sessionPath)
-│   └── packages.nix        # All packages (Linux/WSL)
-├── private_dot_ssh/        # ~/.ssh (managed by chezmoi, includes encrypted files)
-├── setup/
-│   ├── bootstrap.sh        # One-liner bootstrap for fresh machines
-│   ├── nix-setup.sh        # Nix installation script
-│   ├── gnome-extensions.sh # Install GNOME Shell extensions (Linux)
-│   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
-│   ├── setup-xremap.sh     # xremap key remapper setup (Linux/GNOME)
-│   ├── setup-ulauncher.sh  # Ulauncher v6 launcher setup (Linux)
-│   ├── gnome-defaults.sh   # GNOME system preferences (Linux)
-│   ├── setup.ps1           # Windows/PowerShell setup
-│   ├── symlinks.sh         # Symlink secret files from Dropbox (~/.aws, tokens)
-│   ├── README.Ubuntu.md    # Ubuntu-specific setup notes
-│   └── macos/
-│       └── defaults.sh     # macOS system defaults
-├── Brewfile                # macOS package management
-├── dot_aerospace.toml      # Aerospace window manager (macOS)
-├── dot_*                   # Other chezmoi dotfiles (become .* in home)
-└── Makefile                # Build targets
-```
+| Prefix / suffix | Meaning                                              | Example                               |
+| --------------- | ---------------------------------------------------- | ------------------------------------- |
+| `dot_`          | Becomes `.` in `$HOME`                               | `dot_zshrc` → `~/.zshrc`              |
+| `private_`      | Installed with `0600` permissions                    | `private_dot_ssh/`                    |
+| `encrypted_`    | Decrypted with age key on apply                      | `encrypted_private_key.age`           |
+| `.tmpl`         | Go `text/template` — edit these, not `$HOME` targets | `dot_gitconfig.tmpl`                  |
+| `run_once_*`    | Script runs once per machine                         | `run_once_after_update-icon-cache.sh` |
 
 ### Responsibility Matrix
 
@@ -97,9 +63,6 @@ flexible version management with `latest`, `lts`, and per-project `.mise.toml` o
 
 ## Development Notes
 
-- Any `.tmpl` file (root or nested, e.g. `dot_config/ghostty/config.tmpl`) is a chezmoi template
-  (Go text/template) — edit these, not the `$HOME` targets
 - Nix provides reproducible builds via `flake.lock`
 - Rollback: `home-manager rollback`
 - `make nix-apply` auto-commits `nix/flake.lock` if it changes — be aware of this side effect
-- Configuration is modular - individual components can be modified without affecting others
