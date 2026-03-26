@@ -23,7 +23,8 @@ Run `make help` to see all available targets. Summary:
 - **Apply changes**: `make nix-apply`, `make macos-apply`
 - **Update packages**: `make nix-update`
 - **Tools**: `make lefthook-setup`, `make xremap-setup`, `make gnome-extensions-setup`,
-  `make mise-install`, `make symlinks`, `make macos-defaults`
+  `make ulauncher-setup`, `make gnome-defaults`, `make mise-install`, `make symlinks`,
+  `make macos-defaults`
 
 ## Architecture
 
@@ -49,6 +50,8 @@ Run `make help` to see all available targets. Summary:
 │   ├── gnome-extensions.sh # Install GNOME Shell extensions (Linux)
 │   ├── lefthook-gen.sh     # Generate lefthook.yml with extends
 │   ├── setup-xremap.sh     # xremap key remapper setup (Linux/GNOME)
+│   ├── setup-ulauncher.sh  # Ulauncher v6 launcher setup (Linux)
+│   ├── gnome-defaults.sh   # GNOME system preferences (Linux)
 │   ├── setup.ps1           # Windows/PowerShell setup
 │   ├── symlinks.sh         # Symlink secret files from Dropbox (~/.aws, tokens)
 │   ├── README.Ubuntu.md    # Ubuntu-specific setup notes
@@ -73,6 +76,8 @@ Run `make help` to see all available targets. Summary:
 | Shell configuration             | `dot_zsh/configs/` (modular by platform)           |
 | macOS window manager            | Aerospace (`dot_aerospace.toml`)                   |
 | GNOME extensions                | `setup/gnome-extensions.sh`                        |
+| GNOME system configuration      | `setup/gnome-defaults.sh`                          |
+| Ulauncher                       | `setup/setup-ulauncher.sh`                         |
 | macOS system configuration      | `setup/macos/defaults.sh`                          |
 
 ### Adding Packages
