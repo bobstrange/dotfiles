@@ -69,6 +69,7 @@ with pkgs; [
 
   # Formatters
   dprint
+  markdownlint-cli2
 
   # Database
   clickhouse
