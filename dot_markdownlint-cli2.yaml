@@ -3,3 +3,4 @@ config:
     line_length: 120
     tables: false
     code_blocks: false
+  ol-prefix: false
