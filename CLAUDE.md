@@ -46,6 +46,16 @@ Run `make help` to see all available targets.
 | Ulauncher                       | `setup/setup-ulauncher.sh`                         |
 | macOS system configuration      | `setup/macos/defaults.sh`                          |
 
+### Git Hooks
+
+Pre-commit hooks are managed with lefthook (`make lefthook-setup`). Hooks run on staged files:
+
+- **trailing-whitespace**: `git diff --check`
+- **dprint-check**: format check for `*.md`, `*.json`, `*.yaml`, `*.yml`, `*.toml`
+- **markdownlint**: `markdownlint-cli2` for `*.md` (120-char line limit, config in `.markdownlint-cli2.yaml`)
+
+`make setup-linux` includes lefthook-setup. For macOS, run `make lefthook-setup` separately.
+
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`

@@ -40,6 +40,9 @@ make macos-apply      # Apply Brewfile changes
 make macos-defaults   # Apply macOS system defaults
 ```
 
+> **Note:** `make setup-macos` does not include `lefthook-setup`. Run `make lefthook-setup` separately
+> after initial setup to install git hooks.
+
 #### Ubuntu/WSL
 
 ```bash
@@ -49,6 +52,19 @@ make gnome-defaults   # Apply GNOME system preferences
 nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
 ```
+
+### Git Hooks
+
+[lefthook](https://github.com/evilmartians/lefthook) runs pre-commit checks automatically after
+`make lefthook-setup` (or `make setup-linux`):
+
+| Hook                | Files                                         | Tool                |
+| ------------------- | --------------------------------------------- | ------------------- |
+| trailing-whitespace | all staged files                              | `git diff --check`  |
+| dprint-check        | `*.md`, `*.json`, `*.yaml`, `*.yml`, `*.toml` | `dprint`            |
+| markdownlint        | `*.md`                                        | `markdownlint-cli2` |
+
+Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml`).
 
 ### Adding Packages
 
