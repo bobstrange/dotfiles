@@ -13,6 +13,9 @@ return {
         css = { "prettier" },
         scss = { "prettier" },
         html = { "prettier" },
+        json = { "prettier" },
+        jsonc = { "prettier" },
+        yaml = { "prettier" },
         -- ruby
         ruby = { "rubocop" },
         -- terraform/HCL
@@ -21,6 +24,9 @@ return {
         tf = { "terraform_fmt" },
         -- SQL
         sql = { "pg_format" },
+        -- elixir
+        elixir = { "mix" },
+        heex = { "mix" },
       },
     },
   },
