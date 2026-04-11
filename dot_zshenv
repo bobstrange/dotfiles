@@ -22,8 +22,6 @@ export PATH="$GOPATH/bin:$PATH"
 export DENO_INSTALL="$HOME/.deno"
 [ -d "$DENO_INSTALL" ] && export PATH="$DENO_INSTALL/bin:$PATH"
 
-
-
 # Nix package manager (environment setup)
 # Note: PATH priority is ensured in dot_zshrc (loaded last)
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
