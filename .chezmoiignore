@@ -3,7 +3,6 @@ CLAUDE.md
 Brewfile
 Makefile
 dircolors
-windows_terminal_profiles.json
 setup/
 nix/
 unmanaged/
