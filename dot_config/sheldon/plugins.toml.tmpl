@@ -34,10 +34,13 @@ fi
 """
 
 # Order matters: syntax-highlighting must be loaded before autosuggestions
+# Both are deferred since they only affect interactive command line rendering
 [plugins.zsh-syntax-highlighting]
+apply = ["defer"]
 github = 'zsh-users/zsh-syntax-highlighting'
 
 [plugins.zsh-autosuggestions]
+apply = ["defer"]
 github = 'zsh-users/zsh-autosuggestions'
 
 [plugins.fzf-git]
