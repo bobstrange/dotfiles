@@ -1,5 +1,4 @@
 setopt hist_ignore_all_dups
-setopt hist_ignore_dups
 
 # Appends every command to the history file once it is executed
 setopt inc_append_history
