@@ -4,10 +4,7 @@ if [[ -n "$TERM_PROGRAM" ]] && [[ -z "$TMUX" ]]; then
 fi
 
 # History settings (must be set before autosuggestions plugin)
-HISTFILE=~/.zhistory
-HISTSIZE=65535
-SAVEHIST=1000000000
-setopt hist_ignore_all_dups hist_ignore_dups inc_append_history share_history EXTENDED_HISTORY
+source "$HOME/.zsh/configs/history.zsh"
 
 # Set fpath before compinit (Nix completions + custom completions)
 fpath=(
