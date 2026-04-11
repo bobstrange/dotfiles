@@ -17,7 +17,7 @@ def pbcopy(obj)
     when :darwin
       'pbcopy'
     when :linux
-      'xclip'
+      'wl-copy'
     end
 
   IO.popen(command, 'r+') { |io| io.puts obj }
