@@ -13,9 +13,14 @@ export FZF_DEFAULT_OPTS='
   --tmux center,90%
 '
 
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+if command -v fd &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+else
+  export FZF_DEFAULT_COMMAND='find . -type f -not -path "*/.git/*"'
+  export FZF_ALT_C_COMMAND='find . -type d -not -path "*/.git/*"'
+fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -100'"
 
 # fzf-git.sh: disable side-by-side in preview pane (too narrow)
