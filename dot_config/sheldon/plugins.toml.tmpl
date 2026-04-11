@@ -13,6 +13,11 @@ defer = "{{"{{"}} hooks | get: \"pre\" | nl {{"}}"}}{% for file in files %}zsh-d
 [plugins.zsh-defer]
 github = 'romkatv/zsh-defer'
 
+# Additional completions for tools not covered by Nix packages (curl, docker, npm, etc.)
+# Must be loaded before compinit (fzf-tab pre hook) so completions are registered
+[plugins.zsh-completions]
+github = 'zsh-users/zsh-completions'
+
 # fzf-tab: must be loaded after compinit, before autosuggestions/syntax-highlighting
 # https://github.com/Aloxaf/fzf-tab#install
 [plugins.fzf-tab]
