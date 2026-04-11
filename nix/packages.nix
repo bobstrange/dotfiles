@@ -80,6 +80,7 @@ with pkgs; [
   # GNOME
   libgtop  # Data source for Astra Monitor extension
 
-  # Clipboard (X11)
-  xclip
+  # Clipboard
+  wl-clipboard # Wayland native (wl-copy / wl-paste)
+  xclip        # X11 fallback
 ]
