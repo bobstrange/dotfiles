@@ -17,7 +17,6 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 # Go
 export GOPATH="$HOME/dev"
 export PATH="$GOPATH/bin:$PATH"
-export GO111MODULE=on
 
 # Deno
 export DENO_INSTALL="$HOME/.deno"
