@@ -8,3 +8,5 @@ init-version=0.0.1
 
 include=dev
 engine-strict=true
+fund=false
+update-notifier=false
