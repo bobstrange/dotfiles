@@ -1,4 +1,9 @@
 # ssh-agent の起動と自動で鍵を追加する設定
+# WSL uses its own ssh-agent strategy (configs/wsl/ssh_agent.zsh)
+if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop || -n "$WSL_DISTRO_NAME" ]]; then
+  return 0
+fi
+
 # もし ssh-agent が動いていなければ起動し、そうでなければ何もしない
 if [ -z "$SSH_AUTH_SOCK" ]; then
   eval "$(ssh-agent -s)"
