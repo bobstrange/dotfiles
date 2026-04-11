@@ -31,20 +31,23 @@ Run `make help` to see all available targets.
 
 ### Responsibility Matrix
 
-| Concern                         | Tool                                               |
-| ------------------------------- | -------------------------------------------------- |
-| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                            |
-| SSH (~/.ssh)                    | chezmoi (`private_dot_ssh/`, encrypted with age)   |
-| Secrets (~/.aws, tokens)        | `setup/symlinks.sh` (Dropbox `~/Dropbox/config`)   |
-| Packages - macOS                | Homebrew + Brewfile                                |
-| Packages - Ubuntu/WSL           | Nix + home-manager (packages + `home.sessionPath`) |
-| Language runtimes               | mise (`~/.config/mise/config.toml`)                |
-| Shell configuration             | `dot_zsh/configs/` (modular by platform)           |
-| macOS window manager            | Aerospace (`dot_aerospace.toml`)                   |
-| GNOME extensions                | `setup/gnome-extensions.sh`                        |
-| GNOME system configuration      | `setup/gnome-defaults.sh`                          |
-| Ulauncher                       | `setup/setup-ulauncher.sh`                         |
-| macOS system configuration      | `setup/macos/defaults.sh`                          |
+| Concern                         | Tool                                                      |
+| ------------------------------- | --------------------------------------------------------- |
+| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                                   |
+| SSH (~/.ssh)                    | chezmoi (`private_dot_ssh/`, encrypted with age)          |
+| Secrets (~/.aws, tokens)        | `setup/symlinks.sh` (Dropbox `~/Dropbox/config`)          |
+| Packages - macOS                | Homebrew + Brewfile                                       |
+| Packages - Ubuntu/WSL           | Nix + home-manager (packages + `home.sessionPath`)        |
+| Language runtimes               | mise (`~/.config/mise/config.toml`)                       |
+| Shell configuration             | `dot_zsh/configs/` (modular by platform)                  |
+| Utility scripts                 | `bin/` → `~/bin/`, `dot_local/bin/` → `~/.local/bin/`     |
+| Desktop entries (Linux)         | `dot_local/share/applications/`, `dot_local/share/icons/` |
+| One-time setup scripts          | `.chezmoiscripts/` (chezmoi `run_once_*`)                 |
+| macOS window manager            | Aerospace (`dot_aerospace.toml`)                          |
+| GNOME extensions                | `setup/gnome-extensions.sh`                               |
+| GNOME system configuration      | `setup/gnome-defaults.sh`                                 |
+| Ulauncher                       | `setup/setup-ulauncher.sh`                                |
+| macOS system configuration      | `setup/macos/defaults.sh`                                 |
 
 ### Git Hooks
 

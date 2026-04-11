@@ -71,6 +71,19 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
 - **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply`
 
+### Utility Scripts
+
+Scripts in `bin/` are installed to `~/bin/`, and `dot_local/bin/` to `~/.local/bin/`:
+
+| Script                       | Description                              |
+| ---------------------------- | ---------------------------------------- |
+| `claude-search-sessions.py`  | Search Claude Code session logs          |
+| `ghostty-wrapper`            | Ghostty terminal launcher (Linux)        |
+| `neovide-launcher`           | Neovide desktop launcher (Linux)         |
+| `update-git-delta-themes.sh` | Update git-delta color theme definitions |
+
+Desktop entries and icons for Linux are managed in `dot_local/share/`.
+
 ### Nix vs mise
 
 | Category                | Manager                             | Examples                           |
