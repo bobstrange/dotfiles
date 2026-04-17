@@ -4,3 +4,4 @@ config:
     tables: false
     code_blocks: false
   ol-prefix: false
+  no-emphasis-as-heading: false
