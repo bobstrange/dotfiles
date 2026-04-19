@@ -11,8 +11,8 @@
 -- Set conceallevel to 0 to show all concealed text
 vim.opt.conceallevel = 0
 
--- Skip CJK characters in spell checking (LazyVim enables spell for markdown etc.)
-vim.opt.spelllang = { "en", "cjk" }
+-- Disable built-in spell (using cspell via nvim-lint instead)
+vim.opt.spell = false
 
 -- Neovide / GUI settings
 if vim.g.neovide then
