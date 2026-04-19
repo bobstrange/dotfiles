@@ -21,13 +21,13 @@ Run `make help` to see all available targets.
 
 ### chezmoi Naming Conventions
 
-| Prefix / suffix | Meaning                                              | Example                               |
-| --------------- | ---------------------------------------------------- | ------------------------------------- |
-| `dot_`          | Becomes `.` in `$HOME`                               | `dot_zshrc` → `~/.zshrc`              |
-| `private_`      | Installed with `0600` permissions                    | `private_dot_ssh/`                    |
-| `encrypted_`    | Decrypted with age key on apply                      | `encrypted_private_key.age`           |
-| `.tmpl`         | Go `text/template` — edit these, not `$HOME` targets | `dot_gitconfig.tmpl`                  |
-| `run_once_*`    | Script runs once per machine                         | `run_once_after_update-icon-cache.sh` |
+| Prefix / suffix | Meaning                                              | Example                                   |
+| --------------- | ---------------------------------------------------- | ----------------------------------------- |
+| `dot_`          | Becomes `.` in `$HOME`                               | `dot_zshrc` → `~/.zshrc`                  |
+| `private_`      | Installed with `0600` permissions                    | `private_dot_ssh/`                        |
+| `encrypted_`    | Decrypted with age key on apply                      | `encrypted_private_key.age`               |
+| `.tmpl`         | Go `text/template` — edit these, not `$HOME` targets | `dot_gitconfig.tmpl`                      |
+| `run_once_*`    | Script runs once per machine                         | `run_once_after_install-gh-extensions.sh` |
 
 ### Responsibility Matrix
 
@@ -43,6 +43,7 @@ Run `make help` to see all available targets.
 | Utility scripts                 | `bin/` → `~/bin/`, `dot_local/bin/` → `~/.local/bin/`     |
 | Desktop entries (Linux)         | `dot_local/share/applications/`, `dot_local/share/icons/` |
 | One-time setup scripts          | `.chezmoiscripts/` (chezmoi `run_once_*`)                 |
+| Key remapper (Linux/GNOME)      | xremap (`setup/setup-xremap.sh`)                          |
 | macOS window manager            | Aerospace (`dot_aerospace.toml`)                          |
 | GNOME extensions                | `setup/gnome-extensions.sh`                               |
 | GNOME system configuration      | `setup/gnome-defaults.sh`                                 |
@@ -59,6 +60,19 @@ Pre-commit hooks are managed with lefthook (`make lefthook-setup`). Hooks run on
 
 `make setup-linux` includes lefthook-setup. For macOS, run `make lefthook-setup` separately.
 
+### Utility Scripts
+
+Scripts in `bin/` are installed to `~/bin/`, and `dot_local/bin/` to `~/.local/bin/`:
+
+| Script                       | Location        | Description                              |
+| ---------------------------- | --------------- | ---------------------------------------- |
+| `claude-search-sessions.py`  | `bin/`          | Search Claude Code session logs          |
+| `ghostty-wrapper`            | `bin/`          | Ghostty terminal launcher (Linux)        |
+| `neovide-launcher`           | `dot_local/bin` | Neovide desktop launcher (Linux)         |
+| `update-git-delta-themes.sh` | `dot_local/bin` | Update git-delta color theme definitions |
+
+Desktop entries and icons for Linux are managed in `dot_local/share/`.
+
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
@@ -73,6 +87,14 @@ Pre-commit hooks are managed with lefthook (`make lefthook-setup`). Hooks run on
 
 Rationale: nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 vs 4.0), while mise provides
 flexible version management with `latest`, `lts`, and per-project `.mise.toml` overrides.
+
+## Setup Flow
+
+1. `setup/bootstrap.sh` installs chezmoi and clones this repo
+2. `make setup-macos` or `make setup-linux` installs packages and applies config
+3. Restore age key at `~/.config/chezmoi/key.txt` (from 1Password) for encrypted files
+4. `chezmoi apply` to apply all dotfiles including encrypted ones
+5. (Optional) `make symlinks` to link Dropbox secrets
 
 ## Development Notes
 
