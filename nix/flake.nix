@@ -27,11 +27,9 @@
           # The fix is in cli-helpers v2.10.1+. Remove this override once nixpkgs
           # unstable updates python3Packages.cli-helpers to >= 2.10.1.
           (final: prev: {
-            python3 = prev.python3.override {
-              packageOverrides = pyFinal: pyPrev: {
-                cli-helpers = pyPrev.cli-helpers.overrideAttrs (_: { doCheck = false; });
-              };
-            };
+            python3Packages = prev.python3Packages.overrideScope (pyFinal: pyPrev: {
+              cli-helpers = pyPrev.cli-helpers.overrideAttrs (_: { doInstallCheck = false; });
+            });
           })
         ];
       };
