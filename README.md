@@ -17,6 +17,38 @@
 
 Supports macOS, Ubuntu, and WSL environments.
 
+## Architecture
+
+### chezmoi Naming Conventions
+
+| Prefix / suffix | Meaning                                              | Example                                   |
+| --------------- | ---------------------------------------------------- | ----------------------------------------- |
+| `dot_`          | Becomes `.` in `$HOME`                               | `dot_zshrc` → `~/.zshrc`                  |
+| `private_`      | Installed with `0600` permissions                    | `private_dot_ssh/`                        |
+| `encrypted_`    | Decrypted with age key on apply                      | `encrypted_private_key.age`               |
+| `.tmpl`         | Go `text/template` — edit these, not `$HOME` targets | `dot_gitconfig.tmpl`                      |
+| `run_once_*`    | Script runs once per machine                         | `run_once_after_install-gh-extensions.sh` |
+
+### Responsibility Matrix
+
+| Concern                         | Tool                                                      |
+| ------------------------------- | --------------------------------------------------------- |
+| Dotfiles (.zshrc, .vimrc, etc.) | chezmoi                                                   |
+| SSH (~/.ssh)                    | chezmoi (`private_dot_ssh/`, encrypted with age)          |
+| Secrets (~/.aws, tokens)        | `setup/symlinks.sh` (Dropbox `~/Dropbox/config`)          |
+| Packages - macOS                | Homebrew + Brewfile                                       |
+| Packages - Ubuntu/WSL           | Nix + home-manager                                        |
+| Language runtimes               | mise (`~/.config/mise/config.toml`)                       |
+| Shell configuration             | `dot_zsh/configs/` (modular by platform)                  |
+| Utility scripts                 | `bin/` → `~/bin/`, `dot_local/bin/` → `~/.local/bin/`     |
+| Desktop entries (Linux)         | `dot_local/share/applications/`, `dot_local/share/icons/` |
+| One-time setup scripts          | `.chezmoiscripts/` (chezmoi `run_once_*`)                 |
+| Key remapper (Linux/GNOME)      | xremap (`setup/setup-xremap.sh`)                          |
+| macOS window manager            | Aerospace (`dot_aerospace.toml`)                          |
+| GNOME extensions                | `setup/gnome-extensions.sh`                               |
+| GNOME system configuration      | `setup/gnome-defaults.sh`                                 |
+| macOS system configuration      | `setup/macos/defaults.sh`                                 |
+
 ## Setup
 
 Run this on a fresh machine (macOS or Linux/WSL):
@@ -75,12 +107,12 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 
 Scripts in `bin/` are installed to `~/bin/`, and `dot_local/bin/` to `~/.local/bin/`:
 
-| Script                       | Description                              |
-| ---------------------------- | ---------------------------------------- |
-| `claude-search-sessions.py`  | Search Claude Code session logs          |
-| `ghostty-wrapper`            | Ghostty terminal launcher (Linux)        |
-| `neovide-launcher`           | Neovide desktop launcher (Linux)         |
-| `update-git-delta-themes.sh` | Update git-delta color theme definitions |
+| Script                       | Location        | Description                              |
+| ---------------------------- | --------------- | ---------------------------------------- |
+| `claude-search-sessions.py`  | `bin/`          | Search Claude Code session logs          |
+| `ghostty-wrapper`            | `bin/`          | Ghostty terminal launcher (Linux)        |
+| `neovide-launcher`           | `dot_local/bin` | Neovide desktop launcher (Linux)         |
+| `update-git-delta-themes.sh` | `dot_local/bin` | Update git-delta color theme definitions |
 
 Desktop entries and icons for Linux are managed in `dot_local/share/`.
 
