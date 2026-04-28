@@ -78,6 +78,9 @@ Desktop entries and icons for Linux are managed in `dot_local/share/`.
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
 - **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply` (or use `nix-add` shell function)
 
+For cross-platform CLI tools (e.g. `markdownlint-cli2`, `dprint`), add to **both** `Brewfile` and
+`nix/packages.nix`. Linux-only packages (e.g. `wl-clipboard`, `xremap`) go to `nix/packages.nix` only.
+
 ### Nix vs mise: Package Management Guidelines
 
 - **Nix** (`nix/packages.nix`): CLI tools, utilities, and packages where the latest version is not critical
