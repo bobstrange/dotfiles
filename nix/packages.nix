@@ -6,7 +6,6 @@ with pkgs; [
   zsh
   tmux
   starship
-  alacritty
   ghostty
   nixgl.nixGLIntel
   sheldon

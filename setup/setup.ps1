@@ -17,7 +17,6 @@ $applications = @(
     "git-credential-manager",
     "neovim",
     "everything",
-    "alacritty",
     "powertoys",
     "obsidian",
     "notepadplusplus",
