@@ -59,6 +59,7 @@ keymap:
         - neovide
         - Code
         - code  # since 1.107.0 Ubuntu?
+        - slack  # Ctrl-k = quick switcher (WM_CLASS is lowercase)
     remap:
       # Cursor movement
       Ctrl-b: left
@@ -131,7 +132,7 @@ keymap:
   - name: "Slack keys"
     application:
       only:
-        - Slack
+        - slack  # WM_CLASS is lowercase
     remap:
       # Slack specific shortcuts
       Alt-k: Ctrl-k  # Quick switcher
