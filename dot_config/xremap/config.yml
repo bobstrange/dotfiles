@@ -59,7 +59,6 @@ keymap:
         - neovide
         - Code
         - code  # since 1.107.0 Ubuntu?
-        - slack  # Ctrl-k = quick switcher (WM_CLASS is lowercase)
     remap:
       # Cursor movement
       Ctrl-b: left
