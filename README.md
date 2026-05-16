@@ -47,6 +47,7 @@ Supports macOS, Ubuntu, and WSL environments.
 | macOS window manager            | Aerospace (`dot_aerospace.toml`)                          |
 | GNOME extensions                | `setup/gnome-extensions.sh`                               |
 | GNOME system configuration      | `setup/gnome-defaults.sh`                                 |
+| Ulauncher                       | `setup/setup-ulauncher.sh`                                |
 | macOS system configuration      | `setup/macos/defaults.sh`                                 |
 
 ## Setup
@@ -78,8 +79,8 @@ make macos-defaults   # Apply macOS system defaults
 #### Ubuntu/WSL
 
 ```bash
-make nix-apply        # After editing nix/*.nix files
-make nix-update       # Update all packages to latest
+make nix-apply        # After editing nix/*.nix files (auto-commits nix/flake.lock if changed)
+make nix-update       # Update all packages to latest (auto-commits nix/flake.lock if changed)
 make gnome-defaults   # Apply GNOME system preferences
 nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
