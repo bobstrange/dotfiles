@@ -103,4 +103,4 @@ flexible version management with `latest`, `lts`, and per-project `.mise.toml` o
 
 - Nix provides reproducible builds via `flake.lock`
 - Rollback: `home-manager rollback`
-- `make nix-apply` auto-commits `nix/flake.lock` if it changes — be aware of this side effect
+- `make nix-apply` and `make nix-update` auto-commit `nix/flake.lock` if it changes — be aware of this side effect
