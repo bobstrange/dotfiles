@@ -20,6 +20,13 @@ return { -- LSPの追加設定（LazyVimのデフォルトを拡張）
             },
         })
 
+        -- marksman: force single-file mode to avoid scanning huge workspaces
+        -- (e.g. when opening a markdown file under $HOME)
+        opts.servers.marksman = vim.tbl_deep_extend("force", opts.servers.marksman or {}, {
+            root_dir = function() return nil end,
+            single_file_support = true,
+        })
+
         -- custom env and dialyzer setting specific to this machine
         opts.servers.elixirls = vim.tbl_deep_extend("force", opts.servers.elixirls or {}, {
             cmd_env = {
