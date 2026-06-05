@@ -1,5 +1,5 @@
 # dot_claude/ is managed via agent-configs symlinks on work machines
-{{ if .work }}
+{{ if index . "work" }}
 dot_claude
 {{ end }}
 
