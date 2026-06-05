@@ -99,6 +99,22 @@ home-manager rollback              # Rollback to previous generation
 
 Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml`).
 
+### Machine-local Configuration
+
+Some dotfiles are conditionally applied based on machine type. Run `make local-config` once per
+machine to configure `~/.config/chezmoi/chezmoi.toml` (not tracked in git):
+
+```bash
+make local-config   # interactive prompt
+# or non-interactively:
+./setup/setup-local-config.sh --work
+./setup/setup-local-config.sh --personal
+```
+
+| Variable    | Effect                                                                            |
+| ----------- | --------------------------------------------------------------------------------- |
+| `work=true` | Skips `dot_claude/` — `~/.claude/` is managed by agent-configs symlinks instead  |
+
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
@@ -156,6 +172,7 @@ make help
 | `setup-nix`              | Install Nix package manager           |
 | `setup-linux`            | Set up Linux development environment  |
 | `setup-macos`            | Set up macOS development environment  |
+| `local-config`           | Configure machine-local chezmoi settings (work/personal) |
 | `nix-apply`              | Apply Nix package config changes      |
 | `nix-update`             | Update Nix packages to latest         |
 | `macos-apply`            | Apply Homebrew package config changes |

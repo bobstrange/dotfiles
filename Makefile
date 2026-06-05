@@ -1,4 +1,4 @@
-.PHONY: help setup-nix setup-linux setup-macos \
+.PHONY: help setup-nix setup-linux setup-macos local-config \
         nix-apply nix-update macos-apply \
         lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
         macos-defaults
@@ -12,6 +12,7 @@ help:
 	@echo "  setup-nix                Install Nix package manager"
 	@echo "  setup-linux              Set up Linux development environment"
 	@echo "  setup-macos              Set up macOS development environment"
+	@echo "  local-config             Configure machine-local chezmoi settings (work/personal)"
 	@echo ""
 	@echo "Apply config changes:"
 	@echo "  nix-apply                Apply Nix package config changes"
@@ -45,6 +46,9 @@ setup-linux: nix-apply lefthook-setup gnome-extensions-setup ulauncher-setup gno
 	@echo "- After setting up Dropbox: make symlinks"
 
 setup-macos: macos-apply macos-defaults mise-install
+
+local-config:
+	bash ./setup/setup-local-config.sh
 
 # --- Apply config changes ---
 
