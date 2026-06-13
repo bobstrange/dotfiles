@@ -6,11 +6,12 @@
 - **[Homebrew](https://brew.sh/) + Brewfile**: Package management (macOS)
 - **[Nix Flakes][nix] + [home-manager][hm]**: Package management (Ubuntu/WSL)
 - **[mise](https://mise.jdx.dev/)**: Language runtime version management
+- **[winget](https://learn.microsoft.com/windows/package-manager/)**: Package management (Windows)
 
 [nix]: https://nixos.wiki/wiki/Flakes
 [hm]: https://github.com/nix-community/home-manager
 
-Supports macOS, Ubuntu, and WSL environments.
+Supports macOS, Ubuntu, WSL, and Windows environments.
 
 ## Setup
 
@@ -33,6 +34,40 @@ This will:
 > `make setup-wsl` instead of `make setup-linux`, skipping GNOME extensions, Ulauncher,
 > and xremap which are not applicable in WSL.
 
+### Windows
+
+Windows does not use the bootstrap script. Run the following steps manually:
+
+1. Install [chezmoi](https://www.chezmoi.io/install/) and clone this repo:
+
+```powershell
+winget install twpayne.chezmoi
+chezmoi init --apply bobstrange
+```
+
+2. Install applications via the setup script:
+
+```powershell
+.\setup\setup.ps1
+```
+
+This installs apps via winget (git, Neovim, VSCode, Chrome, Vivaldi, Slack, Discord, etc.).
+
+The following apps are not registered in winget and must be installed manually:
+
+| App       | Download                                          |
+| --------- | ------------------------------------------------- |
+| win32yank | <https://github.com/equalsraf/win32yank/releases> |
+| NeeView   | <https://github.com/neelabo/NeeView/releases>     |
+
+3. Restore the age key and apply encrypted files (same as macOS/Linux):
+
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\chezmoi"
+notepad "$env:USERPROFILE\.config\chezmoi\key.txt"  # Paste from 1Password
+chezmoi apply
+```
+
 ### Post-Bootstrap Steps
 
 1. Restore the age key and apply encrypted files:
@@ -53,8 +88,8 @@ make local-config   # interactive prompt
 ./setup/setup-local-config.sh --personal
 ```
 
-| Variable    | Effect                                                                           |
-| ----------- | -------------------------------------------------------------------------------- |
+| Variable    | Effect                                                                          |
+| ----------- | ------------------------------------------------------------------------------- |
 | `work=true` | Skips `dot_claude/` — `~/.claude/` is managed by agent-configs symlinks instead |
 
 3. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
@@ -122,15 +157,15 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 
 ### Responsibility Matrix
 
-| Concern                         | Tool                                             |
-| ------------------------------- | ------------------------------------------------ |
-| Dotfiles (.zshrc, .gitconfig, etc.) | chezmoi                                      |
-| SSH (~/.ssh)                    | chezmoi (encrypted with age)                     |
-| Secrets (~/.aws, tokens)        | Dropbox symlinks (`setup/symlinks.sh`)            |
-| Packages - macOS                | Homebrew + Brewfile                              |
-| Packages - Ubuntu/WSL           | Nix + home-manager                               |
-| Language runtimes               | mise                                             |
-| Shell configuration             | `dot_zsh/configs/`                               |
+| Concern                             | Tool                                   |
+| ----------------------------------- | -------------------------------------- |
+| Dotfiles (.zshrc, .gitconfig, etc.) | chezmoi                                |
+| SSH (~/.ssh)                        | chezmoi (encrypted with age)           |
+| Secrets (~/.aws, tokens)            | Dropbox symlinks (`setup/symlinks.sh`) |
+| Packages - macOS                    | Homebrew + Brewfile                    |
+| Packages - Ubuntu/WSL               | Nix + home-manager                     |
+| Language runtimes                   | mise                                   |
+| Shell configuration                 | `dot_zsh/configs/`                     |
 
 ### Nix vs mise
 
@@ -142,4 +177,3 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 - **Nix**: Reproducible, declarative. Good for tools where exact version doesn't matter much.
 - **mise**: Tracks `latest`/`lts`, supports per-project `.mise.toml` for version switching.
   nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 when 4.0 is out).
-
