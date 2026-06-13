@@ -77,6 +77,11 @@ if [ "$PLATFORM" = "macos" ]; then
   echo "  4. After setting up Dropbox: make symlinks"
 
 elif [ "$PLATFORM" = "linux" ]; then
+  if ! command -v make >/dev/null 2>&1; then
+    info "Installing make..."
+    sudo apt-get install -y make
+  fi
+
   info "Running make setup-nix..."
   make setup-nix
 
