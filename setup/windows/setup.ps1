@@ -98,6 +98,45 @@ if (Test-Path $ahkSource) {
     Write-Warning "keybindings.ahk が見つかりません: $ahkSource"
 }
 
+# ===== キーリマップ (Scancode Map) =====
+# スキャンコード対応表:
+#   CapsLock  = 0x003A (3A 00)
+#   Left Ctrl = 0x001D (1D 00)
+#   Left Alt  = 0x0038 (38 00)
+#   Right Ctrl = 0xE01D (1D E0)  ※ 拡張キー
+#
+# エントリ形式: [送り先 2bytes][送り元 2bytes]
+Write-Host "`n--- キーリマップ (Scancode Map) ---"
+$regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout"
+$regName = "Scancode Map"
+$backupPath = Join-Path $PSScriptRoot "scancode_backup.bin"
+
+$existing = (Get-ItemProperty -Path $regPath -Name $regName -ErrorAction SilentlyContinue).$regName
+if ($existing -and -not (Test-Path $backupPath)) {
+    [System.IO.File]::WriteAllBytes($backupPath, $existing)
+    Write-Host "既存の Scancode Map をバックアップしました: $backupPath"
+}
+
+$scancodeMap = [byte[]](
+    # ヘッダー (固定)
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00,
+    # エントリ数: 3マッピング + null terminator = 4
+    0x04, 0x00, 0x00, 0x00,
+    # Left Ctrl (1D 00) ← CapsLock (3A 00)
+    0x1D, 0x00, 0x3A, 0x00,
+    # Right Ctrl (1D E0) ← Left Alt (38 00)
+    0x1D, 0xE0, 0x38, 0x00,
+    # Left Alt (38 00) ← Left Ctrl (1D 00)
+    0x38, 0x00, 0x1D, 0x00,
+    # null terminator
+    0x00, 0x00, 0x00, 0x00
+)
+
+Set-ItemProperty -Path $regPath -Name $regName -Value $scancodeMap -Type Binary
+Write-Host "Scancode Map を設定しました。再起動後に有効になります。"
+Write-Host "元に戻す場合は restore_scancode.ps1 を実行してください。"
+
 Write-Host "`n--- Google 日本語入力 キー設定 (手動) ---"
 Write-Host "Google 日本語入力のキー設定はインストール後に手動で行ってください:"
 Write-Host "  1. タスクバーの [あ] を右クリック → [プロパティ]"

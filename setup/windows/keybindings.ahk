@@ -1,6 +1,8 @@
-; AutoHotkey v2 configuration converted from xremap
-; CapsLock already remapped to RCtrl via registry
-; Left Alt should work as Alt (recommend removing Alt->RCtrl registry setting)
+; AutoHotkey v2 configuration
+; Registry Scancode Map (setup.ps1 で設定):
+;   CapsLock  → Left Ctrl
+;   Left Alt  → Right Ctrl
+;   Left Ctrl → Left Alt
 
 #SingleInstance Force
 #UseHook true
