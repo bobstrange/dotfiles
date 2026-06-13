@@ -46,13 +46,7 @@ irm https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/setup.ps1 |
 ```
 
 This installs apps via winget (git, Neovim, VSCode, Chrome, Vivaldi, Slack, Discord, etc.).
-
-The following apps are not registered in winget and must be installed manually:
-
-| App       | Download                                          |
-| --------- | ------------------------------------------------- |
-| win32yank | <https://github.com/equalsraf/win32yank/releases> |
-| NeeView   | <https://github.com/neelabo/NeeView/releases>     |
+Apps not registered in winget are listed at the end of the script output.
 
 2. Set up dotfiles inside WSL using the standard bootstrap script:
 
