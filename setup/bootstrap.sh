@@ -82,6 +82,13 @@ elif [ "$PLATFORM" = "linux" ]; then
     sudo apt-get install -y make
   fi
 
+  # Detect WSL
+  if grep -qi microsoft /proc/version 2>/dev/null; then
+    IS_WSL=true
+  else
+    IS_WSL=false
+  fi
+
   info "Running make setup-nix..."
   make setup-nix
 
@@ -91,8 +98,14 @@ elif [ "$PLATFORM" = "linux" ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
   fi
 
-  info "Running make setup-linux..."
-  make setup-linux
+  if [ "$IS_WSL" = "true" ]; then
+    info "WSL detected — skipping GNOME/xremap setup"
+    info "Running make setup-wsl..."
+    make setup-wsl
+  else
+    info "Running make setup-linux..."
+    make setup-linux
+  fi
 
   if [ ! -f "$HOME/.config/chezmoi/key.txt" ]; then
     info "WARNING: age key not found at ~/.config/chezmoi/key.txt"

@@ -1,4 +1,4 @@
-.PHONY: help setup-nix setup-linux setup-macos local-config \
+.PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
         nix-apply nix-update macos-apply \
         lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
         macos-defaults
@@ -11,6 +11,7 @@ help:
 	@echo "Initial setup (run once):"
 	@echo "  setup-nix                Install Nix package manager"
 	@echo "  setup-linux              Set up Linux development environment"
+	@echo "  setup-wsl                Set up WSL development environment (no GNOME/xremap)"
 	@echo "  setup-macos              Set up macOS development environment"
 	@echo "  local-config             Configure machine-local chezmoi settings (work/personal)"
 	@echo ""
@@ -43,6 +44,11 @@ setup-linux: nix-apply lefthook-setup gnome-extensions-setup ulauncher-setup gno
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- If added to input group: log out and back in for xremap to work"
+	@echo "- After setting up Dropbox: make symlinks"
+
+setup-wsl: nix-apply lefthook-setup mise-install
+	@echo ""
+	@echo "--- Next steps ---"
 	@echo "- After setting up Dropbox: make symlinks"
 
 setup-macos: macos-apply macos-defaults mise-install
