@@ -84,6 +84,20 @@ if ($failed.Count -gt 0) {
 Write-Host "`n以下のアプリは winget 未登録のため手動でインストールしてください:"
 $manualInstall | ForEach-Object { Write-Host "  - $_" }
 
+# AutoHotkey スクリプトをスタートアップフォルダに登録
+Write-Host "`n--- AutoHotkey スタートアップ登録 ---"
+$ahkSource = Join-Path $PSScriptRoot "keybindings.ahk"
+$startupDir = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
+$ahkDest = Join-Path $startupDir "keybindings.ahk"
+
+if (Test-Path $ahkSource) {
+    Copy-Item -Path $ahkSource -Destination $ahkDest -Force
+    Write-Host "keybindings.ahk をスタートアップフォルダに登録しました。"
+    Write-Host "  → $ahkDest"
+} else {
+    Write-Warning "keybindings.ahk が見つかりません: $ahkSource"
+}
+
 Write-Host "`n--- Google 日本語入力 キー設定 (手動) ---"
 Write-Host "Google 日本語入力のキー設定はインストール後に手動で行ってください:"
 Write-Host "  1. タスクバーの [あ] を右クリック → [プロパティ]"
