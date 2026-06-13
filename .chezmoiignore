@@ -7,7 +7,6 @@ README.md
 CLAUDE.md
 Brewfile
 Makefile
-dircolors
 setup/
 nix/
 unmanaged/
