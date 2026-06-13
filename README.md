@@ -39,11 +39,17 @@ This will:
 Windows apps are installed via setup.ps1. Dotfiles/chezmoi are managed inside WSL — not on the
 Windows side.
 
-1. Install Windows apps by running setup.ps1 directly from GitHub (no clone needed):
+1. Open PowerShell as Administrator and run setup.ps1 directly from GitHub (no clone needed):
 
 ```powershell
 irm https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/setup.ps1 | iex
 ```
+
+> **Administrator required:** WSL installation needs elevated privileges. Right-click PowerShell
+> and select "Run as administrator".
+
+If WSL is not yet installed, the script installs WSL + Ubuntu and prompts for a reboot.
+Re-run the script after rebooting to install Windows apps.
 
 This installs apps via winget (git, Neovim, VSCode, Chrome, Vivaldi, Slack, Discord, etc.).
 Apps not registered in winget are listed at the end of the script output.
