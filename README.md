@@ -61,8 +61,15 @@ curl -fsLS https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/boot
 This will:
 
 1. Install chezmoi and clone this repo
-1. Install packages (Homebrew on macOS, Nix on Linux) via `make setup-macos` / `make setup-linux`
-1. Apply dotfiles (encrypted files are skipped if age key is not yet restored)
+2. Install packages via the appropriate make target:
+   - macOS: `make setup-macos` (Homebrew)
+   - Ubuntu (GNOME desktop): `make setup-linux` (Nix + GNOME extensions + xremap)
+   - WSL: `make setup-wsl` (Nix only — GNOME and xremap are skipped automatically)
+3. Apply dotfiles (encrypted files are skipped if age key is not yet restored)
+
+> **WSL:** The bootstrap script detects WSL automatically via `/proc/version` and runs
+> `make setup-wsl` instead of `make setup-linux`, skipping GNOME extensions, Ulauncher,
+> and xremap which are not applicable in WSL.
 
 ### Daily Operations
 
@@ -81,9 +88,14 @@ make macos-defaults   # Apply macOS system defaults
 ```bash
 make nix-apply        # After editing nix/*.nix files (auto-commits nix/flake.lock if changed)
 make nix-update       # Update all packages to latest (auto-commits nix/flake.lock if changed)
-make gnome-defaults   # Apply GNOME system preferences
 nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
+```
+
+On Ubuntu (GNOME desktop) only:
+
+```bash
+make gnome-defaults   # Apply GNOME system preferences
 ```
 
 ### Git Hooks
@@ -170,7 +182,8 @@ make help
 | Target                   | Description                           |
 | ------------------------ | ------------------------------------- |
 | `setup-nix`              | Install Nix package manager           |
-| `setup-linux`            | Set up Linux development environment  |
+| `setup-linux`            | Set up Linux (GNOME) development environment |
+| `setup-wsl`              | Set up WSL environment (no GNOME/xremap) |
 | `setup-macos`            | Set up macOS development environment  |
 | `local-config`           | Configure machine-local chezmoi settings (work/personal) |
 | `nix-apply`              | Apply Nix package config changes      |
