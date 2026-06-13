@@ -36,19 +36,13 @@ This will:
 
 ### Windows
 
-Windows does not use the bootstrap script. Run the following steps manually:
+Windows apps are installed via setup.ps1. Dotfiles/chezmoi are managed inside WSL — not on the
+Windows side.
 
-1. Install [chezmoi](https://www.chezmoi.io/install/) and clone this repo:
-
-```powershell
-winget install twpayne.chezmoi
-chezmoi init --apply bobstrange
-```
-
-2. Install applications via the setup script:
+1. Install Windows apps by running setup.ps1 directly from GitHub (no clone needed):
 
 ```powershell
-.\setup\setup.ps1
+irm https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/setup.ps1 | iex
 ```
 
 This installs apps via winget (git, Neovim, VSCode, Chrome, Vivaldi, Slack, Discord, etc.).
@@ -60,12 +54,10 @@ The following apps are not registered in winget and must be installed manually:
 | win32yank | <https://github.com/equalsraf/win32yank/releases> |
 | NeeView   | <https://github.com/neelabo/NeeView/releases>     |
 
-3. Restore the age key and apply encrypted files (same as macOS/Linux):
+2. Set up dotfiles inside WSL using the standard bootstrap script:
 
-```powershell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\chezmoi"
-notepad "$env:USERPROFILE\.config\chezmoi\key.txt"  # Paste from 1Password
-chezmoi apply
+```bash
+curl -fsLS https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/bootstrap.sh | bash
 ```
 
 ### Post-Bootstrap Steps
