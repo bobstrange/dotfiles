@@ -4,6 +4,23 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
     exit 1
 }
 
+# WSL + Ubuntu のインストール
+$wslRunning = (wsl --status 2>$null; $LASTEXITCODE -eq 0)
+if ($wslRunning) {
+    Write-Host "WSL is already installed"
+} else {
+    Write-Host "Installing WSL + Ubuntu..."
+    wsl --install -d Ubuntu
+    Write-Host ""
+    Write-Warning "WSL のインストールが完了しました。再起動後に Ubuntu の初期設定（ユーザー名・パスワード）を行ってください。"
+    Write-Warning "再起動後に再度このスクリプトを実行すると、Windows アプリのインストールが続行されます。"
+    $restart = Read-Host "今すぐ再起動しますか? (y/N)"
+    if ($restart -eq "y" -or $restart -eq "Y") {
+        Restart-Computer
+    }
+    exit 0
+}
+
 # アプリケーションのリスト (winget ID)
 $applications = @(
     # 開発ツール
