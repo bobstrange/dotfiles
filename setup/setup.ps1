@@ -37,6 +37,9 @@ $applications = @(
     # 日本語入力
     "Google.JapaneseIME",
 
+    # パスワード管理
+    "AgileBits.1Password",
+
     # ユーティリティ
     "Microsoft.PowerToys",
     "voidtools.Everything",
@@ -80,5 +83,13 @@ if ($failed.Count -gt 0) {
 
 Write-Host "`n以下のアプリは winget 未登録のため手動でインストールしてください:"
 $manualInstall | ForEach-Object { Write-Host "  - $_" }
+
+Write-Host "`n--- Google 日本語入力 キー設定 (手動) ---"
+Write-Host "Google 日本語入力のキー設定はインストール後に手動で行ってください:"
+Write-Host "  1. タスクバーの [あ] を右クリック → [プロパティ]"
+Write-Host "  2. [キー設定] タブ → [編集]"
+Write-Host "  3. 以下を設定:"
+Write-Host "     - 変換 (Henkan)    → ひらがなに入力切替"
+Write-Host "     - 無変換 (Muhenkan) → IME を無効化"
 
 Read-Host "`nPress Enter to exit"
