@@ -5,9 +5,9 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 }
 
 # WSL + Ubuntu のインストール
-$wslRunning = ($LASTEXITCODE -eq 0)
-if ($wslRunning) {
-    Write-Host "WSL is already installed"
+$ubuntuInstalled = (wsl --list --quiet 2>$null) -match "Ubuntu"
+if ($ubuntuInstalled) {
+    Write-Host "WSL (Ubuntu) is already installed"
 } else {
     Write-Host "Installing WSL + Ubuntu..."
     wsl --install -d Ubuntu
