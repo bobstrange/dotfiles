@@ -42,7 +42,7 @@ Windows side.
 1. Open PowerShell as Administrator and run setup.ps1 directly from GitHub (no clone needed):
 
 ```powershell
-irm https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/windows/setup.ps1 | iex
+irm -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/windows/setup.ps1 | iex
 ```
 
 > **Administrator required:** WSL installation needs elevated privileges. Right-click PowerShell
