@@ -5,7 +5,9 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 }
 
 # WSL + Ubuntu のインストール
-$ubuntuInstalled = (wsl --list --quiet 2>$null) -match "Ubuntu"
+# wsl --list --quiet の出力は UTF-16LE のため、UTF-8 に変換してから比較する
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$ubuntuInstalled = (wsl --list --quiet 2>$null) -contains "Ubuntu"
 if ($ubuntuInstalled) {
     Write-Host "WSL (Ubuntu) is already installed"
 } else {
