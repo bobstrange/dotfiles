@@ -9,8 +9,9 @@ command -v go &>/dev/null && export GOROOT=$(go env GOROOT)
 # direnv
 command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 
-# zoxide (smart cd)
-command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd cd)"
+# zoxide (jump around with z/zi; keep builtin cd untouched to avoid
+# breaking scripted `cd dir && ...` invocations)
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
 # atuin (shell history)
 command -v atuin &>/dev/null && eval "$(atuin init zsh)"
