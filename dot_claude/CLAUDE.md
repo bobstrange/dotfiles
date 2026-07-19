@@ -26,3 +26,11 @@ When suggesting dotfile changes, remind the user to update the dotfiles reposito
 
 - Use `gh` command to review Pull Request
 - Do NOT checkout the branch locally until it becomes necessary to run the code for fixes
+
+## Hosting / Infra Registry
+
+Cross-service hosting state (subdomains under bobstrange.dev, DNS, Cloudflare Access, which routes are auth-protected and which backdoor URLs are closed) is tracked in the **bobstrange/infra** repository (`~/src/bobstrange/infra`, README.md is the ledger).
+
+- Before adding/changing hosting, domains, or auth for any service, check the ledger there
+- After such a change, update the ledger in the same piece of work
+- Service-internal config (build/deploy settings, in-app auth implementation) stays in each service repo's docs; the infra repo only holds the shared layer and links out
