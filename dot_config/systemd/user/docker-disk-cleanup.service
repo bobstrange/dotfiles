@@ -1,0 +1,6 @@
+[Unit]
+Description=Prune old Docker build cache/images when / usage is high
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/docker-disk-cleanup

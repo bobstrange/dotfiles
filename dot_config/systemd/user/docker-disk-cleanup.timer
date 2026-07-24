@@ -1,0 +1,10 @@
+[Unit]
+Description=Monthly Docker disk cleanup (safe cache prune only)
+
+[Timer]
+# Fixed to JST regardless of the host's local timezone setting.
+OnCalendar=*-*-01 03:00:00 Asia/Tokyo
+Persistent=true
+
+[Install]
+WantedBy=timers.target

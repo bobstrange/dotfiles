@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# Monthly host-side Docker cache cleanup. Only prunes build cache / dangling
+# images older than 30 days, and only when / is at or above THRESHOLD_PERCENT.
+# Never touches volumes, containers, ~/.config, browser data, or repo artifacts.
+set -euo pipefail
+
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
+
+readonly STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/docker-disk-cleanup"
+readonly LOG_FILE="$STATE_DIR/cleanup.log"
+readonly LOCK_FILE="$STATE_DIR/cleanup.lock"
+readonly THRESHOLD_PERCENT=70
+readonly AGE_FILTER="until=720h" # 720h = 30 days
+readonly MAX_LOG_BYTES=$((5 * 1024 * 1024))
+readonly MAX_LOG_ROTATIONS=5
+
+mkdir -p "$STATE_DIR"
+
+dry_run=0
+for arg in "$@"; do
+  case "$arg" in
+    --check | --dry-run)
+      dry_run=1
+      ;;
+    *)
+      echo "Usage: $(basename "$0") [--check|--dry-run]" >&2
+      exit 64
+      ;;
+  esac
+done
+
+log() {
+  printf '%s %s\n' "$(date -Is)" "$*" >>"$LOG_FILE"
+}
+
+rotate_log() {
+  [[ -f "$LOG_FILE" ]] || return 0
+  local size
+  size=$(stat -c '%s' "$LOG_FILE" 2>/dev/null || echo 0)
+  ((size < MAX_LOG_BYTES)) && return 0
+
+  for ((i = MAX_LOG_ROTATIONS - 1; i >= 1; i--)); do
+    [[ -f "$LOG_FILE.$i" ]] && mv "$LOG_FILE.$i" "$LOG_FILE.$((i + 1))"
+  done
+  mv "$LOG_FILE" "$LOG_FILE.1"
+}
+
+rotate_log
+
+if ((dry_run == 0)); then
+  exec 200>"$LOCK_FILE"
+  if ! flock -n 200; then
+    log "SKIP already running (lock held: $LOCK_FILE)"
+    exit 0
+  fi
+fi
+
+log "=== run start (dry_run=$dry_run) ==="
+log "--- df -h / (before) ---"
+df -h / >>"$LOG_FILE" 2>&1 || log "df failed"
+log "--- docker system df (before) ---"
+docker system df >>"$LOG_FILE" 2>&1 || log "docker system df failed (daemon unreachable?)"
+
+usage_percent=$(df -P / | awk 'NR==2 { gsub("%", "", $5); print $5 }')
+if [[ -z "$usage_percent" ]]; then
+  log "ERROR could not determine root disk usage"
+  exit 1
+fi
+log "root usage: ${usage_percent}% (threshold: ${THRESHOLD_PERCENT}%)"
+
+if ((usage_percent < THRESHOLD_PERCENT)); then
+  log "SKIP usage ${usage_percent}% is below threshold ${THRESHOLD_PERCENT}% — no cleanup performed"
+  log "=== run end ==="
+  exit 0
+fi
+
+if ((dry_run)); then
+  log "DRY-RUN usage ${usage_percent}% >= threshold ${THRESHOLD_PERCENT}% — would run:"
+  log "  docker builder prune -a -f --filter '${AGE_FILTER}'"
+  log "  docker image prune -a -f --filter '${AGE_FILTER}'"
+  if command -v uv >/dev/null 2>&1; then
+    log "  uv cache prune"
+  else
+    log "  (uv not found on PATH — would skip)"
+  fi
+  log "=== run end (dry-run) ==="
+  exit 0
+fi
+
+log "usage ${usage_percent}% >= threshold ${THRESHOLD_PERCENT}% — running cleanup"
+
+log "--- docker builder prune -a -f --filter '${AGE_FILTER}' ---"
+docker builder prune -a -f --filter "${AGE_FILTER}" >>"$LOG_FILE" 2>&1
+
+log "--- docker image prune -a -f --filter '${AGE_FILTER}' ---"
+docker image prune -a -f --filter "${AGE_FILTER}" >>"$LOG_FILE" 2>&1
+
+if command -v uv >/dev/null 2>&1; then
+  log "--- uv cache prune ---"
+  uv cache prune >>"$LOG_FILE" 2>&1
+else
+  log "uv not found on PATH — skipping uv cache prune"
+fi
+
+log "--- df -h / (after) ---"
+df -h / >>"$LOG_FILE" 2>&1 || log "df failed"
+log "--- docker system df (after) ---"
+docker system df >>"$LOG_FILE" 2>&1 || log "docker system df failed"
+
+log "=== run end ==="
