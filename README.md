@@ -117,6 +117,24 @@ On Ubuntu (GNOME desktop) only:
 make gnome-defaults   # Apply GNOME system preferences
 ```
 
+#### Docker Disk Cleanup (Ubuntu, systemd user timer)
+
+`docker-disk-cleanup.timer` prunes Docker build cache and images older than 30 days, but only
+when `/` usage is at or above 70%. It never touches volumes, containers, `~/.config`, browser
+data, or project build artifacts.
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now docker-disk-cleanup.timer
+systemctl --user list-timers docker-disk-cleanup.timer
+
+docker-disk-cleanup --check   # report what would happen; deletes nothing
+docker-disk-cleanup --help    # full option/threshold reference
+```
+
+Runs monthly (1st, 03:00 JST regardless of host timezone, `Persistent=true` to catch up if the
+machine was off). Logs to `~/.local/state/docker-disk-cleanup/cleanup.log` (unmanaged by chezmoi).
+
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
@@ -149,15 +167,16 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 
 ### Responsibility Matrix
 
-| Concern                             | Tool                                   |
-| ----------------------------------- | -------------------------------------- |
-| Dotfiles (.zshrc, .gitconfig, etc.) | chezmoi                                |
-| SSH (~/.ssh)                        | chezmoi (encrypted with age)           |
-| Secrets (~/.aws, tokens)            | Dropbox symlinks (`setup/symlinks.sh`) |
-| Packages - macOS                    | Homebrew + Brewfile                    |
-| Packages - Ubuntu/WSL               | Nix + home-manager                     |
-| Language runtimes                   | mise                                   |
-| Shell configuration                 | `dot_zsh/configs/`                     |
+| Concern                             | Tool                                       |
+| ----------------------------------- | ------------------------------------------ |
+| Dotfiles (.zshrc, .gitconfig, etc.) | chezmoi                                    |
+| SSH (~/.ssh)                        | chezmoi (encrypted with age)               |
+| Secrets (~/.aws, tokens)            | Dropbox symlinks (`setup/symlinks.sh`)     |
+| Packages - macOS                    | Homebrew + Brewfile                        |
+| Packages - Ubuntu/WSL               | Nix + home-manager                         |
+| Language runtimes                   | mise                                       |
+| Shell configuration                 | `dot_zsh/configs/`                         |
+| Docker disk cleanup (Ubuntu)        | systemd user timer (`docker-disk-cleanup`) |
 
 ### Nix vs mise
 
