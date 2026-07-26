@@ -65,6 +65,7 @@ with pkgs; [
   luarocks
   bun
   codex
+  vercel
 
   # Formatters
   dprint
