@@ -1,6 +1,6 @@
-# dot_claude/ is managed via agent-configs symlinks on work machines
+# .claude/ is managed via agent-configs symlinks on work machines
 {{ if index . "work" }}
-dot_claude
+.claude
 {{ end }}
 
 README.md
