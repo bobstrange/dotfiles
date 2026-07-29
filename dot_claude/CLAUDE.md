@@ -34,3 +34,4 @@ Cross-service hosting state (subdomains under bobstrange.dev, DNS, Cloudflare Ac
 - Before adding/changing hosting, domains, or auth for any service, check the ledger there
 - After such a change, update the ledger in the same piece of work
 - Service-internal config (build/deploy settings, in-app auth implementation) stays in each service repo's docs; the infra repo only holds the shared layer and links out
+- Before any Vercel work (new service, config change, **or diagnosing slow/production-only performance issues**), also read `infra/docs/vercel-standard-setup.md` — it documents cross-service gotchas (e.g. Function region must match the DB's region, or requests pay a cross-region round trip that no amount of query-level optimization fixes)
