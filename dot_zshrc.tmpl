@@ -10,8 +10,19 @@ source "$HOME/.zsh/configs/history.zsh"
 fpath=(
   "$HOME/.nix-profile/share/zsh/site-functions"
   "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/completions"
+{{- if eq .chezmoi.os "darwin" }}
+  # Homebrew's version-independent core functions dir. Survives `brew upgrade
+  # zsh` version bumps that would otherwise leave a stale Cellar path (e.g.
+  # .../Cellar/zsh/5.9/...) in an inherited FPATH from a long-lived tmux server
+  # and break compinit / add-zsh-hook / compdef.
+  /opt/homebrew/share/zsh/functions
+{{- end }}
   $fpath
 )
+# Dedupe, and drop non-existent dirs — prunes a stale Cellar path inherited via
+# FPATH after a zsh upgrade so compinit can still find the current version.
+typeset -U fpath
+fpath=(${^fpath}(N))
 
 # Load plugin manager (compinit is handled by sheldon hooks)
 if command -v sheldon &>/dev/null; then
