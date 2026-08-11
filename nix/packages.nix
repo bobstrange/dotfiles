@@ -65,7 +65,8 @@ with pkgs; [
   luarocks
   bun
   codex
-  vercel
+  # vercel: nixpkgs has no Vercel CLI (vercel-pkg is an unrelated, deprecated
+  # binary bundler), so it is installed via mise (npm:vercel) instead.
 
   # Formatters
   markdownlint-cli2
