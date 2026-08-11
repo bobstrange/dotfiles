@@ -1,5 +1,7 @@
 [tools]
 node = "lts"
+# Not in nixpkgs and not worth a per-OS split; the npm backend covers both.
+"npm:vercel" = "latest"
 ruby = "latest"
 python = "latest"
 erlang = "28"

@@ -46,6 +46,19 @@ lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global co
 - **markdownlint**: `markdownlint-cli2` for `*.md` (120-char line limit, config in `.markdownlint-cli2.yaml`)
 - **secretlint** (from the global config): secret scanning via npx
 
+## CI
+
+All checks live in `.github/workflows/lint.yml`. Beyond the linters (shellcheck, yamllint,
+markdownlint, secretlint, `zsh -n`, actionlint), three jobs guard things the hooks cannot:
+
+- **prettier**: same version (3.9.6) and globs as the pre-commit hook, so a `--no-verify` commit
+  still gets caught
+- **chezmoi templates**: `chezmoi apply --dry-run --force --exclude encrypted` on ubuntu **and**
+  macOS, since several templates branch on `.chezmoi.os`. `--exclude encrypted` is required because
+  the age identity is not in CI
+- **nix eval**: `nix flake check --no-build` plus a full eval of each `homeConfigurations`
+  activation package, to catch `nix/packages.nix` typos before `make nix-apply` hits them
+
 ## Notes
 
 - `make nix-apply` and `make nix-update` auto-commit `nix/flake.lock` if it changes
