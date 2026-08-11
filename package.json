@@ -4,9 +4,12 @@
   "description": "Dev-only tooling for this repo. Not installed by chezmoi; see .chezmoiignore.",
   "scripts": {
     "format": "prettier --write \"**/*.{md,json,yaml,yml}\"",
-    "format:check": "prettier --check \"**/*.{md,json,yaml,yml}\""
+    "format:check": "prettier --check \"**/*.{md,json,yaml,yml}\"",
+    "lint:secrets": "secretlint \"**/*\""
   },
   "devDependencies": {
-    "prettier": "3.9.6"
+    "@secretlint/secretlint-rule-preset-recommend": "13.0.4",
+    "prettier": "3.9.6",
+    "secretlint": "13.0.4"
   }
 }

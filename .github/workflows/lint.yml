@@ -36,8 +36,11 @@ jobs:
       - uses: actions/checkout@v7
       - uses: DavidAnson/markdownlint-cli2-action@v24
 
-  prettier:
-    name: prettier
+  node-lint:
+    # Both tools are pinned in package.json, so one setup-node + one npm ci
+    # serves both. prettier is the same binary the pre-commit hook resolves,
+    # so a commit made with --no-verify is checked against it here too.
+    name: node lint
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -45,22 +48,14 @@ jobs:
         with:
           node-version-file: .node-version
           cache: npm
-      # prettier is pinned in package.json, which the pre-commit hook resolves
-      # too, so a commit made with --no-verify is checked against the exact
-      # same binary here. Exclusions live in .prettierignore.
       - run: npm ci
-      - run: npm run format:check
-
-  secretlint:
-    name: secretlint
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-      - run: npm install --no-save secretlint @secretlint/secretlint-rule-preset-recommend
-      - run: npx secretlint "**/*"
+      # Exclusions live in .prettierignore.
+      - name: prettier
+        run: npm run format:check
+      # always(), so a formatting failure never hides a secret finding.
+      - name: secretlint
+        if: always()
+        run: npm run lint:secrets
 
   zsh-syntax:
     name: zsh syntax check

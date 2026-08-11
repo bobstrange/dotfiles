@@ -35,7 +35,7 @@ covers CLIs that nixpkgs does not package at all (e.g. `"npm:vercel"`).
 
 ### package.json
 
-`package.json` holds dev tooling for **this repo only** (currently prettier) — it is never installed
+`package.json` holds dev tooling for **this repo only** (prettier, secretlint) — it is never installed
 to `$HOME`, and `.chezmoiignore` excludes it along with `package-lock.json` and `node_modules/`.
 It exists so the pre-commit hook and CI resolve the identical pinned binary, and so Dependabot can
 propose upgrades. Run `npm ci` after cloning.
@@ -75,11 +75,12 @@ lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global co
 
 Lint checks live in `.github/workflows/lint.yml`. Node's version comes from `.node-version` (via
 `node-version-file:`), which mise also reads, so local and CI run the same major. Beyond the linters
-(shellcheck, yamllint, markdownlint, secretlint, `zsh -n`, actionlint), three jobs guard things the
-hooks cannot:
+(shellcheck, yamllint, markdownlint, `zsh -n`, actionlint), three jobs guard things the hooks
+cannot:
 
-- **prettier**: `npm ci && npm run format:check`, i.e. the same pinned binary and globs as the
-  pre-commit hook, so a `--no-verify` commit still gets caught
+- **node lint**: one `npm ci`, then `npm run format:check` and `npm run lint:secrets` — prettier is
+  the same pinned binary and globs as the pre-commit hook, so a `--no-verify` commit still gets
+  caught. secretlint runs under `if: always()` so a formatting failure cannot hide a secret finding
 - **chezmoi templates**: `chezmoi apply --dry-run --force --exclude encrypted` on ubuntu **and**
   macOS, since several templates branch on `.chezmoi.os`. `--exclude encrypted` is required because
   the age identity is not in CI
@@ -90,7 +91,7 @@ hooks cannot:
 
 `.github/workflows/dependabot-auto-merge.yml` queues `gh pr merge --auto` on Dependabot PRs, but
 **only for patch/minor** — majors stay manual. The waiting is done by the repo ruleset
-**"main: require Lint checks"**, which marks all 10 Lint jobs as required on `main`; without those
+**"main: require Lint checks"**, which marks every Lint job as required on `main`; without those
 required checks `--auto` would merge immediately instead of waiting. Two consequences:
 
 - **renaming a Lint job breaks every PR** until the ruleset's context list is updated to match
