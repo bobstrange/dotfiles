@@ -18,7 +18,7 @@ jobs:
   shellcheck:
     name: ShellCheck
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - uses: ludeeus/action-shellcheck@2.0.0
@@ -30,7 +30,7 @@ jobs:
   yamllint:
     name: yamllint
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - uses: ibiqlik/action-yamllint@v3
@@ -38,7 +38,7 @@ jobs:
   markdownlint:
     name: markdownlint
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - uses: DavidAnson/markdownlint-cli2-action@v24
@@ -49,7 +49,7 @@ jobs:
     # so a commit made with --no-verify is checked against it here too.
     name: node lint
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -68,7 +68,7 @@ jobs:
   zsh-syntax:
     name: zsh syntax check
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - run: sudo apt-get update && sudo apt-get install -y zsh
@@ -82,7 +82,7 @@ jobs:
   actionlint:
     name: actionlint
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - uses: raven-actions/actionlint@v2
@@ -93,7 +93,7 @@ jobs:
     # on .chezmoi.os — a Linux-only run would never evaluate the darwin side.
     name: chezmoi templates (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
@@ -123,7 +123,7 @@ jobs:
     # nix/packages.nix before they blow up a real `make nix-apply` on Ubuntu.
     name: nix eval
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
