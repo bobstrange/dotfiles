@@ -30,7 +30,15 @@ For cross-platform CLI tools (e.g. `markdownlint-cli2`), add to **both** `Brewfi
   or tracking `latest`/`lts` (e.g. node, ruby, python, erlang, elixir)
 
 Rationale: nixpkgs can lag behind on language runtimes, while mise provides flexible version
-management with `latest`, `lts`, and per-project `.mise.toml` overrides.
+management with `latest`, `lts`, and per-project `.mise.toml` overrides. mise's npm backend also
+covers CLIs that nixpkgs does not package at all (e.g. `"npm:vercel"`).
+
+### package.json
+
+`package.json` holds dev tooling for **this repo only** (currently prettier) — it is never installed
+to `$HOME`, and `.chezmoiignore` excludes it along with `package-lock.json` and `node_modules/`.
+It exists so the pre-commit hook and CI resolve the identical pinned binary, and so Dependabot can
+propose upgrades. Run `npm ci` after cloning.
 
 ## Git Hooks
 
@@ -42,7 +50,8 @@ lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global co
 
 - **trailing-whitespace**: `git diff --check`
 - **prettier-check**: format check for `*.md`, `*.json`, `*.yaml`, `*.yml` (app-managed files are
-  excluded via `.prettierignore`)
+  excluded via `.prettierignore`). Resolves `node_modules/.bin/prettier`, pinned in `package.json`,
+  so run `npm ci` (included in `make lefthook-setup`) or the hook cannot find it
 - **markdownlint**: `markdownlint-cli2` for `*.md` (120-char line limit, config in `.markdownlint-cli2.yaml`)
 - **secretlint** (from the global config): secret scanning via npx
 
@@ -51,8 +60,8 @@ lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global co
 All checks live in `.github/workflows/lint.yml`. Beyond the linters (shellcheck, yamllint,
 markdownlint, secretlint, `zsh -n`, actionlint), three jobs guard things the hooks cannot:
 
-- **prettier**: same version (3.9.6) and globs as the pre-commit hook, so a `--no-verify` commit
-  still gets caught
+- **prettier**: `npm ci && npm run format:check`, i.e. the same pinned binary and globs as the
+  pre-commit hook, so a `--no-verify` commit still gets caught
 - **chezmoi templates**: `chezmoi apply --dry-run --force --exclude encrypted` on ubuntu **and**
   macOS, since several templates branch on `.chezmoi.os`. `--exclude encrypted` is required because
   the age identity is not in CI
