@@ -1,0 +1,74 @@
+{
+  // Zed rewrites this file when settings are changed from the UI (font size,
+  // theme picker, vim mode toggle). Edit ~/.config/zed/settings.json directly,
+  // then `chezmoi add ~/.config/zed/settings.json` to pull the change back in.
+  "vim_mode": true,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  "buffer_font_family": "PlemolJP Console NF",
+  "buffer_font_size": 13,
+  "ui_font_size": 14,
+  "relative_line_numbers": true,
+  "tab_size": 2,
+  "format_on_save": "on",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
+  "soft_wrap": "editor_width",
+  "preferred_line_length": 120,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "terminal": {
+    "shell": {
+      "program": "zsh"
+    },
+    "font_family": "PlemolJP Console NF",
+    "font_size": 13,
+    "copy_on_select": true
+  },
+  "auto_install_extensions": {
+    "ruby": true,
+    "elixir": true,
+    "nix": true,
+    "toml": true,
+    "terraform": true,
+    "dockerfile": true,
+    "sql": true,
+    "lua": true,
+    "make": true,
+    "git-firefly": true
+  },
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!solargraph"]
+    },
+    "JavaScript": {
+      "formatter": {
+        "language_server": {
+          "name": "biome"
+        }
+      }
+    },
+    "TypeScript": {
+      "formatter": {
+        "language_server": {
+          "name": "biome"
+        }
+      }
+    },
+    "TSX": {
+      "formatter": {
+        "language_server": {
+          "name": "biome"
+        }
+      }
+    },
+    "Markdown": {
+      "format_on_save": "off"
+    }
+  }
+}
