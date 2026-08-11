@@ -73,8 +73,10 @@ lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global co
 
 ## CI
 
-All checks live in `.github/workflows/lint.yml`. Beyond the linters (shellcheck, yamllint,
-markdownlint, secretlint, `zsh -n`, actionlint), three jobs guard things the hooks cannot:
+Lint checks live in `.github/workflows/lint.yml`. Node's version comes from `.node-version` (via
+`node-version-file:`), which mise also reads, so local and CI run the same major. Beyond the linters
+(shellcheck, yamllint, markdownlint, secretlint, `zsh -n`, actionlint), three jobs guard things the
+hooks cannot:
 
 - **prettier**: `npm ci && npm run format:check`, i.e. the same pinned binary and globs as the
   pre-commit hook, so a `--no-verify` commit still gets caught
@@ -83,6 +85,16 @@ markdownlint, secretlint, `zsh -n`, actionlint), three jobs guard things the hoo
   the age identity is not in CI
 - **nix eval**: `nix flake check --no-build` plus a full eval of each `homeConfigurations`
   activation package, to catch `nix/packages.nix` typos before `make nix-apply` hits them
+
+### Dependabot auto-merge
+
+`.github/workflows/dependabot-auto-merge.yml` queues `gh pr merge --auto` on Dependabot PRs, but
+**only for patch/minor** — majors stay manual. The waiting is done by the repo ruleset
+**"main: require Lint checks"**, which marks all 10 Lint jobs as required on `main`; without those
+required checks `--auto` would merge immediately instead of waiting. Two consequences:
+
+- **renaming a Lint job breaks every PR** until the ruleset's context list is updated to match
+- direct pushes to `main` must also satisfy the checks (repo admin has an `always` bypass)
 
 ## Notes
 

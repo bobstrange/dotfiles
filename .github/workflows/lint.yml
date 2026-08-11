@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version-file: .node-version
           cache: npm
       # prettier is pinned in package.json, which the pre-commit hook resolves
       # too, so a commit made with --no-verify is checked against the exact
@@ -58,7 +58,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version-file: .node-version
       - run: npm install --no-save secretlint @secretlint/secretlint-rule-preset-recommend
       - run: npx secretlint "**/*"
 
