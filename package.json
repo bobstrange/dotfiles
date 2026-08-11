@@ -1,0 +1,12 @@
+{
+  "name": "dotfiles",
+  "private": true,
+  "description": "Dev-only tooling for this repo. Not installed by chezmoi; see .chezmoiignore.",
+  "scripts": {
+    "format": "prettier --write \"**/*.{md,json,yaml,yml}\"",
+    "format:check": "prettier --check \"**/*.{md,json,yaml,yml}\""
+  },
+  "devDependencies": {
+    "prettier": "3.9.6"
+  }
+}

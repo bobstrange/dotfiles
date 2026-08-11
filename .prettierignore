@@ -5,3 +5,7 @@ dot_config/ulauncher/settings.json
 dot_config/zed/
 # Hand-written flow-style YAML with inline comments; prettier explodes it
 dot_config/xremap/config.yml
+
+# Nested git worktrees (e.g. .claude/worktrees/*) contain full copies of the
+# repo, so the path-anchored entries above do not match them
+.claude/worktrees/
