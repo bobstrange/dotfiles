@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
-      - uses: DavidAnson/markdownlint-cli2-action@v19
+      - uses: DavidAnson/markdownlint-cli2-action@v24
 
   prettier:
     name: prettier
@@ -44,10 +44,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      # Same version and globs as the prettier-check pre-commit hook, so a
-      # commit made with --no-verify still gets caught here.
-      # Exclusions live in .prettierignore.
-      - run: npx --yes prettier@3.9.6 --check "**/*.{md,json,yaml,yml}"
+          cache: npm
+      # prettier is pinned in package.json, which the pre-commit hook resolves
+      # too, so a commit made with --no-verify is checked against the exact
+      # same binary here. Exclusions live in .prettierignore.
+      - run: npm ci
+      - run: npm run format:check
 
   secretlint:
     name: secretlint

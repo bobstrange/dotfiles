@@ -9,3 +9,6 @@
 
 # Temporary files
 /tmp/
+
+# Agent-created git worktrees (nested checkouts of this repo)
+/.claude/worktrees/

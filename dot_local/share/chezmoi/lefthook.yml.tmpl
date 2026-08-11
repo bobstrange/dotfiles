@@ -8,7 +8,9 @@ pre-commit:
       run: git diff --cached --check
     prettier-check:
       glob: "*.{md,json,yaml,yml}"
-      run: npx --yes --prefer-offline prettier@3.9.6 --check {staged_files}
+      # Resolves node_modules/.bin/prettier, pinned in package.json — run
+      # `npm ci` (or `make lefthook-setup`) if this cannot find it.
+      run: npx prettier --check {staged_files}
     markdownlint:
       glob: "*.md"
       run: markdownlint-cli2 {staged_files}

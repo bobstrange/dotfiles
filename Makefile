@@ -90,6 +90,7 @@ nix-update:
 
 lefthook-setup:
 	chezmoi apply ~/.local/share/chezmoi/lefthook.yml
+	npm ci
 	lefthook install
 
 xremap-setup:
