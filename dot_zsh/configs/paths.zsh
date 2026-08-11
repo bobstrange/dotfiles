@@ -3,8 +3,9 @@
 # mise (replaces rbenv, nodenv, pyenv)
 command -v mise &>/dev/null && eval "$(mise activate zsh)"
 
-# golang
-command -v go &>/dev/null && export GOROOT=$(go env GOROOT)
+# golang: GOROOT is intentionally not set. Go derives it from the binary's own
+# location, and exporting it means a `brew upgrade go` leaves every inheriting
+# shell pointing at a deleted Cellar path ("cannot find GOROOT directory").
 
 # direnv
 command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
