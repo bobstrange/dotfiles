@@ -4,7 +4,6 @@
   "permissions": {
     "allow": ["Bash(git commit:*)"],
     "deny": [
-      "Bash(git push:*)",
       "Bash(rm:*)",
       "Bash(sudo:*)",
       "Read(**/.env)",

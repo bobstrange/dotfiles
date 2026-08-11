@@ -7,6 +7,16 @@ updates:
       interval: weekly
     commit-message:
       prefix: "chore(ci)"
+    # Non-majors auto-merge, so wait out the window in which a compromised
+    # release is typically discovered and yanked before proposing it.
+    cooldown:
+      default-days: 7
+    # One PR (= one CI run incl. the macOS runner) per week instead of one
+    # per action. fetch-metadata reports the highest bump in the group, and
+    # the group only ever contains non-majors, so auto-merge still applies.
+    groups:
+      actions-minor:
+        update-types: [minor, patch]
   # Only dev tooling for this repo (prettier); nothing here is installed to $HOME.
   - package-ecosystem: npm
     directory: "/"
@@ -14,3 +24,8 @@ updates:
       interval: weekly
     commit-message:
       prefix: "chore(deps)"
+    cooldown:
+      default-days: 7
+    groups:
+      npm-minor:
+        update-types: [minor, patch]
