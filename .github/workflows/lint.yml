@@ -6,6 +6,10 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   shellcheck:
     name: ShellCheck
@@ -31,6 +35,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DavidAnson/markdownlint-cli2-action@v19
+
+  prettier:
+    name: prettier
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Same version and globs as the prettier-check pre-commit hook, so a
+      # commit made with --no-verify still gets caught here.
+      # Exclusions live in .prettierignore.
+      - run: npx --yes prettier@3.9.6 --check "**/*.{md,json,yaml,yml}"
 
   secretlint:
     name: secretlint
@@ -62,3 +79,52 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: raven-actions/actionlint@v2
+
+  chezmoi:
+    # Renders every *.tmpl file. Runs on both OSes because dot_zshrc.tmpl,
+    # dot_gitconfig.tmpl, plugins.toml.tmpl and ghostty/config.tmpl all branch
+    # on .chezmoi.os — a Linux-only run would never evaluate the darwin side.
+    name: chezmoi templates (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install chezmoi
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      # .chezmoi.toml.tmpl has no promptString calls, so init is non-interactive.
+      - name: Init chezmoi against this checkout
+        run: chezmoi init --source="$GITHUB_WORKSPACE"
+      # --exclude encrypted: private_dot_ssh/config.d/encrypted_work.conf.age
+      # needs the age identity, which is not (and should not be) in CI.
+      - name: Render templates
+        run: chezmoi apply --dry-run --force --exclude encrypted
+
+  nix:
+    # Evaluation only (no build): catches typos and removed attribute names in
+    # nix/packages.nix before they blow up a real `make nix-apply` on Ubuntu.
+    name: nix eval
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Check flake metadata
+        run: nix flake check --no-build "path:$GITHUB_WORKSPACE/nix"
+      # flake check only shallowly touches the non-standard homeConfigurations
+      # output, so force a full eval of each activation package as well.
+      - name: Evaluate home-manager configurations
+        run: |
+          for cfg in "bob@ubuntu" "bob@wsl"; do
+            echo "::group::$cfg"
+            nix eval --raw \
+              "path:$GITHUB_WORKSPACE/nix#homeConfigurations.\"$cfg\".activationPackage.drvPath"
+            echo
+            echo "::endgroup::"
+          done
