@@ -34,12 +34,17 @@ management with `latest`, `lts`, and per-project `.mise.toml` overrides.
 
 ## Git Hooks
 
-Pre-commit hooks are managed with lefthook (`make lefthook-setup`). Hooks run on staged files:
+Pre-commit hooks are managed with lefthook (`make lefthook-setup`). `lefthook.yml` is **generated
+per machine** from the chezmoi template `dot_local/share/chezmoi/lefthook.yml.tmpl` and gitignored —
+lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global config
+(`~/.config/lefthook/lefthook.yml`, which adds secretlint) must be absolute. Edit the template, not
+`lefthook.yml`, then `chezmoi apply`. Hooks run on staged files:
 
 - **trailing-whitespace**: `git diff --check`
 - **prettier-check**: format check for `*.md`, `*.json`, `*.yaml`, `*.yml` (app-managed files are
   excluded via `.prettierignore`)
 - **markdownlint**: `markdownlint-cli2` for `*.md` (120-char line limit, config in `.markdownlint-cli2.yaml`)
+- **secretlint** (from the global config): secret scanning via npx
 
 ## Notes
 

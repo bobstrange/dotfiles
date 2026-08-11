@@ -4,8 +4,8 @@ pre-commit:
   commands:
     secretlint:
       run: >-
-        npx --yes
-        --package secretlint
-        --package @secretlint/secretlint-rule-preset-recommend
+        npx --yes --prefer-offline
+        --package secretlint@13.0.4
+        --package @secretlint/secretlint-rule-preset-recommend@13.0.4
         -- secretlint {staged_files}
       glob: "*.{env*,json,yml,yaml,toml,js,ts,jsx,tsx,rb,py,go,sh,bash,zsh}"
