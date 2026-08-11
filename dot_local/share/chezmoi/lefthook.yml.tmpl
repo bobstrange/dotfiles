@@ -1,5 +1,5 @@
 extends:
-  - /home/bob/.config/lefthook/lefthook.yml
+  - {{ .chezmoi.homeDir }}/.config/lefthook/lefthook.yml
 
 pre-commit:
   parallel: true

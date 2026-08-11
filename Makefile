@@ -89,7 +89,7 @@ nix-update:
 # --- Tools ---
 
 lefthook-setup:
-	bash ./setup/lefthook-gen.sh
+	chezmoi apply ~/.local/share/chezmoi/lefthook.yml
 	lefthook install
 
 xremap-setup:
