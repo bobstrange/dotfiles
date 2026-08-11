@@ -19,10 +19,12 @@ fpath=(
 {{- end }}
   $fpath
 )
-# Dedupe, and drop non-existent dirs — prunes a stale Cellar path inherited via
-# FPATH after a zsh upgrade so compinit can still find the current version.
+# Dedupe, and drop anything that is not an existing directory — prunes a stale
+# Cellar path inherited via FPATH after a zsh upgrade so compinit can still find
+# the current version. (N) alone would keep a regular file that happened to sit
+# at one of these paths; -/ restricts to directories, following symlinks.
 typeset -U fpath
-fpath=(${^fpath}(N))
+fpath=(${^fpath}(N-/))
 
 # Load plugin manager (compinit is handled by sheldon hooks)
 if command -v sheldon &>/dev/null; then
