@@ -103,10 +103,12 @@ jobs:
         run: chezmoi init --source="$GITHUB_WORKSPACE"
       # --exclude encrypted: private_dot_ssh/config.d/encrypted_work.conf.age
       # needs the age identity, which is not (and should not be) in CI.
+      # -v so the log shows the rendered output; a silent exit 0 gives no
+      # evidence that anything was actually processed.
       - name: Render templates
         run: |
           chezmoi apply --source="$GITHUB_WORKSPACE" \
-            --dry-run --force --exclude encrypted
+            --dry-run --force --exclude encrypted -v
 
   nix:
     # Evaluation only (no build): catches typos and removed attribute names in
