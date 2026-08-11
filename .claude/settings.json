@@ -2,9 +2,7 @@
   "cleanupPeriodDays": 30,
   "includeCoAuthoredBy": true,
   "permissions": {
-    "allow": [
-      "Bash(git commit:*)"
-    ],
+    "allow": ["Bash(git commit:*)"],
     "deny": [
       "Bash(git push:*)",
       "Bash(rm:*)",

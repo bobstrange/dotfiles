@@ -68,7 +68,6 @@ with pkgs; [
   vercel
 
   # Formatters
-  dprint
   markdownlint-cli2
 
   # Database

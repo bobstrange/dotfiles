@@ -19,7 +19,7 @@ Supports macOS, Ubuntu, and WSL. Run `make help` for available targets.
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
 - **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply`
 
-For cross-platform CLI tools (e.g. `markdownlint-cli2`, `dprint`), add to **both** `Brewfile` and
+For cross-platform CLI tools (e.g. `markdownlint-cli2`), add to **both** `Brewfile` and
 `nix/packages.nix`. Linux-only packages (e.g. `wl-clipboard`, `xremap`) go to `nix/packages.nix` only.
 
 ### Nix vs mise
@@ -37,7 +37,8 @@ management with `latest`, `lts`, and per-project `.mise.toml` overrides.
 Pre-commit hooks are managed with lefthook (`make lefthook-setup`). Hooks run on staged files:
 
 - **trailing-whitespace**: `git diff --check`
-- **dprint-check**: format check for `*.md`, `*.json`, `*.yaml`, `*.yml`, `*.toml`
+- **prettier-check**: format check for `*.md`, `*.json`, `*.yaml`, `*.yml` (app-managed files are
+  excluded via `.prettierignore`)
 - **markdownlint**: `markdownlint-cli2` for `*.md` (120-char line limit, config in `.markdownlint-cli2.yaml`)
 
 ## Notes

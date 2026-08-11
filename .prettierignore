@@ -1,0 +1,6 @@
+# Rewritten by their own apps (gh config set / Ulauncher GUI) — formatting them
+# just creates style ping-pong on every chezmoi re-add
+dot_config/gh/config.yml
+dot_config/ulauncher/settings.json
+# Hand-written flow-style YAML with inline comments; prettier explodes it
+dot_config/xremap/config.yml
