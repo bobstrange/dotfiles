@@ -97,12 +97,16 @@ jobs:
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       # .chezmoi.toml.tmpl has no promptString calls, so init is non-interactive.
+      # --source is per-invocation and is not written to the generated config,
+      # so every command below has to repeat it.
       - name: Init chezmoi against this checkout
         run: chezmoi init --source="$GITHUB_WORKSPACE"
       # --exclude encrypted: private_dot_ssh/config.d/encrypted_work.conf.age
       # needs the age identity, which is not (and should not be) in CI.
       - name: Render templates
-        run: chezmoi apply --dry-run --force --exclude encrypted
+        run: |
+          chezmoi apply --source="$GITHUB_WORKSPACE" \
+            --dry-run --force --exclude encrypted
 
   nix:
     # Evaluation only (no build): catches typos and removed attribute names in
