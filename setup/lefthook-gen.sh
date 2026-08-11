@@ -12,7 +12,7 @@ pre-commit:
   commands:
     trailing-whitespace:
       run: git diff --cached --check
-    dprint-check:
-      glob: "*.{md,json,yaml,yml,toml}"
-      run: dprint check --allow-no-files {staged_files}
+    prettier-check:
+      glob: "*.{md,json,yaml,yml}"
+      run: npx --yes --prefer-offline prettier@3.9.6 --check {staged_files}
 EOF
