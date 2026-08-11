@@ -15,6 +15,7 @@ with pkgs; [
   neovim
   neovide
   vim
+  zed-editor
 
   # Git
   git

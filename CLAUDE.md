@@ -32,6 +32,22 @@ For cross-platform CLI tools (e.g. `markdownlint-cli2`), add to **both** `Brewfi
 Rationale: nixpkgs can lag behind on language runtimes, while mise provides flexible version
 management with `latest`, `lts`, and per-project `.mise.toml` overrides.
 
+## Zed (add-back workflow)
+
+`dot_config/zed/` is the one place where editing the `$HOME` target directly is correct. Zed
+rewrites `~/.config/zed/settings.json` itself whenever a setting is changed from the UI (font size,
+theme picker, vim mode), so the loop is reversed:
+
+1. Change settings in Zed / `~/.config/zed/settings.json` as usual
+2. `chezmoi add ~/.config/zed/settings.json`
+3. `chezmoi diff` and commit
+
+Keep these as plain JSON — promoting one to `.tmpl` breaks `chezmoi add`, so only do that once a
+setting genuinely differs per machine. Extensions are declarative via `auto_install_extensions` in
+`settings.json`; there is no `run_once_` install script. `~/.local/share/zed/` (DB, logs, extension
+binaries, agent history) is state, not config, and stays unmanaged. `.config/zed/` is in
+`.prettierignore` so Zed's own formatting of the JSONC does not ping-pong with prettier.
+
 ## Git Hooks
 
 Pre-commit hooks are managed with lefthook (`make lefthook-setup`). `lefthook.yml` is **generated

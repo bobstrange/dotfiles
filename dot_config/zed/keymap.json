@@ -1,0 +1,17 @@
+[
+  // Vim normal mode: space as leader, mirroring the nvim setup's basics.
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "space f f": "file_finder::Toggle",
+      "space f g": "pane::DeploySearch",
+      "space e": "workspace::ToggleLeftDock",
+      "space g g": "git_panel::ToggleFocus",
+      "space b d": "pane::CloseActiveItem",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  }
+]
