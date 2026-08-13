@@ -27,6 +27,16 @@ When suggesting dotfile changes, remind the user to update the dotfiles reposito
 - Use `gh` command to review Pull Request
 - Do NOT checkout the branch locally until it becomes necessary to run the code for fixes
 
+## New Repositories / Shared CI
+
+All bobstrange repos share a CI + git-hook layer: **bobstrange/gh-workflows**
+(`~/src/bobstrange/gh-workflows`; lint via reusable workflow, pre-commit hooks via
+lefthook remotes).
+
+- When creating a new repo, or adding CI / linters / hooks to any repo, read the
+  gh-workflows README first and wire the few-line stubs it prescribes
+- Do not hand-roll lint workflows in individual repos
+
 ## Hosting / Infra Registry
 
 Cross-service hosting state (subdomains under bobstrange.dev, DNS, Cloudflare Access, which routes
