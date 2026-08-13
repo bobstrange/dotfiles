@@ -68,29 +68,33 @@ machine sets a name it cannot resolve. Register the extension by hand in the sam
 
 ## Git Hooks
 
-Pre-commit hooks are managed with lefthook (`make lefthook-setup`). `lefthook.yml` is **generated
-per machine** from the chezmoi template `dot_local/share/chezmoi/lefthook.yml.tmpl` and gitignored —
-lefthook does not expand `~`/`$HOME` in `extends:`, so the path to the global config
-(`~/.config/lefthook/lefthook.yml`, which adds secretlint) must be absolute. Edit the template, not
-`lefthook.yml`, then `chezmoi apply`. Hooks run on staged files:
+Pre-commit hooks are managed with lefthook (`make lefthook-setup`). `lefthook.yml` is plain,
+checked-in YAML that pulls every hook from **[bobstrange/gh-workflows](https://github.com/bobstrange/gh-workflows)**
+via `remotes:` (`ref: v1`, refetched every 24h — `v1` is a moving tag). Hooks run on staged files:
+trailing whitespace, prettier, markdownlint, shellcheck, yamllint, secretlint (all named
+`common-*`). To change one, change it in gh-workflows and cut a release there — not here.
 
-- **trailing-whitespace**: `git diff --check`
-- **prettier-check**: format check for `*.md`, `*.json`, `*.yaml`, `*.yml` (app-managed files are
-  excluded via `.prettierignore`). Resolves `node_modules/.bin/prettier`, pinned in `package.json`,
-  so run `npm ci` (included in `make lefthook-setup`) or the hook cannot find it
-- **markdownlint**: `markdownlint-cli2` for `*.md` (120-char line limit, config in `.markdownlint-cli2.yaml`)
-- **secretlint** (from the global config): secret scanning via npx
+- This repo's configs win over the shared fallbacks: `.prettierignore`,
+  `.markdownlint-cli2.yaml`, `.yamllint.yml`, `.secretlintrc.json`
+- prettier / secretlint resolve `node_modules/.bin`, pinned in `package.json`, so run `npm ci`
+  (included in `make lefthook-setup`) or they fall back to the shared inline pins
+- `~/.config/lefthook/lefthook.yml` (shipped by this repo via chezmoi) is deliberately **not**
+  extended here — it exists for repos that are not on the shared standard, and its secretlint
+  would double-run against `common-secretlint`
 
 ## CI
 
-Lint checks live in `.github/workflows/lint.yml`. Node's version comes from `.node-version` (via
-`node-version-file:`), which mise also reads, so local and CI run the same major. Beyond the linters
-(shellcheck, yamllint, markdownlint, `zsh -n`, actionlint), three jobs guard things the hooks
-cannot:
+Lint checks live in `.github/workflows/lint.yml`. Most of it is one caller job:
 
-- **node lint**: one `npm ci`, then `npm run format:check` and `npm run lint:secrets` — prettier is
-  the same pinned binary and globs as the pre-commit hook, so a `--no-verify` commit still gets
-  caught. secretlint runs under `if: always()` so a formatting failure cannot hide a secret finding
+- **`lint`** — `uses: bobstrange/gh-workflows/.github/workflows/lint.yml@v1`, reporting as
+  `lint / lint`. It runs shellcheck, yamllint, markdownlint, actionlint, prettier and secretlint in
+  a single job, using this repo's configs and `package.json` pins (`.node-version` picks the node
+  major, so local mise and CI agree). Same source as the pre-commit hooks, so a `--no-verify`
+  commit is still caught. Changing a linter means releasing a new `v1.x.y` in gh-workflows
+
+Three repo-specific jobs stay here, because nothing shared can express them:
+
+- **zsh syntax check**: `zsh -n` over `dot_zsh/**/*.zsh`
 - **chezmoi templates**: `chezmoi apply --dry-run --force --exclude encrypted` on ubuntu **and**
   macOS, since several templates branch on `.chezmoi.os`. `--exclude encrypted` is required because
   the age identity is not in CI
@@ -104,7 +108,9 @@ cannot:
 **"main: require Lint checks"**, which marks every Lint job as required on `main`; without those
 required checks `--auto` would merge immediately instead of waiting. Two consequences:
 
-- **renaming a Lint job breaks every PR** until the ruleset's context list is updated to match
+- **renaming a Lint job breaks every PR** until the ruleset's context list is updated to match —
+  this includes the shared job, required as `lint / lint`, so a job rename in gh-workflows is a
+  breaking change there (`v2`)
 - direct pushes to `main` must also satisfy the checks (repo admin has an `always` bypass)
 
 ## Notes

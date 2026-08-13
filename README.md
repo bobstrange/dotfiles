@@ -143,13 +143,18 @@ machine was off). Logs to `~/.local/state/docker-disk-cleanup/cleanup.log` (unma
 ### Git Hooks
 
 [lefthook](https://github.com/evilmartians/lefthook) runs pre-commit checks automatically after
-`make lefthook-setup` (included in `make setup-linux` and `make setup-wsl`):
+`make lefthook-setup` (included in `make setup-linux` and `make setup-wsl`). The hooks themselves
+live in [bobstrange/gh-workflows](https://github.com/bobstrange/gh-workflows) and are pulled in by
+`lefthook.yml` as a remote config, so they match CI exactly:
 
-| Hook                | Files                                         | Tool                |
-| ------------------- | --------------------------------------------- | ------------------- |
-| trailing-whitespace | all staged files                              | `git diff --check`  |
-| dprint-check        | `*.md`, `*.json`, `*.yaml`, `*.yml`, `*.toml` | `dprint`            |
-| markdownlint        | `*.md`                                        | `markdownlint-cli2` |
+| Hook                       | Files                               | Tool                |
+| -------------------------- | ----------------------------------- | ------------------- |
+| common-trailing-whitespace | all staged files                    | `git diff --check`  |
+| common-prettier            | `*.md`, `*.json`, `*.yaml`, `*.yml` | `prettier`          |
+| common-markdownlint        | `*.md`                              | `markdownlint-cli2` |
+| common-shellcheck          | `*.sh`, `*.bash`                    | `shellcheck`        |
+| common-yamllint            | `*.yml`, `*.yaml`                   | `yamllint`          |
+| common-secretlint          | all staged files                    | `secretlint`        |
 
 Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml`).
 

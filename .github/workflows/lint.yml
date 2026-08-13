@@ -15,55 +15,19 @@ permissions:
   contents: read
 
 jobs:
-  shellcheck:
-    name: ShellCheck
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ludeeus/action-shellcheck@2.0.0
-        env:
-          SHELLCHECK_OPTS: "--shell=bash --external-sources"
-        with:
-          ignore_paths: dot_zsh
+  # shellcheck / yamllint / markdownlint / actionlint / prettier / secretlint
+  # all live in bobstrange/gh-workflows and reach this repo through the moving
+  # v1 tag. This repo's .yamllint.yml, .markdownlint-cli2.yaml,
+  # .secretlintrc.json and package.json pins win over the shared fallbacks, so
+  # the tooling is unchanged — only its definition moved. Reports as "lint / lint".
+  lint:
+    uses: bobstrange/gh-workflows/.github/workflows/lint.yml@v1
+    with:
+      # dot_zsh/**/*.zsh is zsh, not sh — shellcheck cannot parse it (SC2148,
+      # SC2296). The zsh syntax check job below is what actually covers it.
+      shellcheck_ignore_paths: dot_zsh
 
-  yamllint:
-    name: yamllint
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ibiqlik/action-yamllint@v3
-
-  markdownlint:
-    name: markdownlint
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v7
-      - uses: DavidAnson/markdownlint-cli2-action@v24
-
-  node-lint:
-    # Both tools are pinned in package.json, so one setup-node + one npm ci
-    # serves both. prettier is the same binary the pre-commit hook resolves,
-    # so a commit made with --no-verify is checked against it here too.
-    name: node lint
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
-      # Exclusions live in .prettierignore.
-      - name: prettier
-        run: npm run format:check
-      # always(), so a formatting failure never hides a secret finding.
-      - name: secretlint
-        if: always()
-        run: npm run lint:secrets
+  # --- Repo-specific jobs (nothing shared can express these) ---
 
   zsh-syntax:
     name: zsh syntax check
@@ -78,14 +42,6 @@ jobs:
             zsh -n "$f" || status=1
           done < <(find dot_zsh -name '*.zsh' -print0)
           exit "$status"
-
-  actionlint:
-    name: actionlint
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v7
-      - uses: raven-actions/actionlint@v2
 
   chezmoi:
     # Renders every *.tmpl file. Runs on both OSes because dot_zshrc.tmpl,

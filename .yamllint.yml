@@ -8,3 +8,4 @@ rules:
 
 ignore: |
   dot_config/gh/config.yml
+  node_modules/
