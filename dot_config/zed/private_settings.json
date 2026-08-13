@@ -2,15 +2,17 @@
   // Zed rewrites this file when settings are changed from the UI (font size,
   // theme picker, vim mode toggle). Edit ~/.config/zed/settings.json directly,
   // then `chezmoi add ~/.config/zed/settings.json` to pull the change back in.
+  "icon_theme": "Zed (Default)",
+  "cli_default_open_behavior": "existing_window",
   "which_key": {
     "enabled": false
   },
   "on_last_window_closed": "quit_app",
   "vim_mode": true,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
-    "dark": "One Dark",
+    "dark": "Catppuccin Mocha",
   },
   "buffer_font_family": "PlemolJP Console NF",
   "buffer_font_size": 13,
@@ -44,7 +46,14 @@
     "sql": true,
     "lua": true,
     "make": true,
+    "html": true,
     "git-firefly": true,
+    // Theme extensions. theme.dark above names one of these, and the name only
+    // resolves on a fresh machine if the extension is listed here — Zed does
+    // not add it when a theme is picked from the UI. Keep both registered so
+    // switching between them needs no change down here.
+    "catppuccin": true,
+    "tokyo-night": true,
   },
   "languages": {
     "Ruby": {
