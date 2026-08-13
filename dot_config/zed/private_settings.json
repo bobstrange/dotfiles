@@ -12,7 +12,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Tokyo Night Moon",
+    "dark": "Catppuccin Mocha",
   },
   "buffer_font_family": "PlemolJP Console NF",
   "buffer_font_size": 13,
@@ -48,8 +48,11 @@
     "make": true,
     "html": true,
     "git-firefly": true,
-    // Provides "Tokyo Night Moon" referenced by theme.dark above — without it
-    // the theme name does not resolve on a fresh machine.
+    // Theme extensions. theme.dark above names one of these, and the name only
+    // resolves on a fresh machine if the extension is listed here — Zed does
+    // not add it when a theme is picked from the UI. Keep both registered so
+    // switching between them needs no change down here.
+    "catppuccin": true,
     "tokyo-night": true,
   },
   "languages": {
