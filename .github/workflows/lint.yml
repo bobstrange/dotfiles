@@ -22,6 +22,10 @@ jobs:
   # the tooling is unchanged — only its definition moved. Reports as "lint / lint".
   lint:
     uses: bobstrange/gh-workflows/.github/workflows/lint.yml@v1
+    with:
+      # dot_zsh/**/*.zsh is zsh, not sh — shellcheck cannot parse it (SC2148,
+      # SC2296). The zsh syntax check job below is what actually covers it.
+      shellcheck_ignore_paths: dot_zsh
 
   # --- Repo-specific jobs (nothing shared can express these) ---
 
