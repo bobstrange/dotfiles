@@ -1,0 +1,16 @@
+# Pre-commit hooks. Everything shared (trailing whitespace, prettier,
+# markdownlint, shellcheck, yamllint, secretlint) comes from
+# bobstrange/gh-workflows via `remotes:` below, so this file is plain YAML and
+# checked in — no chezmoi template, no absolute-path dance, and the same
+# definitions CI runs. Repo-local commands, if any, go under pre-commit here;
+# remote command names carry a `common-` prefix so they cannot collide.
+---
+remotes:
+  - git_url: https://github.com/bobstrange/gh-workflows
+    ref: v1
+    # v1 is a moving tag: without a refetch the local clone would pin whatever
+    # commit it first saw.
+    refetch: true
+    refetch_frequency: 24h
+    configs:
+      - lefthook/common.yml

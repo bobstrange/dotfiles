@@ -1,12 +1,6 @@
 # Local Claude Code settings
 .claude/settings.local.json
 
-# lefthook config — generated per machine from the chezmoi template
-# dot_local/share/chezmoi/lefthook.yml.tmpl: lefthook doesn't expand
-# ~/$HOME in extends:, so the path must be absolute for this machine
-# and can't be committed
-/lefthook.yml
-
 # Temporary files
 /tmp/
 

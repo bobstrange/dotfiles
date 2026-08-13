@@ -89,7 +89,6 @@ nix-update:
 # --- Tools ---
 
 lefthook-setup:
-	chezmoi apply ~/.local/share/chezmoi/lefthook.yml
 	npm ci
 	lefthook install
 
