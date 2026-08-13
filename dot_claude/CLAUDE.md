@@ -37,6 +37,17 @@ lefthook remotes).
   gh-workflows README first and wire the few-line stubs it prescribes
 - Do not hand-roll lint workflows in individual repos
 
+## Public vs Private Repositories
+
+Some repos are public (e.g. handbook, dotfiles, gh-workflows); others are private (e.g. career,
+ai-journal, infra). Anything committed to a public repo — file contents **and commit messages** —
+is published wholesale, including full git history once a private repo is flipped public.
+
+- Never mention private repos or personally sensitive context (job search, compensation, real
+  names, employers) in content destined for a public repo. References flow private → public only
+- Check with `gh repo view bobstrange/<repo> --json visibility` before writing one repo's name
+  into another repo's files
+
 ## Hosting / Infra Registry
 
 Cross-service hosting state (subdomains under bobstrange.dev, DNS, Cloudflare Access, which routes
