@@ -24,6 +24,15 @@
   "ensure_final_newline_on_save": true,
   "soft_wrap": "editor_width",
   "preferred_line_length": 120,
+  // Mirrors the nvim lsp.lua setup. Zed's inlay_hints block only decides which
+  // kinds are rendered; TypeScript also has to be told to emit them, which is
+  // what the vtsls block under "lsp" below does.
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true
+  },
   "telemetry": {
     "diagnostics": false,
     "metrics": false,
@@ -65,6 +74,33 @@
     // extension is added to auto_install_extensions above.
     "Markdown": {
       "format_on_save": "off",
+    },
+  },
+  "lsp": {
+    // vtsls is Zed's TypeScript server. These are the same hint kinds the nvim
+    // config enables for ts_ls; without them the server emits nothing and the
+    // inlay_hints block above has no effect on TS/JS.
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "inlayHints": {
+            "parameterNames": { "enabled": "all" },
+            "parameterTypes": { "enabled": true },
+            "variableTypes": { "enabled": true },
+            "propertyDeclarationTypes": { "enabled": true },
+            "functionLikeReturnTypes": { "enabled": true },
+          },
+        },
+        "javascript": {
+          "inlayHints": {
+            "parameterNames": { "enabled": "all" },
+            "parameterTypes": { "enabled": true },
+            "variableTypes": { "enabled": true },
+            "propertyDeclarationTypes": { "enabled": true },
+            "functionLikeReturnTypes": { "enabled": true },
+          },
+        },
+      },
     },
   },
 }
