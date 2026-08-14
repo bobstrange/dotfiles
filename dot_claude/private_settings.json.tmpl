@@ -104,7 +104,7 @@
       "Read({{ .chezmoi.homeDir }}/.netrc)"
     ],
     "ask": [],
-    "defaultMode": "default",
+    "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
     "enableAllProjectMcpServers": false
   },
@@ -116,5 +116,13 @@
     "skill-creator@claude-plugins-official": true
   },
   "effortLevel": "medium",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "skillOverrides": {
+    "session-recap": "off",
+    "maintain-adr": "off",
+    "query-slack": "off",
+    "summarize-slack-thread": "off",
+    "review-rule": "off",
+    "report-claude-time": "off"
+  }
 }
