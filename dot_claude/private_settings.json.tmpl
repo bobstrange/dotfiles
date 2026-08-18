@@ -112,9 +112,36 @@
     "type": "command",
     "command": "~/.claude/statusline-command.sh"
   },
-  "enabledPlugins": {
-    "skill-creator@claude-plugins-official": true
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/agent-memory-sync pull",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.local/bin/agent-memory-sync push",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
   },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": false
+  },
+  "model": "opus",
+  "tui": "default",
   "effortLevel": "medium",
   "skipAutoPermissionPrompt": true,
   "skillOverrides": {

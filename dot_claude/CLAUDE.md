@@ -37,28 +37,15 @@ lefthook remotes).
   gh-workflows README first and wire the few-line stubs it prescribes
 - Do not hand-roll lint workflows in individual repos
 
-## Public vs Private Repositories
+## Repository Visibility
 
-Some repos are public (e.g. handbook, dotfiles, gh-workflows); others are private (e.g. career,
-ai-journal, infra). Anything committed to a public repo — file contents **and commit messages** —
-is published wholesale, including full git history once a private repo is flipped public.
+Some repos are public, others private. Anything committed to a public repo — file contents
+**and commit messages** — is published wholesale, including full git history once a private
+repo is flipped public. Check with `gh repo view bobstrange/<repo> --json visibility` before
+writing one repo's name into another repo's files.
 
-- Never mention private repos or personally sensitive context (job search, compensation, real
-  names, employers) in content destined for a public repo. References flow private → public only
-- Check with `gh repo view bobstrange/<repo> --json visibility` before writing one repo's name
-  into another repo's files
+## Additional Instructions
 
-## Hosting / Infra Registry
+Machine-local instructions, imported if present:
 
-Cross-service hosting state (subdomains under bobstrange.dev, DNS, Cloudflare Access, which routes
-are auth-protected and which backdoor URLs are closed) is tracked in the **bobstrange/infra**
-repository (`~/src/bobstrange/infra`, README.md is the ledger).
-
-- Before adding/changing hosting, domains, or auth for any service, check the ledger there
-- After such a change, update the ledger in the same piece of work
-- Service-internal config (build/deploy settings, in-app auth implementation) stays in each service
-  repo's docs; the infra repo only holds the shared layer and links out
-- Before any Vercel work (new service, config change, **or diagnosing slow/production-only
-  performance issues**), also read `infra/docs/vercel-standard-setup.md` — it documents
-  cross-service gotchas (e.g. Function region must match the DB's region, or requests pay a
-  cross-region round trip that no amount of query-level optimization fixes)
+@~/.claude/private.md
