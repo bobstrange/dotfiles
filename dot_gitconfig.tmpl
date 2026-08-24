@@ -119,11 +119,10 @@
 
   {{ else }}
 
-[credential]
-  credentialStore = secretservice
-  helper = /usr/local/bin/git-credential-manager
-[credential "https://dev.azure.com"]
-  useHttpPath = true
+[credential "https://github.com"]
+  helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+  helper = !gh auth git-credential
 
   {{ end }}
 {{ end }}
