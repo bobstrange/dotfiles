@@ -44,6 +44,21 @@ Some repos are public, others private. Anything committed to a public repo — f
 repo is flipped public. Check with `gh repo view bobstrange/<repo> --json visibility` before
 writing one repo's name into another repo's files.
 
+## Prefer Deterministic Over Judgment (Harness Engineering)
+
+Reserve model judgment for the parts that actually need it; anything routine belongs in
+the harness — scripts, hooks, validation:
+
+- Repeatable procedures → a script that embeds the policy, instead of prose steps the
+  agent re-interprets every session
+- Rules and invariants → mechanical gates (schema validation, pre-commit checks, CI,
+  Claude Code PreToolUse hooks). Prose rules are followed probabilistically; gates are
+  deterministic
+- Before writing a rule into CLAUDE.md — or when an existing prose rule keeps being
+  violated — propose a script or a gate instead of more prose
+- A policy script only becomes a gate once the bypass path is denied (e.g. a PreToolUse
+  hook blocking direct access); prove a gate fires before relying on it
+
 ## Additional Instructions
 
 Machine-local instructions, imported if present:
