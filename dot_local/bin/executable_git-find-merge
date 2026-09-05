@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+# Print the merge commit that first brought <commit> into <branch>.
+set -eu
+
+if [ $# -lt 1 ]; then
+  echo "usage: git find-merge <commit> [branch]" >&2
+  exit 1
+fi
+
+commit=$1
+branch=${2:-HEAD}
+
+# The merge is the earliest commit sitting on both the ancestry path from
+# <commit> and <branch>'s first-parent line. Number both lists, keep the
+# entries appearing in each, and take the one nearest <commit>.
+{
+  git rev-list "$commit..$branch" --ancestry-path | cat -n
+  git rev-list "$commit..$branch" --first-parent | cat -n
+} | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2

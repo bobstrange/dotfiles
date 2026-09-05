@@ -31,27 +31,18 @@
 
   amend = commit --amend --no-edit
   delete = branch --delete
-  tidy = "!git branch --format='%(refname:short)' | fzf --multi --preview \"git log --color --format='%Cred%h %Cgreen%cd %C(bold blue)%an%Creset %s' --date=format:'%Y-%m-%d %H:%M' -20 {}\" | xargs --no-run-if-empty git branch -D"
-  delete-merged = !git merged | xargs git delete
+  delete-merged = "!git merged | while read -r branch; do git branch -D \"$branch\"; done"
   delete-remote = push --delete origin
   delete-tag = tag --delete
   discard = restore --
-  hard-reset = !git reset --hard "origin/$(git cb)"
-  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$|main$'
   modified = ! git diff --name-only --diff-filter=M
   unstage = reset -q HEAD --
   uncommit = reset --mixed HEAD~
   push-upstream = !git push -u origin $(git cb)
   sync-tag = !git tag -l | xargs git delete-tag && git fetch origin --tags
 
-  change = "!f() { git stash; git checkout $1; git pull --rebase; git stash pop; }; f"
   # git rebase-onto <to> <from>
   rebase-onto = "!f() { git rebase --onto $1 $2 $(git cb); }; f"
-
-  diff-branch = "!f() { base=${1:-$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')}; base=${base:-main}; if [ \"$(git cb)\" = \"$base\" ]; then git diff origin/$base; else git diff $(git merge-base HEAD $base); fi; }; f"
-
-  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
 [commit]
   template = ~/.stCommitMsg
@@ -73,7 +64,6 @@
   prompt = false
 [diff]
   tool = vimdiff
-
 
 # Make gitconfig space 2
 [filter "spacify"]

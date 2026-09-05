@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+# Switch to a branch, bring it up to date, and carry work in progress along.
+set -eu
+
+if [ $# -lt 1 ]; then
+  echo "usage: git goto <branch>" >&2
+  exit 1
+fi
+
+branch=$1
+
+# `git stash` is a no-op on a clean tree and still exits 0, so popping
+# unconditionally afterwards would restore an unrelated older stash.
+stashed=no
+if ! git diff --quiet HEAD; then
+  git stash push --quiet
+  stashed=yes
+fi
+
+git checkout "$branch"
+
+# A failed pull must not strand the stash, so keep going and report it at the end.
+status=0
+git pull --rebase || status=$?
+
+if [ "$stashed" = yes ]; then
+  git stash pop
+fi
+
+exit "$status"
