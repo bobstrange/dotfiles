@@ -3,6 +3,7 @@
 dot_config/gh/config.yml
 dot_config/ulauncher/settings.json
 dot_config/zed/
+dot_config/private_Code/
 # Hand-written flow-style YAML with inline comments; prettier explodes it
 dot_config/xremap/config.yml
 

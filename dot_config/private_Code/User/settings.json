@@ -1,0 +1,93 @@
+{
+  "editor.fontFamily": "PlemolJP, monospace",
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.colorCustomizations": {
+    "list.activeSelectionBackground": "#4CAF50", // 開いているファイル: 穏やかな緑
+    "list.activeSelectionForeground": "#FFFFFF", // 開いているファイルの文字色: 白
+    "list.inactiveSelectionBackground": "#A5D6A7", // 非アクティブな選択: 薄い緑
+    "list.inactiveSelectionForeground": "#000000", // 非アクティブな文字色: 黒
+    "list.hoverBackground": "#81C784", // マウスホバー時: 少し明るい緑
+    "list.hoverForeground": "#000000", // マウスホバー時の文字色: 黒
+  },
+  "vim.useSystemClipboard": true,
+  "cSpell.userWords": [
+    "Adfraud",
+    "airtrip",
+    "alacritty",
+    "chezmoi",
+    "clickhouse",
+    "clippy",
+    "csec",
+    "dealstage",
+    "gtid",
+    "hexdigest",
+    "HMAC",
+    "hubspot",
+    "lineinfile",
+    "markdownlint",
+    "nowrap",
+    "Oban",
+    "Plemol",
+    "rustc",
+    "rustup",
+    "shellcheck",
+    "smaad",
+    "spideraf",
+    "vuex",
+  ],
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format",
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "remote.autoForwardPortsSource": "hybrid",
+  "docker.extension.enableComposeLanguageServer": false,
+  "window.menuBarVisibility": "compact",
+  "window.newWindowProfile": "Default",
+  "editor.aiStats.enabled": true,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true,
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "claudeCode.preferredLocation": "panel",
+  "git.openRepositoryInParentFolders": "never",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "json.schemaDownload.trustedDomains": {
+    "https://schemastore.azurewebsites.net/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://www.schemastore.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://json-schema.org/": true,
+    "https://biomejs.dev": true,
+  },
+  "debug.breakpointsView.presentation": "tree",
+  "makefile.configureOnOpen": true,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
+}
