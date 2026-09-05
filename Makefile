@@ -1,6 +1,6 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
         nix-apply macos-apply update \
-        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
+        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
 .DEFAULT_GOAL := help
@@ -27,6 +27,7 @@ help:
 	@echo "  xremap-setup             Set up key remapper (Linux/GNOME)"
 	@echo "  gnome-extensions-setup   Install GNOME Shell extensions"
 	@echo "  ulauncher-setup          Install Ulauncher v6 launcher"
+	@echo "  vscode-setup             Install VS Code from Microsoft's apt repository"
 	@echo "  gnome-defaults           Apply GNOME system preferences"
 	@echo "  mise-install             Install language runtimes"
 	@echo "  symlinks                 Link secret files from Dropbox"
@@ -40,7 +41,7 @@ setup-nix:
 	@echo "Restart your shell, then run: make setup-linux"
 
 # gnome-extensions-setup before xremap-setup: xremap needs its GNOME extension installed first
-setup-linux: nix-apply lefthook-setup gnome-extensions-setup ulauncher-setup gnome-defaults xremap-setup mise-install
+setup-linux: nix-apply lefthook-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults xremap-setup mise-install
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- If added to input group: log out and back in for xremap to work"
@@ -105,6 +106,9 @@ symlinks:
 
 ulauncher-setup:
 	bash ./setup/setup-ulauncher.sh
+
+vscode-setup:
+	bash ./setup/setup-vscode.sh
 
 gnome-defaults:
 	bash ./setup/gnome-defaults.sh

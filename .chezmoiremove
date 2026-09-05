@@ -1,3 +1,8 @@
 # Renamed to git-goto. chezmoi does not delete a target once its source is gone,
 # so the old copy would keep shadowing nothing on every machine that had it.
 .local/bin/git-change
+
+# neovide is gone from nix/packages.nix; its launcher shim and the .desktop entry
+# that pointed at it would otherwise linger and show a dead menu item.
+.local/bin/neovide-launcher
+.local/share/applications/neovide.desktop

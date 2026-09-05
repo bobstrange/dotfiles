@@ -33,6 +33,20 @@ Rationale: nixpkgs can lag behind on language runtimes, while mise provides flex
 management with `latest`, `lts`, and per-project `.mise.toml` overrides. mise's npm backend also
 covers CLIs that nixpkgs does not package at all (e.g. `"npm:vercel"`).
 
+### VS Code (apt, not nix)
+
+VS Code is the one package installed with apt (`make vscode-setup`,
+`setup/setup-vscode.sh`), against the global "no apt" rule. nixpkgs' `vscode` is unfree, so
+it is absent from `cache.nixos.org` and the `nix build` CI job would re-download ~330MB on
+every run; worse, extensions that fetch their own binaries (pylance, java, terraform,
+copilot) need the `vscode-fhs` wrapper to work off NixOS. Microsoft's apt repository has
+neither problem and publishes new releases same-day, so `apt upgrade` keeps it current.
+
+**Extensions and settings are not managed here.** Extensions, UI state and profiles belong to
+Settings Sync — the `vscode "..."` lines that used to be in `Brewfile` were a snapshot that had
+not been touched in 16 months, and `brew bundle` reinstalled extensions that Settings Sync had
+removed. Do not add them back to `Brewfile` or `nix/packages.nix`; whichever ran last would win.
+
 ### package.json
 
 `package.json` holds dev tooling for **this repo only** (prettier, secretlint) — it is never installed

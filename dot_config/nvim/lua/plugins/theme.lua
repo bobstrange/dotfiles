@@ -1,10 +1,7 @@
-local is_neovide = vim.g.neovide
-
 return {
-  -- GitHub Dark theme (terminal)
+  -- GitHub Dark theme
   {
     "projekt0n/github-nvim-theme",
-    lazy = is_neovide,
     priority = 1000,
     config = function()
       require("github-theme").setup({
@@ -17,25 +14,7 @@ return {
           },
         },
       })
-      if not is_neovide then
-        vim.cmd("colorscheme github_dark")
-      end
-    end,
-  },
-
-  -- Catppuccin theme (Neovide)
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    lazy = not is_neovide,
-    priority = 1000,
-    config = function()
-      require("catppuccin").setup({
-        flavour = "mocha",
-      })
-      if is_neovide then
-        vim.cmd("colorscheme catppuccin")
-      end
+      vim.cmd("colorscheme github_dark")
     end,
   },
 
@@ -43,7 +22,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = is_neovide and "catppuccin" or "github_dark",
+      colorscheme = "github_dark",
     },
   },
 }

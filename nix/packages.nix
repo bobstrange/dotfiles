@@ -13,7 +13,6 @@ with pkgs; [
 
   # Editors
   neovim
-  neovide
   vim
   zed-editor
 
