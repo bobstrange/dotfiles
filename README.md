@@ -92,7 +92,18 @@ The answer is stored as a marker file, `~/.config/chezmoi/work-machine`, which
 encryption settings, if something overwrote the file wholesale. Using a file rather than a
 `promptBool` also keeps `chezmoi init` non-interactive for `curl | bash` bootstraps and CI.
 
-3. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
+3. Turn on Settings Sync in VS Code, with **Settings** unchecked:
+
+Open VS Code, run `Backup and Sync Settings...` from the command palette (it is no longer
+called `Settings Sync: Turn On`), sign in with GitHub, and **uncheck Settings** in the
+resource list. Everything else — Keyboard Shortcuts, Snippets, Tasks, MCP Servers, UI State,
+Extensions, Profiles, Prompts — stays checked.
+
+This cannot be scripted: the per-resource toggle lives in `globalStorage/state.vscdb`
+(SQLite) as `sync.enable.settings`, and VS Code exposes no setting id for it. Skipping the
+step leaves the cloud copy of `settings.json` fighting the one this repo installs.
+
+4. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
 
 ```bash
 make symlinks   # Requires ~/Dropbox/config
@@ -188,6 +199,8 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 | Packages - Ubuntu/WSL               | Nix + home-manager                         |
 | Language runtimes                   | mise                                       |
 | Shell configuration                 | `dot_zsh/configs/`                         |
+| VS Code settings (Linux)            | chezmoi (`dot_config/private_Code/`)       |
+| VS Code extensions, keybindings     | Settings Sync                              |
 | Docker disk cleanup (Ubuntu)        | systemd user timer (`docker-disk-cleanup`) |
 
 ### Nix vs mise
