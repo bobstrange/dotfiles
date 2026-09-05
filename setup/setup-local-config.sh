@@ -1,13 +1,19 @@
 #!/bin/bash
-# Configure ~/.config/chezmoi/chezmoi.toml for this machine.
-# Controls which dotfiles are applied via chezmoi data variables.
+# Configure the machine type for chezmoi (work or personal).
+#
+# The answer is stored as a marker file, ~/.config/chezmoi/work-machine, which
+# .chezmoi.toml.tmpl reads to set the `work` data variable. The marker lives
+# outside the generated ~/.config/chezmoi/chezmoi.toml on purpose: that file is
+# regenerated from the template by every `chezmoi init`, so anything written
+# into it directly (including the encryption settings) would be lost.
 #
 # Variables:
 #   work = true  — skip dot_claude/ (managed separately via agent-configs symlinks)
+#                — no IdentityAgent pin in ~/.ssh/config (see private_dot_ssh/)
 
 set -euo pipefail
 
-CHEZMOI_CONFIG="$HOME/.config/chezmoi/chezmoi.toml"
+MARKER="$HOME/.config/chezmoi/work-machine"
 
 usage() {
   echo "Usage: $0 [--work | --personal]"
@@ -24,6 +30,8 @@ if [ $# -eq 1 ]; then
     --personal) machine_type="personal" ;;
     *) usage ;;
   esac
+elif [ $# -gt 1 ]; then
+  usage
 else
   echo "What type of machine is this?"
   echo "  1) Personal (dot_claude/ managed by chezmoi)"
@@ -36,25 +44,21 @@ else
   esac
 fi
 
-mkdir -p "$(dirname "$CHEZMOI_CONFIG")"
+mkdir -p "$(dirname "$MARKER")"
 
 if [ "$machine_type" = "work" ]; then
-  cat > "$CHEZMOI_CONFIG" <<'TOML'
-[data]
-  work = true
-TOML
-  echo "Wrote $CHEZMOI_CONFIG (work=true)"
+  touch "$MARKER"
+  echo "Marked as a work machine ($MARKER)"
   echo "dot_claude/ will be skipped by chezmoi apply."
 else
-  # Remove work flag if present, or write minimal config
-  if [ -f "$CHEZMOI_CONFIG" ] && grep -q 'work = true' "$CHEZMOI_CONFIG"; then
-    # Remove the work = true line
-    tmp=$(mktemp)
-    grep -v 'work = true' "$CHEZMOI_CONFIG" > "$tmp"
-    mv "$tmp" "$CHEZMOI_CONFIG"
-    echo "Removed work=true from $CHEZMOI_CONFIG"
-  else
-    echo "No changes needed ($CHEZMOI_CONFIG already set for personal use)."
-  fi
+  rm -f "$MARKER"
+  echo "Marked as a personal machine (no $MARKER)"
   echo "dot_claude/ will be managed by chezmoi."
 fi
+
+# Regenerate ~/.config/chezmoi/chezmoi.toml so `work` takes effect. Templated
+# from .chezmoi.toml.tmpl, so the age encryption settings are preserved.
+chezmoi init
+
+echo ""
+echo "Run 'chezmoi diff' to review what this changes, then 'chezmoi apply'."

@@ -1,3 +1,13 @@
+{{- /* Machine type. The marker file lives outside this generated config, so
+       re-running `chezmoi init` (which regenerates the config from this
+       template) keeps the answer instead of silently reverting to personal.
+       A file rather than a prompt keeps `chezmoi init` non-interactive for
+       `curl | bash` bootstraps and for CI. Managed by
+       ./setup/setup-local-config.sh (--work | --personal). */ -}}
+{{- $work := false -}}
+{{- if stat (joinPath .chezmoi.homeDir ".config" "chezmoi" "work-machine") -}}
+{{-   $work = true -}}
+{{- end -}}
 umask = 0o22
 
 encryption = "age"
@@ -5,3 +15,6 @@ encryption = "age"
 [age]
 identity = "~/.config/chezmoi/key.txt"
 recipient = "age1jfqfa5feegs3yfwywdah9nnyp28wje2wvyu9lk2d5553nlye7dequrfxp4"
+
+[data]
+work = {{ $work }}

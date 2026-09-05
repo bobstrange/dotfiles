@@ -80,9 +80,17 @@ make local-config   # interactive prompt
 ./setup/setup-local-config.sh --personal
 ```
 
-| Variable    | Effect                                                                          |
-| ----------- | ------------------------------------------------------------------------------- |
-| `work=true` | Skips `dot_claude/` — `~/.claude/` is managed by agent-configs symlinks instead |
+| Area            | `work = true` behaviour                                      |
+| --------------- | ------------------------------------------------------------ |
+| `dot_claude/`   | Skipped — `~/.claude/` is managed by agent-configs symlinks  |
+| `~/.ssh/config` | No `IdentityAgent` pin — the session's own ssh agent is used |
+
+The answer is stored as a marker file, `~/.config/chezmoi/work-machine`, which
+`.chezmoi.toml.tmpl` reads. It deliberately lives **outside**
+`~/.config/chezmoi/chezmoi.toml`: that file is regenerated from the template by every
+`chezmoi init`, so a value written into it directly would be lost — along with the `age`
+encryption settings, if something overwrote the file wholesale. Using a file rather than a
+`promptBool` also keeps `chezmoi init` non-interactive for `curl | bash` bootstraps and CI.
 
 3. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
 

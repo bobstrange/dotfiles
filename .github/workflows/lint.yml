@@ -60,7 +60,9 @@ jobs:
         run: |
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      # .chezmoi.toml.tmpl has no promptString calls, so init is non-interactive.
+      # .chezmoi.toml.tmpl has no prompt* calls (the work/personal switch is a
+      # marker file, not a prompt), so init is non-interactive. Keep it that way:
+      # a prompt here would hang this job and the `curl | bash` bootstrap.
       # --source is per-invocation and is not written to the generated config,
       # so every command below has to repeat it.
       - name: Init chezmoi against this checkout
