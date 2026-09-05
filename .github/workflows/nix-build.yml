@@ -1,0 +1,72 @@
+---
+name: Nix build
+
+# The lint workflow's "nix eval" job stops at evaluation, so a package that
+# evaluates but fails to build (a broken test, an unappliable patch, a stale
+# hash) reaches the machine before anyone notices. Building the whole
+# activationPackage catches that, but its closure is ~7 GiB, which is far too
+# much to spend on a PR that only edits a zsh file.
+#
+# So this runs on every PR but does the expensive work only when the flake
+# actually changed. It deliberately has no `paths:` filter: a workflow that
+# does not trigger leaves its checks pending forever, which would make it
+# unusable as a required check and stop auto-merge from waiting for it.
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # Registered as a required check under this name — renaming it blocks every
+    # PR until the "main: require Lint checks" ruleset is updated to match.
+    name: nix build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The change detection below diffs against the PR base commit.
+          fetch-depth: 0
+
+      - name: Check whether the flake changed
+        id: changed
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" != "pull_request" ]; then
+            echo "Manual run; building unconditionally."
+            echo "flake=true" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git diff --name-only "$BASE_SHA" "$HEAD_SHA" |
+            grep -qE '^nix/flake\.(lock|nix)$'; then
+            echo "nix/flake.lock or nix/flake.nix changed; building."
+            echo "flake=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "Flake untouched; skipping the build."
+            echo "flake=false" >>"$GITHUB_OUTPUT"
+          fi
+
+      - uses: cachix/install-nix-action@v31
+        if: steps.changed.outputs.flake == 'true'
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # bob@wsl is currently the same derivation as bob@ubuntu (same modules,
+      # same username, same home directory), so building both would verify
+      # nothing twice.
+      - name: Build the home-manager configuration
+        if: steps.changed.outputs.flake == 'true'
+        run: |
+          nix build --no-link --print-build-logs \
+            "path:$GITHUB_WORKSPACE/nix#homeConfigurations.\"bob@ubuntu\".activationPackage"
