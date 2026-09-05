@@ -1,5 +1,5 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
-        nix-apply macos-apply update \
+        nix-apply macos-apply update verify \
         lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
@@ -21,6 +21,7 @@ help:
 	@echo ""
 	@echo "Maintenance:"
 	@echo "  update                   Update plugins, gh extensions and runtimes"
+	@echo "  verify                   Report drift between this repo and this machine"
 	@echo ""
 	@echo "Tools:"
 	@echo "  lefthook-setup           Set up git hooks"
@@ -85,6 +86,9 @@ macos-apply:
 
 update:
 	bash ./setup/update.sh
+
+verify:
+	bash ./setup/verify.sh
 
 # --- Tools ---
 

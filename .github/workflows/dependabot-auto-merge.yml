@@ -13,7 +13,7 @@ jobs:
   auto-merge:
     name: enable auto-merge
     if: github.event.pull_request.user.login == 'dependabot[bot]'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - id: metadata
