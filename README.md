@@ -114,7 +114,6 @@ make macos-defaults   # Apply macOS system defaults
 
 ```bash
 make nix-apply        # After editing nix/*.nix files (auto-commits nix/flake.lock if changed)
-make nix-update       # Update all packages to latest (auto-commits nix/flake.lock if changed)
 nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
 ```

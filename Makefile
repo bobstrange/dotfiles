@@ -1,5 +1,5 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
-        nix-apply nix-update macos-apply \
+        nix-apply macos-apply \
         lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
@@ -18,9 +18,6 @@ help:
 	@echo "Apply config changes:"
 	@echo "  nix-apply                Apply Nix package config changes"
 	@echo "  macos-apply              Apply Homebrew package config changes"
-	@echo ""
-	@echo "Update packages:"
-	@echo "  nix-update               Update Nix packages to latest"
 	@echo ""
 	@echo "Tools:"
 	@echo "  lefthook-setup           Set up git hooks"
@@ -75,17 +72,6 @@ nix-apply:
 
 macos-apply:
 	time brew bundle --file=./Brewfile --verbose
-
-# --- Update packages ---
-
-nix-update:
-	time sh -c 'cd nix && nix flake update && home-manager switch --flake .#bob@ubuntu'
-	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
-		echo "flake.lock: no changes"; \
-	else \
-		git add nix/flake.lock && git commit -m "chore: update flake.lock" && \
-		echo "flake.lock: committed"; \
-	fi
 
 # --- Tools ---
 
