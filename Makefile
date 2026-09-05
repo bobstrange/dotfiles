@@ -1,5 +1,5 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
-        nix-apply macos-apply \
+        nix-apply macos-apply update \
         lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
@@ -18,6 +18,9 @@ help:
 	@echo "Apply config changes:"
 	@echo "  nix-apply                Apply Nix package config changes"
 	@echo "  macos-apply              Apply Homebrew package config changes"
+	@echo ""
+	@echo "Maintenance:"
+	@echo "  update                   Update plugins, gh extensions and runtimes"
 	@echo ""
 	@echo "Tools:"
 	@echo "  lefthook-setup           Set up git hooks"
@@ -76,6 +79,11 @@ nix-apply:
 
 macos-apply:
 	time brew bundle --file=./Brewfile --verbose
+
+# --- Maintenance ---
+
+update:
+	bash ./setup/update.sh
 
 # --- Tools ---
 
