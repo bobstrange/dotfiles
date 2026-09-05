@@ -114,6 +114,20 @@ required checks `--auto` would merge immediately instead of waiting. Two consequ
   breaking change there (`v2`)
 - direct pushes to `main` must also satisfy the checks (repo admin has an `always` bypass)
 
+## Keeping things current
+
+`make update` (`setup/update.sh`) sweeps everything that is installed once and then never
+moves on its own: lazy.nvim plugins, tpm plugins, gh extensions, mise runtimes, and Homebrew
+on macOS. These bootstrap with "clone if absent" (`plugins.conf`) or `run_once_`
+(`.chezmoiscripts/`), so nothing re-checks them afterwards — a plugin cloned at setup stays at
+that commit until something breaks. Nix is the exception and is deliberately not in the script:
+CI owns `nix/flake.lock` (see **flake.lock updates**), so its update path is
+`git pull && make nix-apply`. APT is out of scope too — it only holds the base Ubuntu system,
+covered by unattended-upgrades plus the `apt-update` alias. The script prints a pointer for both.
+
+`lazy-lock.json` is not a pin — lazy.nvim rewrites it after every install/update and only reads
+it back on `:Lazy restore`. It is in `.chezmoiignore` because update timing is per-machine.
+
 ## Notes
 
 - `make nix-apply` leaves a changed `nix/flake.lock` uncommitted and warns. Updating the lock is CI's job

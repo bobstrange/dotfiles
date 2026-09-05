@@ -45,7 +45,9 @@ require("lazy").setup({
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
     enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
+    -- Plugins are cloned once and never move on their own, so without this the
+    -- only signal that an update exists is a plugin breaking. See `make update`.
+    notify = true, -- notify on update
   }, -- automatically check for plugin updates
   performance = {
     rtp = {
