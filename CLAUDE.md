@@ -42,10 +42,17 @@ every run; worse, extensions that fetch their own binaries (pylance, java, terra
 copilot) need the `vscode-fhs` wrapper to work off NixOS. Microsoft's apt repository has
 neither problem and publishes new releases same-day, so `apt upgrade` keeps it current.
 
-**Extensions and settings are not managed here.** Extensions, UI state and profiles belong to
-Settings Sync — the `vscode "..."` lines that used to be in `Brewfile` were a snapshot that had
-not been touched in 16 months, and `brew bundle` reinstalled extensions that Settings Sync had
-removed. Do not add them back to `Brewfile` or `nix/packages.nix`; whichever ran last would win.
+**Extensions are not managed here.** They belong to Settings Sync, along with keybindings,
+snippets, tasks, MCP servers, UI state, profiles and prompts. The `vscode "..."` lines that used
+to be in `Brewfile` were a snapshot that had not been touched in 16 months — by the time they
+were deleted the real set differed by 20 entries — and `brew bundle` reinstalled extensions that
+Settings Sync had removed. Do not add them back to `Brewfile` or `nix/packages.nix`; whichever
+ran last would win.
+
+`settings.json` is the exception and _is_ managed here, on Linux only. Its add-back workflow
+(edit `$HOME` target → `chezmoi add`) and its gotchas — the `private_` prefix, the JSONC/prettier
+conflict, and the one-time GUI step that turns Settings sync off — live in
+`.claude/rules/vscode.md`, loaded automatically when working under `dot_config/private_Code/`.
 
 ### package.json
 
