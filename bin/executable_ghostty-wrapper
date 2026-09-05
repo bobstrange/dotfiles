@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
+# Launcher shim for ghostty. Lives in ~/bin because the graphical session's PATH
+# (Ulauncher, GNOME) has ~/bin but not ~/.nix-profile/bin, so neither nixGLIntel
+# nor ghostty itself is resolvable from a .desktop Exec line.
+export PATH="$HOME/.nix-profile/bin:$PATH"
+
 exec nixGLIntel ghostty "$@"
