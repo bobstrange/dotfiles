@@ -31,7 +31,7 @@ jobs:
 
   zsh-syntax:
     name: zsh syntax check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
@@ -47,19 +47,42 @@ jobs:
     # Renders every *.tmpl file. Runs on both OSes because dot_zshrc.tmpl,
     # dot_gitconfig.tmpl, plugins.toml.tmpl and ghostty/config.tmpl all branch
     # on .chezmoi.os — a Linux-only run would never evaluate the darwin side.
-    name: chezmoi templates (${{ matrix.os }})
+    name: chezmoi templates (${{ matrix.os }}${{ matrix.work && ', work' || '' }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-15]
+        # `include` rather than two axes: the work=true side only needs one leg,
+        # and a full cross product would add a macOS run that proves nothing new.
+        #
+        # -latest, not a pinned version. This job name interpolates matrix.os, so
+        # the runner label *is* the required-status-check context in the branch
+        # ruleset. Pinning means every OS bump renames three checks and blocks
+        # every open PR until the ruleset is edited to match; -latest keeps the
+        # names fixed while GitHub moves the image underneath. A dotfiles repo
+        # also wants the current OS rather than a frozen one — pinning to 24.04
+        # would keep answering a question about an OS this machine is leaving.
+        include:
+          - os: ubuntu-latest
+            work: false
+          - os: macos-latest
+            work: false
+          - os: ubuntu-latest
+            work: true
     steps:
       - uses: actions/checkout@v7
       - name: Install chezmoi
         run: |
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      # Must precede `init`: .chezmoi.toml.tmpl stats this file to decide the
+      # `work` data variable, and init is what renders that config.
+      - name: Mark this run as a work machine
+        if: matrix.work
+        run: |
+          mkdir -p "$HOME/.config/chezmoi"
+          touch "$HOME/.config/chezmoi/work-machine"
       # .chezmoi.toml.tmpl has no prompt* calls (the work/personal switch is a
       # marker file, not a prompt), so init is non-interactive. Keep it that way:
       # a prompt here would hang this job and the `curl | bash` bootstrap.
@@ -76,11 +99,39 @@ jobs:
           chezmoi apply --source="$GITHUB_WORKSPACE" \
             --dry-run --force --exclude encrypted -v
 
+      # Rendering proves the templates parse; it does not prove the work switch
+      # still reaches anything. These are the only two things it flips, so assert
+      # both directions — otherwise a `work` branch could be deleted outright and
+      # every job here would stay green.
+      - name: Assert the work switch still has an effect
+        run: |
+          managed=$(chezmoi managed --source="$GITHUB_WORKSPACE")
+          ssh_config=$(chezmoi cat --source="$GITHUB_WORKSPACE" "$HOME/.ssh/config")
+          fail() { echo "::error::$1"; exit 1; }
+
+          if [ "${{ matrix.work }}" = "true" ]; then
+            if printf '%s\n' "$managed" | grep -qxF '.claude'; then
+              fail ".chezmoiignore should exclude .claude on work machines"
+            fi
+            if printf '%s\n' "$ssh_config" | grep -q 'IdentityAgent'; then
+              fail "work machines should not pin the 1Password SSH agent"
+            fi
+            echo "work=true: .claude ignored, no IdentityAgent pin"
+          else
+            if ! printf '%s\n' "$managed" | grep -qxF '.claude'; then
+              fail ".claude should be managed on personal machines"
+            fi
+            if ! printf '%s\n' "$ssh_config" | grep -q 'IdentityAgent'; then
+              fail "personal machines should pin the 1Password SSH agent"
+            fi
+            echo "work=false: .claude managed, IdentityAgent pinned"
+          fi
+
   nix:
     # Evaluation only (no build): catches typos and removed attribute names in
     # nix/packages.nix before they blow up a real `make nix-apply` on Ubuntu.
     name: nix eval
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7

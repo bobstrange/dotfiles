@@ -27,7 +27,7 @@ jobs:
     # Registered as a required check under this name — renaming it blocks every
     # PR until the "main: require Lint checks" ruleset is updated to match.
     name: nix build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
