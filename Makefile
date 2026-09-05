@@ -59,6 +59,7 @@ local-config:
 # --- Apply config changes ---
 
 nix-apply:
+	@./setup/check-lock-drift.sh
 	@if command -v home-manager >/dev/null 2>&1; then \
 		time home-manager switch --flake ./nix#bob@ubuntu; \
 	else \
