@@ -5,7 +5,7 @@
 #
 # Strip only the /nix/store/* entries so any user-set entries are preserved.
 # GUI apps that need GL should be wrapped with nixGL explicitly
-# (e.g. `nixGLIntel neovide`).
+# (e.g. `nixGLIntel ghostty`).
 if [[ "$LD_LIBRARY_PATH" == *"/nix/store/"* ]]; then
   typeset -a __ld_kept
   __ld_kept=("${(@s.:.)LD_LIBRARY_PATH}")

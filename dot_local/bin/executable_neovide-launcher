@@ -1,9 +1,0 @@
-#!/bin/bash
-export PATH="$HOME/.nix-profile/bin:$PATH"
-
-# If no file arguments given, use default working directory
-if [ $# -eq 0 ]; then
-  cd "$HOME/src/github.com/Phybbit/spideraf_umbrella/tmp/memo"
-fi
-
-exec nixGLIntel neovide --size 800x960 "$@"
