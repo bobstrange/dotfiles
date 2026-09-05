@@ -35,7 +35,6 @@
   delete-remote = push --delete origin
   delete-tag = tag --delete
   discard = restore --
-  hard-reset = !git reset --hard "origin/$(git cb)"
   modified = ! git diff --name-only --diff-filter=M
   unstage = reset -q HEAD --
   uncommit = reset --mixed HEAD~

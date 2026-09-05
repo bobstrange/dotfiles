@@ -1,0 +1,3 @@
+# Renamed to git-goto. chezmoi does not delete a target once its source is gone,
+# so the old copy would keep shadowing nothing on every machine that had it.
+.local/bin/git-change
