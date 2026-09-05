@@ -64,3 +64,9 @@ if [ "$(uname -s)" = "Linux" ]; then
   printf '\n==> APT packages\n'
   printf '    not updated here — use the apt-update alias (needs sudo).\n'
 fi
+
+# Last, so the drift report is what is left on screen: updating plugins and
+# runtimes is exactly when a config gets rewritten behind chezmoi's back.
+# Non-fatal — drift is a normal thing to find here, not a reason to fail the
+# sweep. `make verify` returns the real exit code for anything that gates on it.
+bash "$(dirname "${BASH_SOURCE[0]}")/verify.sh" || true
