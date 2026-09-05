@@ -116,7 +116,7 @@ required checks `--auto` would merge immediately instead of waiting. Two consequ
 
 ## Notes
 
-- `make nix-apply` auto-commits `nix/flake.lock` if it changes. Updating the lock is CI's job
+- `make nix-apply` leaves a changed `nix/flake.lock` uncommitted and warns. Updating the lock is CI's job
   (see **flake.lock updates**) — there is deliberately no local update target. To pull an update
   in before Monday, run the `Update flake.lock` workflow by hand (`workflow_dispatch`), so it
   still goes through `nix build` and the same pull request

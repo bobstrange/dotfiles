@@ -66,8 +66,12 @@ nix-apply:
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
 		echo "flake.lock: no changes"; \
 	else \
-		git add nix/flake.lock && git commit -m "chore: update flake.lock" && \
-		echo "flake.lock: committed"; \
+		echo ""; \
+		echo "  warning: applying changed nix/flake.lock, which CI owns."; \
+		echo "  Adding an input to nix/flake.nix does this; otherwise something"; \
+		echo "  is off. It has been left uncommitted — commit it with whatever"; \
+		echo "  made it move, or 'git checkout nix/flake.lock' to drop it."; \
+		echo ""; \
 	fi
 
 macos-apply:

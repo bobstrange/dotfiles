@@ -113,7 +113,7 @@ make macos-defaults   # Apply macOS system defaults
 #### Ubuntu/WSL
 
 ```bash
-make nix-apply        # After editing nix/*.nix files (auto-commits nix/flake.lock if changed)
+make nix-apply        # After editing nix/*.nix files (warns if nix/flake.lock moved; CI owns it)
 nix search nixpkgs <package-name>  # Search for packages
 home-manager rollback              # Rollback to previous generation
 ```
