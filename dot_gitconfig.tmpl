@@ -32,12 +32,11 @@
   amend = commit --amend --no-edit
   delete = branch --delete
   tidy = "!git branch --format='%(refname:short)' | fzf --multi --preview \"git log --color --format='%Cred%h %Cgreen%cd %C(bold blue)%an%Creset %s' --date=format:'%Y-%m-%d %H:%M' -20 {}\" | xargs --no-run-if-empty git branch -D"
-  delete-merged = !git merged | xargs git delete
+  delete-merged = "!git merged | while read -r branch; do git branch -D \"$branch\"; done"
   delete-remote = push --delete origin
   delete-tag = tag --delete
   discard = restore --
   hard-reset = !git reset --hard "origin/$(git cb)"
-  merged = !git branch --merged | grep -vE '^\\*|develop$|development$|master$|main$'
   modified = ! git diff --name-only --diff-filter=M
   unstage = reset -q HEAD --
   uncommit = reset --mixed HEAD~

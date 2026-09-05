@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+# `git branch --merged` only lists ancestors of HEAD, so squash- and rebase-merged
+# branches never show up. Ask GitHub which PRs actually merged as well.
+set -eu
+
+current=$(git rev-parse --abbrev-ref HEAD)
+
+merged_locally() {
+  # --format has to precede --merged, which would otherwise eat it as its commit argument.
+  git branch --format='%(refname:short)' --merged
+}
+
+merged_on_github() {
+  gh pr list --state merged --limit 200 --json headRefName --jq '.[].headRefName' 2>/dev/null || true
+}
+
+{
+  merged_locally
+  merged_on_github
+  echo '--'
+  git branch --format='%(refname:short)'
+} | awk -v current="$current" '
+    /^--$/ { past_separator = 1; next }
+
+    !past_separator { merged[$0]; next }
+
+    $0 == current                              { next }
+    $0 ~ /^(main|master|develop|development)$/ { next }
+
+    $0 in merged
+  '
