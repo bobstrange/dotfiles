@@ -14,9 +14,8 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 # Add my custom commands
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
-# Go
-export GOPATH="$HOME/dev"
-export PATH="$GOPATH/bin:$PATH"
+# Go (GOPATH defaults to ~/go; only its bin dir needs to be on PATH)
+export PATH="$HOME/go/bin:$PATH"
 
 # Deno
 export DENO_INSTALL="$HOME/.deno"
