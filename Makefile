@@ -1,5 +1,5 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
-        nix-apply nix-update macos-apply \
+        nix-apply macos-apply \
         lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
@@ -18,9 +18,6 @@ help:
 	@echo "Apply config changes:"
 	@echo "  nix-apply                Apply Nix package config changes"
 	@echo "  macos-apply              Apply Homebrew package config changes"
-	@echo ""
-	@echo "Update packages:"
-	@echo "  nix-update               Update Nix packages to latest"
 	@echo ""
 	@echo "Tools:"
 	@echo "  lefthook-setup           Set up git hooks"
@@ -59,6 +56,7 @@ local-config:
 # --- Apply config changes ---
 
 nix-apply:
+	@./setup/check-lock-drift.sh
 	@if command -v home-manager >/dev/null 2>&1; then \
 		time home-manager switch --flake ./nix#bob@ubuntu; \
 	else \
@@ -68,23 +66,16 @@ nix-apply:
 	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
 		echo "flake.lock: no changes"; \
 	else \
-		git add nix/flake.lock && git commit -m "chore: update flake.lock" && \
-		echo "flake.lock: committed"; \
+		echo ""; \
+		echo "  warning: applying changed nix/flake.lock, which CI owns."; \
+		echo "  Adding an input to nix/flake.nix does this; otherwise something"; \
+		echo "  is off. It has been left uncommitted — commit it with whatever"; \
+		echo "  made it move, or 'git checkout nix/flake.lock' to drop it."; \
+		echo ""; \
 	fi
 
 macos-apply:
 	time brew bundle --file=./Brewfile --verbose
-
-# --- Update packages ---
-
-nix-update:
-	time sh -c 'cd nix && nix flake update && home-manager switch --flake .#bob@ubuntu'
-	@if git diff --quiet nix/flake.lock 2>/dev/null; then \
-		echo "flake.lock: no changes"; \
-	else \
-		git add nix/flake.lock && git commit -m "chore: update flake.lock" && \
-		echo "flake.lock: committed"; \
-	fi
 
 # --- Tools ---
 

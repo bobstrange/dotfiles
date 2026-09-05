@@ -11,10 +11,6 @@ nix-apply() {
   make -C "${CHEZMOI_DIR}" nix-apply
 }
 
-nix-update() {
-  make -C "${CHEZMOI_DIR}" nix-update
-}
-
 # Search nixpkgs with filtered output.
 # By default, results are filtered by prefix match on the package attribute name
 # (last segment of the attribute path, e.g. "bun" in "legacyPackages.x86_64-linux.bun").

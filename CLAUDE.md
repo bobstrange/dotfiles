@@ -71,7 +71,7 @@ Lint checks live in `.github/workflows/lint.yml`. Most of it is one caller job:
   major, so local mise and CI agree). Same source as the pre-commit hooks, so a `--no-verify`
   commit is still caught. Changing a linter means releasing a new `v1.x.y` in gh-workflows
 
-Three repo-specific jobs stay here, because nothing shared can express them:
+Four repo-specific jobs stay here, because nothing shared can express them:
 
 - **zsh syntax check**: `zsh -n` over `dot_zsh/**/*.zsh`
 - **chezmoi templates**: `chezmoi apply --dry-run --force --exclude encrypted` on ubuntu **and**
@@ -79,6 +79,28 @@ Three repo-specific jobs stay here, because nothing shared can express them:
   the age identity is not in CI
 - **nix eval**: `nix flake check --no-build` plus a full eval of each `homeConfigurations`
   activation package, to catch `nix/packages.nix` typos before `make nix-apply` hits them
+- **nix build** (`.github/workflows/nix-build.yml`): actually builds
+  `homeConfigurations."bob@ubuntu".activationPackage`, since evaluation cannot see a package that
+  builds badly (a failing test, an unappliable patch, a stale hash). That closure is ~7 GiB, so the
+  job runs on every PR but skips the build unless `nix/flake.lock` or `nix/flake.nix` changed —
+  seconds otherwise. It deliberately has **no `paths:` filter**: a workflow that never triggers
+  leaves its checks pending forever, which cannot be a required check and would stop auto-merge
+  from waiting on it
+
+### flake.lock updates
+
+`.github/workflows/nix-flake-update.yml` runs `nix flake update` weekly (Monday 09:00 JST) and
+opens one PR, which merges itself once the checks pass. `nix build` above is what makes merging it
+unattended defensible.
+
+- it writes through a **GitHub App** token (`bobstrange-automation`, `AUTOMATION_APP_ID` /
+  `AUTOMATION_APP_PRIVATE_KEY`), because PRs created with `GITHUB_TOKEN` do not start workflow
+  runs — the required checks would sit pending and `--auto` would wait forever
+- one branch, `automated/flake-lock`, is reused and force-pushed, so an unmerged update is replaced
+  instead of accumulating PRs
+- `make nix-apply` refuses to run when `nix/flake.lock` is behind `origin/main`
+  (`setup/check-lock-drift.sh`), since a machine that has not pulled would otherwise install older
+  versions silently. `SKIP_LOCK_DRIFT_CHECK=1` overrides it
 
 ### Dependabot auto-merge
 
@@ -94,5 +116,8 @@ required checks `--auto` would merge immediately instead of waiting. Two consequ
 
 ## Notes
 
-- `make nix-apply` and `make nix-update` auto-commit `nix/flake.lock` if it changes
+- `make nix-apply` leaves a changed `nix/flake.lock` uncommitted and warns. Updating the lock is CI's job
+  (see **flake.lock updates**) — there is deliberately no local update target. To pull an update
+  in before Monday, run the `Update flake.lock` workflow by hand (`workflow_dispatch`), so it
+  still goes through `nix build` and the same pull request
 - Rollback Nix packages: `home-manager rollback`

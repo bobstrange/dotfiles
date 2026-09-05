@@ -1,7 +1,7 @@
 ---
 name: Update flake.lock
 
-# Keeping nixpkgs current used to mean running `make nix-update` by hand and
+# Keeping nixpkgs current used to mean running `nix flake update` by hand and
 # pushing the result, which made whichever machine happened to run it the only
 # thing that ever tested the new lock. Here CI updates the lock and the "nix
 # build" check tests it, so the machines only have to apply it.
