@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+# Show the merge commit that brought <commit> into <branch>.
+set -eu
+
+merge=$(git find-merge "$@")
+
+if [ -z "$merge" ]; then
+  echo "no merge commit found" >&2
+  exit 1
+fi
+
+git show "$merge"

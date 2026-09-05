@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+# Diff everything this branch has added since it forked off the base branch.
+#
+#   git diff-branch [<base>] [<git diff option>...]
+set -eu
+
+default_branch() {
+  git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null |
+    sed 's@^refs/remotes/origin/@@'
+}
+
+base=
+case "${1-}" in
+  '' | -*) ;;    # no base given; anything dash-prefixed belongs to git diff
+  *) base=$1; shift ;;
+esac
+
+base=${base:-$(default_branch)}
+base=${base:-main}
+
+if [ "$(git rev-parse --abbrev-ref HEAD)" = "$base" ]; then
+  # On the base branch itself there is no fork point to diff from.
+  git diff "origin/$base" "$@"
+else
+  git diff "$(git merge-base HEAD "$base")" "$@"
+fi
