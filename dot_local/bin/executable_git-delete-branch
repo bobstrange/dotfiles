@@ -1,0 +1,89 @@
+#!/usr/bin/env sh
+# Force-delete a branch, but only after checking that no commit would be stranded: `git
+# branch -D` skips git's own safety, and GitHub's squash merge leaves none of the branch's
+# commits in master, so ancestry alone cannot tell whether the work still exists elsewhere.
+# Exit 2 means commits would be lost (the caller may retry with --force), exit 3 means a
+# worktree still holds the branch.
+set -eu
+
+force=no
+if [ "${1:-}" = "--force" ]; then
+  force=yes
+  shift
+fi
+
+if [ $# -ne 1 ]; then
+  echo "usage: git delete-branch [--force] <branch>" >&2
+  exit 1
+fi
+
+branch=$1
+
+# Refs that would still hold the branch's commits after it is gone.
+anchors() {
+  {
+    echo HEAD
+
+    # --verify keeps rev-parse from echoing the unresolvable argument back as a "ref".
+    upstream=$(git rev-parse --verify --quiet --symbolic-full-name "$branch@{upstream}" 2>/dev/null || true)
+    if [ -n "$upstream" ]; then
+      echo "$upstream"
+    fi
+
+    if git rev-parse --verify --quiet "refs/remotes/origin/$branch" >/dev/null; then
+      echo "refs/remotes/origin/$branch"
+    fi
+  } | sort -u
+}
+
+# A squash-merged branch survives only as the head SHA GitHub recorded at merge time.
+merged_pr_head() {
+  head=$(gh pr list --state merged --head "$branch" --limit 1 \
+    --json headRefOid --jq '.[0].headRefOid' 2>/dev/null || true)
+
+  if [ -n "$head" ] && git cat-file -e "$head^{commit}" 2>/dev/null; then
+    echo "$head"
+  fi
+}
+
+# Reads the refs to exclude from stdin, one per line, so no ref list is ever split by the
+# shell.
+stranded_against() {
+  {
+    echo "$branch"
+    sed 's/^/^/'
+  } | git rev-list --count --stdin
+}
+
+if [ "$force" = no ]; then
+  refs=$(anchors)
+  stranded=$(printf '%s\n' "$refs" | stranded_against)
+
+  # Asking GitHub costs an API call, so only branches that look stranded pay for it.
+  if [ "$stranded" -gt 0 ]; then
+    pr_head=$(merged_pr_head)
+
+    if [ -n "$pr_head" ]; then
+      stranded=$(printf '%s\n%s\n' "$refs" "$pr_head" | stranded_against)
+    fi
+  fi
+
+  if [ "$stranded" -gt 0 ]; then
+    echo "$branch: $stranded commit(s) exist only on this branch" >&2
+    exit 2
+  fi
+fi
+
+worktree=$(git worktree list --porcelain | awk -v want="$branch" '
+  /^worktree /            { path = substr($0, 10) }
+  /^branch refs\/heads\// { if (substr($0, 19) == want) { print path; exit } }
+')
+
+# A branch worth deleting has no reason to keep a worktree. Removal stays unforced even
+# under --force: its refusal on a dirty tree is what protects uncommitted work.
+if [ -n "$worktree" ] && ! git worktree remove "$worktree"; then
+  echo "$branch: worktree $worktree could not be removed" >&2
+  exit 3
+fi
+
+git branch -D "$branch"
