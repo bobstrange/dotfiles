@@ -46,21 +46,25 @@ merged_pr_head() {
   fi
 }
 
-# Word splitting on the ref list is intended.
+# Reads the refs to exclude from stdin, one per line, so no ref list is ever split by the
+# shell.
 stranded_against() {
-  git rev-list --count "$branch" --not $1
+  {
+    echo "$branch"
+    sed 's/^/^/'
+  } | git rev-list --count --stdin
 }
 
 if [ "$force" = no ]; then
   refs=$(anchors)
-  stranded=$(stranded_against "$refs")
+  stranded=$(printf '%s\n' "$refs" | stranded_against)
 
   # Asking GitHub costs an API call, so only branches that look stranded pay for it.
   if [ "$stranded" -gt 0 ]; then
     pr_head=$(merged_pr_head)
 
     if [ -n "$pr_head" ]; then
-      stranded=$(stranded_against "$refs $pr_head")
+      stranded=$(printf '%s\n%s\n' "$refs" "$pr_head" | stranded_against)
     fi
   fi
 
