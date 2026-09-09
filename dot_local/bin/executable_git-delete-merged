@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# `git merged` matches squash-merged branches by PR name, so a name match is not proof the
+# local branch holds nothing new — deletion goes through git-delete-branch's check, which
+# also retires the worktree holding the branch.
+set -eu
+
+git merged | while IFS= read -r branch; do
+  git delete-branch "$branch" || true
+done

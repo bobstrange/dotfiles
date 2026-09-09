@@ -10,5 +10,17 @@ branches=$(git branch --format='%(refname:short)' | fzf --multi --preview "$prev
 [ -n "$branches" ] || exit 0
 
 echo "$branches" | while read -r branch; do
-  git branch -D "$branch"
+  status=0
+  git delete-branch "$branch" || status=$?
+
+  # Stranded commits are the picker's call to overrule; a worktree that refused to go is not.
+  if [ "$status" -eq 2 ]; then
+    # fzf consumed stdin, so the prompt has to talk to the terminal directly.
+    printf 'delete %s anyway? [y/N] ' "$branch" > /dev/tty
+    read -r answer < /dev/tty
+
+    case "$answer" in
+      y | Y) git delete-branch --force "$branch" || true ;;
+    esac
+  fi
 done
