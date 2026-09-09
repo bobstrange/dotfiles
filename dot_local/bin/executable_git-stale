@@ -13,7 +13,7 @@ git for-each-ref refs/heads --sort=committerdate \
   awk -F'\t' -v cutoff="$cutoff" '
     BEGIN {
       cols = 4
-      split("DATE BRANCH REMOTE WORKTREE", header, " ")
+      split("COMMITTED BRANCH REMOTE WORKTREE", header, " ")
       rows = 1
 
       for (c = 1; c <= cols; c++) {
