@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+# List local branches that have gone quiet, oldest first, with what decides whether one can
+# go: where it tracks ([gone] means the remote branch was deleted, typically at merge), how
+# far it has drifted, and which worktree still holds it. `git stale 0` lists every branch.
+set -eu
+
+days=${1:-30}
+cutoff=$(($(date +%s) - days * 86400))
+
+# Columns are aligned here rather than through column(1), which is not everywhere.
+git for-each-ref refs/heads --sort=committerdate \
+  --format='%(committerdate:unix)%09%(committerdate:short)%09%(refname:short)%09%(upstream:short)%09%(upstream:track)%09%(worktreepath)' |
+  awk -F'\t' -v cutoff="$cutoff" '
+    BEGIN {
+      cols = 5
+      split("DATE BRANCH UPSTREAM STATE WORKTREE", header, " ")
+      rows = 1
+
+      for (c = 1; c <= cols; c++) {
+        cell[1, c] = header[c]
+        width[c] = length(header[c])
+      }
+    }
+
+    $1 > cutoff { next }
+
+    {
+      upstream = ($4 == "" ? "-" : $4)
+
+      # Collapse the usual origin/<same-name> to the remote, so an upstream pointing
+      # somewhere else (a stale origin/master) stands out in the column.
+      tail = index(upstream, "/" $3)
+      if (tail > 0 && substr(upstream, tail) == "/" $3) {
+        upstream = substr(upstream, 1, tail - 1)
+      }
+
+      rows++
+      cell[rows, 1] = $2
+      cell[rows, 2] = $3
+      cell[rows, 3] = upstream
+      cell[rows, 4] = ($5 != "" ? $5 : ($4 == "" ? "-" : "synced"))
+      cell[rows, 5] = $6
+
+      for (c = 1; c <= cols; c++) {
+        if (length(cell[rows, c]) > width[c]) {
+          width[c] = length(cell[rows, c])
+        }
+      }
+    }
+
+    END {
+      for (r = 1; r <= rows; r++) {
+        line = ""
+
+        for (c = 1; c < cols; c++) {
+          line = line sprintf("%-" (width[c] + 2) "s", cell[r, c])
+        }
+
+        print line cell[r, cols]
+      }
+    }
+  '
