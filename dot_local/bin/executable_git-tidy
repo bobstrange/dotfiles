@@ -6,7 +6,10 @@ preview="git log --color --format='%Cred%h %Cgreen%cd %C(bold blue)%an%Creset %s
 
 # `git stale 0` is the same table, oldest first, so the picker shows why a branch is a
 # candidate — its age, whether the remote branch is [gone], and any worktree holding it.
-selection=$(git stale 0 | fzf --multi --header-lines=1 --preview "$preview") || exit 0
+# The preview goes below rather than beside: a half-width list truncates the columns that
+# say whether a branch can go.
+selection=$(git stale 0 |
+  fzf --multi --header-lines=1 --preview "$preview" --preview-window=down,60%) || exit 0
 
 # fzf exits 0 with empty output when nothing is picked.
 [ -n "$selection" ] || exit 0

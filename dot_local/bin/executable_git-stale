@@ -12,8 +12,8 @@ git for-each-ref refs/heads --sort=committerdate \
   --format='%(committerdate:unix)%09%(committerdate:short)%09%(refname:short)%09%(upstream:short)%09%(upstream:track)%09%(worktreepath)' |
   awk -F'\t' -v cutoff="$cutoff" '
     BEGIN {
-      cols = 5
-      split("DATE BRANCH UPSTREAM STATE WORKTREE", header, " ")
+      cols = 4
+      split("DATE BRANCH REMOTE WORKTREE", header, " ")
       rows = 1
 
       for (c = 1; c <= cols; c++) {
@@ -25,21 +25,37 @@ git for-each-ref refs/heads --sort=committerdate \
     $1 > cutoff { next }
 
     {
-      upstream = ($4 == "" ? "-" : $4)
-
-      # Collapse the usual origin/<same-name> to the remote, so an upstream pointing
-      # somewhere else (a stale origin/master) stands out in the column.
-      tail = index(upstream, "/" $3)
-      if (tail > 0 && substr(upstream, tail) == "/" $3) {
-        upstream = substr(upstream, 1, tail - 1)
+      # One compact token: the column has to stay narrow enough to survive next to a
+      # preview pane, so counts collapse to +ahead/-behind and the upstream name appears
+      # only when it is not this branch on the remote (a stale origin/master).
+      if ($4 == "") {
+        remote = "-"
+      } else if ($5 == "") {
+        remote = "synced"
+      } else if ($5 == "[gone]") {
+        remote = "gone"
+      } else {
+        remote = ""
+        if (match($5, /ahead [0-9]+/)) {
+          remote = "+" substr($5, RSTART + 6, RLENGTH - 6)
+        }
+        if (match($5, /behind [0-9]+/)) {
+          remote = remote (remote == "" ? "" : " ") "-" substr($5, RSTART + 7, RLENGTH - 7)
+        }
       }
+
+      if ($4 != "" && $4 !~ ("/" $3 "$")) {
+        remote = remote " ->" $4
+      }
+
+      worktree = $6
+      sub(/.*\//, "", worktree)
 
       rows++
       cell[rows, 1] = $2
       cell[rows, 2] = $3
-      cell[rows, 3] = upstream
-      cell[rows, 4] = ($5 != "" ? $5 : ($4 == "" ? "-" : "synced"))
-      cell[rows, 5] = $6
+      cell[rows, 3] = remote
+      cell[rows, 4] = worktree
 
       for (c = 1; c <= cols; c++) {
         if (length(cell[rows, c]) > width[c]) {
