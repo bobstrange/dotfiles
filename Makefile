@@ -5,6 +5,10 @@
 
 .DEFAULT_GOAL := help
 
+# Recipes use `time`, which is a bash keyword. Under make's default /bin/sh
+# (dash on Ubuntu) it would need /usr/bin/time, which a fresh install lacks.
+SHELL := bash
+
 help:
 	@echo "Usage: make [target]"
 	@echo ""

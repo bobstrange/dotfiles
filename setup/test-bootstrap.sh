@@ -109,7 +109,7 @@ done
 
 section "Seeding the checkout ($(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD) @ $(git -C "$REPO_DIR" rev-parse --short HEAD))"
 git clone --quiet --bare "$REPO_DIR" "$WORK/origin.git"
-git clone --quiet "$WORK/origin.git" "$WORK/chezmoi"
+git -c advice.detachedHead=false clone --quiet "$WORK/origin.git" "$WORK/chezmoi"
 git -C "$WORK/chezmoi" remote set-url origin "$ORIGIN_DIR"
 podman exec "$CONTAINER" mkdir -p "$USER_HOME/.local/share"
 podman cp "$WORK/origin.git" "$CONTAINER:$ORIGIN_DIR"
@@ -147,12 +147,25 @@ echo "bootstrap.sh exited with $BOOTSTRAP2_STATUS"
 # sourced first purely to find zsh.
 in_zsh() {
   podman exec -u "$USER_NAME" -w "$USER_HOME" -e HOME="$USER_HOME" -e USER="$USER_NAME" \
-    "$CONTAINER" bash -c '. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && exec zsh -ic "$1"' _ "$1" 2>/dev/null
+    -e EVAL_SHELL="$EVAL_SHELL" \
+    "$CONTAINER" bash -c '. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && exec "$EVAL_SHELL" -ic "$1"' _ "$1" 2>/dev/null
 }
 
 failures=0
 pass() { printf '  PASS  %s\n' "$1"; }
 fail() { printf '  FAIL  %s\n' "$1"; failures=$((failures + 1)); }
+
+# If home-manager never switched there is no zsh to evaluate in. Fall back to
+# bash so the remaining checks still describe the machine instead of all
+# failing for the same reason.
+section "evaluation shell"
+EVAL_SHELL=zsh
+if in_zsh 'true' >/dev/null; then
+  pass "nix's zsh is on PATH"
+else
+  fail "nix's zsh is on PATH (falling back to bash for the checks below)"
+  EVAL_SHELL=bash
+fi
 check() { # check <description> <zsh command that exits 0 on success>
   if in_zsh "$2" >/dev/null; then pass "$1"; else fail "$1"; fi
 }
