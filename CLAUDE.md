@@ -54,6 +54,13 @@ ran last would win.
 conflict, and the one-time GUI step that turns Settings sync off — live in
 `.claude/rules/vscode.md`, loaded automatically when working under `dot_config/private_Code/`.
 
+### podman (apt, not nix)
+
+podman is the other apt exception (`make podman-setup`, `setup/setup-podman.sh`): nixpkgs'
+podman has no AppArmor profile, so Ubuntu refuses it rootless user namespaces, and rootless
+mode needs apt's setuid `uidmap` anyway. It exists only for `make bootstrap-test` and is not
+part of `setup-linux`.
+
 ### package.json
 
 `package.json` holds dev tooling for **this repo only** (prettier, secretlint) — it is never installed
@@ -82,6 +89,22 @@ trailing whitespace, prettier, markdownlint, shellcheck, yamllint, secretlint (a
   extended here — it exists for repos that are not on the shared standard, and its secretlint
   would double-run against `common-secretlint`
 
+## Bootstrap
+
+`setup/bootstrap.sh` (`curl | bash`) is the whole "rebuild from scratch" story, and
+`make bootstrap-test` (`setup/test-bootstrap.sh`) is what makes that claim true: it runs the
+script in a fresh `ubuntu:26.04` podman container with systemd as PID 1 and nothing but
+`systemd sudo curl` installed, then asserts on the result from inside nix's zsh. Keep the two
+in step.
+
+The order inside bootstrap is **`chezmoi apply` first, then `make setup-*`**. It used to be
+the reverse, which silently did nothing useful: `mise install` reads
+`~/.config/mise/config.toml`, so on an unapplied machine it installs nothing and exits 0, and
+`lefthook-setup`'s `npm ci` then fails for lack of node. apply needs nothing from nix, so
+there is no reason to wait. Likewise `mise-install` precedes `lefthook-setup` in the Makefile,
+and `lefthook-setup` runs `mise exec -- npm ci`, because a non-interactive shell has no
+`.zshrc` and hence no mise on PATH.
+
 ## CI
 
 Lint checks live in `.github/workflows/lint.yml`. Most of it is one caller job:
@@ -107,6 +130,16 @@ Four repo-specific jobs stay here, because nothing shared can express them:
   seconds otherwise. It deliberately has **no `paths:` filter**: a workflow that never triggers
   leaves its checks pending forever, which cannot be a required check and would stop auto-merge
   from waiting on it
+
+`.github/workflows/bootstrap-smoke.yml` holds two more, on the `ubuntu-26.04` runner. Both
+have a `paths:` filter (everything that can change bootstrap's outcome) plus a weekly schedule,
+so for the reason just given neither is a required check:
+
+- **bootstrap smoke test**: `make bootstrap-test` (see **Bootstrap**), logs uploaded as an
+  artifact. Hosted runners only: the Determinate installer and the AppArmor sysctl leave marks
+  on the host
+- **ubuntu 26.04 package availability**: `apt-cache policy ghostty` into the step summary, a
+  warning when absent. Groundwork for issue #53, never a failure
 
 ### flake.lock updates
 

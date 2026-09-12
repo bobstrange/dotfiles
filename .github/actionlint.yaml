@@ -1,0 +1,8 @@
+---
+# actionlint ships a fixed list of hosted runner labels and rejects anything
+# else as a typo. ubuntu-26.04 is a real hosted runner, still in preview
+# (https://github.com/actions/runner-images), so it is not in that list yet.
+# Remove this once actionlint learns it.
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
