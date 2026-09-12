@@ -20,7 +20,6 @@ on:
       - .chezmoiscripts/**
       - nix/**
       - dot_config/mise/**
-      - package.json
       - lefthook.yml
       - .github/workflows/bootstrap-smoke.yml
   workflow_dispatch:

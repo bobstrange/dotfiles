@@ -126,9 +126,14 @@ podman exec "$CONTAINER" chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"
 # --- Run bootstrap ---------------------------------------------------------
 
 # Non-interactive, no login shell: exactly what `curl | bash` gets.
+# erlang/elixir are left out: erlang is a multi-minute source build whose
+# outcome depends on upstream and the build environment, not on anything this
+# test is about (bootstrap's ordering and what it leaves behind). node stays
+# in — lefthook-setup depends on it.
 run_bootstrap() {
   podman exec -u "$USER_NAME" -w "$USER_HOME" \
     -e HOME="$USER_HOME" -e USER="$USER_NAME" -e DOTFILES_SETUP_TARGET=setup-wsl \
+    -e MISE_DISABLE_TOOLS=erlang,elixir \
     "$CONTAINER" bash "$CHEZMOI_DIR/setup/bootstrap.sh"
 }
 
@@ -201,7 +206,7 @@ section "runtimes"
 check "mise installed node" '[ -n "$(mise ls --installed node 2>/dev/null)" ]'
 # shellcheck disable=SC2016
 check "npm resolves through mise" 'case $(command -v npm) in */.local/share/mise/*) ;; *) exit 1 ;; esac'
-printf '  info  mise ls --installed:\n'
+printf '  info  mise ls --installed (erlang/elixir disabled for this test):\n'
 in_zsh 'mise ls --installed' | sed 's/^/        /' || true
 
 section "drift"
