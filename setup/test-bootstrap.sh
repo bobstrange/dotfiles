@@ -109,6 +109,13 @@ done
 
 section "Seeding the checkout ($(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD) @ $(git -C "$REPO_DIR" rev-parse --short HEAD))"
 git clone --quiet --bare "$REPO_DIR" "$WORK/origin.git"
+# A bare clone copies local branches only. check-lock-drift.sh fetches
+# `origin main`, so make sure the bare repo has one — on a CI runner the
+# checkout is a detached HEAD with main only as a remote-tracking ref.
+main_ref="$(git -C "$REPO_DIR" rev-parse --verify -q refs/remotes/origin/main \
+  || git -C "$REPO_DIR" rev-parse --verify -q refs/heads/main)" \
+  || { echo "neither origin/main nor main found in $REPO_DIR" >&2; exit 1; }
+git -C "$WORK/origin.git" update-ref refs/heads/main "$main_ref"
 git -c advice.detachedHead=false clone --quiet "$WORK/origin.git" "$WORK/chezmoi"
 git -C "$WORK/chezmoi" remote set-url origin "$ORIGIN_DIR"
 podman exec "$CONTAINER" mkdir -p "$USER_HOME/.local/share"
@@ -183,8 +190,10 @@ check "chezmoi.toml was generated" '[ -f ~/.config/chezmoi/chezmoi.toml ]'
 check ".zshrc was applied" '[ -f ~/.zshrc ]'
 
 section "tools resolve to the nix store"
+# `mise activate` wraps mise in a shell function, so `command -v` would
+# report the function; whence -p (zsh) / type -P (bash) give the file.
 for tool in zsh mise lefthook starship rg git; do
-  check "$tool" "case \$(readlink -f \$(command -v $tool)) in /nix/store/*) ;; *) exit 1 ;; esac"
+  check "$tool" "p=\$(whence -p $tool 2>/dev/null || type -P $tool) && case \$(readlink -f \"\$p\") in /nix/store/*) ;; *) exit 1 ;; esac"
 done
 
 section "runtimes"
