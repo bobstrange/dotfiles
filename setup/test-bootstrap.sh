@@ -67,10 +67,7 @@ WORK="$(mktemp -d)"
 # shellcheck disable=SC2329  # invoked by the EXIT trap
 cleanup() {
   rm -rf "$WORK"
-  if [ "$KEEP" = true ]; then
-    printf '\nContainer kept. Inspect with:\n  podman exec -it -u %s -w %s %s bash\nRemove with:\n  podman rm -f %s\n' \
-      "$USER_NAME" "$USER_HOME" "$CONTAINER" "$CONTAINER"
-  else
+  if [ "$KEEP" != true ]; then
     podman rm -f "$CONTAINER" >/dev/null 2>&1 || true
   fi
 }
@@ -164,8 +161,9 @@ in_zsh() {
 }
 
 failures=0
-pass() { printf '  PASS  %s\n' "$1"; }
-fail() { printf '  FAIL  %s\n' "$1"; failures=$((failures + 1)); }
+total=0
+pass() { printf '  PASS  %s\n' "$1"; total=$((total + 1)); }
+fail() { printf '  FAIL  %s\n' "$1"; total=$((total + 1)); failures=$((failures + 1)); }
 
 # If home-manager never switched there is no zsh to evaluate in. Fall back to
 # bash so the remaining checks still describe the machine instead of all
@@ -224,10 +222,19 @@ fi
 
 section "Summary"
 echo "  bootstrap.sh exit: 1st=$BOOTSTRAP1_STATUS 2nd=$BOOTSTRAP2_STATUS"
-if [ "$failures" -eq 0 ]; then
-  echo "  all assertions passed"
-else
-  echo "  $failures assertion(s) failed"
+[ "$BOOTSTRAP1_STATUS" -eq 0 ] || echo "  note: 1st run's non-zero exit is not an assertion; see $LOG_DIR/bootstrap-1.log"
+echo "  logs: $LOG_DIR"
+if [ "$KEEP" = true ]; then
+  printf '  container kept:\n    podman exec -it -u %s -w %s %s bash\n    podman rm -f %s\n' \
+    "$USER_NAME" "$USER_HOME" "$CONTAINER" "$CONTAINER"
 fi
-[ "$BOOTSTRAP1_STATUS" -eq 0 ] || echo "  note: 1st run's non-zero exit is reported above, not counted; see the log"
-exit "$((failures > 0))"
+
+# The verdict is the last line on purpose, so it is what the eye lands on.
+echo ""
+if [ "$failures" -eq 0 ]; then
+  echo "==> PASS  bootstrap smoke test: $total/$total assertions passed"
+  exit 0
+else
+  echo "==> FAIL  bootstrap smoke test: $failures/$total assertions failed"
+  exit 1
+fi
