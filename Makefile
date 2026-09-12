@@ -1,9 +1,13 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
-        nix-apply macos-apply update verify \
-        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults mise-install symlinks \
+        nix-apply macos-apply update verify bootstrap-test \
+        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup podman-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
 .DEFAULT_GOAL := help
+
+# Recipes use `time`, which is a bash keyword. Under make's default /bin/sh
+# (dash on Ubuntu) it would need /usr/bin/time, which a fresh install lacks.
+SHELL := bash
 
 help:
 	@echo "Usage: make [target]"
@@ -22,6 +26,7 @@ help:
 	@echo "Maintenance:"
 	@echo "  update                   Update plugins, gh extensions and runtimes"
 	@echo "  verify                   Report drift between this repo and this machine"
+	@echo "  bootstrap-test           Run setup/bootstrap.sh in a fresh Ubuntu container (needs podman-setup)"
 	@echo ""
 	@echo "Tools:"
 	@echo "  lefthook-setup           Set up git hooks"
@@ -29,6 +34,7 @@ help:
 	@echo "  gnome-extensions-setup   Install GNOME Shell extensions"
 	@echo "  ulauncher-setup          Install Ulauncher v6 launcher"
 	@echo "  vscode-setup             Install VS Code from Microsoft's apt repository"
+	@echo "  podman-setup             Install rootless podman from apt (for bootstrap-test)"
 	@echo "  gnome-defaults           Apply GNOME system preferences"
 	@echo "  mise-install             Install language runtimes"
 	@echo "  symlinks                 Link secret files from Dropbox"
@@ -41,14 +47,16 @@ setup-nix:
 	@echo ""
 	@echo "Restart your shell, then run: make setup-linux"
 
+# mise-install before lefthook-setup: node comes from mise, not nix, and
+# lefthook-setup's `npm ci` needs it.
 # gnome-extensions-setup before xremap-setup: xremap needs its GNOME extension installed first
-setup-linux: nix-apply lefthook-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults xremap-setup mise-install
+setup-linux: nix-apply mise-install lefthook-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults xremap-setup
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- If added to input group: log out and back in for xremap to work"
 	@echo "- After setting up Dropbox: make symlinks"
 
-setup-wsl: nix-apply lefthook-setup mise-install
+setup-wsl: nix-apply mise-install lefthook-setup
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- After setting up Dropbox: make symlinks"
@@ -90,10 +98,16 @@ update:
 verify:
 	bash ./setup/verify.sh
 
+# Extra flags go to the script: make bootstrap-test ARGS=--keep
+bootstrap-test:
+	bash ./setup/test-bootstrap.sh $(ARGS)
+
 # --- Tools ---
 
+# `mise exec`: from a non-interactive shell (bootstrap.sh) mise's node is not on
+# PATH yet, since only .zshrc activates it. lefthook itself is nix's.
 lefthook-setup:
-	npm ci
+	mise exec -- npm ci
 	lefthook install
 
 xremap-setup:
@@ -113,6 +127,9 @@ ulauncher-setup:
 
 vscode-setup:
 	bash ./setup/setup-vscode.sh
+
+podman-setup:
+	bash ./setup/setup-podman.sh
 
 gnome-defaults:
 	bash ./setup/gnome-defaults.sh

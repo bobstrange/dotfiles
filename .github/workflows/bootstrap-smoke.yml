@@ -1,0 +1,87 @@
+---
+name: Bootstrap smoke test
+
+# Runs setup/bootstrap.sh in a fresh Ubuntu 26.04 container (setup/test-bootstrap.sh)
+# so "reinstall from scratch works" is verified, not assumed. The path filter
+# lists what can change bootstrap's outcome; the weekly run catches drift on
+# the upstream side (installer, nixpkgs, mise runtimes) with nothing changed here.
+#
+# Neither job is a required check: with a `paths:` filter the check would sit
+# pending forever on PRs that do not match, which would block auto-merge.
+on:
+  schedule:
+    # Monday 03:00 JST, well before the flake.lock update at 09:00
+    - cron: "0 18 * * 0"
+  pull_request:
+    paths:
+      - setup/**
+      - Makefile
+      - .chezmoi.toml.tmpl
+      - .chezmoiscripts/**
+      - nix/**
+      - dot_config/mise/**
+      - lefthook.yml
+      - .github/workflows/bootstrap-smoke.yml
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    name: bootstrap smoke test
+    # Hosted runners only. Inside the container the Determinate installer
+    # writes /nix, /etc/nix, a systemd unit and nixbld users, and the sysctl
+    # below changes the host kernel; both are fine on a throwaway runner and
+    # not on a self-hosted one.
+    runs-on: ubuntu-26.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # test-bootstrap.sh clones the checkout and check-lock-drift.sh
+          # compares against origin/main, so the history has to be there.
+          fetch-depth: 0
+
+      - name: Allow unprivileged user namespaces
+        # The runner's podman may not carry the AppArmor profile that lets
+        # rootless containers create user namespaces on Ubuntu 24.04+.
+        run: |
+          if [ "$(cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns)" = "1" ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+          podman --version
+
+      - name: Run the smoke test
+        run: bash ./setup/test-bootstrap.sh
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: bootstrap-logs
+          path: tmp/bootstrap-test/
+          if-no-files-found: ignore
+
+  packages:
+    # Groundwork for issue #53: is ghostty in Ubuntu 26.04's own archive yet?
+    # Informational only — a missing package is a warning, not a failure.
+    name: ubuntu 26.04 package availability
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    steps:
+      - name: apt-cache policy ghostty
+        run: |
+          sudo apt-get update -qq
+          {
+            echo "## apt on $(lsb_release -ds)"
+            echo '```'
+            apt-cache policy ghostty
+            echo '```'
+          } >>"$GITHUB_STEP_SUMMARY"
+          if apt-cache policy ghostty | grep -q "Candidate: (none)"; then
+            echo "::warning::ghostty has no apt candidate on $(lsb_release -ds)"
+          fi

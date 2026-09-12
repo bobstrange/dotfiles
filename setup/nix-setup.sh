@@ -13,7 +13,10 @@ elif command -v nix &> /dev/null; then
 fi
 
 echo "==> Installing Nix using Determinate Systems installer..."
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+# --no-confirm: without a tty the installer aborts with "Unable to run
+# interactively" instead of proceeding, which kills `curl | bash` bootstraps
+# and the podman-based smoke test alike.
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
 
 echo ""
 echo "==> Nix installed successfully!"
