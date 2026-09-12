@@ -162,8 +162,8 @@ in_zsh() {
 
 failures=0
 total=0
-pass() { printf '  PASS  %s\n' "$1"; total=$((total + 1)); }
-fail() { printf '  FAIL  %s\n' "$1"; total=$((total + 1)); failures=$((failures + 1)); }
+pass() { printf '  ✅ %s\n' "$1"; total=$((total + 1)); }
+fail() { printf '  ❌ %s\n' "$1"; total=$((total + 1)); failures=$((failures + 1)); }
 
 # If home-manager never switched there is no zsh to evaluate in. Fall back to
 # bash so the remaining checks still describe the machine instead of all
@@ -204,7 +204,7 @@ section "runtimes"
 check "mise installed node" '[ -n "$(mise ls --installed node 2>/dev/null)" ]'
 # shellcheck disable=SC2016
 check "npm resolves through mise" 'case $(command -v npm) in */.local/share/mise/*) ;; *) exit 1 ;; esac'
-printf '  info  mise ls --installed (erlang/elixir disabled for this test):\n'
+printf '  ℹ️  mise ls --installed (erlang/elixir disabled for this test):\n'
 in_zsh 'mise ls --installed' | sed 's/^/        /' || true
 
 section "drift"
@@ -232,9 +232,9 @@ fi
 # The verdict is the last line on purpose, so it is what the eye lands on.
 echo ""
 if [ "$failures" -eq 0 ]; then
-  echo "==> PASS  bootstrap smoke test: $total/$total assertions passed"
+  echo "✅ bootstrap smoke test: $total/$total assertions passed"
   exit 0
 else
-  echo "==> FAIL  bootstrap smoke test: $failures/$total assertions failed"
+  echo "❌ bootstrap smoke test: $failures/$total assertions failed"
   exit 1
 fi
