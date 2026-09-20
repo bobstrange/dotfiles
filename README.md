@@ -24,15 +24,20 @@ curl -fsLS https://raw.githubusercontent.com/bobstrange/dotfiles/main/setup/boot
 This will:
 
 1. Install chezmoi and clone this repo
-2. Install packages via the appropriate make target:
-   - macOS: `make setup-macos` (Homebrew)
-   - Ubuntu (GNOME desktop): `make setup-linux` (Nix + GNOME extensions + xremap)
-   - WSL: `make setup-wsl` (Nix only — GNOME and xremap are skipped automatically)
-3. Apply dotfiles (encrypted files are skipped if age key is not yet restored)
+2. Apply dotfiles (encrypted files are skipped if the age key is not yet restored)
+3. Install packages via the appropriate make target:
+   - macOS: `make setup-macos` (Homebrew + mise)
+   - Ubuntu (GNOME desktop): `make setup-linux` (Nix + mise + git hooks + GNOME extensions +
+     Ulauncher + VS Code + xremap)
+   - WSL: `make setup-wsl` (Nix + mise + git hooks — GNOME, Ulauncher, VS Code and xremap are
+     skipped automatically)
+
+Apply comes before the make targets on purpose: `mise install` reads `~/.config/mise/config.toml`,
+so on an unapplied machine it installs nothing, and `lefthook-setup`'s `npm ci` then finds no node.
 
 > **WSL:** The bootstrap script detects WSL automatically via `/proc/version` and runs
-> `make setup-wsl` instead of `make setup-linux`, skipping GNOME extensions, Ulauncher,
-> and xremap which are not applicable in WSL.
+> `make setup-wsl` instead of `make setup-linux`. Set `DOTFILES_SETUP_TARGET=setup-wsl` (or
+> `setup-linux`) to override the detection, e.g. on a headless Ubuntu without a GNOME session.
 
 ### Windows
 
