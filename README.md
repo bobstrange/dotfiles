@@ -158,6 +158,30 @@ docker-disk-cleanup --help    # full option/threshold reference
 Runs monthly (1st, 03:00 JST regardless of host timezone, `Persistent=true` to catch up if the
 machine was off). Logs to `~/.local/state/docker-disk-cleanup/cleanup.log` (unmanaged by chezmoi).
 
+#### Maintenance (all platforms)
+
+```bash
+make update           # Sweep lazy.nvim/tpm plugins, gh extensions, mise runtimes, Homebrew (macOS)
+make verify           # Report drift: $HOME vs source, and uncommitted `chezmoi add`s
+make bootstrap-test   # Run setup/bootstrap.sh in a fresh Ubuntu container (Linux, needs `make podman-setup`)
+```
+
+`make update` covers everything that is installed once and never re-checked. Nix is deliberately
+not in it: CI updates `nix/flake.lock` weekly, so its path is `git pull && make nix-apply`.
+
+#### Git Branch Cleanup
+
+`dot_local/bin/` ships git subcommands that understand GitHub squash merges, which plain
+`git branch --merged` cannot see:
+
+```bash
+git stale             # Local branches gone quiet, oldest first ([gone] = remote deleted, worktree holding it)
+git merged            # Branches whose PR merged on GitHub, squash merges included
+git delete-merged     # Delete those, refusing any branch that would strand a commit
+git delete-branch B   # Same check for one branch (exit 2: commits would be lost, 3: held by a worktree)
+git tidy              # fzf picker over `git stale`, with each branch's recent commits as preview
+```
+
 ### Adding Packages
 
 - **macOS**: Edit `Brewfile`, run `make macos-apply`
@@ -210,10 +234,10 @@ Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml
 
 ### Nix vs mise
 
-| Category                | Manager                             | Examples                           |
-| ----------------------- | ----------------------------------- | ---------------------------------- |
-| CLI tools and utilities | Nix (`nix/packages.nix`)            | bun, fzf, ripgrep, jq, gh          |
-| Language runtimes       | mise (`~/.config/mise/config.toml`) | node, ruby, python, erlang, elixir |
+| Category                | Manager                             | Examples                               |
+| ----------------------- | ----------------------------------- | -------------------------------------- |
+| CLI tools and utilities | Nix (`nix/packages.nix`)            | bun, fzf, ripgrep, jq, gh              |
+| Language runtimes       | mise (`~/.config/mise/config.toml`) | node, go, ruby, python, erlang, elixir |
 
 - **Nix**: Reproducible, declarative. Good for tools where exact version doesn't matter much.
 - **mise**: Tracks `latest`/`lts`, supports per-project `.mise.toml` for version switching.
