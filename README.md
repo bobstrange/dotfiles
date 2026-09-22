@@ -87,8 +87,10 @@ make local-config   # interactive prompt
 
 | Area            | `work = true` behaviour                                      |
 | --------------- | ------------------------------------------------------------ |
-| `dot_claude/`   | Skipped — `~/.claude/` is managed by agent-configs symlinks  |
 | `~/.ssh/config` | No `IdentityAgent` pin — the session's own ssh agent is used |
+
+`~/.claude` is not part of this switch: chezmoi ignores it on every machine (see
+[Claude Code config](#claude-code-config)).
 
 The answer is stored as a marker file, `~/.config/chezmoi/work-machine`, which
 `.chezmoi.toml.tmpl` reads. It deliberately lives **outside**
@@ -108,11 +110,35 @@ This cannot be scripted: the per-resource toggle lives in `globalStorage/state.v
 (SQLite) as `sync.enable.settings`, and VS Code exposes no setting id for it. Skipping the
 step leaves the cloud copy of `settings.json` fighting the one this repo installs.
 
-4. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
+4. Claude Code config — see [Claude Code config](#claude-code-config).
+
+5. (Optional) Link Dropbox secrets (`~/.aws`, tokens):
 
 ```bash
 make symlinks   # Requires ~/Dropbox/config
 ```
+
+### Claude Code config
+
+`~/.claude` is **not managed by chezmoi** (`.chezmoiignore` excludes it on every
+machine). It is composed by the deploy tool in
+[bobstrange/coding-agent-configs](https://github.com/bobstrange/coding-agent-configs)
+from that public base plus private overlay repos, so nothing personal or work-specific
+has to live in this public repo. Bootstrap:
+
+```bash
+ghq get bobstrange/coding-agent-configs          # base + deploy tool
+# private overlays too, then list them in ~/.config/agent-configs/config.toml
+# (template: coding-agent-configs/config.example.toml)
+~/src/github.com/bobstrange/coding-agent-configs/bin/agent-configs apply --dry-run
+~/src/github.com/bobstrange/coding-agent-configs/bin/agent-configs apply   # --force to back up what is in the way
+```
+
+`chezmoi apply` runs the same `apply` once via
+`.chezmoiscripts/run_onchange_after_agent-configs-apply.sh` when the clone is present
+(a missing clone or a conflict only prints a hint). After that, `apply` also links the
+CLI to `~/.local/bin/agent-configs`, and a `SessionStart` hook runs `agent-configs
+doctor` so drift shows up at the start of every Claude Code session.
 
 ### Daily Operations
 

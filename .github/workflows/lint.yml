@@ -100,31 +100,29 @@ jobs:
             --dry-run --force --exclude encrypted -v
 
       # Rendering proves the templates parse; it does not prove the work switch
-      # still reaches anything. These are the only two things it flips, so assert
-      # both directions — otherwise a `work` branch could be deleted outright and
-      # every job here would stay green.
+      # still reaches anything. The ssh config is the only thing it flips, so
+      # assert both directions — otherwise a `work` branch could be deleted
+      # outright and every job here would stay green. ~/.claude is ignored on
+      # every machine (agent-configs owns it), so that is asserted on both legs.
       - name: Assert the work switch still has an effect
         run: |
           managed=$(chezmoi managed --source="$GITHUB_WORKSPACE")
           ssh_config=$(chezmoi cat --source="$GITHUB_WORKSPACE" "$HOME/.ssh/config")
           fail() { echo "::error::$1"; exit 1; }
 
+          if printf '%s\n' "$managed" | grep -qxF '.claude'; then
+            fail ".chezmoiignore should exclude .claude on every machine"
+          fi
           if [ "${{ matrix.work }}" = "true" ]; then
-            if printf '%s\n' "$managed" | grep -qxF '.claude'; then
-              fail ".chezmoiignore should exclude .claude on work machines"
-            fi
             if printf '%s\n' "$ssh_config" | grep -q 'IdentityAgent'; then
               fail "work machines should not pin the 1Password SSH agent"
             fi
             echo "work=true: .claude ignored, no IdentityAgent pin"
           else
-            if ! printf '%s\n' "$managed" | grep -qxF '.claude'; then
-              fail ".claude should be managed on personal machines"
-            fi
             if ! printf '%s\n' "$ssh_config" | grep -q 'IdentityAgent'; then
               fail "personal machines should pin the 1Password SSH agent"
             fi
-            echo "work=false: .claude managed, IdentityAgent pinned"
+            echo "work=false: .claude ignored, IdentityAgent pinned"
           fi
 
   nix:
