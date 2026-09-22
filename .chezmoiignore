@@ -1,7 +1,6 @@
-# .claude/ is managed via agent-configs symlinks on work machines
-{{ if index . "work" }}
+# ~/.claude is composed by `agent-configs apply` (bobstrange/coding-agent-configs)
+# on every machine; chezmoi never touches it. See README "Claude Code config".
 .claude
-{{ end }}
 
 README.md
 CLAUDE.md
