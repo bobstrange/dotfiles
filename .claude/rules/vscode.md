@@ -35,8 +35,10 @@ the cloud overwrites the file and `chezmoi apply` writes it back, forever. Keybi
 deliberately left to Sync because `settingsSync.keybindingsPerPlatform` already keeps macOS
 and Linux bindings apart; reproducing that here would need per-OS templates.
 
-Extensions are not declared anywhere — not in `Brewfile`, not in `nix/packages.nix`. See the
-VS Code section of `CLAUDE.md` for why.
+Extensions are not declared anywhere — not in `Brewfile`, not in `nix/packages.nix`. The
+`vscode "..."` lines that used to be in `Brewfile` were a stale snapshot, and `brew bundle`
+reinstalled extensions Settings Sync had removed; two owners means whichever ran last wins.
+Why VS Code itself comes from apt is in `setup/setup-vscode.sh`.
 
 **Gotcha:** turning Settings sync off is per-machine and cannot be declared. It lives in
 `globalStorage/state.vscdb` (SQLite) as `sync.enable.settings`, and there is no equivalent

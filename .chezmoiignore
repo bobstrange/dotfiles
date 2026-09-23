@@ -27,7 +27,9 @@ lefthook.yml
 # Ulauncher (settings auto-modified by the app)
 .config/ulauncher
 
-# nvim auto-generated files
+# nvim auto-generated files. lazy-lock.json is not a pin: lazy.nvim rewrites it
+# on every install/update and only reads it on :Lazy restore, and update timing
+# is per machine.
 .config/nvim/lazy-lock.json
 .config/nvim/lazyvim.json
 .config/nvim/lua/plugins/example.lua
