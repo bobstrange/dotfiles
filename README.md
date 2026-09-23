@@ -208,11 +208,6 @@ git delete-branch B   # Same check for one branch (exit 2: commits would be lost
 git tidy              # fzf picker over `git stale`, with each branch's recent commits as preview
 ```
 
-### Adding Packages
-
-- **macOS**: Edit `Brewfile`, run `make macos-apply`
-- **Ubuntu/WSL**: Edit `nix/packages.nix`, run `make nix-apply`
-
 ### Git Hooks
 
 [lefthook](https://github.com/evilmartians/lefthook) runs pre-commit checks automatically after
@@ -231,40 +226,7 @@ live in [bobstrange/gh-workflows](https://github.com/bobstrange/gh-workflows) an
 
 Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml`).
 
-## Architecture
+## Changing this repo
 
-### chezmoi Naming Conventions
-
-| Prefix / suffix | Meaning                                              | Example                                   |
-| --------------- | ---------------------------------------------------- | ----------------------------------------- |
-| `dot_`          | Becomes `.` in `$HOME`                               | `dot_zshrc` → `~/.zshrc`                  |
-| `private_`      | Installed with `0600` permissions                    | `private_dot_ssh/`                        |
-| `encrypted_`    | Decrypted with age key on apply                      | `encrypted_private_key.age`               |
-| `.tmpl`         | Go `text/template` — edit these, not `$HOME` targets | `dot_gitconfig.tmpl`                      |
-| `run_once_*`    | Script runs once per machine                         | `run_once_after_install-gh-extensions.sh` |
-
-### Responsibility Matrix
-
-| Concern                             | Tool                                       |
-| ----------------------------------- | ------------------------------------------ |
-| Dotfiles (.zshrc, .gitconfig, etc.) | chezmoi                                    |
-| SSH (~/.ssh)                        | chezmoi (encrypted with age)               |
-| Secrets (~/.aws, tokens)            | Dropbox symlinks (`setup/symlinks.sh`)     |
-| Packages - macOS                    | Homebrew + Brewfile                        |
-| Packages - Ubuntu/WSL               | Nix + home-manager                         |
-| Language runtimes                   | mise                                       |
-| Shell configuration                 | `dot_zsh/configs/`                         |
-| VS Code settings (Linux)            | chezmoi (`dot_config/private_Code/`)       |
-| VS Code extensions, keybindings     | Settings Sync                              |
-| Docker disk cleanup (Ubuntu)        | systemd user timer (`docker-disk-cleanup`) |
-
-### Nix vs mise
-
-| Category                | Manager                             | Examples                               |
-| ----------------------- | ----------------------------------- | -------------------------------------- |
-| CLI tools and utilities | Nix (`nix/packages.nix`)            | bun, fzf, ripgrep, jq, gh              |
-| Language runtimes       | mise (`~/.config/mise/config.toml`) | node, go, ruby, python, erlang, elixir |
-
-- **Nix**: Reproducible, declarative. Good for tools where exact version doesn't matter much.
-- **mise**: Tracks `latest`/`lts`, supports per-project `.mise.toml` for version switching.
-  nixpkgs can lag behind on language runtimes (e.g. Ruby 3.3 when 4.0 is out).
+Where a new package, config or script goes, and what is owned by CI or other repos, is in
+[CLAUDE.md](CLAUDE.md).
