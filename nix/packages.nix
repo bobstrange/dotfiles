@@ -10,6 +10,8 @@ with pkgs; [
   nixgl.nixGLIntel
   sheldon
   shellcheck
+  actionlint
+  yamllint
 
   # Editors
   neovim
@@ -54,6 +56,11 @@ with pkgs; [
   tree
   direnv
   pandoc
+  cf-terraforming
+
+  # Audio
+  sox
+  whisper-cpp
 
   # Build tools
   gcc
