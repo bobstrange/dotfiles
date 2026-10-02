@@ -48,7 +48,9 @@ with pkgs; [
   curl
   wget
   jq
+  yq-go
   htop
+  hyperfine
   tree
   direnv
   pandoc
