@@ -58,10 +58,11 @@ unattended defensible.
 
 ## Dependabot auto-merge
 
-`.github/workflows/dependabot-auto-merge.yml` queues `gh pr merge --auto` on Dependabot PRs, but
-**only for patch/minor** — majors stay manual. The waiting is done by the repo ruleset
-**"main: require Lint checks"**, which marks every Lint job as required on `main`; without those
-required checks `--auto` would merge immediately instead of waiting. Two consequences:
+`.github/workflows/dependabot-auto-merge.yml` calls gh-workflows' shared workflow at `@v1`, which
+queues `gh pr merge --auto` on Dependabot PRs, but **only for patch/minor** — majors stay manual.
+The waiting is done by the repo ruleset **"main: require Lint checks"**, which marks every Lint job
+as required on `main`; without those required checks `--auto` would merge immediately instead of
+waiting. Two consequences:
 
 - **renaming a Lint job breaks every PR** until the ruleset's context list is updated to match —
   this includes the shared job, required as `lint / lint`, so a job rename in gh-workflows is a
