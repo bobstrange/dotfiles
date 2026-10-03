@@ -9,15 +9,13 @@ set fileencoding=utf-8
 " Python provider
 if system('python -c "import pynvim"') != 0
 " !pip install --upgrade pynvim
-" !pyenv rehash
 endif
 
-let g:python3_host_prog = $HOME.'/.pyenv/shims/python3'
+let g:python3_host_prog = $HOME.'/.local/share/mise/shims/python3'
 
 " Ruby provider
 if system('ruby -e "require \"neovim\""') != 0
 " !gem install neovim
-" !rbenv rehash
 endif
 
 " Make space as a <Leader>
