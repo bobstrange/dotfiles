@@ -15,6 +15,7 @@ This file says where a change goes and what is owned elsewhere.
 | Secret                                        | `encrypted_` (age) in the source, or a Dropbox symlink via `setup/symlinks.sh`                                                          | `chezmoi apply` / `make symlinks`     |
 
 Current apt exceptions: VS Code (`setup/setup-vscode.sh`) and podman (`setup/setup-podman.sh`).
+Zed on Linux comes from its official install script (`setup/setup-zed.sh`), not nix or apt.
 VS Code extensions belong to Settings Sync; never list them in `Brewfile` or nix.
 
 chezmoi prefixes: `dot_` → leading dot, `private_` → mode 0600, `encrypted_` → age, `.tmpl` → Go template.

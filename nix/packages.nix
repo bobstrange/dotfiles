@@ -16,7 +16,6 @@ with pkgs; [
   # Editors
   neovim
   vim
-  zed-editor
 
   # Git
   git
