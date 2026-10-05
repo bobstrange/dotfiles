@@ -1,6 +1,6 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
         nix-apply macos-apply update verify bootstrap-test \
-        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup podman-setup gnome-defaults mise-install symlinks \
+        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup zed-setup podman-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
 .DEFAULT_GOAL := help
@@ -34,6 +34,7 @@ help:
 	@echo "  gnome-extensions-setup   Install GNOME Shell extensions"
 	@echo "  ulauncher-setup          Install Ulauncher v6 launcher"
 	@echo "  vscode-setup             Install VS Code from Microsoft's apt repository"
+	@echo "  zed-setup                Install Zed with its official install script"
 	@echo "  podman-setup             Install rootless podman from apt (for bootstrap-test)"
 	@echo "  gnome-defaults           Apply GNOME system preferences"
 	@echo "  mise-install             Install language runtimes"
@@ -50,7 +51,7 @@ setup-nix:
 # mise-install before lefthook-setup: node comes from mise, not nix, and
 # lefthook-setup's `npm ci` needs it.
 # gnome-extensions-setup before xremap-setup: xremap needs its GNOME extension installed first
-setup-linux: nix-apply mise-install lefthook-setup gnome-extensions-setup ulauncher-setup vscode-setup gnome-defaults xremap-setup
+setup-linux: nix-apply mise-install lefthook-setup gnome-extensions-setup ulauncher-setup vscode-setup zed-setup gnome-defaults xremap-setup
 	@echo ""
 	@echo "--- Next steps ---"
 	@echo "- If added to input group: log out and back in for xremap to work"
@@ -127,6 +128,9 @@ ulauncher-setup:
 
 vscode-setup:
 	bash ./setup/setup-vscode.sh
+
+zed-setup:
+	bash ./setup/setup-zed.sh
 
 podman-setup:
 	bash ./setup/setup-podman.sh
