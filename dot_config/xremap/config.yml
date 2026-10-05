@@ -58,6 +58,7 @@ keymap:
         - com.mitchellh.ghostty
         - Code
         - code  # since 1.107.0 Ubuntu?
+        - com.microsoft.VSCode  # apt package on Wayland
     remap:
       # Cursor movement
       Ctrl-b: left
@@ -102,6 +103,7 @@ keymap:
     application:
       only:
         - Code
+        - com.microsoft.VSCode
     remap:
       # VSCode keeps most defaults
       # Alt-Shift-p would conflict with Emacs bindings
