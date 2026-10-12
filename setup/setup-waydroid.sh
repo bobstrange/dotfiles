@@ -37,9 +37,11 @@ need_sudo() {
   have_sudo=true
 }
 
-if [ ! -f "$SOURCES" ]; then
-  # shellcheck source=/dev/null
-  codename="$(. /etc/os-release && echo "$VERSION_CODENAME")"
+# shellcheck source=/dev/null
+codename="$(. /etc/os-release && echo "$VERSION_CODENAME")"
+# A release upgrade comments out third-party sources, so match the active line
+# for this release rather than the file's existence.
+if ! grep -qs "^deb .*https://repo.waydro.id/ ${codename} main" "$SOURCES"; then
   # The repository lags new Ubuntu releases; fail with a clear message rather
   # than leave a source that breaks every `apt-get update`.
   if ! curl -fsI "https://repo.waydro.id/dists/${codename}/Release" >/dev/null; then
@@ -48,8 +50,12 @@ if [ ! -f "$SOURCES" ]; then
   fi
   need_sudo
   echo "Registering the Waydroid apt repository (${codename})..."
-  curl -fsSL https://repo.waydro.id/waydroid.gpg \
-    | sudo install -o root -g root -m 644 /dev/stdin "$KEYRING"
+  # Via a file, not /dev/stdin: uutils install (Ubuntu 26.04) fails to
+  # overwrite an existing keyring from stdin, which is the upgrade case.
+  key="$(mktemp)"
+  trap 'rm -f "$key"' EXIT
+  curl -fsSL https://repo.waydro.id/waydroid.gpg -o "$key"
+  sudo install -o root -g root -m 644 "$key" "$KEYRING"
   echo "deb [signed-by=${KEYRING}] https://repo.waydro.id/ ${codename} main" \
     | sudo tee "$SOURCES" >/dev/null
   sudo apt-get update
