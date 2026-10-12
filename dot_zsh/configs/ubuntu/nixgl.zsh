@@ -1,19 +1,20 @@
-# nixGL (e.g. nixGLIntel ghostty) sets LD_LIBRARY_PATH so its child process can
-# find Mesa/libglvnd from the Nix store. The child process inherits this to any
-# shell it spawns, which then leaks into Ubuntu binaries (e.g. /usr/lib/mozc/*)
-# and breaks them with glibc version mismatches.
+# nixGL (e.g. nixGLIntel ghostty) sets LD_LIBRARY_PATH, and ghostty's nixpkgs
+# wrapper sets the GTK/GObject lookup paths, so the terminal finds its libraries
+# in the Nix store. Any shell it spawns inherits them, and they break Ubuntu
+# binaries with glibc/glib mismatches (e.g. /usr/lib/mozc/*, waydroid).
 #
 # Strip only the /nix/store/* entries so any user-set entries are preserved.
-# GUI apps that need GL should be wrapped with nixGL explicitly
-# (e.g. `nixGLIntel ghostty`).
-if [[ "$LD_LIBRARY_PATH" == *"/nix/store/"* ]]; then
-  typeset -a __ld_kept
-  __ld_kept=("${(@s.:.)LD_LIBRARY_PATH}")
-  __ld_kept=("${(@)__ld_kept:#/nix/store/*}")
-  if (( ${#__ld_kept} )); then
-    export LD_LIBRARY_PATH="${(j.:.)__ld_kept}"
+# Nix GUI apps set these again in their own wrappers.
+typeset -a __kept
+for __var in LD_LIBRARY_PATH GI_TYPELIB_PATH GIO_EXTRA_MODULES; do
+  [[ "${(P)__var}" == *"/nix/store/"* ]] || continue
+  __kept=("${(@s.:.)${(P)__var}}")
+  __kept=("${(@)__kept:#/nix/store/*}")
+  if (( ${#__kept} )); then
+    export "$__var=${(j.:.)__kept}"
   else
-    unset LD_LIBRARY_PATH
+    unset "$__var"
   fi
-  unset __ld_kept
-fi
+done
+unset __var __kept
+[[ "$GDK_PIXBUF_MODULE_FILE" == /nix/store/* ]] && unset GDK_PIXBUF_MODULE_FILE
