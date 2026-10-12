@@ -14,7 +14,8 @@ This file says where a change goes and what is owned elsewhere.
 | Package nix and brew cannot deliver           | `setup/setup-<name>.sh` plus a Makefile target, the why in the script header; add to `setup-linux` only if every Linux desktop needs it | `make bootstrap-test` must stay green |
 | Secret                                        | `encrypted_` (age) in the source, or a Dropbox symlink via `setup/symlinks.sh`                                                          | `chezmoi apply` / `make symlinks`     |
 
-Current apt exceptions: VS Code (`setup/setup-vscode.sh`) and podman (`setup/setup-podman.sh`).
+Current apt exceptions: VS Code (`setup/setup-vscode.sh`), podman (`setup/setup-podman.sh`) and
+Waydroid (`setup/setup-waydroid.sh`).
 Zed on Linux comes from its official install script (`setup/setup-zed.sh`), not nix or apt.
 VS Code extensions belong to Settings Sync; never list them in `Brewfile` or nix.
 
