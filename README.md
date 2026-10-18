@@ -32,9 +32,6 @@ This will:
    - WSL: `make setup-wsl` (Nix + mise + git hooks — GNOME, Ulauncher, VS Code and xremap are
      skipped automatically)
 
-Apply comes before the make targets on purpose: `mise install` reads `~/.config/mise/config.toml`,
-so on an unapplied machine it installs nothing, and `lefthook-setup`'s `npm ci` then finds no node.
-
 > **WSL:** The bootstrap script detects WSL automatically via `/proc/version` and runs
 > `make setup-wsl` instead of `make setup-linux`. Set `DOTFILES_SETUP_TARGET=setup-wsl` (or
 > `setup-linux`) to override the detection, e.g. on a headless Ubuntu without a GNOME session.
@@ -92,12 +89,8 @@ make local-config   # interactive prompt
 `~/.claude` is not part of this switch: chezmoi ignores it on every machine (see
 [Claude Code config](#claude-code-config)).
 
-The answer is stored as a marker file, `~/.config/chezmoi/work-machine`, which
-`.chezmoi.toml.tmpl` reads. It deliberately lives **outside**
-`~/.config/chezmoi/chezmoi.toml`: that file is regenerated from the template by every
-`chezmoi init`, so a value written into it directly would be lost — along with the `age`
-encryption settings, if something overwrote the file wholesale. Using a file rather than a
-`promptBool` also keeps `chezmoi init` non-interactive for `curl | bash` bootstraps and CI.
+The answer is stored as a marker file, `~/.config/chezmoi/work-machine`; why it is not a value
+in `chezmoi.toml` is in `setup/setup-local-config.sh`.
 
 3. Turn on Settings Sync in VS Code, with **Settings** unchecked:
 
@@ -106,9 +99,8 @@ called `Settings Sync: Turn On`), sign in with GitHub, and **uncheck Settings** 
 resource list. Everything else — Keyboard Shortcuts, Snippets, Tasks, MCP Servers, UI State,
 Extensions, Profiles, Prompts — stays checked.
 
-This cannot be scripted: the per-resource toggle lives in `globalStorage/state.vscdb`
-(SQLite) as `sync.enable.settings`, and VS Code exposes no setting id for it. Skipping the
-step leaves the cloud copy of `settings.json` fighting the one this repo installs.
+Skipping it leaves the cloud copy of `settings.json` fighting the one this repo installs. Why it
+cannot be scripted is in `.claude/rules/vscode.md`.
 
 4. Claude Code config — see [Claude Code config](#claude-code-config).
 
