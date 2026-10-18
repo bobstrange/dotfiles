@@ -142,89 +142,30 @@ doctor` so drift shows up at the start of every Claude Code session.
 
 ### Daily Operations
 
-#### macOS
+`make help` lists every target. What it does not say:
 
-```bash
-make macos-apply      # Apply Brewfile changes
-make macos-defaults   # Apply macOS system defaults
-```
+- `make setup-macos` does not include `lefthook-setup`; run `make lefthook-setup` once after it.
+- `make update` leaves Nix out on purpose: CI updates `nix/flake.lock` weekly, so the Nix path
+  is `git pull && make nix-apply`. Outside make: `nix search nixpkgs <name>`,
+  `home-manager rollback`.
+- Docker disk cleanup (Ubuntu) ships as a systemd user timer that has to be enabled once; see
+  `docker-disk-cleanup --help` for what it prunes and when.
 
-> **Note:** `make setup-macos` does not include `lefthook-setup`. Run `make lefthook-setup` separately
-> after initial setup to install git hooks.
+  ```bash
+  systemctl --user daemon-reload
+  systemctl --user enable --now docker-disk-cleanup.timer
+  ```
 
-#### Ubuntu/WSL
-
-```bash
-make nix-apply        # After editing nix/*.nix files (warns if nix/flake.lock moved; CI owns it)
-nix search nixpkgs <package-name>  # Search for packages
-home-manager rollback              # Rollback to previous generation
-```
-
-On Ubuntu (GNOME desktop) only:
-
-```bash
-make gnome-defaults   # Apply GNOME system preferences
-```
-
-#### Docker Disk Cleanup (Ubuntu, systemd user timer)
-
-`docker-disk-cleanup.timer` prunes Docker build cache and images older than 30 days, but only
-when `/` usage is at or above 70%. It never touches volumes, containers, `~/.config`, browser
-data, or project build artifacts.
-
-```bash
-systemctl --user daemon-reload
-systemctl --user enable --now docker-disk-cleanup.timer
-systemctl --user list-timers docker-disk-cleanup.timer
-
-docker-disk-cleanup --check   # report what would happen; deletes nothing
-docker-disk-cleanup --help    # full option/threshold reference
-```
-
-Runs monthly (1st, 03:00 JST regardless of host timezone, `Persistent=true` to catch up if the
-machine was off). Logs to `~/.local/state/docker-disk-cleanup/cleanup.log` (unmanaged by chezmoi).
-
-#### Maintenance (all platforms)
-
-```bash
-make update           # Sweep lazy.nvim/tpm plugins, gh extensions, mise runtimes, Homebrew (macOS)
-make verify           # Report drift: $HOME vs source, and uncommitted `chezmoi add`s
-make bootstrap-test   # Run setup/bootstrap.sh in a fresh Ubuntu container (Linux, needs `make podman-setup`)
-```
-
-`make update` covers everything that is installed once and never re-checked. Nix is deliberately
-not in it: CI updates `nix/flake.lock` weekly, so its path is `git pull && make nix-apply`.
-
-#### Git Branch Cleanup
-
-`dot_local/bin/` ships git subcommands that understand GitHub squash merges, which plain
-`git branch --merged` cannot see:
-
-```bash
-git stale             # Local branches gone quiet, oldest first ([gone] = remote deleted, worktree holding it)
-git merged            # Branches whose PR merged on GitHub, squash merges included
-git delete-merged     # Delete those, refusing any branch that would strand a commit
-git delete-branch B   # Same check for one branch (exit 2: commits would be lost, 3: held by a worktree)
-git tidy              # fzf picker over `git stale`, with each branch's recent commits as preview
-```
+- `dot_local/bin/` ships git subcommands that understand GitHub squash merges (`git stale`,
+  `git merged`, `git delete-merged`, `git delete-branch`, `git tidy`); each script's header
+  describes it.
 
 ### Git Hooks
 
-[lefthook](https://github.com/evilmartians/lefthook) runs pre-commit checks automatically after
-`make lefthook-setup` (included in `make setup-linux` and `make setup-wsl`). The hooks themselves
-live in [bobstrange/gh-workflows](https://github.com/bobstrange/gh-workflows) and are pulled in by
-`lefthook.yml` as a remote config, so they match CI exactly:
-
-| Hook                       | Files                               | Tool                |
-| -------------------------- | ----------------------------------- | ------------------- |
-| common-trailing-whitespace | all staged files                    | `git diff --check`  |
-| common-prettier            | `*.md`, `*.json`, `*.yaml`, `*.yml` | `prettier`          |
-| common-markdownlint        | `*.md`                              | `markdownlint-cli2` |
-| common-shellcheck          | `*.sh`, `*.bash`                    | `shellcheck`        |
-| common-yamllint            | `*.yml`, `*.yaml`                   | `yamllint`          |
-| common-secretlint          | all staged files                    | `secretlint`        |
-
-Markdown line length is enforced at 120 characters (see `.markdownlint-cli2.yaml`).
+[lefthook](https://github.com/evilmartians/lefthook) runs pre-commit checks after
+`make lefthook-setup` (included in `make setup-linux` and `make setup-wsl`). The hooks live in
+[bobstrange/gh-workflows](https://github.com/bobstrange/gh-workflows) and are pulled in by
+`lefthook.yml` as a remote config, so they match CI exactly.
 
 ## Changing this repo
 
