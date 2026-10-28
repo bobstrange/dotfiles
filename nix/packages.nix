@@ -56,6 +56,7 @@ with pkgs; [
   direnv
   pandoc
   cf-terraforming
+  linode-cli
 
   # Audio
   sox
