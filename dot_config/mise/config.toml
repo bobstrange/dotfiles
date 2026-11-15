@@ -1,5 +1,7 @@
 [tools]
-node = "lts"
+# mise's lts alias still resolves to 24; pin the major to get 26.
+node = "26"
+pnpm = "latest"
 # Not in nixpkgs and not worth a per-OS split; the npm backend covers both.
 "npm:vercel" = "latest"
 ruby = "latest"
