@@ -1,6 +1,6 @@
 .PHONY: help setup-nix setup-linux setup-wsl setup-macos local-config \
         nix-apply macos-apply update verify bootstrap-test \
-        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup zed-setup podman-setup gnome-defaults mise-install symlinks \
+        lefthook-setup xremap-setup gnome-extensions-setup ulauncher-setup vscode-setup zed-setup podman-setup waydroid-setup gnome-defaults mise-install symlinks \
         macos-defaults
 
 .DEFAULT_GOAL := help
@@ -36,6 +36,7 @@ help:
 	@echo "  vscode-setup             Install VS Code from Microsoft's apt repository"
 	@echo "  zed-setup                Install Zed with its official install script"
 	@echo "  podman-setup             Install rootless podman from apt (for bootstrap-test)"
+	@echo "  waydroid-setup           Install Waydroid (Android container) from its apt repository"
 	@echo "  gnome-defaults           Apply GNOME system preferences"
 	@echo "  mise-install             Install language runtimes"
 	@echo "  symlinks                 Link secret files from Dropbox"
@@ -134,6 +135,9 @@ zed-setup:
 
 podman-setup:
 	bash ./setup/setup-podman.sh
+
+waydroid-setup:
+	bash ./setup/setup-waydroid.sh
 
 gnome-defaults:
 	bash ./setup/gnome-defaults.sh
