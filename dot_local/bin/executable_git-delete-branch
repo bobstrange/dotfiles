@@ -2,8 +2,9 @@
 # Force-delete a branch, but only after checking that no commit would be stranded: `git
 # branch -D` skips git's own safety, and GitHub's squash merge leaves none of the branch's
 # commits in master, so ancestry alone cannot tell whether the work still exists elsewhere.
-# Exit 2 means commits would be lost (the caller may retry with --force), exit 3 means a
-# worktree still holds the branch.
+# Exit 2 means commits would be lost (the caller may retry with --force), exit 3 means the
+# branch's worktree has uncommitted files, exit 4 means its worktree is not reachable from
+# here or could not be removed.
 set -eu
 
 force=no
@@ -63,8 +64,15 @@ if [ "$force" = no ]; then
   if [ "$stranded" -gt 0 ]; then
     pr_head=$(merged_pr_head)
 
+    # A rebase before merge rewrites the PR's SHAs, so a local branch left at the
+    # pre-rebase commits is matched by patch content rather than ancestry.
     if [ -n "$pr_head" ]; then
-      stranded=$(printf '%s\n%s\n' "$refs" "$pr_head" | stranded_against)
+      stranded=$(
+        {
+          echo "$pr_head...$branch"
+          printf '%s\n' "$refs" | sed 's/^/^/'
+        } | git rev-list --count --cherry-pick --right-only --no-merges --stdin
+      )
     fi
   fi
 
@@ -81,9 +89,24 @@ worktree=$(git worktree list --porcelain | awk -v want="$branch" '
 
 # A branch worth deleting has no reason to keep a worktree. Removal stays unforced even
 # under --force: its refusal on a dirty tree is what protects uncommitted work.
-if [ -n "$worktree" ] && ! git worktree remove "$worktree"; then
-  echo "$branch: worktree $worktree could not be removed" >&2
-  exit 3
+if [ -n "$worktree" ]; then
+  # `git worktree remove` on a path this environment cannot see succeeds and drops the
+  # registration, breaking a worktree that lives on the other side of a host/container
+  # boundary.
+  if [ ! -d "$worktree" ]; then
+    echo "$branch: worktree $worktree is not reachable from here, skipped" >&2
+    exit 4
+  fi
+
+  if [ -n "$(git -C "$worktree" status --porcelain)" ]; then
+    echo "$branch: worktree has uncommitted files, skipped" >&2
+    exit 3
+  fi
+
+  if ! git worktree remove "$worktree"; then
+    echo "$branch: worktree $worktree could not be removed" >&2
+    exit 4
+  fi
 fi
 
 git branch -D "$branch"
