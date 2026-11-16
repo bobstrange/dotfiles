@@ -2,8 +2,48 @@
 # `git merged` matches squash-merged branches by PR name, so a name match is not proof the
 # local branch holds nothing new — deletion goes through git-delete-branch's check, which
 # also retires the worktree holding the branch.
+#
+# Worktrees with uncommitted files are only reported, together with the commands that
+# would remove them, after every branch has been processed, so they can be reviewed and
+# cleaned up in one pass.
 set -eu
 
-git merged | while IFS= read -r branch; do
-  git delete-branch "$branch" || true
+worktree_of() {
+  git worktree list --porcelain | awk -v want="$1" '
+    /^worktree /            { path = substr($0, 10) }
+    /^branch refs\/heads\// { if (substr($0, 19) == want) { print path; exit } }
+  '
+}
+
+merged=$(git merged)
+dirty=
+
+while IFS= read -r branch; do
+  [ -n "$branch" ] || continue
+
+  rc=0
+  git delete-branch "$branch" || rc=$?
+
+  if [ "$rc" -eq 3 ]; then
+    dirty="$dirty$branch
+"
+  fi
+done <<EOF
+$merged
+EOF
+
+[ -n "$dirty" ] || exit 0
+
+echo
+echo "Worktrees not removed (uncommitted files):"
+printf '%s' "$dirty" | while IFS= read -r branch; do
+  worktree=$(worktree_of "$branch")
+  echo "  $worktree ($branch)"
+  git -C "$worktree" status --short | sed 's/^/      /'
+done
+
+echo
+echo "If none of these files are needed, run:"
+printf '%s' "$dirty" | while IFS= read -r branch; do
+  echo "  git worktree remove --force '$(worktree_of "$branch")' && git branch -D '$branch'"
 done
