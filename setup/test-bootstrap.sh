@@ -10,7 +10,7 @@
 # runner: the Determinate Nix installer wants systemd, and a bare runner already
 # has git, npm and node, which is exactly what bootstrap.sh must be shown not to
 # need. The container is built from ubuntu:26.04 with only what Ubuntu Desktop
-# ships (systemd, sudo, curl) — no git, no make, no jq.
+# ships (systemd, sudo, curl, libatomic1 for mise's node) — no git, no make, no jq.
 #
 # The checkout is a clone of this repo's HEAD, with its origin rewritten to a
 # bare copy inside the container. That keeps a dirty working tree out of the
@@ -84,7 +84,7 @@ cat > "$WORK/Containerfile" <<'CONTAINERFILE'
 FROM docker.io/library/ubuntu:26.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
- && apt-get install -y --no-install-recommends systemd systemd-sysv sudo curl ca-certificates \
+ && apt-get install -y --no-install-recommends systemd systemd-sysv sudo curl ca-certificates libatomic1 \
  && userdel -r ubuntu 2>/dev/null || true \
  && useradd -m -s /bin/bash -u 1000 bob \
  && echo 'bob ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/bob \
