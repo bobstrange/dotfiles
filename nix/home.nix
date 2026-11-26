@@ -20,6 +20,13 @@ in
   # Package installation only
   home.packages = packages;
 
+  # Generations pin store paths, so Determinate Nixd's own GC can't free them.
+  services.home-manager.autoExpire = {
+    enable = true;
+    frequency = "weekly";
+    timestamp = "-30 days";
+  };
+
   # Add paths for user-installed binaries
   home.sessionPath = [
     "$HOME/.local/bin"
