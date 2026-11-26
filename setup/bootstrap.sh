@@ -99,6 +99,13 @@ elif [ "$PLATFORM" = "linux" ]; then
     sudo apt-get install -y make
   fi
 
+  # mise installs Node's official binaries, which link libatomic.so.1; a
+  # desktop install has it, a minimal or container install may not.
+  if ! dpkg -s libatomic1 >/dev/null 2>&1; then
+    info "Installing libatomic1..."
+    sudo apt-get install -y libatomic1
+  fi
+
   # Which `make setup-*` to run. Auto-detected from WSL, overridable so the
   # smoke test can pin the target it asserts on (a container is not WSL, and
   # setup-linux needs a GNOME session).
